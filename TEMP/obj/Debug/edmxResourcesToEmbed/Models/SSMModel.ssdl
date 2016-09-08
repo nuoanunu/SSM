@@ -1,0 +1,270 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SSMModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="attributeOption">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="code" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="description" Type="nvarchar(max)" />
+    <Property Name="price" Type="float" Nullable="false" />
+    <Property Name="attributeID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="customers">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="cusName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="cusEmail" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="cusPhone" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="cusAddress" Type="nchar" MaxLength="10" />
+    <Property Name="cusCompany" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Licenses">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="licenseType" Type="int" />
+    <Property Name="licenseKey" Type="varchar(max)" />
+    <Property Name="licenseDuration" Type="int" />
+    <Property Name="status" Type="int" />
+    <Property Name="customerID" Type="int" />
+    <Property Name="productID" Type="int" />
+    <Property Name="nextTransactionDate" Type="date" />
+    <Property Name="startDate" Type="date" />
+  </EntityType>
+  <EntityType Name="orderItemOption">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="orderItemID" Type="int" Nullable="false" />
+    <Property Name="optionID" Type="int" Nullable="false" />
+    <Property Name="unitPrice" Type="float" Nullable="false" />
+    <Property Name="soldPrice" Type="float" Nullable="false" />
+  </EntityType>
+  <EntityType Name="orderItems">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="productID" Type="int" Nullable="false" />
+    <Property Name="orderID" Type="int" Nullable="false" />
+    <Property Name="productPrice" Type="float" Nullable="false" />
+    <Property Name="subOptionPrice" Type="float" />
+    <Property Name="totalprice" Type="float" Nullable="false" />
+    <Property Name="productQuantity" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="orders">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="customerID" Type="int" Nullable="false" />
+    <Property Name="orderNumber" Type="int" Nullable="false" />
+    <Property Name="total" Type="float" Nullable="false" />
+    <Property Name="VAT" Type="float" />
+    <Property Name="subtotal" Type="float" />
+    <Property Name="createDate" Type="date" Nullable="false" />
+    <Property Name="lastModifiedDate" Type="date" />
+    <Property Name="status" Type="int" Nullable="false" />
+    <Property Name="completedDate" Type="date" />
+  </EntityType>
+  <EntityType Name="productAttributes">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="code" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="description" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="isActive" Type="bit" Nullable="false" />
+    <Property Name="screenShots" Type="nvarchar(max)" />
+    <Property Name="productID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="softwareProduct">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SKU" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="keywords" Type="nvarchar" MaxLength="50" />
+    <Property Name="shortDescription" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="fullDescription" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="isActive" Type="bit" Nullable="false" />
+    <Property Name="unitPrice" Type="float" Nullable="false" />
+    <Property Name="altPrice1" Type="float" />
+    <Property Name="altPrice2" Type="float" />
+    <Property Name="screenShots" Type="nvarchar(max)" />
+    <Property Name="icon" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <Association Name="FK_attributeOption_productAttributes">
+    <End Role="productAttributes" Type="Self.productAttributes" Multiplicity="1" />
+    <End Role="attributeOption" Type="Self.attributeOption" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="productAttributes">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="attributeOption">
+        <PropertyRef Name="attributeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Licenses_customers">
+    <End Role="customers" Type="Self.customers" Multiplicity="0..1" />
+    <End Role="Licenses" Type="Self.Licenses" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="customers">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Licenses">
+        <PropertyRef Name="customerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Licenses_softwareProduct">
+    <End Role="softwareProduct" Type="Self.softwareProduct" Multiplicity="0..1" />
+    <End Role="Licenses" Type="Self.Licenses" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="softwareProduct">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Licenses">
+        <PropertyRef Name="productID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_orderItemOption_attributeOption">
+    <End Role="attributeOption" Type="Self.attributeOption" Multiplicity="1" />
+    <End Role="orderItemOption" Type="Self.orderItemOption" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="attributeOption">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="orderItemOption">
+        <PropertyRef Name="optionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_orderItemOption_orderItems">
+    <End Role="orderItems" Type="Self.orderItems" Multiplicity="1" />
+    <End Role="orderItemOption" Type="Self.orderItemOption" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="orderItems">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="orderItemOption">
+        <PropertyRef Name="orderItemID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_orderItems_orders">
+    <End Role="orders" Type="Self.orders" Multiplicity="1" />
+    <End Role="orderItems" Type="Self.orderItems" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="orders">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="orderItems">
+        <PropertyRef Name="orderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_orderItems_softwareProduct">
+    <End Role="softwareProduct" Type="Self.softwareProduct" Multiplicity="1" />
+    <End Role="orderItems" Type="Self.orderItems" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="softwareProduct">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="orderItems">
+        <PropertyRef Name="productID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_orders_customers">
+    <End Role="customers" Type="Self.customers" Multiplicity="1" />
+    <End Role="orders" Type="Self.orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="customers">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="orders">
+        <PropertyRef Name="customerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_productAttributes_softwareProduct">
+    <End Role="softwareProduct" Type="Self.softwareProduct" Multiplicity="1" />
+    <End Role="productAttributes" Type="Self.productAttributes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="softwareProduct">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="productAttributes">
+        <PropertyRef Name="productID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="SSMModelStoreContainer">
+    <EntitySet Name="attributeOption" EntityType="Self.attributeOption" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="customers" EntityType="Self.customers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Licenses" EntityType="Self.Licenses" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="orderItemOption" EntityType="Self.orderItemOption" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="orderItems" EntityType="Self.orderItems" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="orders" EntityType="Self.orders" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="productAttributes" EntityType="Self.productAttributes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="softwareProduct" EntityType="Self.softwareProduct" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_attributeOption_productAttributes" Association="Self.FK_attributeOption_productAttributes">
+      <End Role="productAttributes" EntitySet="productAttributes" />
+      <End Role="attributeOption" EntitySet="attributeOption" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Licenses_customers" Association="Self.FK_Licenses_customers">
+      <End Role="customers" EntitySet="customers" />
+      <End Role="Licenses" EntitySet="Licenses" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Licenses_softwareProduct" Association="Self.FK_Licenses_softwareProduct">
+      <End Role="softwareProduct" EntitySet="softwareProduct" />
+      <End Role="Licenses" EntitySet="Licenses" />
+    </AssociationSet>
+    <AssociationSet Name="FK_orderItemOption_attributeOption" Association="Self.FK_orderItemOption_attributeOption">
+      <End Role="attributeOption" EntitySet="attributeOption" />
+      <End Role="orderItemOption" EntitySet="orderItemOption" />
+    </AssociationSet>
+    <AssociationSet Name="FK_orderItemOption_orderItems" Association="Self.FK_orderItemOption_orderItems">
+      <End Role="orderItems" EntitySet="orderItems" />
+      <End Role="orderItemOption" EntitySet="orderItemOption" />
+    </AssociationSet>
+    <AssociationSet Name="FK_orderItems_orders" Association="Self.FK_orderItems_orders">
+      <End Role="orders" EntitySet="orders" />
+      <End Role="orderItems" EntitySet="orderItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_orderItems_softwareProduct" Association="Self.FK_orderItems_softwareProduct">
+      <End Role="softwareProduct" EntitySet="softwareProduct" />
+      <End Role="orderItems" EntitySet="orderItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_orders_customers" Association="Self.FK_orders_customers">
+      <End Role="customers" EntitySet="customers" />
+      <End Role="orders" EntitySet="orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_productAttributes_softwareProduct" Association="Self.FK_productAttributes_softwareProduct">
+      <End Role="softwareProduct" EntitySet="softwareProduct" />
+      <End Role="productAttributes" EntitySet="productAttributes" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

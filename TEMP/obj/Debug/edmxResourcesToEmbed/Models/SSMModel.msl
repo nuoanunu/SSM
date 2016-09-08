@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="SSMModelStoreContainer" CdmEntityContainer="SSMEntities2">
+    <EntitySetMapping Name="attributeOptions">
+      <EntityTypeMapping TypeName="SSMModel.attributeOption">
+        <MappingFragment StoreEntitySet="attributeOption">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="code" ColumnName="code" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="price" ColumnName="price" />
+          <ScalarProperty Name="attributeID" ColumnName="attributeID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="customers">
+      <EntityTypeMapping TypeName="SSMModel.customer">
+        <MappingFragment StoreEntitySet="customers">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="cusName" ColumnName="cusName" />
+          <ScalarProperty Name="cusEmail" ColumnName="cusEmail" />
+          <ScalarProperty Name="cusPhone" ColumnName="cusPhone" />
+          <ScalarProperty Name="cusAddress" ColumnName="cusAddress" />
+          <ScalarProperty Name="cusCompany" ColumnName="cusCompany" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Licenses">
+      <EntityTypeMapping TypeName="SSMModel.License">
+        <MappingFragment StoreEntitySet="Licenses">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="licenseType" ColumnName="licenseType" />
+          <ScalarProperty Name="licenseKey" ColumnName="licenseKey" />
+          <ScalarProperty Name="licenseDuration" ColumnName="licenseDuration" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="customerID" ColumnName="customerID" />
+          <ScalarProperty Name="productID" ColumnName="productID" />
+          <ScalarProperty Name="nextTransactionDate" ColumnName="nextTransactionDate" />
+          <ScalarProperty Name="startDate" ColumnName="startDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="orderItemOptions">
+      <EntityTypeMapping TypeName="SSMModel.orderItemOption">
+        <MappingFragment StoreEntitySet="orderItemOption">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="orderItemID" ColumnName="orderItemID" />
+          <ScalarProperty Name="optionID" ColumnName="optionID" />
+          <ScalarProperty Name="unitPrice" ColumnName="unitPrice" />
+          <ScalarProperty Name="soldPrice" ColumnName="soldPrice" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="orderItems">
+      <EntityTypeMapping TypeName="SSMModel.orderItem">
+        <MappingFragment StoreEntitySet="orderItems">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="productID" ColumnName="productID" />
+          <ScalarProperty Name="orderID" ColumnName="orderID" />
+          <ScalarProperty Name="productPrice" ColumnName="productPrice" />
+          <ScalarProperty Name="subOptionPrice" ColumnName="subOptionPrice" />
+          <ScalarProperty Name="totalprice" ColumnName="totalprice" />
+          <ScalarProperty Name="productQuantity" ColumnName="productQuantity" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="orders">
+      <EntityTypeMapping TypeName="SSMModel.order">
+        <MappingFragment StoreEntitySet="orders">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="customerID" ColumnName="customerID" />
+          <ScalarProperty Name="orderNumber" ColumnName="orderNumber" />
+          <ScalarProperty Name="total" ColumnName="total" />
+          <ScalarProperty Name="VAT" ColumnName="VAT" />
+          <ScalarProperty Name="subtotal" ColumnName="subtotal" />
+          <ScalarProperty Name="createDate" ColumnName="createDate" />
+          <ScalarProperty Name="lastModifiedDate" ColumnName="lastModifiedDate" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="completedDate" ColumnName="completedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="productAttributes">
+      <EntityTypeMapping TypeName="SSMModel.productAttribute">
+        <MappingFragment StoreEntitySet="productAttributes">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="code" ColumnName="code" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="screenShots" ColumnName="screenShots" />
+          <ScalarProperty Name="productID" ColumnName="productID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="softwareProducts">
+      <EntityTypeMapping TypeName="SSMModel.softwareProduct">
+        <MappingFragment StoreEntitySet="softwareProduct">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="SKU" ColumnName="SKU" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="keywords" ColumnName="keywords" />
+          <ScalarProperty Name="shortDescription" ColumnName="shortDescription" />
+          <ScalarProperty Name="fullDescription" ColumnName="fullDescription" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="unitPrice" ColumnName="unitPrice" />
+          <ScalarProperty Name="altPrice1" ColumnName="altPrice1" />
+          <ScalarProperty Name="altPrice2" ColumnName="altPrice2" />
+          <ScalarProperty Name="screenShots" ColumnName="screenShots" />
+          <ScalarProperty Name="icon" ColumnName="icon" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="SSMModel.sysdiagram">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

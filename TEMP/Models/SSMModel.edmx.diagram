@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="a8a7c49c54bf414da46f158c7a9701db" Name="Diagram1">
+        <EntityTypeShape EntityType="SSMModel.attributeOption" Width="1.5" PointX="5.25" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SSMModel.customer" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SSMModel.License" Width="1.5" PointX="3" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SSMModel.orderItemOption" Width="1.5" PointX="8.25" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="SSMModel.orderItem" Width="1.5" PointX="6" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SSMModel.order" Width="1.5" PointX="3.75" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SSMModel.productAttribute" Width="1.5" PointX="3" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SSMModel.softwareProduct" Width="1.5" PointX="0.75" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SSMModel.sysdiagram" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="SSMModel.FK_attributeOption_productAttributes" ManuallyRouted="false" />
+        <AssociationConnector Association="SSMModel.FK_orderItemOption_attributeOption" ManuallyRouted="false" />
+        <AssociationConnector Association="SSMModel.FK_Licenses_customers" ManuallyRouted="false" />
+        <AssociationConnector Association="SSMModel.FK_orders_customers" ManuallyRouted="false" />
+        <AssociationConnector Association="SSMModel.FK_Licenses_softwareProduct" ManuallyRouted="false" />
+        <AssociationConnector Association="SSMModel.FK_orderItemOption_orderItems" ManuallyRouted="false" />
+        <AssociationConnector Association="SSMModel.FK_orderItems_orders" ManuallyRouted="false" />
+        <AssociationConnector Association="SSMModel.FK_orderItems_softwareProduct" ManuallyRouted="false" />
+        <AssociationConnector Association="SSMModel.FK_productAttributes_softwareProduct" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

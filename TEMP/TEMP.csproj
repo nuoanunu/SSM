@@ -80,6 +80,8 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -196,7 +198,9 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\iController.cs" />
     <Compile Include="Controllers\LicenseController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
@@ -204,8 +208,50 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\attributeOption.cs">
+      <DependentUpon>SSMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\customer.cs">
+      <DependentUpon>SSMModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\License.cs">
+      <DependentUpon>SSMModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\order.cs">
+      <DependentUpon>SSMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\orderItem.cs">
+      <DependentUpon>SSMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\orderItemOption.cs">
+      <DependentUpon>SSMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\productAttribute.cs">
+      <DependentUpon>SSMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\softwareProduct.cs">
+      <DependentUpon>SSMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SSMModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SSMModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SSMModel.Designer.cs">
+      <DependentUpon>SSMModel.edmx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Models\SSMModel1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SSMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sysdiagram.cs">
+      <DependentUpon>SSMModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -217,6 +263,16 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Models\SSMModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SSMModel.edmx</DependentUpon>
+      <LastGenOutput>SSMModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\SSMModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SSMModel.edmx</DependentUpon>
+      <LastGenOutput>SSMModel1.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\ai.0.22.19-build00125.js" />
     <Content Include="Scripts\ai.0.22.19-build00125.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -227,6 +283,13 @@
     <Content Include="fonts\Roboto-Thin.ttf" />
     <Content Include="fonts\Roboto-Light.ttf" />
     <Content Include="fonts\Roboto-Black.ttf" />
+    <EntityDeploy Include="Models\SSMModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>SSMModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\SSMModel.edmx.diagram">
+      <DependentUpon>SSMModel.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -276,9 +339,12 @@
     <Content Include="Views\License\Manage.cshtml" />
     <Content Include="Views\Order\index.cshtml" />
     <Content Include="Views\Order\orderDetail.cshtml" />
+    <Content Include="Views\License\LicenseDetil.cshtml" />
+    <Content Include="Views\Customer\NewCustomer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\i\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -287,6 +353,9 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
