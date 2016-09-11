@@ -81,6 +81,64 @@
           <Property Name="price" Type="float" Nullable="false" />
           <Property Name="attributeID" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="companies">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="companyName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="logo" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Industry" Type="nvarchar" MaxLength="50" />
+          <Property Name="Employees" Type="nchar" MaxLength="10" />
+          <Property Name="annualIncome" Type="float" />
+          <Property Name="Comment" Type="nvarchar(max)" />
+          <Property Name="Email" Type="nvarchar(max)" />
+          <Property Name="phone" Type="varchar" MaxLength="50" />
+          <Property Name="sites" Type="nvarchar(max)" />
+          <Property Name="Street" Type="nvarchar(max)" />
+          <Property Name="city" Type="nvarchar(max)" />
+          <Property Name="region" Type="nvarchar(max)" />
+          <Property Name="State" Type="nvarchar(max)" />
+          <Property Name="Country" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="company_responsible">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="companyID" Type="int" Nullable="false" />
+          <Property Name="userID" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="contact_resposible">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="contactID" Type="int" Nullable="false" />
+          <Property Name="userID" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="contacts">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="MiddleName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Photo" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="DateOfBirth" Type="date" Nullable="false" />
+          <Property Name="emails" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Phone" Type="varchar(max)" Nullable="false" />
+          <Property Name="Sites" Type="varchar(max)" />
+          <Property Name="CompanyID" Type="int" />
+          <Property Name="Street" Type="nvarchar" MaxLength="50" />
+          <Property Name="City" Type="nvarchar" MaxLength="50" />
+          <Property Name="Region" Type="nvarchar" MaxLength="50" />
+          <Property Name="State" Type="nvarchar" MaxLength="50" />
+          <Property Name="Country" Type="nvarchar" MaxLength="50" />
+          <Property Name="Zip" Type="nvarchar" MaxLength="50" />
+          <Property Name="Comment" Type="nvarchar(max)" />
+        </EntityType>
         <EntityType Name="customers">
           <Key>
             <PropertyRef Name="id" />
@@ -223,6 +281,54 @@
             </Principal>
             <Dependent Role="attributeOption">
               <PropertyRef Name="attributeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_company_responsible_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="company_responsible" Type="Self.company_responsible" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="company_responsible">
+              <PropertyRef Name="userID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_company_responsible_companies">
+          <End Role="companies" Type="Self.companies" Multiplicity="1" />
+          <End Role="company_responsible" Type="Self.company_responsible" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="companies">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="company_responsible">
+              <PropertyRef Name="companyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_contact_resposible_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="contact_resposible" Type="Self.contact_resposible" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="contact_resposible">
+              <PropertyRef Name="userID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_contact_resposible_contacts">
+          <End Role="contacts" Type="Self.contacts" Multiplicity="1" />
+          <End Role="contact_resposible" Type="Self.contact_resposible" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="contacts">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="contact_resposible">
+              <PropertyRef Name="contactID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -410,6 +516,10 @@
           <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="attributeOption" EntityType="Self.attributeOption" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="companies" EntityType="Self.companies" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="company_responsible" EntityType="Self.company_responsible" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="contact_resposible" EntityType="Self.contact_resposible" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="contacts" EntityType="Self.contacts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="customers" EntityType="Self.customers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Licenses" EntityType="Self.Licenses" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="orderItemOption" EntityType="Self.orderItemOption" Schema="dbo" store:Type="Tables" />
@@ -425,6 +535,22 @@
           <AssociationSet Name="FK_attributeOption_productAttributes" Association="Self.FK_attributeOption_productAttributes">
             <End Role="productAttributes" EntitySet="productAttributes" />
             <End Role="attributeOption" EntitySet="attributeOption" />
+          </AssociationSet>
+          <AssociationSet Name="FK_company_responsible_AspNetUsers" Association="Self.FK_company_responsible_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="company_responsible" EntitySet="company_responsible" />
+          </AssociationSet>
+          <AssociationSet Name="FK_company_responsible_companies" Association="Self.FK_company_responsible_companies">
+            <End Role="companies" EntitySet="companies" />
+            <End Role="company_responsible" EntitySet="company_responsible" />
+          </AssociationSet>
+          <AssociationSet Name="FK_contact_resposible_AspNetUsers" Association="Self.FK_contact_resposible_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="contact_resposible" EntitySet="contact_resposible" />
+          </AssociationSet>
+          <AssociationSet Name="FK_contact_resposible_contacts" Association="Self.FK_contact_resposible_contacts">
+            <End Role="contacts" EntitySet="contacts" />
+            <End Role="contact_resposible" EntitySet="contact_resposible" />
           </AssociationSet>
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -800,6 +926,26 @@
             <End Role="TaskStatu" EntitySet="TaskStatus" />
             <End Role="ActTask" EntitySet="ActTasks" />
           </AssociationSet>
+          <EntitySet Name="companies" EntityType="SSMModel.company" />
+          <EntitySet Name="company_responsible" EntityType="SSMModel.company_responsible" />
+          <EntitySet Name="contact_resposible" EntityType="SSMModel.contact_resposible" />
+          <EntitySet Name="contacts" EntityType="SSMModel.contact" />
+          <AssociationSet Name="FK_company_responsible_AspNetUsers" Association="SSMModel.FK_company_responsible_AspNetUsers">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="company_responsible" EntitySet="company_responsible" />
+          </AssociationSet>
+          <AssociationSet Name="FK_contact_resposible_AspNetUsers" Association="SSMModel.FK_contact_resposible_AspNetUsers">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="contact_resposible" EntitySet="contact_resposible" />
+          </AssociationSet>
+          <AssociationSet Name="FK_company_responsible_companies" Association="SSMModel.FK_company_responsible_companies">
+            <End Role="company" EntitySet="companies" />
+            <End Role="company_responsible" EntitySet="company_responsible" />
+          </AssociationSet>
+          <AssociationSet Name="FK_contact_resposible_contacts" Association="SSMModel.FK_contact_resposible_contacts">
+            <End Role="contact" EntitySet="contacts" />
+            <End Role="contact_resposible" EntitySet="contact_resposible" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="AspNetRole">
           <Key>
@@ -850,6 +996,8 @@
           <NavigationProperty Name="AspNetUserLogins" Relationship="SSMModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserLogin" />
           <NavigationProperty Name="AspNetRoles" Relationship="SSMModel.AspNetUserRoles" FromRole="AspNetUser" ToRole="AspNetRole" />
           <NavigationProperty Name="ActTasks" Relationship="SSMModel.FK_Tasks_AspNetUsers" FromRole="AspNetUser" ToRole="ActTask" />
+          <NavigationProperty Name="company_responsible" Relationship="SSMModel.FK_company_responsible_AspNetUsers" FromRole="AspNetUser" ToRole="company_responsible" />
+          <NavigationProperty Name="contact_resposible" Relationship="SSMModel.FK_contact_resposible_AspNetUsers" FromRole="AspNetUser" ToRole="contact_resposible" />
         </EntityType>
         <EntityType Name="TaskStatu">
           <Key>
@@ -953,6 +1101,118 @@
             </Principal>
             <Dependent Role="ActTask">
               <PropertyRef Name="status" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="company">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="companyName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="logo" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Industry" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Employees" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="annualIncome" Type="Double" />
+          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="sites" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Street" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="city" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="region" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="State" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Country" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="company_responsible" Relationship="SSMModel.FK_company_responsible_companies" FromRole="company" ToRole="company_responsible" />
+        </EntityType>
+        <EntityType Name="company_responsible">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="companyID" Type="Int32" Nullable="false" />
+          <Property Name="userID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="SSMModel.FK_company_responsible_AspNetUsers" FromRole="company_responsible" ToRole="AspNetUser" />
+          <NavigationProperty Name="company" Relationship="SSMModel.FK_company_responsible_companies" FromRole="company_responsible" ToRole="company" />
+        </EntityType>
+        <EntityType Name="contact_resposible">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="contactID" Type="Int32" Nullable="false" />
+          <Property Name="userID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="SSMModel.FK_contact_resposible_AspNetUsers" FromRole="contact_resposible" ToRole="AspNetUser" />
+          <NavigationProperty Name="contact" Relationship="SSMModel.FK_contact_resposible_contacts" FromRole="contact_resposible" ToRole="contact" />
+        </EntityType>
+        <EntityType Name="contact">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MiddleName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Photo" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DateOfBirth" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="emails" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Sites" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CompanyID" Type="Int32" />
+          <Property Name="Street" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Region" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="State" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Zip" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="contact_resposible" Relationship="SSMModel.FK_contact_resposible_contacts" FromRole="contact" ToRole="contact_resposible" />
+        </EntityType>
+        <Association Name="FK_company_responsible_AspNetUsers">
+          <End Type="SSMModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+          <End Type="SSMModel.company_responsible" Role="company_responsible" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="company_responsible">
+              <PropertyRef Name="userID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_contact_resposible_AspNetUsers">
+          <End Type="SSMModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+          <End Type="SSMModel.contact_resposible" Role="contact_resposible" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="contact_resposible">
+              <PropertyRef Name="userID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_company_responsible_companies">
+          <End Type="SSMModel.company" Role="company" Multiplicity="1" />
+          <End Type="SSMModel.company_responsible" Role="company_responsible" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="company">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="company_responsible">
+              <PropertyRef Name="companyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_contact_resposible_contacts">
+          <End Type="SSMModel.contact" Role="contact" Multiplicity="1" />
+          <End Type="SSMModel.contact_resposible" Role="contact_resposible" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="contact">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="contact_resposible">
+              <PropertyRef Name="contactID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1183,6 +1443,68 @@
                 <ScalarProperty Name="deadline" ColumnName="deadline" />
                 <ScalarProperty Name="createdDate" ColumnName="createdDate" />
                 <ScalarProperty Name="taskType" ColumnName="taskType" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="companies">
+            <EntityTypeMapping TypeName="SSMModel.company">
+              <MappingFragment StoreEntitySet="companies">
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="region" ColumnName="region" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="Street" ColumnName="Street" />
+                <ScalarProperty Name="sites" ColumnName="sites" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="annualIncome" ColumnName="annualIncome" />
+                <ScalarProperty Name="Employees" ColumnName="Employees" />
+                <ScalarProperty Name="Industry" ColumnName="Industry" />
+                <ScalarProperty Name="logo" ColumnName="logo" />
+                <ScalarProperty Name="companyName" ColumnName="companyName" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="company_responsible">
+            <EntityTypeMapping TypeName="SSMModel.company_responsible">
+              <MappingFragment StoreEntitySet="company_responsible">
+                <ScalarProperty Name="userID" ColumnName="userID" />
+                <ScalarProperty Name="companyID" ColumnName="companyID" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="contact_resposible">
+            <EntityTypeMapping TypeName="SSMModel.contact_resposible">
+              <MappingFragment StoreEntitySet="contact_resposible">
+                <ScalarProperty Name="userID" ColumnName="userID" />
+                <ScalarProperty Name="contactID" ColumnName="contactID" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="contacts">
+            <EntityTypeMapping TypeName="SSMModel.contact">
+              <MappingFragment StoreEntitySet="contacts">
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="Zip" ColumnName="Zip" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Region" ColumnName="Region" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Street" ColumnName="Street" />
+                <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
+                <ScalarProperty Name="Sites" ColumnName="Sites" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="emails" ColumnName="emails" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="Photo" ColumnName="Photo" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

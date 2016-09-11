@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TEMP.Models
+namespace SSM.Models
 {
     using System;
     using System.Collections.Generic;
@@ -21,6 +21,8 @@ namespace TEMP.Models
             this.AspNetUserLogins = new HashSet<AspNetUserLogin>();
             this.AspNetRoles = new HashSet<AspNetRole>();
             this.ActTasks = new HashSet<ActTask>();
+            this.company_responsible = new HashSet<company_responsible>();
+            this.contact_resposible = new HashSet<contact_resposible>();
         }
     
         public string Id { get; set; }
@@ -44,5 +46,9 @@ namespace TEMP.Models
         public virtual ICollection<AspNetRole> AspNetRoles { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ActTask> ActTasks { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<company_responsible> company_responsible { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<contact_resposible> contact_resposible { get; set; }
     }
 }

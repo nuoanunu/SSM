@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace TEMP.Models
+namespace SSM.Models
 {
     public class ExternalLoginConfirmationViewModel
     {

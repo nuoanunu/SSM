@@ -1,4 +1,4 @@
-﻿
+﻿@model SSM.Models.CreateModel.NewCompanyModel 
 @{
     ViewBag.Title = "NewCustomer";
 }
@@ -20,39 +20,39 @@
         font-family: 'Roboto-Black';
         src: url("../../fonts/Roboto-Black.ttf") format('truetype');
     }
+
     .indent-small {
-  margin-left: 5px;
-}
-.form-group.internal {
-  margin-bottom: 0;
-}
+        margin-left: 5px;
+    }
 
-.dialog-panel {
-  margin: 10px;
-}
+    .form-group.internal {
+        margin-bottom: 0;
+    }
 
-.datepicker-dropdown {
-  z-index: 200 !important;
-}
+    .dialog-panel {
+        margin: 10px;
+    }
 
-.panel-body {  
-  
-  background: #e5e5e5; /* Old browsers */
-  background: -moz-radial-gradient(center, ellipse cover,  #e5e5e5 0%, #ffffff 100%); /* FF3.6+ */
-  background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#e5e5e5), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
-  background: -webkit-radial-gradient(center, ellipse cover,  #e5e5e5 0%,#ffffff 100%); /* Chrome10+,Safari5.1+ */
-  background: -o-radial-gradient(center, ellipse cover,  #e5e5e5 0%,#ffffff 100%); /* Opera 12+ */
-  background: -ms-radial-gradient(center, ellipse cover,  #e5e5e5 0%,#ffffff 100%); /* IE10+ */
-  background: radial-gradient(ellipse at center,  #e5e5e5 0%,#ffffff 100%); /* W3C */
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e5e5e5', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+    .datepicker-dropdown {
+        z-index: 200 !important;
+    }
 
-  font: 600 15px "Open Sans",Arial,sans-serif;
-}
+    .panel-body {
+        background: #e5e5e5; /* Old browsers */
+        background: -moz-radial-gradient(center, ellipse cover, #e5e5e5 0%, #ffffff 100%); /* FF3.6+ */
+        background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#e5e5e5), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
+        background: -webkit-radial-gradient(center, ellipse cover, #e5e5e5 0%,#ffffff 100%); /* Chrome10+,Safari5.1+ */
+        background: -o-radial-gradient(center, ellipse cover, #e5e5e5 0%,#ffffff 100%); /* Opera 12+ */
+        background: -ms-radial-gradient(center, ellipse cover, #e5e5e5 0%,#ffffff 100%); /* IE10+ */
+        background: radial-gradient(ellipse at center, #e5e5e5 0%,#ffffff 100%); /* W3C */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e5e5e5', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+        font: 600 15px "Open Sans",Arial,sans-serif;
+    }
 
-label.control-label {
-  font-weight: 600;
-  color: #777;  
-}
+    label.control-label {
+        font-weight: 600;
+        color: #777;
+    }
 </style>
 <link href='//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/css/datepicker.min.css' rel='stylesheet' type='text/css'>
 <link href='//cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/1.8/css/bootstrap-switch.css' rel='stylesheet' type='text/css'>
@@ -66,6 +66,9 @@ label.control-label {
 <h2> <font style="font-family:Roboto-Light">New Customer</font></h2>
 
 <div class='container'>
+   
+   @using (Html.BeginForm("AddNewCompany", "Customer", FormMethod.Post))
+   {
     <div class='panel panel-primary dialog-panel'>
         <div class='panel-heading'>
             <h5>Customer information</h5>
@@ -73,39 +76,13 @@ label.control-label {
         <div class='panel-body'>
             <form class='form-horizontal' role='form'>
                 <div class='form-group'>
-                    <label class='control-label col-md-2 col-md-offset-2' for='id_accomodation'>Customer Type</label>
+                    <label class='control-label col-md-2 col-md-offset-2' for='id_accomodation'>Industry</label>
                     <div class='col-md-2'>
                         <select class='form-control' id='id_accomodation'>
-                            <option>Single</option>
-                            <option>Comapany</option>
-                            <option>Student</option>
+                            <option>IT</option>
+                            <option>ECOM</option>
+                            <option>Banking</option>
                         </select>
-                    </div>
-                </div>
-                <div class='form-group'>
-                    <label class='control-label col-md-2 col-md-offset-2' for='id_title'>Name</label>
-                    <div class='col-md-8'>
-                        <div class='col-md-2'>
-                            <div class='form-group internal'>
-                                <select class='form-control' id='id_title'>
-                                    <option>Mr</option>
-                                    <option>Ms</option>
-                                    <option>Mrs</option>
-                                    <option>Miss</option>
-                                    <option>Dr</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class='col-md-3 indent-small'>
-                            <div class='form-group internal'>
-                                <input class='form-control' id='id_first_name' placeholder='First Name' type='text'>
-                            </div>
-                        </div>
-                        <div class='col-md-3 indent-small'>
-                            <div class='form-group internal'>
-                                <input class='form-control' id='id_last_name' placeholder='Last Name' type='text'>
-                            </div>
-                        </div>
                     </div>
                 </div>
                 <div class='form-group'>
@@ -113,13 +90,14 @@ label.control-label {
                     <div class='col-md-6'>
                         <div class='form-group'>
                             <div class='col-md-11'>
+                                @Html.TextBoxFor(m => m.companyName)
                                 <input class='form-control' id='id_email' type='text'>
                             </div>
                         </div>
-                        
+
                     </div>
                 </div>
-  
+
                 <div class='form-group'>
                     <label class='control-label col-md-2 col-md-offset-2' for='id_email'>Contact</label>
                     <div class='col-md-6'>
@@ -130,6 +108,7 @@ label.control-label {
                         </div>
                         <div class='form-group internal'>
                             <div class='col-md-11'>
+                                @Html.
                                 <input class='form-control' id='id_phone' placeholder='Phone: (xxx) - xxx xxxx' type='text'>
                             </div>
                         </div>
@@ -185,9 +164,9 @@ label.control-label {
                         </div>
                     </div>
                 </div>
-                
-                
-               
+
+
+
                 <div class='form-group'>
                     <label class='control-label col-md-2 col-md-offset-2' for='id_pets'>Allowed Email Inform?</label>
                     <div class='col-md-8'>
@@ -213,4 +192,5 @@ label.control-label {
             </form>
         </div>
     </div>
+   }
 </div>

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace TEMP.Models.Repository
+namespace SSM.Models.Repository
 {
     public class orderRepository:IDisposable
     {

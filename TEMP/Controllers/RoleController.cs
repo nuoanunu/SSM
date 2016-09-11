@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using TEMP.Models;
+using SSM.Models;
 
-namespace TEMP.Controllers
+namespace SSM.Controllers
 {
 
         public class RoleController : Controller

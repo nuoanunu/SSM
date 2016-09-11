@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TEMP.Models
+namespace SSM.Models
 {
     using System;
     using System.Collections.Generic;

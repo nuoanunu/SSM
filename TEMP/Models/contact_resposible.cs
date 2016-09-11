@@ -12,10 +12,13 @@ namespace SSM.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class task_customer
+    public partial class contact_resposible
     {
         public int id { get; set; }
-        public int taskID { get; set; }
-        public int customerID { get; set; }
+        public int contactID { get; set; }
+        public string userID { get; set; }
+    
+        public virtual AspNetUser AspNetUser { get; set; }
+        public virtual contact contact { get; set; }
     }
 }

@@ -231,6 +231,19 @@
     <Compile Include="Models\attributeOption.cs">
       <DependentUpon>SSMModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\company.cs">
+      <DependentUpon>SSMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\company_responsible.cs">
+      <DependentUpon>SSMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\contact.cs">
+      <DependentUpon>SSMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\contact_resposible.cs">
+      <DependentUpon>SSMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CreateModel\NewCompanyModel.cs" />
     <Compile Include="Models\customer.cs">
       <DependentUpon>SSMModel.tt</DependentUpon>
     </Compile>
@@ -417,6 +430,7 @@
     <Content Include="Views\Role\index.cshtml" />
     <Content Include="Views\Task\index.cshtml" />
     <Content Include="Views\Product\ProductList.cshtml" />
+    <Content Include="Views\Customer\newCompany.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

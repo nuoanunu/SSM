@@ -12,144 +12,180 @@
   $(document).ready( function() {
     $( "#Tdatepicker" ).datetimepicker();
   } );
-  </script>
+</script>
 <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"> </script>
 <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"> </script>
 <style type="text/css">
-        @@font-face {
-            font-family: 'Roboto-Light';
-            src: url("../../fonts/Roboto-Light.ttf") format('truetype');
-        }
+    @@font-face {
+        font-family: 'Roboto-Light';
+        src: url("../../fonts/Roboto-Light.ttf") format('truetype');
+    }
 
-        @@font-face {
-            font-family: 'Roboto-Black';
-            src: url("../../fonts/Roboto-Black.ttf") format('truetype');
-        }
-         #contact{
-        padding:10px 0 10px;
-      }
+    @@font-face {
+        font-family: 'Roboto-Black';
+        src: url("../../fonts/Roboto-Black.ttf") format('truetype');
+    }
 
-      .contact-text{
-        margin:45px auto;
-      }
+    #contact {
+        padding: 10px 0 10px;
+    }
 
-      .mail-message-area{
-        width:100%;
-        padding:0 15px;
-      }
+    .contact-text {
+        margin: 45px auto;
+    }
 
-      .mail-message{
+    .mail-message-area {
         width: 100%;
-        background:rgba(255,255,255, 0.8) !important;
+        padding: 0 15px;
+    }
+
+    .mail-message {
+        width: 100%;
+        background: rgba(255,255,255, 0.8) !important;
         -webkit-transition: all 0.7s;
         -moz-transition: all 0.7s;
         transition: all 0.7s;
-        margin:0 auto;
+        margin: 0 auto;
         border-radius: 0;
-      }
+    }
 
-      .not-visible-message{
-        height:0px;
+    .not-visible-message {
+        height: 0px;
         opacity: 0;
-      }
+    }
 
-      .visible-message{
-        height:auto;
+    .visible-message {
+        height: auto;
         opacity: 1;
-        margin:25px auto 0;
-      }
+        margin: 25px auto 0;
+    }
 
     /* Input Styles */
 
-      .form{
+    .form {
         width: 100%;
         padding: 15px;
-        background:#f8f8f8;
-        border:1px solid rgba(0, 0, 0, 0.075);
-        margin-bottom:25px;
-        color:#727272 !important;
-        font-size:13px;
+        background: #f8f8f8;
+        border: 1px solid rgba(0, 0, 0, 0.075);
+        margin-bottom: 25px;
+        color: #727272 !important;
+        font-size: 13px;
         -webkit-transition: all 0.4s;
         -moz-transition: all 0.4s;
         transition: all 0.4s;
-      }
+    }
 
-      .form:hover{
-        border:1px solid #8BC3A3;
-      }
+        .form:hover {
+            border: 1px solid #8BC3A3;
+        }
 
-      .form:focus{
-        color: white;
-        outline: none;
-        border:1px solid #8BC3A3;
-      }
+        .form:focus {
+            color: white;
+            outline: none;
+            border: 1px solid #8BC3A3;
+        }
 
-      .textarea{
+    .textarea {
         height: 200px;
         max-height: 200px;
         max-width: 100%;
-      }
+    }
 
     /* Generic Button Styles */
 
-      .button{
-        padding:8px 12px;
-        background:#0A5175;
+    .button {
+        padding: 8px 12px;
+        background: #0A5175;
         display: block;
-        width:120px;
-        margin:10px 0 0px 0;
-        border-radius:3px;
+        width: 120px;
+        margin: 10px 0 0px 0;
+        border-radius: 3px;
         -webkit-transition: all 0.3s;
         -moz-transition: all 0.3s;
         transition: all 0.3s;
-        text-align:center;
-        font-size:0.8em;
+        text-align: center;
+        font-size: 0.8em;
         box-shadow: 0px 1px 4px rgba(0,0,0, 0.10);
         -moz-box-shadow: 0px 1px 4px rgba(0,0,0, 0.10);
         -webkit-box-shadow: 0px 1px 4px rgba(0,0,0, 0.10);
-      }
+    }
 
-      .button:hover{
-        background:#8BC3A3;
-        color:white;
-      }
+        .button:hover {
+            background: #8BC3A3;
+            color: white;
+        }
 
     /* Send Button Styles */
 
-      .form-btn{
-        width:180px;
+    .form-btn {
+        width: 180px;
         display: block;
         height: auto;
-        padding:15px;
-        color:#fff;
-        background:#8BC3A3;
-        border:none;
-        border-radius:3px;
+        padding: 15px;
+        color: #fff;
+        background: #8BC3A3;
+        border: none;
+        border-radius: 3px;
         outline: none;
         -webkit-transition: all 0.3s;
         -moz-transition: all 0.3s;
         transition: all 0.3s;
-        margin:auto;
+        margin: auto;
         box-shadow: 0px 1px 4px rgba(0,0,0, 0.10);
         -moz-box-shadow: 0px 1px 4px rgba(0,0,0, 0.10);
         -webkit-box-shadow: 0px 1px 4px rgba(0,0,0, 0.10);
-      }
-
-      .form-btn:hover{
-        background:#111;
-        color: white;
-        border:none;
-      }
-
-      .form-btn:active{
-        opacity: 0.9;
-      }
-    center{
-      margin-top:330px;
     }
+
+        .form-btn:hover {
+            background: #111;
+            color: white;
+            border: none;
+        }
+
+        .form-btn:active {
+            opacity: 0.9;
+        }
+
+    center {
+        margin-top: 330px;
+    }
+
     input {
         position: relative;
         z-index: 9999;
+    }
+
+    .indent-small {
+        margin-left: 5px;
+    }
+
+    .form-group.internal {
+        margin-bottom: 0;
+    }
+
+    .dialog-panel {
+        margin: 10px;
+    }
+
+    .datepicker-dropdown {
+        z-index: 200 !important;
+    }
+
+    .panel-body {
+        background: #e5e5e5; /* Old browsers */
+        background: -moz-radial-gradient(center, ellipse cover, #e5e5e5 0%, #ffffff 100%); /* FF3.6+ */
+        background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#e5e5e5), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
+        background: -webkit-radial-gradient(center, ellipse cover, #e5e5e5 0%,#ffffff 100%); /* Chrome10+,Safari5.1+ */
+        background: -o-radial-gradient(center, ellipse cover, #e5e5e5 0%,#ffffff 100%); /* Opera 12+ */
+        background: -ms-radial-gradient(center, ellipse cover, #e5e5e5 0%,#ffffff 100%); /* IE10+ */
+        background: radial-gradient(ellipse at center, #e5e5e5 0%,#ffffff 100%); /* W3C */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e5e5e5', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+        font: 600 15px "Open Sans",Arial,sans-serif;
+    }
+
+    label.control-label {
+        font-weight: 600;
+        color: #777;
     }
 </style>
 
@@ -159,10 +195,10 @@
 <h1> <font style="font-family:Roboto-Light"> My activities</font> </h1>
 <div style="background-color:#EEF2F4" class="header">
     <ul class="nav nav-tabs nav-justified">
-        <li class="active"><a  href="#">Activities</a></li>
-        <li><a >Contact</a></li>
-        <li><a  href="/Order/">Deals</a></li>
-        <li><a  href="#">Reports</a></li>
+        <li class="active"><a href="#">Activities</a></li>
+        <li><a>Contact</a></li>
+        <li><a href="/Order/">Deals</a></li>
+        <li><a href="#">Reports</a></li>
     </ul>
 </div>
 
@@ -250,16 +286,16 @@
 
                                 <input type="text" name="rPersons" id="rPersons" required="required" class="form" placeholder="Responsible Person" />
                                 <input type="text" name="Tdatepicker" id="Tdatepicker" required="required" class="form" placeholder="Deadline " />
-                                
+
                                 <input type="email" name="Customers" id="Customers" required="required" class="form" placeholder="Customer Related" />
-                                
+
                                 <table width="100%">
                                     <tr>
                                         <td width="70%">
-                                           <label>Repeat after hours</label>
+                                            <label>Repeat after hours</label>
                                         </td>
                                         <td>
-                                            <input type="text" name="repeatHours" id="repeatHours" required="required" class="form"  />
+                                            <input type="text" name="repeatHours" id="repeatHours" required="required" class="form" />
                                         </td>
                                     </tr>
                                     <tr>
@@ -269,11 +305,11 @@
                                         <td>
                                             <input type="checkbox" name="repeatHours" id="repeatHours" class="form" />
                                         </td>
-                                
+
                                     </tr>
-                        
+
                                 </table>
-                               
+
 
                             </div>
                             <!-- Bottom Submit -->

@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using TEMP.Models;
-using TEMP.Models.Repository;
+using SSM.Models;
+using SSM.Models.Repository;
 
-namespace TEMP.Controllers
+namespace SSM.Controllers
 {
     public class ProductController : Controller
     {

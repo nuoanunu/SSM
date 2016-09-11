@@ -8,9 +8,9 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using TEMP.Models;
+using SSM.Models;
 
-namespace TEMP.Controllers
+namespace SSM.Controllers
 {
     [Authorize]
     public class AccountController : Controller

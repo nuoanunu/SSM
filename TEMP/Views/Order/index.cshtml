@@ -2,8 +2,19 @@
 <link href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css" rel="stylesheet" />
 
 <script src="//code.jquery.com/jquery-1.12.3.js"> </script>
+<link rel="stylesheet" media="all" type="text/css" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+<link href="~/Content/jquery-ui-timepicker-addon.css" rel="stylesheet" />
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"> </script>
 <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"> </script>
+<script src="~/Scripts/jquery-ui-timepicker-addon.js"></script>
+<script>
+  $(document).ready( function() {
+      $("#idStartDate").datetimepicker();
+      $("#idCompletedDate").datetimepicker();
+  } );
+</script>
 <style type="text/css">
     @@font-face {
         font-family: 'Roboto-Light';
@@ -14,18 +25,45 @@
         font-family: 'Roboto-Black';
         src: url("../../fonts/Roboto-Black.ttf") format('truetype');
     }
+
+    .indent-small {
+        margin-left: 5px;
+    }
+
+    .form-group.internal {
+        margin-bottom: 0;
+    }
+
+    .dialog-panel {
+        margin: 10px;
+    }
+
+    .datepicker-dropdown {
+        z-index: 200 !important;
+    }
+
+    .panel-body {
+        background: #e5e5e5; /* Old browsers */
+        background: -moz-radial-gradient(center, ellipse cover, #e5e5e5 0%, #ffffff 100%); /* FF3.6+ */
+        background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#e5e5e5), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
+        background: -webkit-radial-gradient(center, ellipse cover, #e5e5e5 0%,#ffffff 100%); /* Chrome10+,Safari5.1+ */
+        background: -o-radial-gradient(center, ellipse cover, #e5e5e5 0%,#ffffff 100%); /* Opera 12+ */
+        background: -ms-radial-gradient(center, ellipse cover, #e5e5e5 0%,#ffffff 100%); /* IE10+ */
+        background: radial-gradient(ellipse at center, #e5e5e5 0%,#ffffff 100%); /* W3C */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e5e5e5', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+        font: 600 15px "Open Sans",Arial,sans-serif;
+    }
+
+    label.control-label {
+        font-weight: 600;
+        color: #777;
+    }
 </style>
 
 
 <h1> <font style="font-family:Roboto-Light"> Deal Management</font> </h1>
-<div style="background-color:#EEF2F4" class="header">
-    <ul class="nav nav-tabs nav-justified">
-        <li><a href="/Task/">Activities</a></li>
-        <li><a>Contact</a></li>
-        <li class="active"><a href="/Order/">Deals</a></li>
-        <li><a href="#">Reports</a></li>
-    </ul>
-</div>
+<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myDealModal">+Create Deal</button>
+
 <ul class="nav nav-tabs">
     <li class="active"><a data-toggle="tab" href="#home">All deals</a></li>
     <li><a data-toggle="tab" href="#menu1">Processing deals</a></li>
@@ -38,18 +76,18 @@
     <div id="home" class="tab-pane fade in active">
         <ul class="nav nav-pills">
             <li class="active">
-                <a data-toggle="tab" href="#menu1a">Orders</a>
+                <a data-toggle="tab" href="#menu1a">Deals</a>
             </li>
             <li>
                 <a data-toggle="tab" href="#menu1b">Statistic </a>
             </li>
         </ul>
-        <button>Add new orders</button>
+
         <div class="container">
 
             <div class="tab-content">
                 <div id="menu1a" class="tab-pane fade in active">
-          
+
 
                 </div>
                 <div id="menu1b" class="tab-pane fade">
@@ -63,7 +101,7 @@
                         <tr>
                             <td align="center" height="50px" style="background-color: #50C5D3" colspan="2">
                                 <p style="background-color:rgba(0, 0, 0, 0.2);">
-                                    <font style="font-family:'Roboto-Black';color:white">NEW ORDER WAITING</font>
+                                    <font style="font-family:'Roboto-Black';color:white">Unanswered Deall</font>
                                 </p>
                                 <p> <font style="color:white;" size="50">20</font></p>
                             </td>
@@ -73,14 +111,14 @@
                                 <img src="https://www.mostaccess.com/img/chart.png" />
                             </td>
                             <td align="center" height="150px" style="background-color:#F7D622">
-                                <div style="background-color:rgba(0, 0, 0, 0.2);margin-top:0px"> <font style="font-family:'Roboto-Black';color:white">Order in process</font> </div>
+                                <div style="background-color:rgba(0, 0, 0, 0.2);margin-top:0px"> <font style="font-family:'Roboto-Black';color:white">Deal in process</font> </div>
                                 <div> <font style="color:white;" size="50">25</font></div>
                             </td>
                         </tr>
                         <tr>
 
                             <td height="150px" align="center" style="background-color:#05D215">
-                                <p style="background-color:rgba(0, 0, 0, 0.2);"> <font style="font-family:'Roboto-Black';color:white">Completed Order </font> </p>
+                                <p style="background-color:rgba(0, 0, 0, 0.2);"> <font style="font-family:'Roboto-Black';color:white">Completed deal </font> </p>
                                 <p> <font style="color:white;" size="50">$500,000</font></p>
                             </td>
                         </tr>
@@ -105,9 +143,156 @@
             <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
         </div>
     </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $('#datatableExaple').DataTable();
+    });
+</script>
+<div class="modal fade" id="myDealModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">New Deal</h4>
+            </div>
+            <div class="modal-body">
+                <div class='panel-body'>
+                    <form class='form-horizontal' role='form'>
+                        <div class='form-group'>
+                            <label class='control-label col-md-2 col-md-offset-2' for='id_email'>Deal Name</label>
+                            <div class='col-md-6'>
+                                <div class='form-group'>
+                                    <div class='col-md-11'>
+                                        <input class='form-control' id='nName' type='text'>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class='form-group'>
+                            <label class='control-label col-md-2 col-md-offset-2' for='status'>Status</label>
+                            <div class='col-md-6'>
+                                <div class='form-group'>
+                                    <div class='col-md-11'>
+                                        <select>
+                                            <option value="volvo">In processing</option>
+                                            <option value="saab">Waiting for more detail</option>
+                                            <option value="mercedes">Proposal</option>
+                                            <option value="audi">Negotiation</option>
+                                            <option value="audi">Close Won</option>
+                                            <option value="audi">Close Lost</option>
+                                            <option value="audi">On Hold</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class='form-group'>
+                            <label class='control-label col-md-2 col-md-offset-2' for='id_email'>Client</label>
+                            <div class='col-md-6'>
+                                <div class='form-group'>
+                                    <div class='col-md-11'>
+                                        <input class='form-control' id='nName' type='text'>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                        <div class='form-group'>
+                            <label class='control-label col-md-2 col-md-offset-2' for='id_email'>Company Name</label>
+                            <div class='col-md-6'>
+                                <div class='form-group'>
+                                    <div class='col-md-11'>
+                                        <input class='form-control' id='id_email' type='text'>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class='form-group'>
+                            <label class='control-label col-md-2 col-md-offset-2' for='id_email'>Value</label>
+                            <div class='col-md-6'>
+                                <div class='form-group'>
+                                    <div class='col-md-11'>
+                                        <input class='form-control' id='idValue' type='text'>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class='form-group'>
+                            <label class='control-label col-md-2 col-md-offset-2' for='idProbability'>Probability, %:</label>
+                            <div class='col-md-6'>
+                                <div class='form-group'>
+                                    <div class='col-md-11'>
+                                        <input class='form-control' id='idProbability' type='text'>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class='form-group'>
+                            <label class='control-label col-md-2 col-md-offset-2' for='idResponsible'>Responsible</label>
+                            <div class='col-md-6'>
+                                <div class='form-group'>
+                                    <div class='col-md-11'>
+                                        <input class='form-control' id='idResponsible' type='text'>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class='form-group'>
+                            <label class='control-label col-md-2 col-md-offset-2' for='idStartDate'>Start Date</label>
+                            <div class='col-md-6'>
+                                <div class='form-group'>
+                                    <div class='col-md-11'>
+                                        <input type="text" name="idStartDate" id="idStartDate" required="required" class="form" placeholder="Deadline " />
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class='form-group'>
+                            <label class='control-label col-md-2 col-md-offset-2' for='idCompletedDate'>Completed Date</label>
+                            <div class='col-md-6'>
+                                <div class='form-group'>
+                                    <div class='col-md-11'>
+                                        <input type="text" name="idCompletedDate" id="idCompletedDate" class="form" placeholder="Deadline " />
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class='form-group'>
+                            <label class='control-label col-md-2 col-md-offset-2' for='id_comments'>Comment</label>
+                            <div class='col-md-6'>
+                                <textarea class='form-control' id='id_comments' placeholder='Additional comments' rows='3'></textarea>
+                            </div>
+                        </div>
+
+                        <div class='form-group'>
+                            <div class='col-md-offset-4 col-md-3'>
+                                <button class='btn btn-info btn-lg' type='submit'>Create deal</button>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
     </div>
-    <script>
-        $(document).ready(function () {
-            $('#datatableExaple').DataTable();
-        });
-    </script>
+</div>

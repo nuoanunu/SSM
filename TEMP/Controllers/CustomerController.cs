@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using SSM.Models.CreateModel;
 
-namespace TEMP.Controllers
+namespace SSM.Controllers
 {
     public class CustomerController : Controller
     {
@@ -13,6 +14,12 @@ namespace TEMP.Controllers
         {
 
             return View("NewCustomer");
+        }
+        
+            public ActionResult newCompany()
+        {
+            NewCompanyModel model = new NewCompanyModel();
+            return View("newCompany", model);
         }
     }
 }

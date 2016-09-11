@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TEMP.Models
+namespace SSM.Models
 {
     using System;
     using System.Data.Entity;
@@ -43,5 +43,9 @@ namespace TEMP.Models
         public virtual DbSet<task_customer> task_customer { get; set; }
         public virtual DbSet<task_user> task_user { get; set; }
         public virtual DbSet<ActTask> ActTasks { get; set; }
+        public virtual DbSet<company> companies { get; set; }
+        public virtual DbSet<company_responsible> company_responsible { get; set; }
+        public virtual DbSet<contact_resposible> contact_resposible { get; set; }
+        public virtual DbSet<contact> contacts { get; set; }
     }
 }

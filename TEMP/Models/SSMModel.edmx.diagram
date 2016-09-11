@@ -37,6 +37,14 @@
         <EntityTypeShape EntityType="SSMModel.ActTask" Width="1.5" PointX="17.875" PointY="4.25" />
         <AssociationConnector Association="SSMModel.FK_Tasks_AspNetUsers" />
         <AssociationConnector Association="SSMModel.FK_Tasks_TaskStatus" />
+        <EntityTypeShape EntityType="SSMModel.company" Width="1.5" PointX="15.625" PointY="18.75" />
+        <EntityTypeShape EntityType="SSMModel.company_responsible" Width="1.5" PointX="17.875" PointY="8.75" />
+        <EntityTypeShape EntityType="SSMModel.contact_resposible" Width="1.5" PointX="17.875" PointY="0.75" />
+        <EntityTypeShape EntityType="SSMModel.contact" Width="1.5" PointX="15.625" PointY="13" />
+        <AssociationConnector Association="SSMModel.FK_company_responsible_AspNetUsers" />
+        <AssociationConnector Association="SSMModel.FK_contact_resposible_AspNetUsers" />
+        <AssociationConnector Association="SSMModel.FK_company_responsible_companies" />
+        <AssociationConnector Association="SSMModel.FK_contact_resposible_contacts" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
