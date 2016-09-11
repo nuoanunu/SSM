@@ -77,6 +77,6 @@ C:\Users\NhatVHN\Desktop\SSM\TEMP\bin\Microsoft.Owin.Security.OAuth.xml
 C:\Users\NhatVHN\Desktop\SSM\TEMP\bin\Microsoft.Owin.Security.Google.xml
 C:\Users\NhatVHN\Desktop\SSM\TEMP\bin\Microsoft.Owin.Security.Twitter.xml
 C:\Users\NhatVHN\Desktop\SSM\TEMP\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+C:\Users\NhatVHN\Desktop\SSM\TEMP\obj\Debug\SSM.csprojResolveAssemblyReference.cache
 C:\Users\NhatVHN\Desktop\SSM\TEMP\obj\Debug\TEMP.dll
 C:\Users\NhatVHN\Desktop\SSM\TEMP\obj\Debug\TEMP.pdb
-C:\Users\NhatVHN\Desktop\SSM\TEMP\obj\Debug\SSM.csprojResolveAssemblyReference.cache
