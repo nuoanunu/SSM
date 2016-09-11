@@ -23,6 +23,20 @@
         <AssociationConnector Association="SSMModel.FK_orderItems_orders" ManuallyRouted="false" />
         <AssociationConnector Association="SSMModel.FK_orderItems_softwareProduct" ManuallyRouted="false" />
         <AssociationConnector Association="SSMModel.FK_productAttributes_softwareProduct" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="SSMModel.AspNetRole" Width="1.5" PointX="10.375" PointY="4.625" />
+        <EntityTypeShape EntityType="SSMModel.AspNetUserClaim" Width="1.5" PointX="14.875" PointY="9.625" />
+        <EntityTypeShape EntityType="SSMModel.AspNetUserLogin" Width="1.5" PointX="14.875" PointY="3.125" />
+        <EntityTypeShape EntityType="SSMModel.AspNetUser" Width="1.5" PointX="12.625" PointY="3.375" />
+        <EntityTypeShape EntityType="SSMModel.TaskStatu" Width="1.5" PointX="15.625" PointY="6.5" />
+        <EntityTypeShape EntityType="SSMModel.TaskType" Width="1.5" PointX="8.375" PointY="0.75" />
+        <AssociationConnector Association="SSMModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="SSMModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="SSMModel.AspNetUserRoles" />
+        <EntityTypeShape EntityType="SSMModel.task_customer" Width="1.5" PointX="5.75" PointY="8.75" />
+        <EntityTypeShape EntityType="SSMModel.task_user" Width="1.5" PointX="0.75" PointY="9.75" />
+        <EntityTypeShape EntityType="SSMModel.ActTask" Width="1.5" PointX="17.875" PointY="4.25" />
+        <AssociationConnector Association="SSMModel.FK_Tasks_AspNetUsers" />
+        <AssociationConnector Association="SSMModel.FK_Tasks_TaskStatus" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

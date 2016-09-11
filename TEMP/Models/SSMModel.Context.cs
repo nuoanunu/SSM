@@ -34,5 +34,14 @@ namespace TEMP.Models
         public virtual DbSet<productAttribute> productAttributes { get; set; }
         public virtual DbSet<softwareProduct> softwareProducts { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
+        public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
+        public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
+        public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
+        public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
+        public virtual DbSet<TaskStatu> TaskStatus { get; set; }
+        public virtual DbSet<TaskType> TaskTypes { get; set; }
+        public virtual DbSet<task_customer> task_customer { get; set; }
+        public virtual DbSet<task_user> task_user { get; set; }
+        public virtual DbSet<ActTask> ActTasks { get; set; }
     }
 }

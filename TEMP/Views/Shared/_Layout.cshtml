@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
+    <script src="//code.jquery.com/jquery-1.12.3.js"> </script>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
@@ -84,14 +85,14 @@
                                 <li class="dropdown">
                                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">Product management <b class="caret"></b></a><ul class="dropdown-menu">
                                                                                                                                                
-                                        <li><a href="#"><span class="glyphicon glyphicon-book" aria-hidden="true"></span>&nbsp;Products</a></li>
+                                        <li><a href="/Product/"><span class="glyphicon glyphicon-book" aria-hidden="true"></span>&nbsp;Products</a></li>
                                         <li><a href="#"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span>&nbsp;Promotion</a></li>
 
 
                                     </ul>
                                 </li>
                                 <li class="">
-                                    <a href="./">
+                                    <a href="/Order/">
                                         <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>&nbsp;Order 
                                     </a>
                                 </li>
