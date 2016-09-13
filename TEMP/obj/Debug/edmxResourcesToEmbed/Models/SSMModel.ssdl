@@ -76,6 +76,64 @@
     <Property Name="price" Type="float" Nullable="false" />
     <Property Name="attributeID" Type="int" Nullable="false" />
   </EntityType>
+  <EntityType Name="companies">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="companyName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="logo" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Industry" Type="nvarchar" MaxLength="50" />
+    <Property Name="Employees" Type="nchar" MaxLength="10" />
+    <Property Name="annualIncome" Type="float" />
+    <Property Name="Comment" Type="nvarchar(max)" />
+    <Property Name="Email" Type="nvarchar(max)" />
+    <Property Name="phone" Type="varchar" MaxLength="50" />
+    <Property Name="sites" Type="nvarchar(max)" />
+    <Property Name="Street" Type="nvarchar(max)" />
+    <Property Name="city" Type="nvarchar(max)" />
+    <Property Name="region" Type="nvarchar(max)" />
+    <Property Name="State" Type="nvarchar(max)" />
+    <Property Name="Country" Type="nchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="company_responsible">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="companyID" Type="int" Nullable="false" />
+    <Property Name="userID" Type="nvarchar" MaxLength="128" Nullable="false" />
+  </EntityType>
+  <EntityType Name="contact_resposible">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="contactID" Type="int" Nullable="false" />
+    <Property Name="userID" Type="nvarchar" MaxLength="128" Nullable="false" />
+  </EntityType>
+  <EntityType Name="contacts">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="LastName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="FirstName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="MiddleName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Photo" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="DateOfBirth" Type="date" Nullable="false" />
+    <Property Name="emails" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Phone" Type="varchar(max)" Nullable="false" />
+    <Property Name="Sites" Type="varchar(max)" />
+    <Property Name="CompanyID" Type="int" />
+    <Property Name="Street" Type="nvarchar" MaxLength="50" />
+    <Property Name="City" Type="nvarchar" MaxLength="50" />
+    <Property Name="Region" Type="nvarchar" MaxLength="50" />
+    <Property Name="State" Type="nvarchar" MaxLength="50" />
+    <Property Name="Country" Type="nvarchar" MaxLength="50" />
+    <Property Name="Zip" Type="nvarchar" MaxLength="50" />
+    <Property Name="Comment" Type="nvarchar(max)" />
+  </EntityType>
   <EntityType Name="customers">
     <Key>
       <PropertyRef Name="id" />
@@ -218,6 +276,54 @@
       </Principal>
       <Dependent Role="attributeOption">
         <PropertyRef Name="attributeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_company_responsible_AspNetUsers">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+    <End Role="company_responsible" Type="Self.company_responsible" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="company_responsible">
+        <PropertyRef Name="userID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_company_responsible_companies">
+    <End Role="companies" Type="Self.companies" Multiplicity="1" />
+    <End Role="company_responsible" Type="Self.company_responsible" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="companies">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="company_responsible">
+        <PropertyRef Name="companyID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_contact_resposible_AspNetUsers">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+    <End Role="contact_resposible" Type="Self.contact_resposible" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="contact_resposible">
+        <PropertyRef Name="userID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_contact_resposible_contacts">
+    <End Role="contacts" Type="Self.contacts" Multiplicity="1" />
+    <End Role="contact_resposible" Type="Self.contact_resposible" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="contacts">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="contact_resposible">
+        <PropertyRef Name="contactID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -405,6 +511,10 @@
     <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="attributeOption" EntityType="Self.attributeOption" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="companies" EntityType="Self.companies" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="company_responsible" EntityType="Self.company_responsible" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="contact_resposible" EntityType="Self.contact_resposible" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="contacts" EntityType="Self.contacts" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="customers" EntityType="Self.customers" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Licenses" EntityType="Self.Licenses" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="orderItemOption" EntityType="Self.orderItemOption" Schema="dbo" store:Type="Tables" />
@@ -420,6 +530,22 @@
     <AssociationSet Name="FK_attributeOption_productAttributes" Association="Self.FK_attributeOption_productAttributes">
       <End Role="productAttributes" EntitySet="productAttributes" />
       <End Role="attributeOption" EntitySet="attributeOption" />
+    </AssociationSet>
+    <AssociationSet Name="FK_company_responsible_AspNetUsers" Association="Self.FK_company_responsible_AspNetUsers">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="company_responsible" EntitySet="company_responsible" />
+    </AssociationSet>
+    <AssociationSet Name="FK_company_responsible_companies" Association="Self.FK_company_responsible_companies">
+      <End Role="companies" EntitySet="companies" />
+      <End Role="company_responsible" EntitySet="company_responsible" />
+    </AssociationSet>
+    <AssociationSet Name="FK_contact_resposible_AspNetUsers" Association="Self.FK_contact_resposible_AspNetUsers">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="contact_resposible" EntitySet="contact_resposible" />
+    </AssociationSet>
+    <AssociationSet Name="FK_contact_resposible_contacts" Association="Self.FK_contact_resposible_contacts">
+      <End Role="contacts" EntitySet="contacts" />
+      <End Role="contact_resposible" EntitySet="contact_resposible" />
     </AssociationSet>
     <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />

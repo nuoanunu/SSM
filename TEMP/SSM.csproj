@@ -320,6 +320,7 @@
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\jquery-ui-timepicker-addon.css" />
     <Content Include="Content\layout.css" />
+    <Content Include="Content\mailboxStyle.css" />
     <Content Include="Content\navbar-fixed-side.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />

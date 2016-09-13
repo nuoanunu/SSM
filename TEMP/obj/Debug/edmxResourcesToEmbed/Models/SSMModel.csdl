@@ -313,6 +313,26 @@
       <End Role="TaskStatu" EntitySet="TaskStatus" />
       <End Role="ActTask" EntitySet="ActTasks" />
     </AssociationSet>
+    <EntitySet Name="companies" EntityType="SSMModel.company" />
+    <EntitySet Name="company_responsible" EntityType="SSMModel.company_responsible" />
+    <EntitySet Name="contact_resposible" EntityType="SSMModel.contact_resposible" />
+    <EntitySet Name="contacts" EntityType="SSMModel.contact" />
+    <AssociationSet Name="FK_company_responsible_AspNetUsers" Association="SSMModel.FK_company_responsible_AspNetUsers">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="company_responsible" EntitySet="company_responsible" />
+    </AssociationSet>
+    <AssociationSet Name="FK_contact_resposible_AspNetUsers" Association="SSMModel.FK_contact_resposible_AspNetUsers">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="contact_resposible" EntitySet="contact_resposible" />
+    </AssociationSet>
+    <AssociationSet Name="FK_company_responsible_companies" Association="SSMModel.FK_company_responsible_companies">
+      <End Role="company" EntitySet="companies" />
+      <End Role="company_responsible" EntitySet="company_responsible" />
+    </AssociationSet>
+    <AssociationSet Name="FK_contact_resposible_contacts" Association="SSMModel.FK_contact_resposible_contacts">
+      <End Role="contact" EntitySet="contacts" />
+      <End Role="contact_resposible" EntitySet="contact_resposible" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="AspNetRole">
     <Key>
@@ -363,6 +383,8 @@
     <NavigationProperty Name="AspNetUserLogins" Relationship="SSMModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserLogin" />
     <NavigationProperty Name="AspNetRoles" Relationship="SSMModel.AspNetUserRoles" FromRole="AspNetUser" ToRole="AspNetRole" />
     <NavigationProperty Name="ActTasks" Relationship="SSMModel.FK_Tasks_AspNetUsers" FromRole="AspNetUser" ToRole="ActTask" />
+    <NavigationProperty Name="company_responsible" Relationship="SSMModel.FK_company_responsible_AspNetUsers" FromRole="AspNetUser" ToRole="company_responsible" />
+    <NavigationProperty Name="contact_resposible" Relationship="SSMModel.FK_contact_resposible_AspNetUsers" FromRole="AspNetUser" ToRole="contact_resposible" />
   </EntityType>
   <EntityType Name="TaskStatu">
     <Key>
@@ -466,6 +488,118 @@
       </Principal>
       <Dependent Role="ActTask">
         <PropertyRef Name="status" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="company">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="companyName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="logo" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Industry" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Employees" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="annualIncome" Type="Double" />
+    <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="sites" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Street" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="city" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="region" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="State" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Country" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <NavigationProperty Name="company_responsible" Relationship="SSMModel.FK_company_responsible_companies" FromRole="company" ToRole="company_responsible" />
+  </EntityType>
+  <EntityType Name="company_responsible">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="companyID" Type="Int32" Nullable="false" />
+    <Property Name="userID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUser" Relationship="SSMModel.FK_company_responsible_AspNetUsers" FromRole="company_responsible" ToRole="AspNetUser" />
+    <NavigationProperty Name="company" Relationship="SSMModel.FK_company_responsible_companies" FromRole="company_responsible" ToRole="company" />
+  </EntityType>
+  <EntityType Name="contact_resposible">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="contactID" Type="Int32" Nullable="false" />
+    <Property Name="userID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUser" Relationship="SSMModel.FK_contact_resposible_AspNetUsers" FromRole="contact_resposible" ToRole="AspNetUser" />
+    <NavigationProperty Name="contact" Relationship="SSMModel.FK_contact_resposible_contacts" FromRole="contact_resposible" ToRole="contact" />
+  </EntityType>
+  <EntityType Name="contact">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="LastName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="FirstName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="MiddleName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Photo" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="DateOfBirth" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="emails" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Phone" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Sites" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="CompanyID" Type="Int32" />
+    <Property Name="Street" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Region" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="State" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Zip" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="contact_resposible" Relationship="SSMModel.FK_contact_resposible_contacts" FromRole="contact" ToRole="contact_resposible" />
+  </EntityType>
+  <Association Name="FK_company_responsible_AspNetUsers">
+    <End Type="SSMModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+    <End Type="SSMModel.company_responsible" Role="company_responsible" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="company_responsible">
+        <PropertyRef Name="userID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_contact_resposible_AspNetUsers">
+    <End Type="SSMModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+    <End Type="SSMModel.contact_resposible" Role="contact_resposible" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="contact_resposible">
+        <PropertyRef Name="userID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_company_responsible_companies">
+    <End Type="SSMModel.company" Role="company" Multiplicity="1" />
+    <End Type="SSMModel.company_responsible" Role="company_responsible" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="company">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="company_responsible">
+        <PropertyRef Name="companyID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_contact_resposible_contacts">
+    <End Type="SSMModel.contact" Role="contact" Multiplicity="1" />
+    <End Type="SSMModel.contact_resposible" Role="contact_resposible" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="contact">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="contact_resposible">
+        <PropertyRef Name="contactID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

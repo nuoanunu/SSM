@@ -19,7 +19,7 @@
     <link type="text/css" rel="stylesheet" href="~/Content/calendar_traditional.css" />
     <link type="text/css" rel="stylesheet" href="~/Content/calendar_transparent.css" />
     <link type="text/css" rel="stylesheet" href="~/Content/calendar_white.css" />
-
+    <link href="~/Content/mailboxStyle.css" rel="stylesheet" />
     <style id="custom-theme">
         .tab-column {
             background-color:;
@@ -136,7 +136,257 @@
 </head>
 <div class="criteria-dashboard hidden-print"><h3 class="pt15" style="margin-top:-5px;">Dashboard</h3></div>
 <hr width="100%">
-<div class="pre-scrollable">
+<div class="pre-scrollable" style="height:700px;max-height: 700px; ">
+    <div class="row">
+
+        <!-- main col left -->
+        <div class="col-sm-5">
+
+            <div class="panel panel-default">
+                <div class="panel-thumbnail">
+                    <table width="100%" height="300px" style="border: 1px solid #ddd;">
+                        <tr style="border: 1px solid #ddd;"> <td style="background:#2FC7F7" align="center">MY TASKS</td></tr>
+                        <tr style="border: 1px solid #ddd;"><td>On-going Deal</td></tr>
+                        <tr style="border: 1px solid #ddd;"><td>Up-coming Demo</td></tr>
+                        <tr style="border: 1px solid #ddd;"><td>New assigned</td></tr>
+                        <tr style="border: 1px solid #ddd;"><td>Alert</td></tr>
+                    </table>
+                </div>
+                <aside class="lg-side" height="500px">
+                    <div class="inbox-head">
+                        <h3>Inbox</h3>
+                        <form action="#" class="pull-right position">
+                            <div class="input-append">
+                                <input type="text" class="sr-input" placeholder="Search Mail">
+                                <button class="btn sr-btn" type="button"><i class="fa fa-search"></i></button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="inbox-body">
+                        <div class="mail-option">
+                            <div class="chk-all">
+                                <input type="checkbox" class="mail-checkbox mail-group-checkbox">
+                                <div class="btn-group">
+                                    <a data-toggle="dropdown" href="#" class="btn mini all" aria-expanded="false">
+                                        All
+                                        <i class="fa fa-angle-down "></i>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#"> None</a></li>
+                                        <li><a href="#"> Read</a></li>
+                                        <li><a href="#"> Unread</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="btn-group">
+                                <a data-original-title="Refresh" data-placement="top" data-toggle="dropdown" href="#" class="btn mini tooltips">
+                                    <i class=" fa fa-refresh"></i>
+                                </a>
+                            </div>
+                            <div class="btn-group hidden-phone">
+                                <a data-toggle="dropdown" href="#" class="btn mini blue" aria-expanded="false">
+                                    More
+                                    <i class="fa fa-angle-down "></i>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#"><i class="fa fa-pencil"></i> Mark as Read</a></li>
+                                    <li><a href="#"><i class="fa fa-ban"></i> Spam</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#"><i class="fa fa-trash-o"></i> Delete</a></li>
+                                </ul>
+                            </div>
+                            <div class="btn-group">
+                                <a data-toggle="dropdown" href="#" class="btn mini blue">
+                                    Move to
+                                    <i class="fa fa-angle-down "></i>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#"><i class="fa fa-pencil"></i> Mark as Read</a></li>
+                                    <li><a href="#"><i class="fa fa-ban"></i> Spam</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#"><i class="fa fa-trash-o"></i> Delete</a></li>
+                                </ul>
+                            </div>
+
+                            <ul class="unstyled inbox-pagination">
+                                <li><span>1-50 of 234</span></li>
+                                <li>
+                                    <a class="np-btn" href="#"><i class="fa fa-angle-left  pagination-left"></i></a>
+                                </li>
+                                <li>
+                                    <a class="np-btn" href="#"><i class="fa fa-angle-right pagination-right"></i></a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="pre-scrollable">
+                            <table class="table table-inbox table-hover">
+                                <tbody>
+
+                                    <tr class="unread">
+                                        <td class="inbox-small-cells">
+                                            <input type="checkbox" class="mail-checkbox">
+                                        </td>
+                                        <td class="inbox-small-cells"><i class="fa fa-star"></i></td>
+                                        <td class="view-message  dont-show">PHPClass</td>
+                                        <td class="view-message ">Added a new class: Login Class Fast Site</td>
+                                        <td class="view-message  inbox-small-cells"><i class="fa fa-paperclip"></i></td>
+                                        <td class="view-message  text-right">9:27 AM</td>
+                                    </tr>
+                                    <tr class="unread">
+                                        <td class="inbox-small-cells">
+                                            <input type="checkbox" class="mail-checkbox">
+                                        </td>
+                                        <td class="inbox-small-cells"><i class="fa fa-star"></i></td>
+                                        <td class="view-message dont-show">Google Webmaster </td>
+                                        <td class="view-message">Improve the search presence of WebSite</td>
+                                        <td class="view-message inbox-small-cells"></td>
+                                        <td class="view-message text-right">March 15</td>
+                                    </tr>
+                                    <tr class="">
+                                        <td class="inbox-small-cells">
+                                            <input type="checkbox" class="mail-checkbox">
+                                        </td>
+                                        <td class="inbox-small-cells"><i class="fa fa-star inbox-started"></i></td>
+                                        <td class="view-message dont-show">Laura Gaffin, S P N </td>
+                                        <td class="view-message">Your Website On Google (Higher Rankings Are Better)</td>
+                                        <td class="view-message inbox-small-cells"></td>
+                                        <td class="view-message text-right">August 10</td>
+                                    </tr>
+                                    <tr class="">
+                                        <td class="inbox-small-cells">
+                                            <input type="checkbox" class="mail-checkbox">
+                                        </td>
+                                        <td class="inbox-small-cells"><i class="fa fa-star inbox-started"></i></td>
+                                        <td class="view-message dont-show">Laura Gaffin, S P N </td>
+                                        <td class="view-message">Your Website On Google (Higher Rankings Are Better)</td>
+                                        <td class="view-message inbox-small-cells"></td>
+                                        <td class="view-message text-right">August 10</td>
+                                    </tr>
+                                    <tr class="">
+                                        <td class="inbox-small-cells">
+                                            <input type="checkbox" class="mail-checkbox">
+                                        </td>
+                                        <td class="inbox-small-cells"><i class="fa fa-star inbox-started"></i></td>
+                                        <td class="view-message dont-show">Laura Gaffin, S P N </td>
+                                        <td class="view-message">Your Website On Google (Higher Rankings Are Better)</td>
+                                        <td class="view-message inbox-small-cells"></td>
+                                        <td class="view-message text-right">August 10</td>
+                                    </tr>
+                                    <tr class="">
+                                        <td class="inbox-small-cells">
+                                            <input type="checkbox" class="mail-checkbox">
+                                        </td>
+                                        <td class="inbox-small-cells"><i class="fa fa-star"></i></td>
+                                        <td class="view-message dont-show">Facebook</td>
+                                        <td class="view-message view-message">Alireza Zare Login faild</td>
+                                        <td class="view-message inbox-small-cells"><i class="fa fa-paperclip"></i></td>
+                                        <td class="view-message text-right">feb 14</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </aside>
+
+            </div>
+
+
+        </div>
+
+        <!-- main col right -->
+        <div class="col-sm-7">
+            <div class="pre-scrollable" style="height:800px;max-height: 800px; ">
+
+                <div class="panel panel-default">
+                    <div class="panel-heading"><a href="#" class="pull-right">View all</a> <h4>Stackoverflow</h4></div>
+                    <div class="panel-body">
+                        <img src="//placehold.it/150x150" class="img-circle pull-right"> <a href="#">Keyword: Bootstrap</a>
+                        <div class="clearfix"></div>
+                        <hr>
+
+                        <p>If you're looking for help with Bootstrap code, the <code>twitter-bootstrap</code> tag at <a href="http://stackoverflow.com/questions/tagged/twitter-bootstrap">Stackoverflow</a> is a good place to find answers.</p>
+
+                        <hr>
+                        <form>
+                            <div class="input-group">
+                                <div class="input-group-btn">
+                                    <button class="btn btn-default">+1</button><button class="btn btn-default"><i class="glyphicon glyphicon-share"></i></button>
+                                </div>
+                                <input type="text" class="form-control" placeholder="Add a comment..">
+                            </div>
+                        </form>
+
+                    </div>
+                </div><div class="panel panel-default">
+                    <div class="panel-heading"><a href="#" class="pull-right">View all</a> <h4>Stackoverflow</h4></div>
+                    <div class="panel-body">
+                        <img src="//placehold.it/150x150" class="img-circle pull-right"> <a href="#">Keyword: Bootstrap</a>
+                        <div class="clearfix"></div>
+                        <hr>
+
+                        <p>If you're looking for help with Bootstrap code, the <code>twitter-bootstrap</code> tag at <a href="http://stackoverflow.com/questions/tagged/twitter-bootstrap">Stackoverflow</a> is a good place to find answers.</p>
+
+                        <hr>
+                        <form>
+                            <div class="input-group">
+                                <div class="input-group-btn">
+                                    <button class="btn btn-default">+1</button><button class="btn btn-default"><i class="glyphicon glyphicon-share"></i></button>
+                                </div>
+                                <input type="text" class="form-control" placeholder="Add a comment..">
+                            </div>
+                        </form>
+
+                    </div>
+                </div><div class="panel panel-default">
+                    <div class="panel-heading"><a href="#" class="pull-right">View all</a> <h4>Stackoverflow</h4></div>
+                    <div class="panel-body">
+                        <img src="//placehold.it/150x150" class="img-circle pull-right"> <a href="#">Keyword: Bootstrap</a>
+                        <div class="clearfix"></div>
+                        <hr>
+
+                        <p>If you're looking for help with Bootstrap code, the <code>twitter-bootstrap</code> tag at <a href="http://stackoverflow.com/questions/tagged/twitter-bootstrap">Stackoverflow</a> is a good place to find answers.</p>
+
+                        <hr>
+                        <form>
+                            <div class="input-group">
+                                <div class="input-group-btn">
+                                    <button class="btn btn-default">+1</button><button class="btn btn-default"><i class="glyphicon glyphicon-share"></i></button>
+                                </div>
+                                <input type="text" class="form-control" placeholder="Add a comment..">
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading"><a href="#" class="pull-right">View all</a> <h4>Stackoverflow</h4></div>
+                    <div class="panel-body">
+                        <img src="//placehold.it/150x150" class="img-circle pull-right"> <a href="#">Keyword: Bootstrap</a>
+                        <div class="clearfix"></div>
+                        <hr>
+
+                        <p>If you're looking for help with Bootstrap code, the <code>twitter-bootstrap</code> tag at <a href="http://stackoverflow.com/questions/tagged/twitter-bootstrap">Stackoverflow</a> is a good place to find answers.</p>
+
+                        <hr>
+                        <form>
+                            <div class="input-group">
+                                <div class="input-group-btn">
+                                    <button class="btn btn-default">+1</button><button class="btn btn-default"><i class="glyphicon glyphicon-share"></i></button>
+                                </div>
+                                <input type="text" class="form-control" placeholder="Add a comment..">
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
     <div class="main">
 
         <div style="float:left; width: 160px;">
@@ -160,109 +410,109 @@
 
         <script type="text/javascript">
 
-                var nav = new DayPilot.Navigator("nav");
-                nav.showMonths = 1;
-                nav.skipMonths = 1;
-                nav.selectMode = "week";
-                nav.onTimeRangeSelected = function (args) {
-                    dp.startDate = args.day;
-                    dp.update();
-                    loadEvents();
-                };
-                nav.init();
-
-                var dp = new DayPilot.Calendar("dp");
-                dp.viewType = "Week";
-
-                dp.onEventMoved = function (args) {
-                    $.post("backend/move",
-                            {
-                                id: args.e.id(),
-                                newStart: args.newStart.toString(),
-                                newEnd: args.newEnd.toString()
-                            },
-                            function () {
-                                console.log("Moved.");
-                            });
-                };
-
-                dp.onEventResized = function (args) {
-                    $.post("backend/resize",
-                            {
-                                id: args.e.id(),
-                                newStart: args.newStart.toString(),
-                                newEnd: args.newEnd.toString()
-                            },
-                            function () {
-                                console.log("Resized.");
-                            });
-                };
-
-                // event creating
-                dp.onTimeRangeSelected = function (args) {
-                    var name = prompt("New event name:", "Event");
-                    dp.clearSelection();
-                    if (!name) return;
-
-                    $.post("backend/create",
-                    {
-                        start: args.start.toString(),
-                        end: args.end.toString(),
-                        name: name
-                    },
-                    function (data) {
-                        var e = new DayPilot.Event({
-                            start: args.start,
-                            end: args.end,
-                            id: data.id,
-                            resource: args.resource,
-                            text: name
-                        });
-                        dp.events.add(e);
-
-                    });
-
-                };
-
-                dp.onEventClick = function (args) {
-                    alert("clicked: " + args.e.id());
-                };
-
-                dp.init();
-
+            var nav = new DayPilot.Navigator("nav");
+            nav.showMonths = 1;
+            nav.skipMonths = 1;
+            nav.selectMode = "week";
+            nav.onTimeRangeSelected = function (args) {
+                dp.startDate = args.day;
+                dp.update();
                 loadEvents();
+            };
+            nav.init();
 
-                function loadEvents() {
-                    var start = dp.visibleStart();
-                    var end = dp.visibleEnd();
+            var dp = new DayPilot.Calendar("dp");
+            dp.viewType = "Week";
 
-                    $.post("backend/events",
-                    {
-                        start: start.toString(),
-                        end: end.toString()
-                    },
-                    function (data) {
-                        //console.log(data);
-                        dp.events.list = data;
-                        dp.update();
+            dp.onEventMoved = function (args) {
+                $.post("backend/move",
+                        {
+                            id: args.e.id(),
+                            newStart: args.newStart.toString(),
+                            newEnd: args.newEnd.toString()
+                        },
+                        function () {
+                            console.log("Moved.");
+                        });
+            };
+
+            dp.onEventResized = function (args) {
+                $.post("backend/resize",
+                        {
+                            id: args.e.id(),
+                            newStart: args.newStart.toString(),
+                            newEnd: args.newEnd.toString()
+                        },
+                        function () {
+                            console.log("Resized.");
+                        });
+            };
+
+            // event creating
+            dp.onTimeRangeSelected = function (args) {
+                var name = prompt("New event name:", "Event");
+                dp.clearSelection();
+                if (!name) return;
+
+                $.post("backend/create",
+                {
+                    start: args.start.toString(),
+                    end: args.end.toString(),
+                    name: name
+                },
+                function (data) {
+                    var e = new DayPilot.Event({
+                        start: args.start,
+                        end: args.end,
+                        id: data.id,
+                        resource: args.resource,
+                        text: name
                     });
-                }
+                    dp.events.add(e);
+
+                });
+
+            };
+
+            dp.onEventClick = function (args) {
+                alert("clicked: " + args.e.id());
+            };
+
+            dp.init();
+
+            loadEvents();
+
+            function loadEvents() {
+                var start = dp.visibleStart();
+                var end = dp.visibleEnd();
+
+                $.post("backend/events",
+                {
+                    start: start.toString(),
+                    end: end.toString()
+                },
+                function (data) {
+                    //console.log(data);
+                    dp.events.list = data;
+                    dp.update();
+                });
+            }
 
         </script>
 
         <script type="text/javascript">
-                $(document).ready(function () {
-                    $("#theme").change(function (e) {
-                        dp.theme = this.value;
-                        dp.update();
-                    });
+            $(document).ready(function () {
+                $("#theme").change(function (e) {
+                    dp.theme = this.value;
+                    dp.update();
                 });
+            });
         </script>
 
     </div>
-</div>
-<hr width="100%">
-<div class="pre-scrollable">
+
+    <hr width="100%">
+
 
 
     <div id="ember1549">
