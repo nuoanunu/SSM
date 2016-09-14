@@ -13,7 +13,7 @@ namespace SSM.Controllers
         productRepository pr;
         // GET: Product
         public ProductController() {
-            pr = new productRepository(new SSMEntities2());
+            pr = new productRepository(new SSMEntities());
         }
         public ActionResult Index()
         {

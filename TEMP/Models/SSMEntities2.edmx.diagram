@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="f08088135ebe4ec5bc8372912c02dadf" Name="Diagram1">
+        <EntityTypeShape EntityType="SSMModel.ActTask" Width="1.5" PointX="5.25" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SSMModel.AspNetRole" Width="1.5" PointX="0.75" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SSMModel.AspNetUserClaim" Width="1.5" PointX="5.25" PointY="11.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SSMModel.AspNetUserLogin" Width="1.5" PointX="5.25" PointY="14.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SSMModel.AspNetUser" Width="1.5" PointX="3" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SSMModel.attributeOption" Width="1.5" PointX="15.25" PointY="18.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SSMModel.company" Width="1.5" PointX="6" PointY="17.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SSMModel.company_responsible" Width="1.5" PointX="8.25" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SSMModel.contact_resposible" Width="1.5" PointX="8.25" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SSMModel.contact" Width="1.5" PointX="6" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="SSMModel.customer" Width="1.5" PointX="10.75" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SSMModel.Deal" Width="1.5" PointX="6" PointY="22.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SSMModel.Deal_Product" Width="1.5" PointX="13" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SSMModel.deal_product_chosenAttri" Width="1.5" PointX="17.5" PointY="16" IsExpanded="true" />
+        <EntityTypeShape EntityType="SSMModel.Deal_SaleRep_Respon" Width="1.5" PointX="8.25" PointY="12" IsExpanded="true" />
+        <EntityTypeShape EntityType="SSMModel.License" Width="1.5" PointX="13" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SSMModel.orderItemOption" Width="1.5" PointX="18.25" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SSMModel.orderItem" Width="1.5" PointX="16" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="SSMModel.order" Width="1.5" PointX="13.75" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SSMModel.productAttribute" Width="1.5" PointX="13" PointY="18.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SSMModel.softwareProduct" Width="1.5" PointX="10.75" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SSMModel.task_customer" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SSMModel.task_user" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SSMModel.TaskStatu" Width="1.5" PointX="3" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SSMModel.TaskType" Width="1.5" PointX="12.75" PointY="10.75" IsExpanded="true" />
+        <AssociationConnector Association="SSMModel.FK_Tasks_AspNetUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="SSMModel.FK_Tasks_TaskStatus" ManuallyRouted="false" />
+        <AssociationConnector Association="SSMModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="SSMModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="SSMModel.FK_company_responsible_AspNetUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="SSMModel.FK_contact_resposible_AspNetUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="SSMModel.FK_Deal_SaleRep_Respon_AspNetUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="SSMModel.FK_attributeOption_productAttributes" ManuallyRouted="false" />
+        <AssociationConnector Association="SSMModel.FK_deal_product_chosenAttri_attributeOption" ManuallyRouted="false" />
+        <AssociationConnector Association="SSMModel.FK_orderItemOption_attributeOption" ManuallyRouted="false" />
+        <AssociationConnector Association="SSMModel.FK_company_responsible_companies" ManuallyRouted="false" />
+        <AssociationConnector Association="SSMModel.FK_contact_resposible_contacts" ManuallyRouted="false" />
+        <AssociationConnector Association="SSMModel.FK_Licenses_customers" ManuallyRouted="false" />
+        <AssociationConnector Association="SSMModel.FK_orders_customers" ManuallyRouted="false" />
+        <AssociationConnector Association="SSMModel.FK_Deal_Product_Deal" ManuallyRouted="false" />
+        <AssociationConnector Association="SSMModel.FK_Deal_SaleRep_Respon_Deal" ManuallyRouted="false" />
+        <AssociationConnector Association="SSMModel.FK_deal_product_chosenAttri_Deal_Product" ManuallyRouted="false" />
+        <AssociationConnector Association="SSMModel.FK_Deal_Product_softwareProduct" ManuallyRouted="false" />
+        <AssociationConnector Association="SSMModel.FK_Licenses_softwareProduct" ManuallyRouted="false" />
+        <AssociationConnector Association="SSMModel.FK_orderItemOption_orderItems" ManuallyRouted="false" />
+        <AssociationConnector Association="SSMModel.FK_orderItems_orders" ManuallyRouted="false" />
+        <AssociationConnector Association="SSMModel.FK_orderItems_softwareProduct" ManuallyRouted="false" />
+        <AssociationConnector Association="SSMModel.FK_productAttributes_softwareProduct" ManuallyRouted="false" />
+        <AssociationConnector Association="SSMModel.AspNetUserRoles" ManuallyRouted="false" />
+        <AssociationConnector Association="SSMModel.FK_attributeOption_AspNetUsers" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

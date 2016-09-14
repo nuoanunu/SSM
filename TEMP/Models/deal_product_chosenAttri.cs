@@ -12,12 +12,16 @@ namespace SSM.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class sysdiagram
+    public partial class deal_product_chosenAttri
     {
-        public string name { get; set; }
-        public int principal_id { get; set; }
-        public int diagram_id { get; set; }
-        public Nullable<int> version { get; set; }
-        public byte[] definition { get; set; }
+        public int id { get; set; }
+        public int deal_product_id { get; set; }
+        public int optionID { get; set; }
+        public Nullable<System.DateTime> addedDate { get; set; }
+        public Nullable<System.DateTime> removeddate { get; set; }
+        public bool active { get; set; }
+    
+        public virtual attributeOption attributeOption { get; set; }
+        public virtual Deal_Product Deal_Product { get; set; }
     }
 }

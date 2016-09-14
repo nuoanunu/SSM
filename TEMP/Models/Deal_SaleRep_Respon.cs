@@ -12,16 +12,16 @@ namespace SSM.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class orderItemOption
+    public partial class Deal_SaleRep_Respon
     {
         public int id { get; set; }
-        public int orderItemID { get; set; }
-        public int optionID { get; set; }
-        public double unitPrice { get; set; }
-        public double soldPrice { get; set; }
-        public string CreatedBy { get; set; }
+        public string userID { get; set; }
+        public int dealID { get; set; }
+        public System.DateTime startDate { get; set; }
+        public Nullable<System.DateTime> endDate { get; set; }
+        public bool Active { get; set; }
     
-        public virtual attributeOption attributeOption { get; set; }
-        public virtual orderItem orderItem { get; set; }
+        public virtual AspNetUser AspNetUser { get; set; }
+        public virtual Deal Deal { get; set; }
     }
 }

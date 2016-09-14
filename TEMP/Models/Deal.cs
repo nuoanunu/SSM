@@ -12,28 +12,28 @@ namespace SSM.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class attributeOption
+    public partial class Deal
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public attributeOption()
+        public Deal()
         {
-            this.deal_product_chosenAttri = new HashSet<deal_product_chosenAttri>();
-            this.orderItemOptions = new HashSet<orderItemOption>();
+            this.Deal_Product = new HashSet<Deal_Product>();
+            this.Deal_SaleRep_Respon = new HashSet<Deal_SaleRep_Respon>();
         }
     
         public int id { get; set; }
-        public string code { get; set; }
-        public string name { get; set; }
-        public string description { get; set; }
-        public double price { get; set; }
-        public int attributeID { get; set; }
+        public string Name { get; set; }
+        public Nullable<int> Stage { get; set; }
+        public Nullable<double> Value { get; set; }
+        public Nullable<double> Probability { get; set; }
         public string Creator { get; set; }
+        public System.DateTime StartDate { get; set; }
+        public Nullable<System.DateTime> CompleteOn { get; set; }
+        public int Client { get; set; }
     
-        public virtual productAttribute productAttribute { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<deal_product_chosenAttri> deal_product_chosenAttri { get; set; }
+        public virtual ICollection<Deal_Product> Deal_Product { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<orderItemOption> orderItemOptions { get; set; }
-        public virtual AspNetUser AspNetUser { get; set; }
+        public virtual ICollection<Deal_SaleRep_Respon> Deal_SaleRep_Respon { get; set; }
     }
 }

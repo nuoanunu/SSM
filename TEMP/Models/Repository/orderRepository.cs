@@ -8,8 +8,8 @@ namespace SSM.Models.Repository
     public class orderRepository:IDisposable
     {
 
-        SSMEntities2 context;
-        public orderRepository(SSMEntities2 contextt)
+        SSMEntities context;
+        public orderRepository(SSMEntities contextt)
         {
             context = contextt;
         }

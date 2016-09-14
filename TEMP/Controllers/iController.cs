@@ -10,6 +10,6 @@ namespace SSM.Controllers
 {
     public class iController : Controller
     {
-        public SSMEntities2 dbcnt = new SSMEntities2();
+        public SSMEntities dbcnt = new SSMEntities();
     }
 }

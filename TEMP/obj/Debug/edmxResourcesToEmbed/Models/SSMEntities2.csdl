@@ -1,0 +1,774 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SSMModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="ActTask">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="taskType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="createdDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="deadline" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="repeatByTime" Type="Int32" />
+    <Property Name="Reminder" Type="Boolean" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="status" Type="Int32" Nullable="false" />
+    <Property Name="creatorID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="AspNetUser" Relationship="Self.FK_Tasks_AspNetUsers" FromRole="ActTask" ToRole="AspNetUsers" />
+    <NavigationProperty Name="TaskStatu" Relationship="Self.FK_Tasks_TaskStatus" FromRole="ActTask" ToRole="TaskStatus" />
+  </EntityType>
+  <EntityType Name="AspNetRole">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="AspNetUsers" Relationship="Self.AspNetUserRoles" FromRole="AspNetRoles" ToRole="AspNetUsers" />
+  </EntityType>
+  <EntityType Name="AspNetUserClaim">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaims" ToRole="AspNetUsers" />
+  </EntityType>
+  <EntityType Name="AspNetUserLogin">
+    <Key>
+      <PropertyRef Name="LoginProvider" />
+      <PropertyRef Name="ProviderKey" />
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="LoginProvider" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ProviderKey" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogins" ToRole="AspNetUsers" />
+  </EntityType>
+  <EntityType Name="AspNetUser">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+    <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+    <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+    <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+    <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+    <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+    <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="ActTasks" Relationship="Self.FK_Tasks_AspNetUsers" FromRole="AspNetUsers" ToRole="ActTask" />
+    <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
+    <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
+    <NavigationProperty Name="company_responsible" Relationship="Self.FK_company_responsible_AspNetUsers" FromRole="AspNetUsers" ToRole="company_responsible" />
+    <NavigationProperty Name="contact_resposible" Relationship="Self.FK_contact_resposible_AspNetUsers" FromRole="AspNetUsers" ToRole="contact_resposible" />
+    <NavigationProperty Name="Deal_SaleRep_Respon" Relationship="Self.FK_Deal_SaleRep_Respon_AspNetUsers" FromRole="AspNetUsers" ToRole="Deal_SaleRep_Respon" />
+    <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+    <NavigationProperty Name="attributeOptions" Relationship="SSMModel.FK_attributeOption_AspNetUsers" FromRole="AspNetUser" ToRole="attributeOption" />
+  </EntityType>
+  <EntityType Name="attributeOption">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="price" Type="Double" Nullable="false" />
+    <Property Name="attributeID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="productAttribute" Relationship="Self.FK_attributeOption_productAttributes" FromRole="attributeOption" ToRole="productAttributes" />
+    <NavigationProperty Name="deal_product_chosenAttri" Relationship="Self.FK_deal_product_chosenAttri_attributeOption" FromRole="attributeOption" ToRole="deal_product_chosenAttri" />
+    <NavigationProperty Name="orderItemOptions" Relationship="Self.FK_orderItemOption_attributeOption" FromRole="attributeOption" ToRole="orderItemOption" />
+    <Property Name="Creator" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUser" Relationship="SSMModel.FK_attributeOption_AspNetUsers" FromRole="attributeOption" ToRole="AspNetUser" />
+  </EntityType>
+  <EntityType Name="company">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="companyName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="logo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Industry" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Employees" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="annualIncome" Type="Double" />
+    <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="sites" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Street" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="city" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="region" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="State" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Country" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <NavigationProperty Name="company_responsible" Relationship="Self.FK_company_responsible_companies" FromRole="companies" ToRole="company_responsible" />
+  </EntityType>
+  <EntityType Name="company_responsible">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="companyID" Type="Int32" Nullable="false" />
+    <Property Name="userID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="AspNetUser" Relationship="Self.FK_company_responsible_AspNetUsers" FromRole="company_responsible" ToRole="AspNetUsers" />
+    <NavigationProperty Name="company" Relationship="Self.FK_company_responsible_companies" FromRole="company_responsible" ToRole="companies" />
+  </EntityType>
+  <EntityType Name="contact_resposible">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="contactID" Type="Int32" Nullable="false" />
+    <Property Name="userID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="AspNetUser" Relationship="Self.FK_contact_resposible_AspNetUsers" FromRole="contact_resposible" ToRole="AspNetUsers" />
+    <NavigationProperty Name="contact" Relationship="Self.FK_contact_resposible_contacts" FromRole="contact_resposible" ToRole="contacts" />
+  </EntityType>
+  <EntityType Name="contact">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="LastName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="FirstName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="MiddleName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Photo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="DateOfBirth" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="emails" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Phone" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Sites" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="CompanyID" Type="Int32" />
+    <Property Name="Street" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Region" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="State" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Zip" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="contact_resposible" Relationship="Self.FK_contact_resposible_contacts" FromRole="contacts" ToRole="contact_resposible" />
+  </EntityType>
+  <EntityType Name="customer">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="cusName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="cusEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="cusPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="cusAddress" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="cusCompany" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Licenses" Relationship="Self.FK_Licenses_customers" FromRole="customers" ToRole="Licenses" />
+    <NavigationProperty Name="orders" Relationship="Self.FK_orders_customers" FromRole="customers" ToRole="orders" />
+  </EntityType>
+  <EntityType Name="Deal">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Stage" Type="Int32" />
+    <Property Name="Value" Type="Double" />
+    <Property Name="Probability" Type="Double" />
+    <Property Name="Creator" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="CompleteOn" Type="DateTime" Precision="0" />
+    <Property Name="Client" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Deal_Product" Relationship="Self.FK_Deal_Product_Deal" FromRole="Deal" ToRole="Deal_Product" />
+    <NavigationProperty Name="Deal_SaleRep_Respon" Relationship="Self.FK_Deal_SaleRep_Respon_Deal" FromRole="Deal" ToRole="Deal_SaleRep_Respon" />
+  </EntityType>
+  <EntityType Name="Deal_Product">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="productID" Type="Int32" Nullable="false" />
+    <Property Name="dealID" Type="Int32" Nullable="false" />
+    <Property Name="addedDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="removedDate" Type="DateTime" Precision="0" />
+    <Property Name="Active" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Deal" Relationship="Self.FK_Deal_Product_Deal" FromRole="Deal_Product" ToRole="Deal" />
+    <NavigationProperty Name="deal_product_chosenAttri" Relationship="Self.FK_deal_product_chosenAttri_Deal_Product" FromRole="Deal_Product" ToRole="deal_product_chosenAttri" />
+    <NavigationProperty Name="softwareProduct" Relationship="Self.FK_Deal_Product_softwareProduct" FromRole="Deal_Product" ToRole="softwareProduct" />
+  </EntityType>
+  <EntityType Name="deal_product_chosenAttri">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="deal_product_id" Type="Int32" Nullable="false" />
+    <Property Name="optionID" Type="Int32" Nullable="false" />
+    <Property Name="addedDate" Type="DateTime" Precision="0" />
+    <Property Name="removeddate" Type="DateTime" Precision="0" />
+    <Property Name="active" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="attributeOption" Relationship="Self.FK_deal_product_chosenAttri_attributeOption" FromRole="deal_product_chosenAttri" ToRole="attributeOption" />
+    <NavigationProperty Name="Deal_Product" Relationship="Self.FK_deal_product_chosenAttri_Deal_Product" FromRole="deal_product_chosenAttri" ToRole="Deal_Product" />
+  </EntityType>
+  <EntityType Name="Deal_SaleRep_Respon">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="userID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="dealID" Type="Int32" Nullable="false" />
+    <Property Name="startDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="endDate" Type="DateTime" Precision="0" />
+    <Property Name="Active" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="AspNetUser" Relationship="Self.FK_Deal_SaleRep_Respon_AspNetUsers" FromRole="Deal_SaleRep_Respon" ToRole="AspNetUsers" />
+    <NavigationProperty Name="Deal" Relationship="Self.FK_Deal_SaleRep_Respon_Deal" FromRole="Deal_SaleRep_Respon" ToRole="Deal" />
+  </EntityType>
+  <EntityType Name="License">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="licenseType" Type="Int32" />
+    <Property Name="licenseKey" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="licenseDuration" Type="Int32" />
+    <Property Name="status" Type="Int32" />
+    <Property Name="customerID" Type="Int32" />
+    <Property Name="productID" Type="Int32" />
+    <Property Name="nextTransactionDate" Type="DateTime" Precision="0" />
+    <Property Name="startDate" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="customer" Relationship="Self.FK_Licenses_customers" FromRole="Licenses" ToRole="customers" />
+    <NavigationProperty Name="softwareProduct" Relationship="Self.FK_Licenses_softwareProduct" FromRole="Licenses" ToRole="softwareProduct" />
+  </EntityType>
+  <EntityType Name="orderItemOption">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="orderItemID" Type="Int32" Nullable="false" />
+    <Property Name="optionID" Type="Int32" Nullable="false" />
+    <Property Name="unitPrice" Type="Double" Nullable="false" />
+    <Property Name="soldPrice" Type="Double" Nullable="false" />
+    <NavigationProperty Name="attributeOption" Relationship="Self.FK_orderItemOption_attributeOption" FromRole="orderItemOption" ToRole="attributeOption" />
+    <NavigationProperty Name="orderItem" Relationship="Self.FK_orderItemOption_orderItems" FromRole="orderItemOption" ToRole="orderItems" />
+    <Property Name="CreatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="orderItem">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="productID" Type="Int32" Nullable="false" />
+    <Property Name="orderID" Type="Int32" Nullable="false" />
+    <Property Name="productPrice" Type="Double" Nullable="false" />
+    <Property Name="subOptionPrice" Type="Double" />
+    <Property Name="totalprice" Type="Double" Nullable="false" />
+    <Property Name="productQuantity" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="orderItemOptions" Relationship="Self.FK_orderItemOption_orderItems" FromRole="orderItems" ToRole="orderItemOption" />
+    <NavigationProperty Name="order" Relationship="Self.FK_orderItems_orders" FromRole="orderItems" ToRole="orders" />
+    <NavigationProperty Name="softwareProduct" Relationship="Self.FK_orderItems_softwareProduct" FromRole="orderItems" ToRole="softwareProduct" />
+  </EntityType>
+  <EntityType Name="order">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="customerID" Type="Int32" Nullable="false" />
+    <Property Name="orderNumber" Type="Int32" Nullable="false" />
+    <Property Name="total" Type="Double" Nullable="false" />
+    <Property Name="VAT" Type="Double" />
+    <Property Name="subtotal" Type="Double" />
+    <Property Name="createDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="lastModifiedDate" Type="DateTime" Precision="0" />
+    <Property Name="status" Type="Int32" Nullable="false" />
+    <Property Name="completedDate" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="customer" Relationship="Self.FK_orders_customers" FromRole="orders" ToRole="customers" />
+    <NavigationProperty Name="orderItems" Relationship="Self.FK_orderItems_orders" FromRole="orders" ToRole="orderItems" />
+  </EntityType>
+  <EntityType Name="productAttribute">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="isActive" Type="Boolean" Nullable="false" />
+    <Property Name="screenShots" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="productID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="attributeOptions" Relationship="Self.FK_attributeOption_productAttributes" FromRole="productAttributes" ToRole="attributeOption" />
+    <NavigationProperty Name="softwareProduct" Relationship="Self.FK_productAttributes_softwareProduct" FromRole="productAttributes" ToRole="softwareProduct" />
+  </EntityType>
+  <EntityType Name="softwareProduct">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SKU" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="keywords" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="shortDescription" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="fullDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="isActive" Type="Boolean" Nullable="false" />
+    <Property Name="unitPrice" Type="Double" Nullable="false" />
+    <Property Name="altPrice1" Type="Double" />
+    <Property Name="altPrice2" Type="Double" />
+    <Property Name="screenShots" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="icon" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Deal_Product" Relationship="Self.FK_Deal_Product_softwareProduct" FromRole="softwareProduct" ToRole="Deal_Product" />
+    <NavigationProperty Name="Licenses" Relationship="Self.FK_Licenses_softwareProduct" FromRole="softwareProduct" ToRole="Licenses" />
+    <NavigationProperty Name="orderItems" Relationship="Self.FK_orderItems_softwareProduct" FromRole="softwareProduct" ToRole="orderItems" />
+    <NavigationProperty Name="productAttributes" Relationship="Self.FK_productAttributes_softwareProduct" FromRole="softwareProduct" ToRole="productAttributes" />
+  </EntityType>
+  <EntityType Name="task_customer">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="taskID" Type="Int32" Nullable="false" />
+    <Property Name="customerID" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="task_user">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="userID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="taskID" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TaskStatu">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="ActTasks" Relationship="Self.FK_Tasks_TaskStatus" FromRole="TaskStatus" ToRole="ActTask" />
+  </EntityType>
+  <EntityType Name="TaskType">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="typeName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+  </EntityType>
+  <Association Name="FK_Tasks_AspNetUsers">
+    <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
+    <End Role="ActTask" Type="Self.ActTask" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ActTask">
+        <PropertyRef Name="creatorID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Tasks_TaskStatus">
+    <End Role="TaskStatus" Type="Self.TaskStatu" Multiplicity="1" />
+    <End Role="ActTask" Type="Self.ActTask" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TaskStatus">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="ActTask">
+        <PropertyRef Name="status" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserClaims" Type="Self.AspNetUserClaim" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserClaims">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserLogins" Type="Self.AspNetUserLogin" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserLogins">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_company_responsible_AspNetUsers">
+    <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
+    <End Role="company_responsible" Type="Self.company_responsible" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="company_responsible">
+        <PropertyRef Name="userID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_contact_resposible_AspNetUsers">
+    <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
+    <End Role="contact_resposible" Type="Self.contact_resposible" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="contact_resposible">
+        <PropertyRef Name="userID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Deal_SaleRep_Respon_AspNetUsers">
+    <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
+    <End Role="Deal_SaleRep_Respon" Type="Self.Deal_SaleRep_Respon" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Deal_SaleRep_Respon">
+        <PropertyRef Name="userID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_attributeOption_productAttributes">
+    <End Role="productAttributes" Type="Self.productAttribute" Multiplicity="1" />
+    <End Role="attributeOption" Type="Self.attributeOption" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="productAttributes">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="attributeOption">
+        <PropertyRef Name="attributeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_deal_product_chosenAttri_attributeOption">
+    <End Role="attributeOption" Type="Self.attributeOption" Multiplicity="1" />
+    <End Role="deal_product_chosenAttri" Type="Self.deal_product_chosenAttri" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="attributeOption">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="deal_product_chosenAttri">
+        <PropertyRef Name="optionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_orderItemOption_attributeOption">
+    <End Role="attributeOption" Type="Self.attributeOption" Multiplicity="1" />
+    <End Role="orderItemOption" Type="Self.orderItemOption" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="attributeOption">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="orderItemOption">
+        <PropertyRef Name="optionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_company_responsible_companies">
+    <End Role="companies" Type="Self.company" Multiplicity="1" />
+    <End Role="company_responsible" Type="Self.company_responsible" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="companies">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="company_responsible">
+        <PropertyRef Name="companyID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_contact_resposible_contacts">
+    <End Role="contacts" Type="Self.contact" Multiplicity="1" />
+    <End Role="contact_resposible" Type="Self.contact_resposible" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="contacts">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="contact_resposible">
+        <PropertyRef Name="contactID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Licenses_customers">
+    <End Role="customers" Type="Self.customer" Multiplicity="0..1" />
+    <End Role="Licenses" Type="Self.License" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="customers">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Licenses">
+        <PropertyRef Name="customerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_orders_customers">
+    <End Role="customers" Type="Self.customer" Multiplicity="1" />
+    <End Role="orders" Type="Self.order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="customers">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="orders">
+        <PropertyRef Name="customerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Deal_Product_Deal">
+    <End Role="Deal" Type="Self.Deal" Multiplicity="1" />
+    <End Role="Deal_Product" Type="Self.Deal_Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Deal">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Deal_Product">
+        <PropertyRef Name="dealID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Deal_SaleRep_Respon_Deal">
+    <End Role="Deal" Type="Self.Deal" Multiplicity="1" />
+    <End Role="Deal_SaleRep_Respon" Type="Self.Deal_SaleRep_Respon" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Deal">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Deal_SaleRep_Respon">
+        <PropertyRef Name="dealID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_deal_product_chosenAttri_Deal_Product">
+    <End Role="Deal_Product" Type="Self.Deal_Product" Multiplicity="1" />
+    <End Role="deal_product_chosenAttri" Type="Self.deal_product_chosenAttri" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Deal_Product">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="deal_product_chosenAttri">
+        <PropertyRef Name="deal_product_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Deal_Product_softwareProduct">
+    <End Role="softwareProduct" Type="Self.softwareProduct" Multiplicity="1" />
+    <End Role="Deal_Product" Type="Self.Deal_Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="softwareProduct">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Deal_Product">
+        <PropertyRef Name="productID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Licenses_softwareProduct">
+    <End Role="softwareProduct" Type="Self.softwareProduct" Multiplicity="0..1" />
+    <End Role="Licenses" Type="Self.License" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="softwareProduct">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Licenses">
+        <PropertyRef Name="productID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_orderItemOption_orderItems">
+    <End Role="orderItems" Type="Self.orderItem" Multiplicity="1" />
+    <End Role="orderItemOption" Type="Self.orderItemOption" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="orderItems">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="orderItemOption">
+        <PropertyRef Name="orderItemID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_orderItems_orders">
+    <End Role="orders" Type="Self.order" Multiplicity="1" />
+    <End Role="orderItems" Type="Self.orderItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="orders">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="orderItems">
+        <PropertyRef Name="orderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_orderItems_softwareProduct">
+    <End Role="softwareProduct" Type="Self.softwareProduct" Multiplicity="1" />
+    <End Role="orderItems" Type="Self.orderItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="softwareProduct">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="orderItems">
+        <PropertyRef Name="productID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_productAttributes_softwareProduct">
+    <End Role="softwareProduct" Type="Self.softwareProduct" Multiplicity="1" />
+    <End Role="productAttributes" Type="Self.productAttribute" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="softwareProduct">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="productAttributes">
+        <PropertyRef Name="productID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="AspNetUserRoles">
+    <End Role="AspNetRoles" Type="Self.AspNetRole" Multiplicity="*" />
+    <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="*" />
+  </Association>
+  <EntityContainer Name="SSMEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="ActTasks" EntityType="Self.ActTask" />
+    <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRole" />
+    <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaim" />
+    <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogin" />
+    <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUser" />
+    <EntitySet Name="attributeOptions" EntityType="Self.attributeOption" />
+    <EntitySet Name="companies" EntityType="Self.company" />
+    <EntitySet Name="company_responsible" EntityType="Self.company_responsible" />
+    <EntitySet Name="contact_resposible" EntityType="Self.contact_resposible" />
+    <EntitySet Name="contacts" EntityType="Self.contact" />
+    <EntitySet Name="customers" EntityType="Self.customer" />
+    <EntitySet Name="Deals" EntityType="Self.Deal" />
+    <EntitySet Name="Deal_Product" EntityType="Self.Deal_Product" />
+    <EntitySet Name="deal_product_chosenAttri" EntityType="Self.deal_product_chosenAttri" />
+    <EntitySet Name="Deal_SaleRep_Respon" EntityType="Self.Deal_SaleRep_Respon" />
+    <EntitySet Name="Licenses" EntityType="Self.License" />
+    <EntitySet Name="orderItemOptions" EntityType="Self.orderItemOption" />
+    <EntitySet Name="orderItems" EntityType="Self.orderItem" />
+    <EntitySet Name="orders" EntityType="Self.order" />
+    <EntitySet Name="productAttributes" EntityType="Self.productAttribute" />
+    <EntitySet Name="softwareProducts" EntityType="Self.softwareProduct" />
+    <EntitySet Name="task_customer" EntityType="Self.task_customer" />
+    <EntitySet Name="task_user" EntityType="Self.task_user" />
+    <EntitySet Name="TaskStatus" EntityType="Self.TaskStatu" />
+    <EntitySet Name="TaskTypes" EntityType="Self.TaskType" />
+    <AssociationSet Name="FK_Tasks_AspNetUsers" Association="Self.FK_Tasks_AspNetUsers">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="ActTask" EntitySet="ActTasks" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tasks_TaskStatus" Association="Self.FK_Tasks_TaskStatus">
+      <End Role="TaskStatus" EntitySet="TaskStatus" />
+      <End Role="ActTask" EntitySet="ActTasks" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+    </AssociationSet>
+    <AssociationSet Name="FK_company_responsible_AspNetUsers" Association="Self.FK_company_responsible_AspNetUsers">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="company_responsible" EntitySet="company_responsible" />
+    </AssociationSet>
+    <AssociationSet Name="FK_contact_resposible_AspNetUsers" Association="Self.FK_contact_resposible_AspNetUsers">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="contact_resposible" EntitySet="contact_resposible" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Deal_SaleRep_Respon_AspNetUsers" Association="Self.FK_Deal_SaleRep_Respon_AspNetUsers">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="Deal_SaleRep_Respon" EntitySet="Deal_SaleRep_Respon" />
+    </AssociationSet>
+    <AssociationSet Name="FK_attributeOption_productAttributes" Association="Self.FK_attributeOption_productAttributes">
+      <End Role="productAttributes" EntitySet="productAttributes" />
+      <End Role="attributeOption" EntitySet="attributeOptions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_deal_product_chosenAttri_attributeOption" Association="Self.FK_deal_product_chosenAttri_attributeOption">
+      <End Role="attributeOption" EntitySet="attributeOptions" />
+      <End Role="deal_product_chosenAttri" EntitySet="deal_product_chosenAttri" />
+    </AssociationSet>
+    <AssociationSet Name="FK_orderItemOption_attributeOption" Association="Self.FK_orderItemOption_attributeOption">
+      <End Role="attributeOption" EntitySet="attributeOptions" />
+      <End Role="orderItemOption" EntitySet="orderItemOptions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_company_responsible_companies" Association="Self.FK_company_responsible_companies">
+      <End Role="companies" EntitySet="companies" />
+      <End Role="company_responsible" EntitySet="company_responsible" />
+    </AssociationSet>
+    <AssociationSet Name="FK_contact_resposible_contacts" Association="Self.FK_contact_resposible_contacts">
+      <End Role="contacts" EntitySet="contacts" />
+      <End Role="contact_resposible" EntitySet="contact_resposible" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Licenses_customers" Association="Self.FK_Licenses_customers">
+      <End Role="customers" EntitySet="customers" />
+      <End Role="Licenses" EntitySet="Licenses" />
+    </AssociationSet>
+    <AssociationSet Name="FK_orders_customers" Association="Self.FK_orders_customers">
+      <End Role="customers" EntitySet="customers" />
+      <End Role="orders" EntitySet="orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Deal_Product_Deal" Association="Self.FK_Deal_Product_Deal">
+      <End Role="Deal" EntitySet="Deals" />
+      <End Role="Deal_Product" EntitySet="Deal_Product" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Deal_SaleRep_Respon_Deal" Association="Self.FK_Deal_SaleRep_Respon_Deal">
+      <End Role="Deal" EntitySet="Deals" />
+      <End Role="Deal_SaleRep_Respon" EntitySet="Deal_SaleRep_Respon" />
+    </AssociationSet>
+    <AssociationSet Name="FK_deal_product_chosenAttri_Deal_Product" Association="Self.FK_deal_product_chosenAttri_Deal_Product">
+      <End Role="Deal_Product" EntitySet="Deal_Product" />
+      <End Role="deal_product_chosenAttri" EntitySet="deal_product_chosenAttri" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Deal_Product_softwareProduct" Association="Self.FK_Deal_Product_softwareProduct">
+      <End Role="softwareProduct" EntitySet="softwareProducts" />
+      <End Role="Deal_Product" EntitySet="Deal_Product" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Licenses_softwareProduct" Association="Self.FK_Licenses_softwareProduct">
+      <End Role="softwareProduct" EntitySet="softwareProducts" />
+      <End Role="Licenses" EntitySet="Licenses" />
+    </AssociationSet>
+    <AssociationSet Name="FK_orderItemOption_orderItems" Association="Self.FK_orderItemOption_orderItems">
+      <End Role="orderItems" EntitySet="orderItems" />
+      <End Role="orderItemOption" EntitySet="orderItemOptions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_orderItems_orders" Association="Self.FK_orderItems_orders">
+      <End Role="orders" EntitySet="orders" />
+      <End Role="orderItems" EntitySet="orderItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_orderItems_softwareProduct" Association="Self.FK_orderItems_softwareProduct">
+      <End Role="softwareProduct" EntitySet="softwareProducts" />
+      <End Role="orderItems" EntitySet="orderItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_productAttributes_softwareProduct" Association="Self.FK_productAttributes_softwareProduct">
+      <End Role="softwareProduct" EntitySet="softwareProducts" />
+      <End Role="productAttributes" EntitySet="productAttributes" />
+    </AssociationSet>
+    <AssociationSet Name="AspNetUserRoles" Association="Self.AspNetUserRoles">
+      <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_attributeOption_AspNetUsers" Association="SSMModel.FK_attributeOption_AspNetUsers">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="attributeOption" EntitySet="attributeOptions" />
+    </AssociationSet>
+  </EntityContainer>
+  <Association Name="FK_attributeOption_AspNetUsers">
+    <End Type="SSMModel.AspNetUser" Role="AspNetUser" Multiplicity="0..1" />
+    <End Type="SSMModel.attributeOption" Role="attributeOption" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="attributeOption">
+        <PropertyRef Name="Creator" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SSM.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -7,8 +8,8 @@ namespace SSM.Models.Repository
 {
     public class productRepository: IDisposable
     {
-        SSMEntities2 context;
-        public productRepository(SSMEntities2 contextt)
+        SSMEntities context;
+        public productRepository(SSMEntities contextt)
         {
             context = contextt;
         }

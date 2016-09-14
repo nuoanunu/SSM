@@ -12,28 +12,24 @@ namespace SSM.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class attributeOption
+    public partial class Deal_Product
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public attributeOption()
+        public Deal_Product()
         {
             this.deal_product_chosenAttri = new HashSet<deal_product_chosenAttri>();
-            this.orderItemOptions = new HashSet<orderItemOption>();
         }
     
         public int id { get; set; }
-        public string code { get; set; }
-        public string name { get; set; }
-        public string description { get; set; }
-        public double price { get; set; }
-        public int attributeID { get; set; }
-        public string Creator { get; set; }
+        public int productID { get; set; }
+        public int dealID { get; set; }
+        public System.DateTime addedDate { get; set; }
+        public Nullable<System.DateTime> removedDate { get; set; }
+        public bool Active { get; set; }
     
-        public virtual productAttribute productAttribute { get; set; }
+        public virtual Deal Deal { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<deal_product_chosenAttri> deal_product_chosenAttri { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<orderItemOption> orderItemOptions { get; set; }
-        public virtual AspNetUser AspNetUser { get; set; }
+        public virtual softwareProduct softwareProduct { get; set; }
     }
 }

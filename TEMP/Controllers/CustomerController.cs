@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using SSM.Models.CreateModel;
+
+using SSM.Models;
+using SSM.Models.Repository;
 
 namespace SSM.Controllers
 {
@@ -15,11 +17,24 @@ namespace SSM.Controllers
 
             return View("NewCustomer");
         }
-        
-            public ActionResult newCompany()
+        [HttpPost]
+        public ActionResult CreateNewContact(contact model,String responsible)
         {
-            NewCompanyModel model = new NewCompanyModel();
-            return View("newCompany", model);
+            customerRepository cusrepo = new customerRepository(new SSMEntities());
+            cusrepo.CreateNewContact(model, responsible);
+            return View("newCompany");
+        }
+        public ActionResult CreateNewCompany(company model, String responsible)
+        {
+            customerRepository cusrepo = new customerRepository(new SSMEntities());
+            cusrepo.CreateNewCompany(model, responsible);
+            return View("newCompany");
+        }
+        public ActionResult NewContact()
+        {
+
+            return View("CreateContact");
         }
     }
+
 }

@@ -7,9 +7,9 @@ namespace SSM.Models.Repository
 {
     public class taskRepository : IDisposable
     {
-        SSMEntities2 context;
+        SSMEntities context;
         
-        public taskRepository(SSMEntities2 contextt)
+        public taskRepository(SSMEntities contextt)
         {
             context = contextt;
         }

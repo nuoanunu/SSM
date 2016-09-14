@@ -14,8 +14,8 @@
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TEMP</RootNamespace>
-    <AssemblyName>TEMP</AssemblyName>
+    <RootNamespace>SSM</RootNamespace>
+    <AssemblyName>SSM</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
@@ -214,55 +214,66 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ActTask.cs">
-      <DependentUpon>SSMModel.tt</DependentUpon>
+      <DependentUpon>SSMEntities2.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AspNetRole.cs">
-      <DependentUpon>SSMModel.tt</DependentUpon>
+      <DependentUpon>SSMEntities2.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AspNetUser.cs">
-      <DependentUpon>SSMModel.tt</DependentUpon>
+      <DependentUpon>SSMEntities2.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AspNetUserClaim.cs">
-      <DependentUpon>SSMModel.tt</DependentUpon>
+      <DependentUpon>SSMEntities2.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AspNetUserLogin.cs">
-      <DependentUpon>SSMModel.tt</DependentUpon>
+      <DependentUpon>SSMEntities2.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\attributeOption.cs">
-      <DependentUpon>SSMModel.tt</DependentUpon>
+      <DependentUpon>SSMEntities2.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\company.cs">
-      <DependentUpon>SSMModel.tt</DependentUpon>
+      <DependentUpon>SSMEntities2.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\company_responsible.cs">
-      <DependentUpon>SSMModel.tt</DependentUpon>
+      <DependentUpon>SSMEntities2.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\contact.cs">
-      <DependentUpon>SSMModel.tt</DependentUpon>
+      <DependentUpon>SSMEntities2.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\contact_resposible.cs">
-      <DependentUpon>SSMModel.tt</DependentUpon>
+      <DependentUpon>SSMEntities2.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\CreateModel\NewCompanyModel.cs" />
     <Compile Include="Models\customer.cs">
-      <DependentUpon>SSMModel.tt</DependentUpon>
+      <DependentUpon>SSMEntities2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Deal.cs">
+      <DependentUpon>SSMEntities2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Deal_Product.cs">
+      <DependentUpon>SSMEntities2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\deal_product_chosenAttri.cs">
+      <DependentUpon>SSMEntities2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Deal_SaleRep_Respon.cs">
+      <DependentUpon>SSMEntities2.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\License.cs">
-      <DependentUpon>SSMModel.tt</DependentUpon>
+      <DependentUpon>SSMEntities2.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\order.cs">
-      <DependentUpon>SSMModel.tt</DependentUpon>
+      <DependentUpon>SSMEntities2.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\orderItem.cs">
-      <DependentUpon>SSMModel.tt</DependentUpon>
+      <DependentUpon>SSMEntities2.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\orderItemOption.cs">
-      <DependentUpon>SSMModel.tt</DependentUpon>
+      <DependentUpon>SSMEntities2.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\productAttribute.cs">
-      <DependentUpon>SSMModel.tt</DependentUpon>
+      <DependentUpon>SSMEntities2.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Repository\customerRepository.cs" />
     <Compile Include="Models\Repository\iRepository.cs" />
@@ -270,37 +281,34 @@
     <Compile Include="Models\Repository\productRepository.cs" />
     <Compile Include="Models\Repository\taskRepository.cs" />
     <Compile Include="Models\softwareProduct.cs">
-      <DependentUpon>SSMModel.tt</DependentUpon>
+      <DependentUpon>SSMEntities2.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\SSMModel.Context.cs">
+    <Compile Include="Models\SSMEntities2.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>SSMModel.Context.tt</DependentUpon>
+      <DependentUpon>SSMEntities2.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\SSMModel.Designer.cs">
-      <DependentUpon>SSMModel.edmx</DependentUpon>
+    <Compile Include="Models\SSMEntities2.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+      <DependentUpon>SSMEntities2.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\SSMModel1.cs">
+    <Compile Include="Models\SSMEntities2.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>SSMModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sysdiagram.cs">
-      <DependentUpon>SSMModel.tt</DependentUpon>
+      <DependentUpon>SSMEntities2.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\TaskStatu.cs">
-      <DependentUpon>SSMModel.tt</DependentUpon>
+      <DependentUpon>SSMEntities2.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TaskType.cs">
-      <DependentUpon>SSMModel.tt</DependentUpon>
+      <DependentUpon>SSMEntities2.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\task_customer.cs">
-      <DependentUpon>SSMModel.tt</DependentUpon>
+      <DependentUpon>SSMEntities2.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\task_user.cs">
-      <DependentUpon>SSMModel.tt</DependentUpon>
+      <DependentUpon>SSMEntities2.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -322,19 +330,20 @@
     <Content Include="Content\layout.css" />
     <Content Include="Content\mailboxStyle.css" />
     <Content Include="Content\navbar-fixed-side.css" />
+    <Content Include="Content\switecherry.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Models\SSMModel.Context.tt">
+    <Content Include="Models\SSMEntities2.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>SSMModel.edmx</DependentUpon>
-      <LastGenOutput>SSMModel.Context.cs</LastGenOutput>
+      <DependentUpon>SSMEntities2.edmx</DependentUpon>
+      <LastGenOutput>SSMEntities2.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\SSMModel.tt">
+    <Content Include="Models\SSMEntities2.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>SSMModel.edmx</DependentUpon>
-      <LastGenOutput>SSMModel1.cs</LastGenOutput>
+      <DependentUpon>SSMEntities2.edmx</DependentUpon>
+      <LastGenOutput>SSMEntities2.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\ai.0.22.19-build00125.js" />
     <Content Include="Scripts\ai.0.22.19-build00125.min.js" />
@@ -344,13 +353,6 @@
     <Content Include="fonts\Roboto-Thin.ttf" />
     <Content Include="fonts\Roboto-Light.ttf" />
     <Content Include="fonts\Roboto-Black.ttf" />
-    <EntityDeploy Include="Models\SSMModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>SSMModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\SSMModel.edmx.diagram">
-      <DependentUpon>SSMModel.edmx</DependentUpon>
-    </Content>
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
@@ -363,6 +365,13 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <EntityDeploy Include="Models\SSMEntities2.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>SSMEntities2.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\SSMEntities2.edmx.diagram">
+      <DependentUpon>SSMEntities2.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap-datetimepicker.js" />
     <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
@@ -384,6 +393,7 @@
     <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\switchery.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -431,7 +441,9 @@
     <Content Include="Views\Role\index.cshtml" />
     <Content Include="Views\Task\index.cshtml" />
     <Content Include="Views\Product\ProductList.cshtml" />
-    <Content Include="Views\Customer\newCompany.cshtml" />
+    <Content Include="Views\Customer\CreateContact.cshtml" />
+    <Content Include="Views\Customer\NewCompany.cshtml" />
+    <Content Include="Views\Order\CreateDeal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
