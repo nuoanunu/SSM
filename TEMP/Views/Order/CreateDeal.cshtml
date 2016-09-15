@@ -1,23 +1,36 @@
 ﻿@model SSM.Models.Deal
+@using SSM.Models;
 <style>
     .input-append .btn.dropdown-toggle {
         float: none;
     }
 </style>
+<script src="~/Scripts/jquery.tagsinput.js"></script>
+<link href="~/Content/jquery.tagsinput.css" rel="stylesheet" />
 <link href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css" rel="stylesheet" />
 <script>
 
+
     function getProductData() {
         $.getJSON("/Order/getAllProduct", function (result) {
-           
-            alert(result);
+            // Loop through each product
             $.each(result, function (name, value) {
-                alert("Name: " + name + " value:" + value);
+                //loop through each attribute of product
+                var id = "";
+                var name = "";
+                $.each(value, function (key, val) {
+                    if (key == "name") { name = val; }
+                    if (key == "id") { id = val; }
+                });
+                $('#productSelector').append($("<option></option>")
+             .attr("value", id)
+             .text(name));
             });
 
         });
     }
     getProductData();
+
 </script>
 @using (Html.BeginForm())
 {
@@ -93,7 +106,7 @@
         <div class="form-group">
             <label class="control-label col-md-2"> Product <button type="button" class="btn btn-info btn-lg " data-toggle="modal" data-target="#MyNewOption">Add product</button></label>
             <div class="col-md-10">
-                <input type="text" name="options" />
+                <input type="text" name="options" id="optionsList" />
                 @Html.ValidationMessageFor(model => model.Client, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -123,68 +136,61 @@
                     <div class="col-sm-2" style="background-color:lavender;">Product Name</div>
                     <div class="col-sm-4" style="background-color:lavenderblush;">
                         <select id="productSelector"></select>
+                        <script>
+                            $('#productSelector').change(function () {
+
+                                var $tableContainer = $('#tableContainer');
+                                $('#tableContainer').load('/Order/getProductAttribute?productID=' + $('#productSelector').val());
+                                //url = $(this).data('/Order/getProductAttribute?productID=' + $('#productSelector').val());
+                                //alert(url);
+                                //$.get(url, function (data) {
+                                //    alert(data);
+                                //    $tableContainer.append(data);
+                                //});
+
+                            });
+                        </script>
                     </div>
 
                 </div>
                 Options
-                <table class="table table-striped table-bordered" cellspacing="0">
-                    <thead>
-                        <tr>
-                            <th>Attribute</th>
-                            <th>Option</th>
-                            <th>Description</th>
-                            <th>Price</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Account</td>
-                            <td>
-                                <div class="input-append btn-group">
-                                    <input class="span2" id="appendedInputButton" size="16" type="text">
-                                    <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
-                                        <span class="caret"></span>
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="#"><i class="icon-pencil"></i>10</a></li>
-                                        <li><a href="#"><i class="icon-trash"></i> 20</a></li>
-                                        <li><a href="#"><i class="icon-ban-circle"></i> 50</a></li>
+                <div id="tableContainer">
 
-                                    </ul>
-                                </div>
-                            </td>
-
-                            <td>The ammount of user for one account is 20</td>
-                            <td>$100,000</td>
-
-                        </tr>
-                        <tr>
-                            <td>Duration</td>
-                            <td>
-                                <div class="input-append btn-group">
-                                    <input class="span2" id="appendedInputButton" size="16" type="text">
-                                    <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
-                                        <span class="caret"></span>
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="#"><i class="icon-pencil"></i>12 months</a></li>
-                                        <li><a href="#"><i class="icon-trash"></i> 24 months</a></li>
-                                        <li><a href="#"><i class="icon-ban-circle"></i> 36 months</a></li>
-
-                                    </ul>
-                                </div>
-                            </td>
-
-                            <td>The subscription will expire in 36 months</td>
-                            <td>$220,000</td>
-
-                        </tr>
-                    </tbody>
-                </table>
+                </div>
             </div>
             <div class="modal-footer">
+                <button type="button" class="btn btn-default" onclick="AddOptions()">Add</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
+            <script>
+                function AddOptions() {
+                    $("#optionsList").val($("#optionsList").val() + ",");
+                    var temp = $("#optionsList").val();
+                    var listtemp = temp.split(",");
+                    var temp3 = "";
+                    for (var i = 0 ; i < listtemp.length ; i++) {
+
+                        if (listtemp[i] != "") {
+                            temp3 = temp3 + ",";
+                            listtemp2 = listtemp[i].split(";");
+                            for (var j = 0 ; j < listtemp2.length ; j++) {
+                                if (listtemp2[j].indexOf($("#productIDToAdd").val() + "-") < 0 ) {
+                                    if (listtemp2[j] != "")
+                                    temp3 = temp3 + $("#productIDToAdd").val()+ "-"+ listtemp2[j] + ";";
+                                }
+                            }
+
+                        }
+
+                    }
+                    $("#optionsList").val(temp3);
+                    $(".selectOp").each(function () {
+
+                        $("#optionsList").val($("#optionsList").val() + $("#productIDToAdd").val() + "-" + $(this).val() + ";");
+                    });
+                  //  $('#optionsList').tagsInput();
+                }
+            </script>
         </div>
 
     </div>

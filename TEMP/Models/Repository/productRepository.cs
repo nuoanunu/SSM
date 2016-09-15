@@ -36,5 +36,12 @@ namespace SSM.Models.Repository
             Dispose(true);
             GC.SuppressFinalize(this);
         }
+        public attributeOption getProductOption(int id) {
+            return context.attributeOptions.Find(id);
+        }
+        public softwareProduct getById(int id)
+        {
+            return context.softwareProducts .Find(id);
+        }
     }
 }
