@@ -310,6 +310,7 @@
     <Compile Include="Models\task_user.cs">
       <DependentUpon>SSMEntities2.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\TempModel\ProductInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
