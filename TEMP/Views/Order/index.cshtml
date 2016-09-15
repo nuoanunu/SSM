@@ -59,10 +59,14 @@
         color: #777;
     }
 </style>
-
+<script>
+    function redirectToNewDeal(){
+        window.location = "/Customer/NewContact"
+    }
+</script>
 
 <h1> <font style="font-family:Roboto-Light"> Deal Management</font> </h1>
-<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myDealModal">+Create Deal</button>
+<button type="button" class="btn btn-info btn-lg" onclick="redirectToNewDeal()" >+Create Deal</button>
 
 <ul class="nav nav-tabs">
     <li class="active"><a data-toggle="tab" href="#home">All deals</a></li>
