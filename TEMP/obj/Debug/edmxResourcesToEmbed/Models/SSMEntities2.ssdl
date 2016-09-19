@@ -169,18 +169,7 @@
     <Property Name="dealID" Type="int" Nullable="false" />
     <Property Name="addedDate" Type="date" Nullable="false" />
     <Property Name="removedDate" Type="date" />
-    <Property Name="Active" Type="bit" Nullable="false" />
-  </EntityType>
-  <EntityType Name="deal_product_chosenAttri">
-    <Key>
-      <PropertyRef Name="id" />
-    </Key>
-    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="deal_product_id" Type="int" Nullable="false" />
-    <Property Name="optionID" Type="int" Nullable="false" />
-    <Property Name="addedDate" Type="date" />
-    <Property Name="removeddate" Type="date" />
-    <Property Name="active" Type="bit" Nullable="false" />
+    <Property Name="planID" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Deal_SaleRep_Respon">
     <Key>
@@ -192,6 +181,18 @@
     <Property Name="startDate" Type="date" Nullable="false" />
     <Property Name="endDate" Type="date" />
     <Property Name="Active" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Email_Template">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="MailContent" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="creatorID" Type="nvarchar" MaxLength="128" />
+    <Property Name="createdDate" Type="date" />
+    <Property Name="lastUpdate" Type="date" />
+    <Property Name="isActive" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="Licenses">
     <Key>
@@ -244,6 +245,30 @@
     <Property Name="lastModifiedDate" Type="date" />
     <Property Name="status" Type="int" Nullable="false" />
     <Property Name="completedDate" Type="date" />
+  </EntityType>
+  <EntityType Name="Plan_Step">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="planID" Type="int" Nullable="false" />
+    <Property Name="previousStep" Type="int" />
+    <Property Name="nextStep" Type="int" />
+    <Property Name="stepNo" Type="int" Nullable="false" />
+    <Property Name="StepEmailContent" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PrePurchase_FollowUp_Plan">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="productID" Type="int" Nullable="false" />
+    <Property Name="createDate" Type="date" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="lastUpdate" Type="date" />
+    <Property Name="isActive" Type="bit" Nullable="false" />
+    <Property Name="fullDuration" Type="float" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
   <EntityType Name="productAttributes">
     <Key>
@@ -434,30 +459,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_deal_product_chosenAttri_attributeOption">
-    <End Role="attributeOption" Type="Self.attributeOption" Multiplicity="1" />
-    <End Role="deal_product_chosenAttri" Type="Self.deal_product_chosenAttri" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="attributeOption">
-        <PropertyRef Name="id" />
-      </Principal>
-      <Dependent Role="deal_product_chosenAttri">
-        <PropertyRef Name="optionID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_deal_product_chosenAttri_Deal_Product">
-    <End Role="Deal_Product" Type="Self.Deal_Product" Multiplicity="1" />
-    <End Role="deal_product_chosenAttri" Type="Self.deal_product_chosenAttri" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Deal_Product">
-        <PropertyRef Name="id" />
-      </Principal>
-      <Dependent Role="deal_product_chosenAttri">
-        <PropertyRef Name="deal_product_id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_Deal_Product_Deal">
     <End Role="Deal" Type="Self.Deal" Multiplicity="1" />
     <End Role="Deal_Product" Type="Self.Deal_Product" Multiplicity="*" />
@@ -590,6 +591,30 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Plan_Step_PrePurchase_FollowUp_Plan">
+    <End Role="PrePurchase_FollowUp_Plan" Type="Self.PrePurchase_FollowUp_Plan" Multiplicity="1" />
+    <End Role="Plan_Step" Type="Self.Plan_Step" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PrePurchase_FollowUp_Plan">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Plan_Step">
+        <PropertyRef Name="planID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PrePurchase_FollowUp_Plan_softwareProduct">
+    <End Role="softwareProduct" Type="Self.softwareProduct" Multiplicity="1" />
+    <End Role="PrePurchase_FollowUp_Plan" Type="Self.PrePurchase_FollowUp_Plan" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="softwareProduct">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="PrePurchase_FollowUp_Plan">
+        <PropertyRef Name="productID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_productAttributes_softwareProduct">
     <End Role="softwareProduct" Type="Self.softwareProduct" Multiplicity="1" />
     <End Role="productAttributes" Type="Self.productAttributes" Multiplicity="*" />
@@ -641,12 +666,14 @@
     <EntitySet Name="customers" EntityType="Self.customers" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Deal" EntityType="Self.Deal" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Deal_Product" EntityType="Self.Deal_Product" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="deal_product_chosenAttri" EntityType="Self.deal_product_chosenAttri" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Deal_SaleRep_Respon" EntityType="Self.Deal_SaleRep_Respon" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Email_Template" EntityType="Self.Email_Template" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Licenses" EntityType="Self.Licenses" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="orderItemOption" EntityType="Self.orderItemOption" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="orderItems" EntityType="Self.orderItems" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="orders" EntityType="Self.orders" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Plan_Step" EntityType="Self.Plan_Step" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PrePurchase_FollowUp_Plan" EntityType="Self.PrePurchase_FollowUp_Plan" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="productAttributes" EntityType="Self.productAttributes" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="softwareProduct" EntityType="Self.softwareProduct" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="task_customer" EntityType="Self.task_customer" Schema="dbo" store:Type="Tables" />
@@ -693,14 +720,6 @@
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />
       <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
     </AssociationSet>
-    <AssociationSet Name="FK_deal_product_chosenAttri_attributeOption" Association="Self.FK_deal_product_chosenAttri_attributeOption">
-      <End Role="attributeOption" EntitySet="attributeOption" />
-      <End Role="deal_product_chosenAttri" EntitySet="deal_product_chosenAttri" />
-    </AssociationSet>
-    <AssociationSet Name="FK_deal_product_chosenAttri_Deal_Product" Association="Self.FK_deal_product_chosenAttri_Deal_Product">
-      <End Role="Deal_Product" EntitySet="Deal_Product" />
-      <End Role="deal_product_chosenAttri" EntitySet="deal_product_chosenAttri" />
-    </AssociationSet>
     <AssociationSet Name="FK_Deal_Product_Deal" Association="Self.FK_Deal_Product_Deal">
       <End Role="Deal" EntitySet="Deal" />
       <End Role="Deal_Product" EntitySet="Deal_Product" />
@@ -744,6 +763,14 @@
     <AssociationSet Name="FK_orders_customers" Association="Self.FK_orders_customers">
       <End Role="customers" EntitySet="customers" />
       <End Role="orders" EntitySet="orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Plan_Step_PrePurchase_FollowUp_Plan" Association="Self.FK_Plan_Step_PrePurchase_FollowUp_Plan">
+      <End Role="PrePurchase_FollowUp_Plan" EntitySet="PrePurchase_FollowUp_Plan" />
+      <End Role="Plan_Step" EntitySet="Plan_Step" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PrePurchase_FollowUp_Plan_softwareProduct" Association="Self.FK_PrePurchase_FollowUp_Plan_softwareProduct">
+      <End Role="softwareProduct" EntitySet="softwareProduct" />
+      <End Role="PrePurchase_FollowUp_Plan" EntitySet="PrePurchase_FollowUp_Plan" />
     </AssociationSet>
     <AssociationSet Name="FK_productAttributes_softwareProduct" Association="Self.FK_productAttributes_softwareProduct">
       <End Role="softwareProduct" EntitySet="softwareProduct" />

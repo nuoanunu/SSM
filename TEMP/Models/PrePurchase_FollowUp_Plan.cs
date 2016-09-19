@@ -12,25 +12,25 @@ namespace SSM.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class attributeOption
+    public partial class PrePurchase_FollowUp_Plan
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public attributeOption()
+        public PrePurchase_FollowUp_Plan()
         {
-            this.orderItemOptions = new HashSet<orderItemOption>();
+            this.Plan_Step = new HashSet<Plan_Step>();
         }
     
         public int id { get; set; }
-        public string code { get; set; }
+        public int productID { get; set; }
+        public System.DateTime createDate { get; set; }
         public string name { get; set; }
-        public string description { get; set; }
-        public double price { get; set; }
-        public int attributeID { get; set; }
-        public string Creator { get; set; }
+        public Nullable<System.DateTime> lastUpdate { get; set; }
+        public bool isActive { get; set; }
+        public Nullable<double> fullDuration { get; set; }
+        public string Description { get; set; }
     
-        public virtual AspNetUser AspNetUser { get; set; }
-        public virtual productAttribute productAttribute { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<orderItemOption> orderItemOptions { get; set; }
+        public virtual ICollection<Plan_Step> Plan_Step { get; set; }
+        public virtual softwareProduct softwareProduct { get; set; }
     }
 }

@@ -38,12 +38,14 @@ namespace SSM.Models
         public virtual DbSet<customer> customers { get; set; }
         public virtual DbSet<Deal> Deals { get; set; }
         public virtual DbSet<Deal_Product> Deal_Product { get; set; }
-        public virtual DbSet<deal_product_chosenAttri> deal_product_chosenAttri { get; set; }
         public virtual DbSet<Deal_SaleRep_Respon> Deal_SaleRep_Respon { get; set; }
+        public virtual DbSet<Email_Template> Email_Template { get; set; }
         public virtual DbSet<License> Licenses { get; set; }
         public virtual DbSet<orderItemOption> orderItemOptions { get; set; }
         public virtual DbSet<orderItem> orderItems { get; set; }
         public virtual DbSet<order> orders { get; set; }
+        public virtual DbSet<Plan_Step> Plan_Step { get; set; }
+        public virtual DbSet<PrePurchase_FollowUp_Plan> PrePurchase_FollowUp_Plan { get; set; }
         public virtual DbSet<productAttribute> productAttributes { get; set; }
         public virtual DbSet<softwareProduct> softwareProducts { get; set; }
         public virtual DbSet<task_customer> task_customer { get; set; }

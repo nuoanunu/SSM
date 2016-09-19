@@ -20,11 +20,11 @@ namespace SSM.Models
             this.ActTasks = new HashSet<ActTask>();
             this.AspNetUserClaims = new HashSet<AspNetUserClaim>();
             this.AspNetUserLogins = new HashSet<AspNetUserLogin>();
+            this.attributeOptions = new HashSet<attributeOption>();
             this.company_responsible = new HashSet<company_responsible>();
             this.contact_resposible = new HashSet<contact_resposible>();
             this.Deal_SaleRep_Respon = new HashSet<Deal_SaleRep_Respon>();
             this.AspNetRoles = new HashSet<AspNetRole>();
-            this.attributeOptions = new HashSet<attributeOption>();
         }
     
         public string Id { get; set; }
@@ -47,6 +47,8 @@ namespace SSM.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetUserLogin> AspNetUserLogins { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<attributeOption> attributeOptions { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<company_responsible> company_responsible { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<contact_resposible> contact_resposible { get; set; }
@@ -54,7 +56,5 @@ namespace SSM.Models
         public virtual ICollection<Deal_SaleRep_Respon> Deal_SaleRep_Respon { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetRole> AspNetRoles { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<attributeOption> attributeOptions { get; set; }
     }
 }

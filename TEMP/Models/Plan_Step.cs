@@ -12,16 +12,15 @@ namespace SSM.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class deal_product_chosenAttri
+    public partial class Plan_Step
     {
         public int id { get; set; }
-        public int deal_product_id { get; set; }
-        public int optionID { get; set; }
-        public Nullable<System.DateTime> addedDate { get; set; }
-        public Nullable<System.DateTime> removeddate { get; set; }
-        public bool active { get; set; }
+        public int planID { get; set; }
+        public Nullable<int> previousStep { get; set; }
+        public Nullable<int> nextStep { get; set; }
+        public int stepNo { get; set; }
+        public string StepEmailContent { get; set; }
     
-        public virtual attributeOption attributeOption { get; set; }
-        public virtual Deal_Product Deal_Product { get; set; }
+        public virtual PrePurchase_FollowUp_Plan PrePurchase_FollowUp_Plan { get; set; }
     }
 }

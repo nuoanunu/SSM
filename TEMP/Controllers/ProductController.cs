@@ -20,5 +20,29 @@ namespace SSM.Controllers
             ViewData["productList"] = pr.getAll();
             return View("ProductList");
         }
+        public ActionResult NewPlan()
+        {
+          
+            return View("NewFollowUpPlan");
+        }
+        public ActionResult Detail(int id)
+        {
+            productRepository pr = new productRepository(new SSMEntities());
+            try
+            {
+                softwareProduct product = pr.getById(id);
+                if (product != null)
+                {
+                    ViewData["productDetail"] = product;
+                    return View("ProductDetail");
+                }
+            }
+            catch (Exception e) {
+                
+            }
+            return RedirectToAction("Index");
+
+        }
+ 
     }
 }

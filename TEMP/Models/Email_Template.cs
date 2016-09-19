@@ -12,16 +12,14 @@ namespace SSM.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Deal_Product
+    public partial class Email_Template
     {
         public int id { get; set; }
-        public int productID { get; set; }
-        public int dealID { get; set; }
-        public System.DateTime addedDate { get; set; }
-        public Nullable<System.DateTime> removedDate { get; set; }
-        public int planID { get; set; }
-    
-        public virtual Deal Deal { get; set; }
-        public virtual softwareProduct softwareProduct { get; set; }
+        public string Name { get; set; }
+        public string MailContent { get; set; }
+        public string creatorID { get; set; }
+        public Nullable<System.DateTime> createdDate { get; set; }
+        public Nullable<System.DateTime> lastUpdate { get; set; }
+        public bool isActive { get; set; }
     }
 }

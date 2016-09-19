@@ -252,10 +252,10 @@
     <Compile Include="Models\Deal_Product.cs">
       <DependentUpon>SSMEntities2.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\deal_product_chosenAttri.cs">
+    <Compile Include="Models\Deal_SaleRep_Respon.cs">
       <DependentUpon>SSMEntities2.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Deal_SaleRep_Respon.cs">
+    <Compile Include="Models\Email_Template.cs">
       <DependentUpon>SSMEntities2.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
@@ -270,6 +270,12 @@
       <DependentUpon>SSMEntities2.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\orderItemOption.cs">
+      <DependentUpon>SSMEntities2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Plan_Step.cs">
+      <DependentUpon>SSMEntities2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PrePurchase_FollowUp_Plan.cs">
       <DependentUpon>SSMEntities2.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\productAttribute.cs">
@@ -326,12 +332,14 @@
     <Content Include="Content\calendar_traditional.css" />
     <Content Include="Content\calendar_transparent.css" />
     <Content Include="Content\calendar_white.css" />
+    <Content Include="Content\flat-right-arrow-line-theme-action-icon.png" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\jquery-ui-timepicker-addon.css" />
     <Content Include="Content\jquery.tagsinput.css" />
     <Content Include="Content\layout.css" />
     <Content Include="Content\mailboxStyle.css" />
     <Content Include="Content\navbar-fixed-side.css" />
+    <Content Include="Content\play-icon.png" />
     <Content Include="Content\switecherry.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -448,6 +456,8 @@
     <Content Include="Views\Customer\NewCompany.cshtml" />
     <Content Include="Views\Order\CreateDeal.cshtml" />
     <Content Include="Views\Order\TableOptionDetail.cshtml" />
+    <Content Include="Views\Product\NewFollowUpPlan.cshtml" />
+    <Content Include="Views\Product\ProductDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
