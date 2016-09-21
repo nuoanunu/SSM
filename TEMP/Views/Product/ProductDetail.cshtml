@@ -133,6 +133,9 @@
                                                                 Option Name
                                                             </th>
                                                             <th>
+                                                                Option Code
+                                                            </th>
+                                                            <th>
                                                                 Option Description
                                                             </th>
                                                             <th>
@@ -148,15 +151,23 @@
                                                                 <tr>
                                                                     <td>
                                                                         @attopt.name
+                                                                        <input type="hidden" id="@(pattr.id+  "EditOptName")" />
+                                                                    </td>
+                                                                    <td>
+                                                                        @attopt.code
+                                                                        <input type="hidden" id="@(pattr.id+  "EditOptCode")" />
                                                                     </td>
                                                                     <td>
                                                                         @attopt.description
+                                                                        <input type="hidden" id="@(pattr.id+  "EditOptDes")" />
                                                                     </td>
                                                                     <td>
                                                                         @attopt.price
+                                                                        <input type="hidden" id="@(pattr.id+  "EditOptPrice")" />
                                                                     </td>
                                                                     <td>
-                                                                        <button>Edit</button>
+                                                                        <button onclick="Edit(@pattr.id)">Edit</button>
+                                                                        <button hidden="hidden" onclick="ConfirmEdit(@pattr.id)">Confirm</button>
                                                                     </td>
 
                                                                 </tr>
@@ -167,19 +178,18 @@
                                                                     <input type="text" id="@(pattr.id+  "NewOptName")" />
                                                                 </td>
                                                                 <td>
+                                                                    <input type="text" id="@(pattr.id+  "NewOptCode")" />
+                                                                </td>
+                                                                <td>
                                                                     <input type="text" id="@(pattr.id+  "NewOptDes")" />
                                                                 </td>
                                                                 <td>
                                                                     <input type="text" id="@(pattr.id+  "NewOptPrice")" />
                                                                 </td>
                                                                 <td>
-                                                                    <button id="@(pattr.id+  "NewBtn")">Add</button>
+                                                                    <button onclick="AddNewOpt(@pattr.id)">Add</button>
                                                                 </td>
-                                                                <script>
-                                                                    $('#@(pattr.id+  "NewBtn")').click(function () {
-                                                                        $('#@(pattr.id+  "OptTable") tbody').append('<tr class="child"><td></td><td></td><td></td></tr>');
-                                                                    });
-                                                                </script>
+                                                                
                                                             </tr>
                                                         </tbody>
                                                     </table>
@@ -258,5 +268,28 @@
         function redirectToNewPlan() {
             window.location = "/Product/NewPlan";
         }
+
+    </script>
+    <script>
+        function AddNewOpt(id) {
+            var newOptCode = $("#NewOptCode").val();
+            var newOptName = $("#NewOptName").val();
+            var newOptDescription = $("#NewOptDes").val();
+            var newOptPrice = $("#NewOptPrice").val();
+            var trString = '<tr><td><input type="hidden" id="'+id+  '"EditOptName")" /></td><td><input type="hidden" id="'+id+  '"EditOptCode")" /></td><td><input type="hidden" id="'+id+  '"EditOptDes")" /></td><td><input type="hidden" id="'+id+  '"EditOptPrice")" /></td><td><button onclick="Edit('+id+')">Edit</button><button hidden="hidden" onclick="ConfirmEdit('+id+')">Confirm</button></td></tr>'
+            $.getJSON("/Product/CreateNewOption?attID=" + id + "&optCode=" + newOptCode + "&optname=" + newOptName + "&optdes=" + newOptDescription + "&optprice=" + newOptPrice, function (data) {
+                    $.each(data, function (key, value) {
+                        if (key == "result") {
+                            if (value == "true") {
+                                alert("Success");
+                                $('#' + id + 'OptTable tbody').append(trString);
+
+                            }
+                        }
+                    })
+                });
+
+        }
+
     </script>
 }

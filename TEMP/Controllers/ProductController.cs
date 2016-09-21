@@ -43,6 +43,11 @@ namespace SSM.Controllers
             return RedirectToAction("Index");
 
         }
- 
+        public String CreateNewOption(String attID , String optCode, String optname, String optdes, String optprice,) {
+
+        }
+
+
+
     }
 }
