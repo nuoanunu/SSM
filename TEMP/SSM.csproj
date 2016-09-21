@@ -286,6 +286,7 @@
     <Compile Include="Models\Repository\orderRepository.cs" />
     <Compile Include="Models\Repository\productRepository.cs" />
     <Compile Include="Models\Repository\taskRepository.cs" />
+    <Compile Include="Models\Services\ProductServices.cs" />
     <Compile Include="Models\softwareProduct.cs">
       <DependentUpon>SSMEntities2.tt</DependentUpon>
     </Compile>

@@ -53,7 +53,7 @@ namespace SSM.Controllers
             SSMEntities se = new SSMEntities();
             se.attributeOptions.Add(opt);
             se.SaveChanges();
-            return Json(new { result= "true" });
+            return Json(new { result= "true" } , JsonRequestBehavior.AllowGet);
         }
 
 

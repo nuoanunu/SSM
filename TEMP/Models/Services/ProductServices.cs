@@ -7,5 +7,6 @@ namespace SSM.Models.Services
 {
     public class ProductServices
     {
+
     }
 }

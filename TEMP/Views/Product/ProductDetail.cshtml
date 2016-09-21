@@ -272,10 +272,10 @@
     </script>
     <script>
         function AddNewOpt(id) {
-            var newOptCode = $("#NewOptCode").val();
-            var newOptName = $("#NewOptName").val();
-            var newOptDescription = $("#NewOptDes").val();
-            var newOptPrice = $("#NewOptPrice").val();
+            var newOptCode = $("#" + id + "NewOptCode").val();
+            var newOptName = $("#" + id + "NewOptName").val();
+            var newOptDescription = $("#" + id + "NewOptDes").val();
+            var newOptPrice = $("#" + id + "NewOptPrice").val();
             var trString = '<tr><td><input type="hidden" id="'+id+  '"EditOptName")" /></td><td><input type="hidden" id="'+id+  '"EditOptCode")" /></td><td><input type="hidden" id="'+id+  '"EditOptDes")" /></td><td><input type="hidden" id="'+id+  '"EditOptPrice")" /></td><td><button onclick="Edit('+id+')">Edit</button><button hidden="hidden" onclick="ConfirmEdit('+id+')">Confirm</button></td></tr>'
             $.getJSON("/Product/CreateNewOption?attID=" + id + "&optCode=" + newOptCode + "&optname=" + newOptName + "&optdes=" + newOptDescription + "&optprice=" + newOptPrice, function (data) {
                     $.each(data, function (key, value) {
