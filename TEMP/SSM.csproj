@@ -263,13 +263,13 @@
       <DependentUpon>SSMEntities2.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\MarketPlanPurchased.cs">
+      <DependentUpon>SSMEntities2.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\order.cs">
       <DependentUpon>SSMEntities2.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\orderItem.cs">
-      <DependentUpon>SSMEntities2.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\orderItemOption.cs">
+    <Compile Include="Models\PlanOption.cs">
       <DependentUpon>SSMEntities2.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Plan_Step.cs">
@@ -279,6 +279,9 @@
       <DependentUpon>SSMEntities2.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\productAttribute.cs">
+      <DependentUpon>SSMEntities2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\productMarketPlan.cs">
       <DependentUpon>SSMEntities2.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Repository\customerRepository.cs" />

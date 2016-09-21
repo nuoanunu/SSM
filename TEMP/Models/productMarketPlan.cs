@@ -12,25 +12,31 @@ namespace SSM.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class orderItem
+    public partial class productMarketPlan
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public orderItem()
+        public productMarketPlan()
         {
-            this.orderItemOptions = new HashSet<orderItemOption>();
+            this.MarketPlanPurchaseds = new HashSet<MarketPlanPurchased>();
+            this.PlanOptions = new HashSet<PlanOption>();
         }
     
         public int id { get; set; }
         public int productID { get; set; }
-        public int orderID { get; set; }
-        public double productPrice { get; set; }
-        public Nullable<double> subOptionPrice { get; set; }
-        public double totalprice { get; set; }
-        public int productQuantity { get; set; }
+        public double Price { get; set; }
+        public double ceilPrice { get; set; }
+        public double floorprice { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public System.DateTime CreatedDay { get; set; }
+        public Nullable<System.DateTime> lastUpdate { get; set; }
+        public bool isActive { get; set; }
+        public bool operating { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<orderItemOption> orderItemOptions { get; set; }
-        public virtual order order { get; set; }
+        public virtual ICollection<MarketPlanPurchased> MarketPlanPurchaseds { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PlanOption> PlanOptions { get; set; }
         public virtual softwareProduct softwareProduct { get; set; }
     }
 }

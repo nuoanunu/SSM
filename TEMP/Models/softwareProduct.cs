@@ -19,9 +19,9 @@ namespace SSM.Models
         {
             this.Deal_Product = new HashSet<Deal_Product>();
             this.Licenses = new HashSet<License>();
-            this.orderItems = new HashSet<orderItem>();
             this.PrePurchase_FollowUp_Plan = new HashSet<PrePurchase_FollowUp_Plan>();
             this.productAttributes = new HashSet<productAttribute>();
+            this.productMarketPlans = new HashSet<productMarketPlan>();
         }
     
         public int id { get; set; }
@@ -42,10 +42,10 @@ namespace SSM.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<License> Licenses { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<orderItem> orderItems { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PrePurchase_FollowUp_Plan> PrePurchase_FollowUp_Plan { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<productAttribute> productAttributes { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<productMarketPlan> productMarketPlans { get; set; }
     }
 }

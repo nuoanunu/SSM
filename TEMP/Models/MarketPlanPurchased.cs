@@ -12,16 +12,15 @@ namespace SSM.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class orderItemOption
+    public partial class MarketPlanPurchased
     {
         public int id { get; set; }
-        public int orderItemID { get; set; }
-        public int optionID { get; set; }
-        public double unitPrice { get; set; }
-        public double soldPrice { get; set; }
-        public string CreatedBy { get; set; }
+        public int orderID { get; set; }
+        public int planID { get; set; }
+        public double SoldPrice { get; set; }
+        public int Quantity { get; set; }
     
-        public virtual attributeOption attributeOption { get; set; }
-        public virtual orderItem orderItem { get; set; }
+        public virtual order order { get; set; }
+        public virtual productMarketPlan productMarketPlan { get; set; }
     }
 }

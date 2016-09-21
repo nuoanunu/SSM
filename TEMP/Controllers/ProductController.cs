@@ -44,16 +44,23 @@ namespace SSM.Controllers
 
         }
         public JsonResult CreateNewOption(int attID , String optCode, String optname, String optdes, float optprice) {
-            attributeOption opt = new attributeOption();
-            opt.attributeID = attID;
-            opt.code = optCode;
-            opt.name = optname;
-            opt.price = optprice;
-            opt.description = optdes;
-            SSMEntities se = new SSMEntities();
-            se.attributeOptions.Add(opt);
-            se.SaveChanges();
-            return Json(new { result= "true" } , JsonRequestBehavior.AllowGet);
+            try
+            {
+                attributeOption opt = new attributeOption();
+                opt.attributeID = attID;
+                opt.code = optCode;
+                opt.name = optname;
+                opt.price = optprice;
+                opt.description = optdes;
+                productRepository se = new productRepository (new SSMEntities());
+                se.insertNewOption(opt);
+              
+                return Json(new { result = "true" }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception e) {
+
+            }
+            return Json(new { result = "false" }, JsonRequestBehavior.AllowGet);
         }
 
 

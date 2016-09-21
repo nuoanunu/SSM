@@ -215,27 +215,13 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="orderItemOptions">
-      <EntityTypeMapping TypeName="SSMModel.orderItemOption">
-        <MappingFragment StoreEntitySet="orderItemOption">
-          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-          <ScalarProperty Name="soldPrice" ColumnName="soldPrice" />
-          <ScalarProperty Name="unitPrice" ColumnName="unitPrice" />
-          <ScalarProperty Name="optionID" ColumnName="optionID" />
-          <ScalarProperty Name="orderItemID" ColumnName="orderItemID" />
-          <ScalarProperty Name="id" ColumnName="id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="orderItems">
-      <EntityTypeMapping TypeName="SSMModel.orderItem">
-        <MappingFragment StoreEntitySet="orderItems">
-          <ScalarProperty Name="productQuantity" ColumnName="productQuantity" />
-          <ScalarProperty Name="totalprice" ColumnName="totalprice" />
-          <ScalarProperty Name="subOptionPrice" ColumnName="subOptionPrice" />
-          <ScalarProperty Name="productPrice" ColumnName="productPrice" />
+    <EntitySetMapping Name="MarketPlanPurchaseds">
+      <EntityTypeMapping TypeName="SSMModel.MarketPlanPurchased">
+        <MappingFragment StoreEntitySet="MarketPlanPurchased">
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="SoldPrice" ColumnName="SoldPrice" />
+          <ScalarProperty Name="planID" ColumnName="planID" />
           <ScalarProperty Name="orderID" ColumnName="orderID" />
-          <ScalarProperty Name="productID" ColumnName="productID" />
           <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -268,6 +254,18 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="PlanOptions">
+      <EntityTypeMapping TypeName="SSMModel.PlanOption">
+        <MappingFragment StoreEntitySet="PlanOptions">
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="soldPrice" ColumnName="soldPrice" />
+          <ScalarProperty Name="unitPrice" ColumnName="unitPrice" />
+          <ScalarProperty Name="optionID" ColumnName="optionID" />
+          <ScalarProperty Name="orderItemID" ColumnName="orderItemID" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="PrePurchase_FollowUp_Plan">
       <EntityTypeMapping TypeName="SSMModel.PrePurchase_FollowUp_Plan">
         <MappingFragment StoreEntitySet="PrePurchase_FollowUp_Plan">
@@ -291,6 +289,23 @@
           <ScalarProperty Name="description" ColumnName="description" />
           <ScalarProperty Name="name" ColumnName="name" />
           <ScalarProperty Name="code" ColumnName="code" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="productMarketPlans">
+      <EntityTypeMapping TypeName="SSMModel.productMarketPlan">
+        <MappingFragment StoreEntitySet="productMarketPlan">
+          <ScalarProperty Name="operating" ColumnName="operating" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="lastUpdate" ColumnName="lastUpdate" />
+          <ScalarProperty Name="CreatedDay" ColumnName="CreatedDay" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="floorprice" ColumnName="floorprice" />
+          <ScalarProperty Name="ceilPrice" ColumnName="ceilPrice" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="productID" ColumnName="productID" />
           <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>
       </EntityTypeMapping>

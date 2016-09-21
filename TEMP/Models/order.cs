@@ -17,7 +17,7 @@ namespace SSM.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public order()
         {
-            this.orderItems = new HashSet<orderItem>();
+            this.MarketPlanPurchaseds = new HashSet<MarketPlanPurchased>();
         }
     
         public int id { get; set; }
@@ -33,6 +33,6 @@ namespace SSM.Models
     
         public virtual customer customer { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<orderItem> orderItems { get; set; }
+        public virtual ICollection<MarketPlanPurchased> MarketPlanPurchaseds { get; set; }
     }
 }

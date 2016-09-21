@@ -44,5 +44,9 @@ namespace SSM.Models.Repository
 
             return context.softwareProducts .Find(id);
         }
+        public void insertNewOption(attributeOption opt) {
+            context.attributeOptions.Add(opt);
+            context.SaveChanges();
+        }
     }
 }

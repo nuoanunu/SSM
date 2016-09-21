@@ -208,28 +208,15 @@
     <Property Name="nextTransactionDate" Type="date" />
     <Property Name="startDate" Type="date" />
   </EntityType>
-  <EntityType Name="orderItemOption">
+  <EntityType Name="MarketPlanPurchased">
     <Key>
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="orderItemID" Type="int" Nullable="false" />
-    <Property Name="optionID" Type="int" Nullable="false" />
-    <Property Name="unitPrice" Type="float" Nullable="false" />
-    <Property Name="soldPrice" Type="float" Nullable="false" />
-    <Property Name="CreatedBy" Type="varchar" MaxLength="128" />
-  </EntityType>
-  <EntityType Name="orderItems">
-    <Key>
-      <PropertyRef Name="id" />
-    </Key>
-    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="productID" Type="int" Nullable="false" />
     <Property Name="orderID" Type="int" Nullable="false" />
-    <Property Name="productPrice" Type="float" Nullable="false" />
-    <Property Name="subOptionPrice" Type="float" />
-    <Property Name="totalprice" Type="float" Nullable="false" />
-    <Property Name="productQuantity" Type="int" Nullable="false" />
+    <Property Name="planID" Type="int" Nullable="false" />
+    <Property Name="SoldPrice" Type="float" Nullable="false" />
+    <Property Name="Quantity" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="orders">
     <Key>
@@ -257,6 +244,17 @@
     <Property Name="stepNo" Type="int" Nullable="false" />
     <Property Name="StepEmailContent" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
+  <EntityType Name="PlanOptions">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="orderItemID" Type="int" Nullable="false" />
+    <Property Name="optionID" Type="int" Nullable="false" />
+    <Property Name="unitPrice" Type="float" Nullable="false" />
+    <Property Name="soldPrice" Type="float" Nullable="false" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="128" />
+  </EntityType>
   <EntityType Name="PrePurchase_FollowUp_Plan">
     <Key>
       <PropertyRef Name="id" />
@@ -281,6 +279,22 @@
     <Property Name="isActive" Type="bit" Nullable="false" />
     <Property Name="screenShots" Type="nvarchar(max)" />
     <Property Name="productID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="productMarketPlan">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="productID" Type="int" Nullable="false" />
+    <Property Name="Price" Type="float" Nullable="false" />
+    <Property Name="ceilPrice" Type="float" Nullable="false" />
+    <Property Name="floorprice" Type="float" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="CreatedDay" Type="date" Nullable="false" />
+    <Property Name="lastUpdate" Type="date" />
+    <Property Name="isActive" Type="bit" Nullable="false" />
+    <Property Name="operating" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="softwareProduct">
     <Key>
@@ -531,50 +545,62 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_MarketPlanPurchased_orders">
+    <End Role="orders" Type="Self.orders" Multiplicity="1" />
+    <End Role="MarketPlanPurchased" Type="Self.MarketPlanPurchased" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="orders">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="MarketPlanPurchased">
+        <PropertyRef Name="orderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MarketPlanPurchased_productMarketPlan">
+    <End Role="productMarketPlan" Type="Self.productMarketPlan" Multiplicity="1" />
+    <End Role="MarketPlanPurchased" Type="Self.MarketPlanPurchased" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="productMarketPlan">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="MarketPlanPurchased">
+        <PropertyRef Name="planID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_orderItemOption_attributeOption">
     <End Role="attributeOption" Type="Self.attributeOption" Multiplicity="1" />
-    <End Role="orderItemOption" Type="Self.orderItemOption" Multiplicity="*" />
+    <End Role="PlanOptions" Type="Self.PlanOptions" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="attributeOption">
         <PropertyRef Name="id" />
       </Principal>
-      <Dependent Role="orderItemOption">
+      <Dependent Role="PlanOptions">
         <PropertyRef Name="optionID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_orderItemOption_orderItems">
-    <End Role="orderItems" Type="Self.orderItems" Multiplicity="1" />
-    <End Role="orderItemOption" Type="Self.orderItemOption" Multiplicity="*" />
+    <End Role="productMarketPlan" Type="Self.productMarketPlan" Multiplicity="1" />
+    <End Role="PlanOptions" Type="Self.PlanOptions" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="orderItems">
+      <Principal Role="productMarketPlan">
         <PropertyRef Name="id" />
       </Principal>
-      <Dependent Role="orderItemOption">
+      <Dependent Role="PlanOptions">
         <PropertyRef Name="orderItemID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_orderItems_orders">
-    <End Role="orders" Type="Self.orders" Multiplicity="1" />
-    <End Role="orderItems" Type="Self.orderItems" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="orders">
-        <PropertyRef Name="id" />
-      </Principal>
-      <Dependent Role="orderItems">
-        <PropertyRef Name="orderID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_orderItems_softwareProduct">
     <End Role="softwareProduct" Type="Self.softwareProduct" Multiplicity="1" />
-    <End Role="orderItems" Type="Self.orderItems" Multiplicity="*" />
+    <End Role="productMarketPlan" Type="Self.productMarketPlan" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="softwareProduct">
         <PropertyRef Name="id" />
       </Principal>
-      <Dependent Role="orderItems">
+      <Dependent Role="productMarketPlan">
         <PropertyRef Name="productID" />
       </Dependent>
     </ReferentialConstraint>
@@ -588,6 +614,30 @@
       </Principal>
       <Dependent Role="orders">
         <PropertyRef Name="customerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Plan_Step_Plan_Step">
+    <End Role="Plan_Step" Type="Self.Plan_Step" Multiplicity="0..1" />
+    <End Role="Plan_Step1" Type="Self.Plan_Step" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Plan_Step">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Plan_Step1">
+        <PropertyRef Name="previousStep" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Plan_Step_Plan_Step1">
+    <End Role="Plan_Step" Type="Self.Plan_Step" Multiplicity="0..1" />
+    <End Role="Plan_Step1" Type="Self.Plan_Step" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Plan_Step">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Plan_Step1">
+        <PropertyRef Name="nextStep" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -669,12 +719,13 @@
     <EntitySet Name="Deal_SaleRep_Respon" EntityType="Self.Deal_SaleRep_Respon" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Email_Template" EntityType="Self.Email_Template" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Licenses" EntityType="Self.Licenses" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="orderItemOption" EntityType="Self.orderItemOption" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="orderItems" EntityType="Self.orderItems" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MarketPlanPurchased" EntityType="Self.MarketPlanPurchased" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="orders" EntityType="Self.orders" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Plan_Step" EntityType="Self.Plan_Step" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PlanOptions" EntityType="Self.PlanOptions" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PrePurchase_FollowUp_Plan" EntityType="Self.PrePurchase_FollowUp_Plan" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="productAttributes" EntityType="Self.productAttributes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="productMarketPlan" EntityType="Self.productMarketPlan" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="softwareProduct" EntityType="Self.softwareProduct" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="task_customer" EntityType="Self.task_customer" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="task_user" EntityType="Self.task_user" Schema="dbo" store:Type="Tables" />
@@ -744,25 +795,37 @@
       <End Role="softwareProduct" EntitySet="softwareProduct" />
       <End Role="Licenses" EntitySet="Licenses" />
     </AssociationSet>
+    <AssociationSet Name="FK_MarketPlanPurchased_orders" Association="Self.FK_MarketPlanPurchased_orders">
+      <End Role="orders" EntitySet="orders" />
+      <End Role="MarketPlanPurchased" EntitySet="MarketPlanPurchased" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MarketPlanPurchased_productMarketPlan" Association="Self.FK_MarketPlanPurchased_productMarketPlan">
+      <End Role="productMarketPlan" EntitySet="productMarketPlan" />
+      <End Role="MarketPlanPurchased" EntitySet="MarketPlanPurchased" />
+    </AssociationSet>
     <AssociationSet Name="FK_orderItemOption_attributeOption" Association="Self.FK_orderItemOption_attributeOption">
       <End Role="attributeOption" EntitySet="attributeOption" />
-      <End Role="orderItemOption" EntitySet="orderItemOption" />
+      <End Role="PlanOptions" EntitySet="PlanOptions" />
     </AssociationSet>
     <AssociationSet Name="FK_orderItemOption_orderItems" Association="Self.FK_orderItemOption_orderItems">
-      <End Role="orderItems" EntitySet="orderItems" />
-      <End Role="orderItemOption" EntitySet="orderItemOption" />
-    </AssociationSet>
-    <AssociationSet Name="FK_orderItems_orders" Association="Self.FK_orderItems_orders">
-      <End Role="orders" EntitySet="orders" />
-      <End Role="orderItems" EntitySet="orderItems" />
+      <End Role="productMarketPlan" EntitySet="productMarketPlan" />
+      <End Role="PlanOptions" EntitySet="PlanOptions" />
     </AssociationSet>
     <AssociationSet Name="FK_orderItems_softwareProduct" Association="Self.FK_orderItems_softwareProduct">
       <End Role="softwareProduct" EntitySet="softwareProduct" />
-      <End Role="orderItems" EntitySet="orderItems" />
+      <End Role="productMarketPlan" EntitySet="productMarketPlan" />
     </AssociationSet>
     <AssociationSet Name="FK_orders_customers" Association="Self.FK_orders_customers">
       <End Role="customers" EntitySet="customers" />
       <End Role="orders" EntitySet="orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Plan_Step_Plan_Step" Association="Self.FK_Plan_Step_Plan_Step">
+      <End Role="Plan_Step" EntitySet="Plan_Step" />
+      <End Role="Plan_Step1" EntitySet="Plan_Step" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Plan_Step_Plan_Step1" Association="Self.FK_Plan_Step_Plan_Step1">
+      <End Role="Plan_Step" EntitySet="Plan_Step" />
+      <End Role="Plan_Step1" EntitySet="Plan_Step" />
     </AssociationSet>
     <AssociationSet Name="FK_Plan_Step_PrePurchase_FollowUp_Plan" Association="Self.FK_Plan_Step_PrePurchase_FollowUp_Plan">
       <End Role="PrePurchase_FollowUp_Plan" EntitySet="PrePurchase_FollowUp_Plan" />

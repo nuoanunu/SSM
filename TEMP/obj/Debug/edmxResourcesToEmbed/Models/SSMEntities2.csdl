@@ -17,12 +17,13 @@
     <EntitySet Name="Deal_SaleRep_Respon" EntityType="SSMModel.Deal_SaleRep_Respon" />
     <EntitySet Name="Email_Template" EntityType="SSMModel.Email_Template" />
     <EntitySet Name="Licenses" EntityType="SSMModel.License" />
-    <EntitySet Name="orderItemOptions" EntityType="SSMModel.orderItemOption" />
-    <EntitySet Name="orderItems" EntityType="SSMModel.orderItem" />
+    <EntitySet Name="MarketPlanPurchaseds" EntityType="SSMModel.MarketPlanPurchased" />
     <EntitySet Name="orders" EntityType="SSMModel.order" />
     <EntitySet Name="Plan_Step" EntityType="SSMModel.Plan_Step" />
+    <EntitySet Name="PlanOptions" EntityType="SSMModel.PlanOption" />
     <EntitySet Name="PrePurchase_FollowUp_Plan" EntityType="SSMModel.PrePurchase_FollowUp_Plan" />
     <EntitySet Name="productAttributes" EntityType="SSMModel.productAttribute" />
+    <EntitySet Name="productMarketPlans" EntityType="SSMModel.productMarketPlan" />
     <EntitySet Name="softwareProducts" EntityType="SSMModel.softwareProduct" />
     <EntitySet Name="task_customer" EntityType="SSMModel.task_customer" />
     <EntitySet Name="task_user" EntityType="SSMModel.task_user" />
@@ -66,7 +67,7 @@
     </AssociationSet>
     <AssociationSet Name="FK_orderItemOption_attributeOption" Association="SSMModel.FK_orderItemOption_attributeOption">
       <End Role="attributeOption" EntitySet="attributeOptions" />
-      <End Role="orderItemOption" EntitySet="orderItemOptions" />
+      <End Role="PlanOption" EntitySet="PlanOptions" />
     </AssociationSet>
     <AssociationSet Name="FK_company_responsible_companies" Association="SSMModel.FK_company_responsible_companies">
       <End Role="company" EntitySet="companies" />
@@ -100,21 +101,29 @@
       <End Role="softwareProduct" EntitySet="softwareProducts" />
       <End Role="License" EntitySet="Licenses" />
     </AssociationSet>
-    <AssociationSet Name="FK_orderItemOption_orderItems" Association="SSMModel.FK_orderItemOption_orderItems">
-      <End Role="orderItem" EntitySet="orderItems" />
-      <End Role="orderItemOption" EntitySet="orderItemOptions" />
-    </AssociationSet>
-    <AssociationSet Name="FK_orderItems_orders" Association="SSMModel.FK_orderItems_orders">
+    <AssociationSet Name="FK_MarketPlanPurchased_orders" Association="SSMModel.FK_MarketPlanPurchased_orders">
       <End Role="order" EntitySet="orders" />
-      <End Role="orderItem" EntitySet="orderItems" />
+      <End Role="MarketPlanPurchased" EntitySet="MarketPlanPurchaseds" />
     </AssociationSet>
-    <AssociationSet Name="FK_orderItems_softwareProduct" Association="SSMModel.FK_orderItems_softwareProduct">
-      <End Role="softwareProduct" EntitySet="softwareProducts" />
-      <End Role="orderItem" EntitySet="orderItems" />
+    <AssociationSet Name="FK_MarketPlanPurchased_productMarketPlan" Association="SSMModel.FK_MarketPlanPurchased_productMarketPlan">
+      <End Role="productMarketPlan" EntitySet="productMarketPlans" />
+      <End Role="MarketPlanPurchased" EntitySet="MarketPlanPurchaseds" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Plan_Step_Plan_Step" Association="SSMModel.FK_Plan_Step_Plan_Step">
+      <End Role="Plan_Step" EntitySet="Plan_Step" />
+      <End Role="Plan_Step1" EntitySet="Plan_Step" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Plan_Step_Plan_Step1" Association="SSMModel.FK_Plan_Step_Plan_Step1">
+      <End Role="Plan_Step" EntitySet="Plan_Step" />
+      <End Role="Plan_Step1" EntitySet="Plan_Step" />
     </AssociationSet>
     <AssociationSet Name="FK_Plan_Step_PrePurchase_FollowUp_Plan" Association="SSMModel.FK_Plan_Step_PrePurchase_FollowUp_Plan">
       <End Role="PrePurchase_FollowUp_Plan" EntitySet="PrePurchase_FollowUp_Plan" />
       <End Role="Plan_Step" EntitySet="Plan_Step" />
+    </AssociationSet>
+    <AssociationSet Name="FK_orderItemOption_orderItems" Association="SSMModel.FK_orderItemOption_orderItems">
+      <End Role="productMarketPlan" EntitySet="productMarketPlans" />
+      <End Role="PlanOption" EntitySet="PlanOptions" />
     </AssociationSet>
     <AssociationSet Name="FK_PrePurchase_FollowUp_Plan_softwareProduct" Association="SSMModel.FK_PrePurchase_FollowUp_Plan_softwareProduct">
       <End Role="softwareProduct" EntitySet="softwareProducts" />
@@ -123,6 +132,10 @@
     <AssociationSet Name="FK_productAttributes_softwareProduct" Association="SSMModel.FK_productAttributes_softwareProduct">
       <End Role="softwareProduct" EntitySet="softwareProducts" />
       <End Role="productAttribute" EntitySet="productAttributes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_orderItems_softwareProduct" Association="SSMModel.FK_orderItems_softwareProduct">
+      <End Role="softwareProduct" EntitySet="softwareProducts" />
+      <End Role="productMarketPlan" EntitySet="productMarketPlans" />
     </AssociationSet>
     <AssociationSet Name="AspNetUserRoles" Association="SSMModel.AspNetUserRoles">
       <End Role="AspNetRole" EntitySet="AspNetRoles" />
@@ -212,7 +225,7 @@
     <Property Name="Creator" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="AspNetUser" Relationship="SSMModel.FK_attributeOption_AspNetUsers" FromRole="attributeOption" ToRole="AspNetUser" />
     <NavigationProperty Name="productAttribute" Relationship="SSMModel.FK_attributeOption_productAttributes" FromRole="attributeOption" ToRole="productAttribute" />
-    <NavigationProperty Name="orderItemOptions" Relationship="SSMModel.FK_orderItemOption_attributeOption" FromRole="attributeOption" ToRole="orderItemOption" />
+    <NavigationProperty Name="PlanOptions" Relationship="SSMModel.FK_orderItemOption_attributeOption" FromRole="attributeOption" ToRole="PlanOption" />
   </EntityType>
   <EntityType Name="company">
     <Key>
@@ -361,33 +374,17 @@
     <NavigationProperty Name="customer" Relationship="SSMModel.FK_Licenses_customers" FromRole="License" ToRole="customer" />
     <NavigationProperty Name="softwareProduct" Relationship="SSMModel.FK_Licenses_softwareProduct" FromRole="License" ToRole="softwareProduct" />
   </EntityType>
-  <EntityType Name="orderItemOption">
+  <EntityType Name="MarketPlanPurchased">
     <Key>
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="orderItemID" Type="Int32" Nullable="false" />
-    <Property Name="optionID" Type="Int32" Nullable="false" />
-    <Property Name="unitPrice" Type="Double" Nullable="false" />
-    <Property Name="soldPrice" Type="Double" Nullable="false" />
-    <Property Name="CreatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="attributeOption" Relationship="SSMModel.FK_orderItemOption_attributeOption" FromRole="orderItemOption" ToRole="attributeOption" />
-    <NavigationProperty Name="orderItem" Relationship="SSMModel.FK_orderItemOption_orderItems" FromRole="orderItemOption" ToRole="orderItem" />
-  </EntityType>
-  <EntityType Name="orderItem">
-    <Key>
-      <PropertyRef Name="id" />
-    </Key>
-    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="productID" Type="Int32" Nullable="false" />
     <Property Name="orderID" Type="Int32" Nullable="false" />
-    <Property Name="productPrice" Type="Double" Nullable="false" />
-    <Property Name="subOptionPrice" Type="Double" />
-    <Property Name="totalprice" Type="Double" Nullable="false" />
-    <Property Name="productQuantity" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="orderItemOptions" Relationship="SSMModel.FK_orderItemOption_orderItems" FromRole="orderItem" ToRole="orderItemOption" />
-    <NavigationProperty Name="order" Relationship="SSMModel.FK_orderItems_orders" FromRole="orderItem" ToRole="order" />
-    <NavigationProperty Name="softwareProduct" Relationship="SSMModel.FK_orderItems_softwareProduct" FromRole="orderItem" ToRole="softwareProduct" />
+    <Property Name="planID" Type="Int32" Nullable="false" />
+    <Property Name="SoldPrice" Type="Double" Nullable="false" />
+    <Property Name="Quantity" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="order" Relationship="SSMModel.FK_MarketPlanPurchased_orders" FromRole="MarketPlanPurchased" ToRole="order" />
+    <NavigationProperty Name="productMarketPlan" Relationship="SSMModel.FK_MarketPlanPurchased_productMarketPlan" FromRole="MarketPlanPurchased" ToRole="productMarketPlan" />
   </EntityType>
   <EntityType Name="order">
     <Key>
@@ -404,7 +401,7 @@
     <Property Name="status" Type="Int32" Nullable="false" />
     <Property Name="completedDate" Type="DateTime" Precision="0" />
     <NavigationProperty Name="customer" Relationship="SSMModel.FK_orders_customers" FromRole="order" ToRole="customer" />
-    <NavigationProperty Name="orderItems" Relationship="SSMModel.FK_orderItems_orders" FromRole="order" ToRole="orderItem" />
+    <NavigationProperty Name="MarketPlanPurchaseds" Relationship="SSMModel.FK_MarketPlanPurchased_orders" FromRole="order" ToRole="MarketPlanPurchased" />
   </EntityType>
   <EntityType Name="Plan_Step">
     <Key>
@@ -416,7 +413,24 @@
     <Property Name="nextStep" Type="Int32" />
     <Property Name="stepNo" Type="Int32" Nullable="false" />
     <Property Name="StepEmailContent" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Plan_Step1" Relationship="SSMModel.FK_Plan_Step_Plan_Step" FromRole="Plan_Step" ToRole="Plan_Step1" />
+    <NavigationProperty Name="Plan_Step2" Relationship="SSMModel.FK_Plan_Step_Plan_Step" FromRole="Plan_Step1" ToRole="Plan_Step" />
+    <NavigationProperty Name="Plan_Step11" Relationship="SSMModel.FK_Plan_Step_Plan_Step1" FromRole="Plan_Step" ToRole="Plan_Step1" />
+    <NavigationProperty Name="Plan_Step3" Relationship="SSMModel.FK_Plan_Step_Plan_Step1" FromRole="Plan_Step1" ToRole="Plan_Step" />
     <NavigationProperty Name="PrePurchase_FollowUp_Plan" Relationship="SSMModel.FK_Plan_Step_PrePurchase_FollowUp_Plan" FromRole="Plan_Step" ToRole="PrePurchase_FollowUp_Plan" />
+  </EntityType>
+  <EntityType Name="PlanOption">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="orderItemID" Type="Int32" Nullable="false" />
+    <Property Name="optionID" Type="Int32" Nullable="false" />
+    <Property Name="unitPrice" Type="Double" Nullable="false" />
+    <Property Name="soldPrice" Type="Double" Nullable="false" />
+    <Property Name="CreatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="attributeOption" Relationship="SSMModel.FK_orderItemOption_attributeOption" FromRole="PlanOption" ToRole="attributeOption" />
+    <NavigationProperty Name="productMarketPlan" Relationship="SSMModel.FK_orderItemOption_orderItems" FromRole="PlanOption" ToRole="productMarketPlan" />
   </EntityType>
   <EntityType Name="PrePurchase_FollowUp_Plan">
     <Key>
@@ -447,6 +461,25 @@
     <NavigationProperty Name="attributeOptions" Relationship="SSMModel.FK_attributeOption_productAttributes" FromRole="productAttribute" ToRole="attributeOption" />
     <NavigationProperty Name="softwareProduct" Relationship="SSMModel.FK_productAttributes_softwareProduct" FromRole="productAttribute" ToRole="softwareProduct" />
   </EntityType>
+  <EntityType Name="productMarketPlan">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="productID" Type="Int32" Nullable="false" />
+    <Property Name="Price" Type="Double" Nullable="false" />
+    <Property Name="ceilPrice" Type="Double" Nullable="false" />
+    <Property Name="floorprice" Type="Double" Nullable="false" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedDay" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="lastUpdate" Type="DateTime" Precision="0" />
+    <Property Name="isActive" Type="Boolean" Nullable="false" />
+    <Property Name="operating" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="MarketPlanPurchaseds" Relationship="SSMModel.FK_MarketPlanPurchased_productMarketPlan" FromRole="productMarketPlan" ToRole="MarketPlanPurchased" />
+    <NavigationProperty Name="PlanOptions" Relationship="SSMModel.FK_orderItemOption_orderItems" FromRole="productMarketPlan" ToRole="PlanOption" />
+    <NavigationProperty Name="softwareProduct" Relationship="SSMModel.FK_orderItems_softwareProduct" FromRole="productMarketPlan" ToRole="softwareProduct" />
+  </EntityType>
   <EntityType Name="softwareProduct">
     <Key>
       <PropertyRef Name="id" />
@@ -465,9 +498,9 @@
     <Property Name="icon" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Deal_Product" Relationship="SSMModel.FK_Deal_Product_softwareProduct" FromRole="softwareProduct" ToRole="Deal_Product" />
     <NavigationProperty Name="Licenses" Relationship="SSMModel.FK_Licenses_softwareProduct" FromRole="softwareProduct" ToRole="License" />
-    <NavigationProperty Name="orderItems" Relationship="SSMModel.FK_orderItems_softwareProduct" FromRole="softwareProduct" ToRole="orderItem" />
     <NavigationProperty Name="PrePurchase_FollowUp_Plan" Relationship="SSMModel.FK_PrePurchase_FollowUp_Plan_softwareProduct" FromRole="softwareProduct" ToRole="PrePurchase_FollowUp_Plan" />
     <NavigationProperty Name="productAttributes" Relationship="SSMModel.FK_productAttributes_softwareProduct" FromRole="softwareProduct" ToRole="productAttribute" />
+    <NavigationProperty Name="productMarketPlans" Relationship="SSMModel.FK_orderItems_softwareProduct" FromRole="softwareProduct" ToRole="productMarketPlan" />
   </EntityType>
   <EntityType Name="task_customer">
     <Key>
@@ -616,12 +649,12 @@
   </Association>
   <Association Name="FK_orderItemOption_attributeOption">
     <End Type="SSMModel.attributeOption" Role="attributeOption" Multiplicity="1" />
-    <End Type="SSMModel.orderItemOption" Role="orderItemOption" Multiplicity="*" />
+    <End Type="SSMModel.PlanOption" Role="PlanOption" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="attributeOption">
         <PropertyRef Name="id" />
       </Principal>
-      <Dependent Role="orderItemOption">
+      <Dependent Role="PlanOption">
         <PropertyRef Name="optionID" />
       </Dependent>
     </ReferentialConstraint>
@@ -722,39 +755,51 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_orderItemOption_orderItems">
-    <End Type="SSMModel.orderItem" Role="orderItem" Multiplicity="1" />
-    <End Type="SSMModel.orderItemOption" Role="orderItemOption" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="orderItem">
-        <PropertyRef Name="id" />
-      </Principal>
-      <Dependent Role="orderItemOption">
-        <PropertyRef Name="orderItemID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_orderItems_orders">
+  <Association Name="FK_MarketPlanPurchased_orders">
     <End Type="SSMModel.order" Role="order" Multiplicity="1" />
-    <End Type="SSMModel.orderItem" Role="orderItem" Multiplicity="*" />
+    <End Type="SSMModel.MarketPlanPurchased" Role="MarketPlanPurchased" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="order">
         <PropertyRef Name="id" />
       </Principal>
-      <Dependent Role="orderItem">
+      <Dependent Role="MarketPlanPurchased">
         <PropertyRef Name="orderID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_orderItems_softwareProduct">
-    <End Type="SSMModel.softwareProduct" Role="softwareProduct" Multiplicity="1" />
-    <End Type="SSMModel.orderItem" Role="orderItem" Multiplicity="*" />
+  <Association Name="FK_MarketPlanPurchased_productMarketPlan">
+    <End Type="SSMModel.productMarketPlan" Role="productMarketPlan" Multiplicity="1" />
+    <End Type="SSMModel.MarketPlanPurchased" Role="MarketPlanPurchased" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="softwareProduct">
+      <Principal Role="productMarketPlan">
         <PropertyRef Name="id" />
       </Principal>
-      <Dependent Role="orderItem">
-        <PropertyRef Name="productID" />
+      <Dependent Role="MarketPlanPurchased">
+        <PropertyRef Name="planID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Plan_Step_Plan_Step">
+    <End Type="SSMModel.Plan_Step" Role="Plan_Step" Multiplicity="0..1" />
+    <End Type="SSMModel.Plan_Step" Role="Plan_Step1" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Plan_Step">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Plan_Step1">
+        <PropertyRef Name="previousStep" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Plan_Step_Plan_Step1">
+    <End Type="SSMModel.Plan_Step" Role="Plan_Step" Multiplicity="0..1" />
+    <End Type="SSMModel.Plan_Step" Role="Plan_Step1" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Plan_Step">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Plan_Step1">
+        <PropertyRef Name="nextStep" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -767,6 +812,18 @@
       </Principal>
       <Dependent Role="Plan_Step">
         <PropertyRef Name="planID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_orderItemOption_orderItems">
+    <End Type="SSMModel.productMarketPlan" Role="productMarketPlan" Multiplicity="1" />
+    <End Type="SSMModel.PlanOption" Role="PlanOption" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="productMarketPlan">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="PlanOption">
+        <PropertyRef Name="orderItemID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -790,6 +847,18 @@
         <PropertyRef Name="id" />
       </Principal>
       <Dependent Role="productAttribute">
+        <PropertyRef Name="productID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_orderItems_softwareProduct">
+    <End Type="SSMModel.softwareProduct" Role="softwareProduct" Multiplicity="1" />
+    <End Type="SSMModel.productMarketPlan" Role="productMarketPlan" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="softwareProduct">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="productMarketPlan">
         <PropertyRef Name="productID" />
       </Dependent>
     </ReferentialConstraint>

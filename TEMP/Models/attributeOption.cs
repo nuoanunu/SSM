@@ -17,7 +17,7 @@ namespace SSM.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public attributeOption()
         {
-            this.orderItemOptions = new HashSet<orderItemOption>();
+            this.PlanOptions = new HashSet<PlanOption>();
         }
     
         public int id { get; set; }
@@ -31,6 +31,6 @@ namespace SSM.Models
         public virtual AspNetUser AspNetUser { get; set; }
         public virtual productAttribute productAttribute { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<orderItemOption> orderItemOptions { get; set; }
+        public virtual ICollection<PlanOption> PlanOptions { get; set; }
     }
 }
