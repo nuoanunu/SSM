@@ -43,8 +43,17 @@ namespace SSM.Controllers
             return RedirectToAction("Index");
 
         }
-        public String CreateNewOption(String attID , String optCode, String optname, String optdes, String optprice,) {
-
+        public JsonResult CreateNewOption(int attID , String optCode, String optname, String optdes, float optprice) {
+            attributeOption opt = new attributeOption();
+            opt.attributeID = attID;
+            opt.code = optCode;
+            opt.name = optname;
+            opt.price = optprice;
+            opt.description = optdes;
+            SSMEntities se = new SSMEntities();
+            se.attributeOptions.Add(opt);
+            se.SaveChanges();
+            return Json(new { result= "true" });
         }
 
 
