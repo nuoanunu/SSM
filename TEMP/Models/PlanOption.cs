@@ -17,9 +17,6 @@ namespace SSM.Models
         public int id { get; set; }
         public int orderItemID { get; set; }
         public int optionID { get; set; }
-        public double unitPrice { get; set; }
-        public double soldPrice { get; set; }
-        public string CreatedBy { get; set; }
     
         public virtual attributeOption attributeOption { get; set; }
         public virtual productMarketPlan productMarketPlan { get; set; }

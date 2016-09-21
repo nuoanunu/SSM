@@ -251,9 +251,6 @@
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="orderItemID" Type="int" Nullable="false" />
     <Property Name="optionID" Type="int" Nullable="false" />
-    <Property Name="unitPrice" Type="float" Nullable="false" />
-    <Property Name="soldPrice" Type="float" Nullable="false" />
-    <Property Name="CreatedBy" Type="varchar" MaxLength="128" />
   </EntityType>
   <EntityType Name="PrePurchase_FollowUp_Plan">
     <Key>
@@ -569,30 +566,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_orderItemOption_attributeOption">
-    <End Role="attributeOption" Type="Self.attributeOption" Multiplicity="1" />
-    <End Role="PlanOptions" Type="Self.PlanOptions" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="attributeOption">
-        <PropertyRef Name="id" />
-      </Principal>
-      <Dependent Role="PlanOptions">
-        <PropertyRef Name="optionID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_orderItemOption_orderItems">
-    <End Role="productMarketPlan" Type="Self.productMarketPlan" Multiplicity="1" />
-    <End Role="PlanOptions" Type="Self.PlanOptions" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="productMarketPlan">
-        <PropertyRef Name="id" />
-      </Principal>
-      <Dependent Role="PlanOptions">
-        <PropertyRef Name="orderItemID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_orderItems_softwareProduct">
     <End Role="softwareProduct" Type="Self.softwareProduct" Multiplicity="1" />
     <End Role="productMarketPlan" Type="Self.productMarketPlan" Multiplicity="*" />
@@ -650,6 +623,30 @@
       </Principal>
       <Dependent Role="Plan_Step">
         <PropertyRef Name="planID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PlanOptions_attributeOption">
+    <End Role="attributeOption" Type="Self.attributeOption" Multiplicity="1" />
+    <End Role="PlanOptions" Type="Self.PlanOptions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="attributeOption">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="PlanOptions">
+        <PropertyRef Name="optionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PlanOptions_productMarketPlan">
+    <End Role="productMarketPlan" Type="Self.productMarketPlan" Multiplicity="1" />
+    <End Role="PlanOptions" Type="Self.PlanOptions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="productMarketPlan">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="PlanOptions">
+        <PropertyRef Name="orderItemID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -803,14 +800,6 @@
       <End Role="productMarketPlan" EntitySet="productMarketPlan" />
       <End Role="MarketPlanPurchased" EntitySet="MarketPlanPurchased" />
     </AssociationSet>
-    <AssociationSet Name="FK_orderItemOption_attributeOption" Association="Self.FK_orderItemOption_attributeOption">
-      <End Role="attributeOption" EntitySet="attributeOption" />
-      <End Role="PlanOptions" EntitySet="PlanOptions" />
-    </AssociationSet>
-    <AssociationSet Name="FK_orderItemOption_orderItems" Association="Self.FK_orderItemOption_orderItems">
-      <End Role="productMarketPlan" EntitySet="productMarketPlan" />
-      <End Role="PlanOptions" EntitySet="PlanOptions" />
-    </AssociationSet>
     <AssociationSet Name="FK_orderItems_softwareProduct" Association="Self.FK_orderItems_softwareProduct">
       <End Role="softwareProduct" EntitySet="softwareProduct" />
       <End Role="productMarketPlan" EntitySet="productMarketPlan" />
@@ -830,6 +819,14 @@
     <AssociationSet Name="FK_Plan_Step_PrePurchase_FollowUp_Plan" Association="Self.FK_Plan_Step_PrePurchase_FollowUp_Plan">
       <End Role="PrePurchase_FollowUp_Plan" EntitySet="PrePurchase_FollowUp_Plan" />
       <End Role="Plan_Step" EntitySet="Plan_Step" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PlanOptions_attributeOption" Association="Self.FK_PlanOptions_attributeOption">
+      <End Role="attributeOption" EntitySet="attributeOption" />
+      <End Role="PlanOptions" EntitySet="PlanOptions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PlanOptions_productMarketPlan" Association="Self.FK_PlanOptions_productMarketPlan">
+      <End Role="productMarketPlan" EntitySet="productMarketPlan" />
+      <End Role="PlanOptions" EntitySet="PlanOptions" />
     </AssociationSet>
     <AssociationSet Name="FK_PrePurchase_FollowUp_Plan_softwareProduct" Association="Self.FK_PrePurchase_FollowUp_Plan_softwareProduct">
       <End Role="softwareProduct" EntitySet="softwareProduct" />

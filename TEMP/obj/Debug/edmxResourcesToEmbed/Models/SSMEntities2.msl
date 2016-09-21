@@ -257,9 +257,6 @@
     <EntitySetMapping Name="PlanOptions">
       <EntityTypeMapping TypeName="SSMModel.PlanOption">
         <MappingFragment StoreEntitySet="PlanOptions">
-          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-          <ScalarProperty Name="soldPrice" ColumnName="soldPrice" />
-          <ScalarProperty Name="unitPrice" ColumnName="unitPrice" />
           <ScalarProperty Name="optionID" ColumnName="optionID" />
           <ScalarProperty Name="orderItemID" ColumnName="orderItemID" />
           <ScalarProperty Name="id" ColumnName="id" />

@@ -48,5 +48,31 @@ namespace SSM.Models.Repository
             context.attributeOptions.Add(opt);
             context.SaveChanges();
         }
+        public void insertNewAttribute(productAttribute opt)
+        {
+            context.productAttributes.Add(opt);
+            context.SaveChanges();
+        }
+        public void insertNewMarketPlan( productMarketPlan pro, String[] optionsid) {
+            context.productMarketPlans.Add(pro);
+            context.SaveChanges();
+            System.Diagnostics.Debug.WriteLine("AAAAAAAA " + pro.id); 
+            for (int i = 0; i < optionsid.Length; i++) {
+                try {
+                    int id = int.Parse(optionsid[i]);
+                    if (context.attributeOptions.Find(id) != null)
+                    {
+                        PlanOption o = new PlanOption();
+                        o.optionID = id;
+                        o.orderItemID = pro.id;
+                        context.PlanOptions.Add(o);
+                        context.SaveChanges();
+                    }
+                }
+                catch (Exception e) {
+                }
+            
+            }
+        }
     }
 }
