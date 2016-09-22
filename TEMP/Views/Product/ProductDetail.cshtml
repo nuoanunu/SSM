@@ -10,7 +10,94 @@
         font-family: 'Roboto-Black';
         src: url("../../fonts/Roboto-Black.ttf") format('truetype');
     }
+
+    input:hover, textarea:hover {
+        background: #eee;
+    }
+
+    input, textarea {
+        padding: 8px;
+        margin: 4px 0 20px 0;
+        background: #fff;
+        width: 220px;
+        font-size: 14px;
+        color: #555;
+        border: 1px #ddd solid;
+        /* -- CSS3 Shadow - create a shadow around each input element -- */
+        -webkit-box-shadow: 0px 0px 4px #aaa;
+        -moz-box-shadow: 0px 0px 4px #aaa;
+        box-shadow: 0px 0px 4px #aaa;
+        /* -- CSS3 Transition - define what the transition will be applied to (i.e. the background) -- */
+        -webkit-transition: background 0.3s linear;
+    }
+
+        input.submit:hover {
+            -webkit-box-shadow: 0px 0px 20px #555;
+            -moz-box-shadow: 0px 0px 20px #aaa;
+            box-shadow: 0px 0px 20px #555;
+            cursor: pointer;
+        }
+
+    .switch {
+        position: relative;
+        display: inline-block;
+        width: 60px;
+        height: 34px;
+    }
+
+        .switch input {
+            display: none;
+        }
+
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+
+    input:checked + .slider {
+        background-color: #4ef84e;
+    }
+
+    input:focus + .slider {
+        box-shadow: 0 0 1px #4ef84e;
+    }
+
+    input:checked + .slider:before {
+        -webkit-transform: translateX(26px);
+        -ms-transform: translateX(26px);
+        transform: translateX(26px);
+    }
+
+    /* Rounded sliders */
+    .slider.round {
+        border-radius: 34px;
+    }
+
+        .slider.round:before {
+            border-radius: 50%;
+        }
 </style>
+<link href='http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz' rel='stylesheet' type='text/css' />
+
 <script src="//code.jquery.com/jquery-1.12.3.js"> </script>
 <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"> </script>
 <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"> </script>
@@ -21,16 +108,16 @@
                 try {
                     var money = 0;
                     $(".optionChosen").each(function (i) {
-                   
+
                         var selectid = $(this).attr("id");
                         var priceid = $(this).val() + "optionprice";
                         var pricelabelid = selectid + "priceshow";
-                      
+
                         $("#" + pricelabelid).text($("#" + priceid).val());
                         if (parseFloat($("#" + priceid).val()) >0) {
                             money = money + parseFloat($("#" + priceid).val());
                         }
-                      
+
                     });
                     $("#totalprice").text(money+"");
                 }
@@ -53,7 +140,7 @@
 
                     var selectid = $(this).val();
                     optionIds = optionIds + selectid + ";";
-                
+
                 });
                 alert(optionIds);
                 $.getJSON("/Product/CreateNewMarketPlan?productID=" + productID + "&planName=" + planName + "&price=" + price + "&floorPrice=" + floorPrice + "&ceilPrice=" + ceilPrice + "&optionIds=" + optionIds + "&newMarketPlanDes=" + newMarketPlanDes, function (data) {
@@ -61,7 +148,7 @@
                         if (key == "result") {
                             if (value == "true") {
                                 window.location = "/Product/Detail?id=" + productID;
-                           
+
 
                             }
                             else {
@@ -70,7 +157,7 @@
                         }
                     })
                 });
-     
+
             }
 </script>
 <h1> <font style="font-family:Roboto-Light"> Product Detail</font> </h1>
@@ -79,11 +166,12 @@
     softwareProduct product = (softwareProduct)ViewData["productDetail"];
     string[] screenshots = product.screenShots.ToString().Split(new[] { ";" }, StringSplitOptions.RemoveEmptyEntries);
     <div class="row">
-        <div style="padding:0" class="col-md-3">
-            <img style="padding:0;vertical-align: top;" height="300dp" src="@product.screenShots" />
-        </div>
-        <div style="padding:0" class="col-md-3">
-            <table width="100%" style="border: 2px solid  #eeeeee;" height="600dp">
+        @*<div style="padding:0" class="col-md-3">
+                <img style="padding:0;vertical-align: top;" height="300dp" src="@product.screenShots" />
+            </div>*@
+        <div style="padding:5px" class="col-md-4">
+
+            <table width="100%" style="border: 2px solid  #eeeeee;" height="700dp">
                 <tr>
                     <th colspan="2" align="center" style="background-color:aqua;text-align: center;">
                         <h3 style="vertical-align: top;"><font style="font-family:Roboto-Light">Product information</font></h3>
@@ -91,39 +179,46 @@
                 </tr>
                 <tr style="border: 2px solid  #eeeeee;">
                     <td align="left">
-                        Product Name:
+                        <label>Product Nam</label>
                     </td>
                     <td align="right">
-                        @product.name
+                        <input type="text" value="@product.name" />
+
                     </td>
                 </tr>
                 <tr style="border: 2px solid  #eeeeee;">
                     <td align="left">
-                        SKU:
+                        <label>SKU</label>
+
                     </td>
                     <td align="right">
-                        @product.SKU
+                        <input type="text" value="@product.SKU" />
                     </td>
                 </tr>
                 <tr style="border: 2px solid  #eeeeee;">
                     <td align="left">
-                        Short Description:
+                        <label>Short Description</label>
+
                     </td>
                     <td align="right">
-                        @product.shortDescription
+                        <input type="text" value="@product.shortDescription" />
+
                     </td>
                 </tr>
                 <tr style="border: 2px solid  #eeeeee;">
                     <td align="left">
-                        Full Description:
+                        <label>Full Description</label>
+
                     </td>
                     <td align="right">
-                        @product.fullDescription
+                        <textarea name="message" rows="0" cols="0">@product.fullDescription</textarea>
+
                     </td>
                 </tr>
                 <tr style="border: 2px solid  #eeeeee;">
                     <td align="left">
-                        Screen Shots
+                        <label>Screen Shots</label>
+
                     </td>
                     <td align="right">
                         @foreach (string img in screenshots)
@@ -135,7 +230,7 @@
                 </tr>
             </table>
         </div>
-        <div style="padding:10;max-height:600px;height:600px;" class="col-md-6 pre-scrollable">
+        <div style="padding:5px;max-height:700px;height:700px;" class="col-md-8 pre-scrollable">
             <div class="container" style="width:100dp">
                 <table id="myData" class="table table-striped table-bordered" cellspacing="0" width="100%">
                     <tr style="background-color:coral;text-align: center;">
@@ -304,6 +399,10 @@
     <div>
         <table id="myData" class="table table-striped table-bordered" cellspacing="0">
             <tr>
+
+                <th>
+                    Active
+                </th>
                 <th>
                     Plan name
                 </th>
@@ -334,9 +433,25 @@
                     corlor = "#98FB98";
                 }
 
-                <tr style="background-color:@corlor">
+                <tr >
 
+                    <td>
+                        @if (plan.operating)
+                        {
+                            <label class="switch">
+                                <input id="@("oper"+plan.id)" type="checkbox" checked>
+                                <div class="slider round"></div>
+                            </label>
+                        }
+                        else
+                        {
+                            <label class="switch">
+                                <input id="@("oper"+plan.id)" type="checkbox" >
+                                <div class="slider round"></div>
+                            </label>
+                        }
 
+                    </td>
                     <td>
                         @plan.Name
                     </td>
@@ -357,6 +472,7 @@
                     </td>
                     <td>
                         <button>Edit</button>
+
                     </td>
                 </tr>
             }
@@ -378,8 +494,8 @@
                     <div class="modal-body">
                         <h2> <font style="font-family:Roboto-Light"> @product.name </font> </h2>
                         <input type="hidden" value="@product.id" id="NewMarketPlanProductId" />
-                        <label> Plan Name </label> <input type="text" id="newMarketPlanName" value=""/>
-                        <label> Description</label> <input type="text" id="newMarketPlanDes"  value=""/>
+                        <label> Plan Name </label> <input type="text" id="newMarketPlanName" value="" />
+                        <label> Description</label> <input type="text" id="newMarketPlanDes" value="" />
                         <table class="table table-striped table-bordered">
                             <tr>
                                 <th>
@@ -429,18 +545,16 @@
                                 <td colspan="2">
                                     Floor Price
                                 </td>
-                                <td> <input type="text" id="floorPrice" value=""/></td>
+                                <td> <input type="text" id="floorPrice" value="" /></td>
                             </tr>
                             <tr>
                                 <td colspan="2">
                                     Ceil Price
                                 </td>
-                                <td> <input type="text"  id="ceilPrice"/></td>
+                                <td> <input type="text" id="ceilPrice" /></td>
                             </tr>
                             <tr>
-                                <td colspan="2">
-                             
-                                </td>
+                                <td colspan="2"></td>
                                 <td>
                                     <button onclick="createNewPlan()"> Add</button>
                                 </td>
@@ -510,53 +624,53 @@
         <button type="button" onclick="redirectToNewPlan()" class="btn btn-info btn-lg">+New Plan</button>
     </div>
     <script>
-            function redirectToNewPlan() {
-                window.location = "/Product/NewPlan";
-            }
+        function redirectToNewPlan() {
+            window.location = "/Product/NewPlan";
+        }
 
     </script>
-        <script>
-            function AddNewOpt(id) {
-                var newOptCode = $("#" + id + "NewOptCode").val();
-                var newOptName = $("#" + id + "NewOptName").val();
-                var newOptDescription = $("#" + id + "NewOptDes").val();
-                var newOptPrice = $("#" + id + "NewOptPrice").val();
-                var trString = '<tr><td>' + newOptName + '<input type="hidden" id="' + id + 'EditOptName" /></td><td>' + newOptCode + '<input type="hidden" id="' + id + 'EditOptCode" /></td><td>' + newOptDescription + '<input type="hidden" id="' + id + 'EditOptDes" /></td><td>' + newOptPrice + '<input type="hidden" id="' + id + 'EditOptPrice" /></td><td><button onclick="Edit(' + id + ')">Edit</button><button hidden="hidden" onclick="ConfirmEdit(' + id + ')">Confirm</button></td></tr>'
-                $.getJSON("/Product/CreateNewOption?attID=" + id + "&optCode=" + newOptCode + "&optname=" + newOptName + "&optdes=" + newOptDescription + "&optprice=" + newOptPrice, function (data) {
-                    $.each(data, function (key, value) {
-                        if (key == "result") {
-                            if (value == "true") {
+    <script>
+        function AddNewOpt(id) {
+            var newOptCode = $("#" + id + "NewOptCode").val();
+            var newOptName = $("#" + id + "NewOptName").val();
+            var newOptDescription = $("#" + id + "NewOptDes").val();
+            var newOptPrice = $("#" + id + "NewOptPrice").val();
+            var trString = '<tr><td>' + newOptName + '<input type="hidden" id="' + id + 'EditOptName" /></td><td>' + newOptCode + '<input type="hidden" id="' + id + 'EditOptCode" /></td><td>' + newOptDescription + '<input type="hidden" id="' + id + 'EditOptDes" /></td><td>' + newOptPrice + '<input type="hidden" id="' + id + 'EditOptPrice" /></td><td><button onclick="Edit(' + id + ')">Edit</button><button hidden="hidden" onclick="ConfirmEdit(' + id + ')">Confirm</button></td></tr>'
+            $.getJSON("/Product/CreateNewOption?attID=" + id + "&optCode=" + newOptCode + "&optname=" + newOptName + "&optdes=" + newOptDescription + "&optprice=" + newOptPrice, function (data) {
+                $.each(data, function (key, value) {
+                    if (key == "result") {
+                        if (value == "true") {
 
-                                $('#' + id + 'OptTable').append(trString);
+                            $('#' + id + 'OptTable').append(trString);
 
-                            }
-                            else {
-                                alert("Oops, something wrong happened");
-                            }
                         }
-                    })
-                });
-
-            }
-            function AddAttr(id) {
-                var newAttCode = $("#NewAttrCode").val();
-                var newAttName = $("#NewAttrName").val();
-                var newAttDescription = $("#Description").val();
-                $.getJSON("/Product/CreateNewAtt?productID=" + id + "&attname=" + newAttName + "&attcode=" + newAttCode + "&attdes=" + newAttDescription, function (data) {
-                    $.each(data, function (key, value) {
-                        if (key == "result") {
-                            if (value == "true") {
-
-                                window.location = "/Product/Detail?id=" + id;
-                            }
-                            else {
-                                alert("Oops, something wrong happened");
-                            }
+                        else {
+                            alert("Oops, something wrong happened");
                         }
-                    })
-                });
-            }
+                    }
+                })
+            });
 
-        </script>
-        
+        }
+        function AddAttr(id) {
+            var newAttCode = $("#NewAttrCode").val();
+            var newAttName = $("#NewAttrName").val();
+            var newAttDescription = $("#Description").val();
+            $.getJSON("/Product/CreateNewAtt?productID=" + id + "&attname=" + newAttName + "&attcode=" + newAttCode + "&attdes=" + newAttDescription, function (data) {
+                $.each(data, function (key, value) {
+                    if (key == "result") {
+                        if (value == "true") {
+
+                            window.location = "/Product/Detail?id=" + id;
+                        }
+                        else {
+                            alert("Oops, something wrong happened");
+                        }
+                    }
+                })
+            });
+        }
+
+    </script>
+
 }
