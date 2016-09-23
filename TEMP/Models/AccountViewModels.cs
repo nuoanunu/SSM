@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace TEMP.Models
+namespace SSM.Models
 {
     public class ExternalLoginConfirmationViewModel
     {
@@ -79,6 +79,8 @@ namespace TEMP.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+        [Display(Name = "Role")]
+        public string Name { get; set; }
     }
 
     public class ResetPasswordViewModel

@@ -1,8 +1,8 @@
 ﻿using Microsoft.Owin;
 using Owin;
 
-[assembly: OwinStartupAttribute(typeof(TEMP.Startup))]
-namespace TEMP
+[assembly: OwinStartupAttribute(typeof(SSM.Startup))]
+namespace SSM
 {
     public partial class Startup
     {

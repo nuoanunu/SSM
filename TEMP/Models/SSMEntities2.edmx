@@ -1,0 +1,2118 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="SSMModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ActTask">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="taskType" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="createdDate" Type="datetime" Nullable="false" />
+          <Property Name="deadline" Type="datetime" Nullable="false" />
+          <Property Name="repeatByTime" Type="int" />
+          <Property Name="Reminder" Type="bit" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="status" Type="int" Nullable="false" />
+          <Property Name="creatorID" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaims">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ClaimType" Type="nvarchar(max)" />
+          <Property Name="ClaimValue" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogins">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserRoles">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+          <Property Name="PasswordHash" Type="nvarchar(max)" />
+          <Property Name="SecurityStamp" Type="nvarchar(max)" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" />
+          <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="datetime" />
+          <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="attributeOption">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="code" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="description" Type="nvarchar(max)" />
+          <Property Name="price" Type="float" Nullable="false" />
+          <Property Name="attributeID" Type="int" Nullable="false" />
+          <Property Name="Creator" Type="nvarchar" MaxLength="128" />
+        </EntityType>
+        <EntityType Name="companies">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="companyName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="logo" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Industry" Type="nvarchar" MaxLength="50" />
+          <Property Name="Employees" Type="nchar" MaxLength="10" />
+          <Property Name="annualIncome" Type="float" />
+          <Property Name="Comment" Type="nvarchar(max)" />
+          <Property Name="Email" Type="nvarchar(max)" />
+          <Property Name="phone" Type="varchar" MaxLength="50" />
+          <Property Name="sites" Type="nvarchar(max)" />
+          <Property Name="Street" Type="nvarchar(max)" />
+          <Property Name="city" Type="nvarchar(max)" />
+          <Property Name="region" Type="nvarchar(max)" />
+          <Property Name="State" Type="nvarchar(max)" />
+          <Property Name="Country" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="company_responsible">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="companyID" Type="int" Nullable="false" />
+          <Property Name="userID" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="contact_resposible">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="contactID" Type="int" Nullable="false" />
+          <Property Name="userID" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="contacts">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="MiddleName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Photo" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="DateOfBirth" Type="date" Nullable="false" />
+          <Property Name="emails" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Phone" Type="varchar(max)" Nullable="false" />
+          <Property Name="Sites" Type="varchar(max)" />
+          <Property Name="CompanyID" Type="int" />
+          <Property Name="Street" Type="nvarchar" MaxLength="50" />
+          <Property Name="City" Type="nvarchar" MaxLength="50" />
+          <Property Name="Region" Type="nvarchar" MaxLength="50" />
+          <Property Name="State" Type="nvarchar" MaxLength="50" />
+          <Property Name="Country" Type="nvarchar" MaxLength="50" />
+          <Property Name="Zip" Type="nvarchar" MaxLength="50" />
+          <Property Name="Comment" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="customers">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cusName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="cusEmail" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="cusPhone" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="cusAddress" Type="nchar" MaxLength="10" />
+          <Property Name="cusCompany" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Deal">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Stage" Type="int" />
+          <Property Name="Value" Type="float" />
+          <Property Name="Probability" Type="float" />
+          <Property Name="Creator" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="StartDate" Type="date" Nullable="false" />
+          <Property Name="CompleteOn" Type="date" />
+          <Property Name="Client" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Deal_Product">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="productID" Type="int" Nullable="false" />
+          <Property Name="dealID" Type="int" Nullable="false" />
+          <Property Name="addedDate" Type="date" Nullable="false" />
+          <Property Name="removedDate" Type="date" />
+          <Property Name="planID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Deal_SaleRep_Respon">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userID" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="dealID" Type="int" Nullable="false" />
+          <Property Name="startDate" Type="date" Nullable="false" />
+          <Property Name="endDate" Type="date" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Email_Template">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MailContent" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="creatorID" Type="nvarchar" MaxLength="128" />
+          <Property Name="createdDate" Type="date" />
+          <Property Name="lastUpdate" Type="date" />
+          <Property Name="isActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Licenses">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="licenseType" Type="int" />
+          <Property Name="licenseKey" Type="varchar(max)" />
+          <Property Name="licenseDuration" Type="int" />
+          <Property Name="status" Type="int" />
+          <Property Name="customerID" Type="int" />
+          <Property Name="productID" Type="int" />
+          <Property Name="nextTransactionDate" Type="date" />
+          <Property Name="startDate" Type="date" />
+        </EntityType>
+        <EntityType Name="MarketPlanPurchased">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="orderID" Type="int" Nullable="false" />
+          <Property Name="planID" Type="int" Nullable="false" />
+          <Property Name="SoldPrice" Type="float" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="orders">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="customerID" Type="int" Nullable="false" />
+          <Property Name="orderNumber" Type="int" Nullable="false" />
+          <Property Name="total" Type="float" Nullable="false" />
+          <Property Name="VAT" Type="float" />
+          <Property Name="subtotal" Type="float" />
+          <Property Name="createDate" Type="date" Nullable="false" />
+          <Property Name="lastModifiedDate" Type="date" />
+          <Property Name="status" Type="int" Nullable="false" />
+          <Property Name="completedDate" Type="date" />
+        </EntityType>
+        <EntityType Name="Plan_Step">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="planID" Type="int" Nullable="false" />
+          <Property Name="previousStep" Type="int" />
+          <Property Name="nextStep" Type="int" />
+          <Property Name="stepNo" Type="int" Nullable="false" />
+          <Property Name="StepEmailContent" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PlanOptions">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="orderItemID" Type="int" Nullable="false" />
+          <Property Name="optionID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PrePurchase_FollowUp_Plan">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="productID" Type="int" Nullable="false" />
+          <Property Name="createDate" Type="date" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="lastUpdate" Type="date" />
+          <Property Name="isActive" Type="bit" Nullable="false" />
+          <Property Name="fullDuration" Type="float" />
+          <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="productAttributes">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="code" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="description" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="isActive" Type="bit" Nullable="false" />
+          <Property Name="screenShots" Type="nvarchar(max)" />
+          <Property Name="productID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="productMarketPlan">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="productID" Type="int" Nullable="false" />
+          <Property Name="Price" Type="float" Nullable="false" />
+          <Property Name="ceilPrice" Type="float" Nullable="false" />
+          <Property Name="floorprice" Type="float" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="CreatedDay" Type="date" Nullable="false" />
+          <Property Name="lastUpdate" Type="date" />
+          <Property Name="isActive" Type="bit" Nullable="false" />
+          <Property Name="operating" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="softwareProduct">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SKU" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="keywords" Type="nvarchar" MaxLength="50" />
+          <Property Name="shortDescription" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="fullDescription" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="isActive" Type="bit" Nullable="false" />
+          <Property Name="unitPrice" Type="float" Nullable="false" />
+          <Property Name="altPrice1" Type="float" />
+          <Property Name="altPrice2" Type="float" />
+          <Property Name="screenShots" Type="nvarchar(max)" />
+          <Property Name="icon" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="task_customer">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="taskID" Type="int" Nullable="false" />
+          <Property Name="customerID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="task_user">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userID" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="taskID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TaskStatus">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="description" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TaskType">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="typeName" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="Description" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <Association Name="FK_attributeOption_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="attributeOption" Type="Self.attributeOption" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="attributeOption">
+              <PropertyRef Name="Creator" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_attributeOption_productAttributes">
+          <End Role="productAttributes" Type="Self.productAttributes" Multiplicity="1" />
+          <End Role="attributeOption" Type="Self.attributeOption" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="productAttributes">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="attributeOption">
+              <PropertyRef Name="attributeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_company_responsible_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="company_responsible" Type="Self.company_responsible" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="company_responsible">
+              <PropertyRef Name="userID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_company_responsible_companies">
+          <End Role="companies" Type="Self.companies" Multiplicity="1" />
+          <End Role="company_responsible" Type="Self.company_responsible" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="companies">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="company_responsible">
+              <PropertyRef Name="companyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_contact_resposible_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="contact_resposible" Type="Self.contact_resposible" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="contact_resposible">
+              <PropertyRef Name="userID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_contact_resposible_contacts">
+          <End Role="contacts" Type="Self.contacts" Multiplicity="1" />
+          <End Role="contact_resposible" Type="Self.contact_resposible" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="contacts">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="contact_resposible">
+              <PropertyRef Name="contactID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetRoles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Deal_Product_Deal">
+          <End Role="Deal" Type="Self.Deal" Multiplicity="1" />
+          <End Role="Deal_Product" Type="Self.Deal_Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Deal">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Deal_Product">
+              <PropertyRef Name="dealID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Deal_Product_softwareProduct">
+          <End Role="softwareProduct" Type="Self.softwareProduct" Multiplicity="1" />
+          <End Role="Deal_Product" Type="Self.Deal_Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="softwareProduct">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Deal_Product">
+              <PropertyRef Name="productID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Deal_SaleRep_Respon_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="Deal_SaleRep_Respon" Type="Self.Deal_SaleRep_Respon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Deal_SaleRep_Respon">
+              <PropertyRef Name="userID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Deal_SaleRep_Respon_Deal">
+          <End Role="Deal" Type="Self.Deal" Multiplicity="1" />
+          <End Role="Deal_SaleRep_Respon" Type="Self.Deal_SaleRep_Respon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Deal">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Deal_SaleRep_Respon">
+              <PropertyRef Name="dealID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Licenses_customers">
+          <End Role="customers" Type="Self.customers" Multiplicity="0..1" />
+          <End Role="Licenses" Type="Self.Licenses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="customers">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Licenses">
+              <PropertyRef Name="customerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Licenses_softwareProduct">
+          <End Role="softwareProduct" Type="Self.softwareProduct" Multiplicity="0..1" />
+          <End Role="Licenses" Type="Self.Licenses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="softwareProduct">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Licenses">
+              <PropertyRef Name="productID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MarketPlanPurchased_orders">
+          <End Role="orders" Type="Self.orders" Multiplicity="1" />
+          <End Role="MarketPlanPurchased" Type="Self.MarketPlanPurchased" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="orders">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="MarketPlanPurchased">
+              <PropertyRef Name="orderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MarketPlanPurchased_productMarketPlan">
+          <End Role="productMarketPlan" Type="Self.productMarketPlan" Multiplicity="1" />
+          <End Role="MarketPlanPurchased" Type="Self.MarketPlanPurchased" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="productMarketPlan">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="MarketPlanPurchased">
+              <PropertyRef Name="planID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_orderItems_softwareProduct">
+          <End Role="softwareProduct" Type="Self.softwareProduct" Multiplicity="1" />
+          <End Role="productMarketPlan" Type="Self.productMarketPlan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="softwareProduct">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="productMarketPlan">
+              <PropertyRef Name="productID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_orders_customers">
+          <End Role="customers" Type="Self.customers" Multiplicity="1" />
+          <End Role="orders" Type="Self.orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="customers">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="orders">
+              <PropertyRef Name="customerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Plan_Step_Plan_Step">
+          <End Role="Plan_Step" Type="Self.Plan_Step" Multiplicity="0..1" />
+          <End Role="Plan_Step1" Type="Self.Plan_Step" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Plan_Step">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Plan_Step1">
+              <PropertyRef Name="previousStep" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Plan_Step_Plan_Step1">
+          <End Role="Plan_Step" Type="Self.Plan_Step" Multiplicity="0..1" />
+          <End Role="Plan_Step1" Type="Self.Plan_Step" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Plan_Step">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Plan_Step1">
+              <PropertyRef Name="nextStep" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Plan_Step_PrePurchase_FollowUp_Plan">
+          <End Role="PrePurchase_FollowUp_Plan" Type="Self.PrePurchase_FollowUp_Plan" Multiplicity="1" />
+          <End Role="Plan_Step" Type="Self.Plan_Step" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PrePurchase_FollowUp_Plan">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Plan_Step">
+              <PropertyRef Name="planID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlanOptions_attributeOption">
+          <End Role="attributeOption" Type="Self.attributeOption" Multiplicity="1" />
+          <End Role="PlanOptions" Type="Self.PlanOptions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="attributeOption">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PlanOptions">
+              <PropertyRef Name="optionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlanOptions_productMarketPlan">
+          <End Role="productMarketPlan" Type="Self.productMarketPlan" Multiplicity="1" />
+          <End Role="PlanOptions" Type="Self.PlanOptions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="productMarketPlan">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PlanOptions">
+              <PropertyRef Name="orderItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PrePurchase_FollowUp_Plan_softwareProduct">
+          <End Role="softwareProduct" Type="Self.softwareProduct" Multiplicity="1" />
+          <End Role="PrePurchase_FollowUp_Plan" Type="Self.PrePurchase_FollowUp_Plan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="softwareProduct">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PrePurchase_FollowUp_Plan">
+              <PropertyRef Name="productID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_productAttributes_softwareProduct">
+          <End Role="softwareProduct" Type="Self.softwareProduct" Multiplicity="1" />
+          <End Role="productAttributes" Type="Self.productAttributes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="softwareProduct">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="productAttributes">
+              <PropertyRef Name="productID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tasks_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="ActTask" Type="Self.ActTask" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ActTask">
+              <PropertyRef Name="creatorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tasks_TaskStatus">
+          <End Role="TaskStatus" Type="Self.TaskStatus" Multiplicity="1" />
+          <End Role="ActTask" Type="Self.ActTask" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TaskStatus">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ActTask">
+              <PropertyRef Name="status" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SSMModelStoreContainer">
+          <EntitySet Name="ActTask" EntityType="Self.ActTask" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="attributeOption" EntityType="Self.attributeOption" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="companies" EntityType="Self.companies" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="company_responsible" EntityType="Self.company_responsible" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="contact_resposible" EntityType="Self.contact_resposible" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="contacts" EntityType="Self.contacts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="customers" EntityType="Self.customers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Deal" EntityType="Self.Deal" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Deal_Product" EntityType="Self.Deal_Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Deal_SaleRep_Respon" EntityType="Self.Deal_SaleRep_Respon" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Email_Template" EntityType="Self.Email_Template" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Licenses" EntityType="Self.Licenses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MarketPlanPurchased" EntityType="Self.MarketPlanPurchased" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="orders" EntityType="Self.orders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Plan_Step" EntityType="Self.Plan_Step" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PlanOptions" EntityType="Self.PlanOptions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PrePurchase_FollowUp_Plan" EntityType="Self.PrePurchase_FollowUp_Plan" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="productAttributes" EntityType="Self.productAttributes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="productMarketPlan" EntityType="Self.productMarketPlan" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="softwareProduct" EntityType="Self.softwareProduct" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="task_customer" EntityType="Self.task_customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="task_user" EntityType="Self.task_user" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TaskStatus" EntityType="Self.TaskStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TaskType" EntityType="Self.TaskType" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_attributeOption_AspNetUsers" Association="Self.FK_attributeOption_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="attributeOption" EntitySet="attributeOption" />
+          </AssociationSet>
+          <AssociationSet Name="FK_attributeOption_productAttributes" Association="Self.FK_attributeOption_productAttributes">
+            <End Role="productAttributes" EntitySet="productAttributes" />
+            <End Role="attributeOption" EntitySet="attributeOption" />
+          </AssociationSet>
+          <AssociationSet Name="FK_company_responsible_AspNetUsers" Association="Self.FK_company_responsible_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="company_responsible" EntitySet="company_responsible" />
+          </AssociationSet>
+          <AssociationSet Name="FK_company_responsible_companies" Association="Self.FK_company_responsible_companies">
+            <End Role="companies" EntitySet="companies" />
+            <End Role="company_responsible" EntitySet="company_responsible" />
+          </AssociationSet>
+          <AssociationSet Name="FK_contact_resposible_AspNetUsers" Association="Self.FK_contact_resposible_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="contact_resposible" EntitySet="contact_resposible" />
+          </AssociationSet>
+          <AssociationSet Name="FK_contact_resposible_contacts" Association="Self.FK_contact_resposible_contacts">
+            <End Role="contacts" EntitySet="contacts" />
+            <End Role="contact_resposible" EntitySet="contact_resposible" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Deal_Product_Deal" Association="Self.FK_Deal_Product_Deal">
+            <End Role="Deal" EntitySet="Deal" />
+            <End Role="Deal_Product" EntitySet="Deal_Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Deal_Product_softwareProduct" Association="Self.FK_Deal_Product_softwareProduct">
+            <End Role="softwareProduct" EntitySet="softwareProduct" />
+            <End Role="Deal_Product" EntitySet="Deal_Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Deal_SaleRep_Respon_AspNetUsers" Association="Self.FK_Deal_SaleRep_Respon_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Deal_SaleRep_Respon" EntitySet="Deal_SaleRep_Respon" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Deal_SaleRep_Respon_Deal" Association="Self.FK_Deal_SaleRep_Respon_Deal">
+            <End Role="Deal" EntitySet="Deal" />
+            <End Role="Deal_SaleRep_Respon" EntitySet="Deal_SaleRep_Respon" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Licenses_customers" Association="Self.FK_Licenses_customers">
+            <End Role="customers" EntitySet="customers" />
+            <End Role="Licenses" EntitySet="Licenses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Licenses_softwareProduct" Association="Self.FK_Licenses_softwareProduct">
+            <End Role="softwareProduct" EntitySet="softwareProduct" />
+            <End Role="Licenses" EntitySet="Licenses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MarketPlanPurchased_orders" Association="Self.FK_MarketPlanPurchased_orders">
+            <End Role="orders" EntitySet="orders" />
+            <End Role="MarketPlanPurchased" EntitySet="MarketPlanPurchased" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MarketPlanPurchased_productMarketPlan" Association="Self.FK_MarketPlanPurchased_productMarketPlan">
+            <End Role="productMarketPlan" EntitySet="productMarketPlan" />
+            <End Role="MarketPlanPurchased" EntitySet="MarketPlanPurchased" />
+          </AssociationSet>
+          <AssociationSet Name="FK_orderItems_softwareProduct" Association="Self.FK_orderItems_softwareProduct">
+            <End Role="softwareProduct" EntitySet="softwareProduct" />
+            <End Role="productMarketPlan" EntitySet="productMarketPlan" />
+          </AssociationSet>
+          <AssociationSet Name="FK_orders_customers" Association="Self.FK_orders_customers">
+            <End Role="customers" EntitySet="customers" />
+            <End Role="orders" EntitySet="orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Plan_Step_Plan_Step" Association="Self.FK_Plan_Step_Plan_Step">
+            <End Role="Plan_Step" EntitySet="Plan_Step" />
+            <End Role="Plan_Step1" EntitySet="Plan_Step" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Plan_Step_Plan_Step1" Association="Self.FK_Plan_Step_Plan_Step1">
+            <End Role="Plan_Step" EntitySet="Plan_Step" />
+            <End Role="Plan_Step1" EntitySet="Plan_Step" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Plan_Step_PrePurchase_FollowUp_Plan" Association="Self.FK_Plan_Step_PrePurchase_FollowUp_Plan">
+            <End Role="PrePurchase_FollowUp_Plan" EntitySet="PrePurchase_FollowUp_Plan" />
+            <End Role="Plan_Step" EntitySet="Plan_Step" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlanOptions_attributeOption" Association="Self.FK_PlanOptions_attributeOption">
+            <End Role="attributeOption" EntitySet="attributeOption" />
+            <End Role="PlanOptions" EntitySet="PlanOptions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlanOptions_productMarketPlan" Association="Self.FK_PlanOptions_productMarketPlan">
+            <End Role="productMarketPlan" EntitySet="productMarketPlan" />
+            <End Role="PlanOptions" EntitySet="PlanOptions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PrePurchase_FollowUp_Plan_softwareProduct" Association="Self.FK_PrePurchase_FollowUp_Plan_softwareProduct">
+            <End Role="softwareProduct" EntitySet="softwareProduct" />
+            <End Role="PrePurchase_FollowUp_Plan" EntitySet="PrePurchase_FollowUp_Plan" />
+          </AssociationSet>
+          <AssociationSet Name="FK_productAttributes_softwareProduct" Association="Self.FK_productAttributes_softwareProduct">
+            <End Role="softwareProduct" EntitySet="softwareProduct" />
+            <End Role="productAttributes" EntitySet="productAttributes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tasks_AspNetUsers" Association="Self.FK_Tasks_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="ActTask" EntitySet="ActTask" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tasks_TaskStatus" Association="Self.FK_Tasks_TaskStatus">
+            <End Role="TaskStatus" EntitySet="TaskStatus" />
+            <End Role="ActTask" EntitySet="ActTask" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SSMModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="SSMEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ActTasks" EntityType="SSMModel.ActTask" />
+          <EntitySet Name="AspNetRoles" EntityType="SSMModel.AspNetRole" />
+          <EntitySet Name="AspNetUserClaims" EntityType="SSMModel.AspNetUserClaim" />
+          <EntitySet Name="AspNetUserLogins" EntityType="SSMModel.AspNetUserLogin" />
+          <EntitySet Name="AspNetUsers" EntityType="SSMModel.AspNetUser" />
+          <EntitySet Name="attributeOptions" EntityType="SSMModel.attributeOption" />
+          <EntitySet Name="companies" EntityType="SSMModel.company" />
+          <EntitySet Name="company_responsible" EntityType="SSMModel.company_responsible" />
+          <EntitySet Name="contact_resposible" EntityType="SSMModel.contact_resposible" />
+          <EntitySet Name="contacts" EntityType="SSMModel.contact" />
+          <EntitySet Name="customers" EntityType="SSMModel.customer" />
+          <EntitySet Name="Deals" EntityType="SSMModel.Deal" />
+          <EntitySet Name="Deal_Product" EntityType="SSMModel.Deal_Product" />
+          <EntitySet Name="Deal_SaleRep_Respon" EntityType="SSMModel.Deal_SaleRep_Respon" />
+          <EntitySet Name="Email_Template" EntityType="SSMModel.Email_Template" />
+          <EntitySet Name="Licenses" EntityType="SSMModel.License" />
+          <EntitySet Name="MarketPlanPurchaseds" EntityType="SSMModel.MarketPlanPurchased" />
+          <EntitySet Name="orders" EntityType="SSMModel.order" />
+          <EntitySet Name="Plan_Step" EntityType="SSMModel.Plan_Step" />
+          <EntitySet Name="PlanOptions" EntityType="SSMModel.PlanOption" />
+          <EntitySet Name="PrePurchase_FollowUp_Plan" EntityType="SSMModel.PrePurchase_FollowUp_Plan" />
+          <EntitySet Name="productAttributes" EntityType="SSMModel.productAttribute" />
+          <EntitySet Name="productMarketPlans" EntityType="SSMModel.productMarketPlan" />
+          <EntitySet Name="softwareProducts" EntityType="SSMModel.softwareProduct" />
+          <EntitySet Name="task_customer" EntityType="SSMModel.task_customer" />
+          <EntitySet Name="task_user" EntityType="SSMModel.task_user" />
+          <EntitySet Name="TaskStatus" EntityType="SSMModel.TaskStatu" />
+          <EntitySet Name="TaskTypes" EntityType="SSMModel.TaskType" />
+          <AssociationSet Name="FK_Tasks_AspNetUsers" Association="SSMModel.FK_Tasks_AspNetUsers">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="ActTask" EntitySet="ActTasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tasks_TaskStatus" Association="SSMModel.FK_Tasks_TaskStatus">
+            <End Role="TaskStatu" EntitySet="TaskStatus" />
+            <End Role="ActTask" EntitySet="ActTasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="SSMModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaim" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="SSMModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogin" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_attributeOption_AspNetUsers" Association="SSMModel.FK_attributeOption_AspNetUsers">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="attributeOption" EntitySet="attributeOptions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_company_responsible_AspNetUsers" Association="SSMModel.FK_company_responsible_AspNetUsers">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="company_responsible" EntitySet="company_responsible" />
+          </AssociationSet>
+          <AssociationSet Name="FK_contact_resposible_AspNetUsers" Association="SSMModel.FK_contact_resposible_AspNetUsers">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="contact_resposible" EntitySet="contact_resposible" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Deal_SaleRep_Respon_AspNetUsers" Association="SSMModel.FK_Deal_SaleRep_Respon_AspNetUsers">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="Deal_SaleRep_Respon" EntitySet="Deal_SaleRep_Respon" />
+          </AssociationSet>
+          <AssociationSet Name="FK_attributeOption_productAttributes" Association="SSMModel.FK_attributeOption_productAttributes">
+            <End Role="productAttribute" EntitySet="productAttributes" />
+            <End Role="attributeOption" EntitySet="attributeOptions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlanOptions_attributeOption" Association="SSMModel.FK_PlanOptions_attributeOption">
+            <End Role="attributeOption" EntitySet="attributeOptions" />
+            <End Role="PlanOption" EntitySet="PlanOptions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_company_responsible_companies" Association="SSMModel.FK_company_responsible_companies">
+            <End Role="company" EntitySet="companies" />
+            <End Role="company_responsible" EntitySet="company_responsible" />
+          </AssociationSet>
+          <AssociationSet Name="FK_contact_resposible_contacts" Association="SSMModel.FK_contact_resposible_contacts">
+            <End Role="contact" EntitySet="contacts" />
+            <End Role="contact_resposible" EntitySet="contact_resposible" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Licenses_customers" Association="SSMModel.FK_Licenses_customers">
+            <End Role="customer" EntitySet="customers" />
+            <End Role="License" EntitySet="Licenses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_orders_customers" Association="SSMModel.FK_orders_customers">
+            <End Role="customer" EntitySet="customers" />
+            <End Role="order" EntitySet="orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Deal_Product_Deal" Association="SSMModel.FK_Deal_Product_Deal">
+            <End Role="Deal" EntitySet="Deals" />
+            <End Role="Deal_Product" EntitySet="Deal_Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Deal_SaleRep_Respon_Deal" Association="SSMModel.FK_Deal_SaleRep_Respon_Deal">
+            <End Role="Deal" EntitySet="Deals" />
+            <End Role="Deal_SaleRep_Respon" EntitySet="Deal_SaleRep_Respon" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Deal_Product_softwareProduct" Association="SSMModel.FK_Deal_Product_softwareProduct">
+            <End Role="softwareProduct" EntitySet="softwareProducts" />
+            <End Role="Deal_Product" EntitySet="Deal_Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Licenses_softwareProduct" Association="SSMModel.FK_Licenses_softwareProduct">
+            <End Role="softwareProduct" EntitySet="softwareProducts" />
+            <End Role="License" EntitySet="Licenses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MarketPlanPurchased_orders" Association="SSMModel.FK_MarketPlanPurchased_orders">
+            <End Role="order" EntitySet="orders" />
+            <End Role="MarketPlanPurchased" EntitySet="MarketPlanPurchaseds" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MarketPlanPurchased_productMarketPlan" Association="SSMModel.FK_MarketPlanPurchased_productMarketPlan">
+            <End Role="productMarketPlan" EntitySet="productMarketPlans" />
+            <End Role="MarketPlanPurchased" EntitySet="MarketPlanPurchaseds" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Plan_Step_Plan_Step" Association="SSMModel.FK_Plan_Step_Plan_Step">
+            <End Role="Plan_Step" EntitySet="Plan_Step" />
+            <End Role="Plan_Step1" EntitySet="Plan_Step" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Plan_Step_Plan_Step1" Association="SSMModel.FK_Plan_Step_Plan_Step1">
+            <End Role="Plan_Step" EntitySet="Plan_Step" />
+            <End Role="Plan_Step1" EntitySet="Plan_Step" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Plan_Step_PrePurchase_FollowUp_Plan" Association="SSMModel.FK_Plan_Step_PrePurchase_FollowUp_Plan">
+            <End Role="PrePurchase_FollowUp_Plan" EntitySet="PrePurchase_FollowUp_Plan" />
+            <End Role="Plan_Step" EntitySet="Plan_Step" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlanOptions_productMarketPlan" Association="SSMModel.FK_PlanOptions_productMarketPlan">
+            <End Role="productMarketPlan" EntitySet="productMarketPlans" />
+            <End Role="PlanOption" EntitySet="PlanOptions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PrePurchase_FollowUp_Plan_softwareProduct" Association="SSMModel.FK_PrePurchase_FollowUp_Plan_softwareProduct">
+            <End Role="softwareProduct" EntitySet="softwareProducts" />
+            <End Role="PrePurchase_FollowUp_Plan" EntitySet="PrePurchase_FollowUp_Plan" />
+          </AssociationSet>
+          <AssociationSet Name="FK_productAttributes_softwareProduct" Association="SSMModel.FK_productAttributes_softwareProduct">
+            <End Role="softwareProduct" EntitySet="softwareProducts" />
+            <End Role="productAttribute" EntitySet="productAttributes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_orderItems_softwareProduct" Association="SSMModel.FK_orderItems_softwareProduct">
+            <End Role="softwareProduct" EntitySet="softwareProducts" />
+            <End Role="productMarketPlan" EntitySet="productMarketPlans" />
+          </AssociationSet>
+          <AssociationSet Name="AspNetUserRoles" Association="SSMModel.AspNetUserRoles">
+            <End Role="AspNetRole" EntitySet="AspNetRoles" />
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="ActTask">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="taskType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="createdDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="deadline" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="repeatByTime" Type="Int32" />
+          <Property Name="Reminder" Type="Boolean" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="status" Type="Int32" Nullable="false" />
+          <Property Name="creatorID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="SSMModel.FK_Tasks_AspNetUsers" FromRole="ActTask" ToRole="AspNetUser" />
+          <NavigationProperty Name="TaskStatu" Relationship="SSMModel.FK_Tasks_TaskStatus" FromRole="ActTask" ToRole="TaskStatu" />
+        </EntityType>
+        <EntityType Name="AspNetRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="SSMModel.AspNetUserRoles" FromRole="AspNetRole" ToRole="AspNetUser" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaim">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="SSMModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaim" ToRole="AspNetUser" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogin">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ProviderKey" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="SSMModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogin" ToRole="AspNetUser" />
+        </EntityType>
+        <EntityType Name="AspNetUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ActTasks" Relationship="SSMModel.FK_Tasks_AspNetUsers" FromRole="AspNetUser" ToRole="ActTask" />
+          <NavigationProperty Name="AspNetUserClaims" Relationship="SSMModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserClaim" />
+          <NavigationProperty Name="AspNetUserLogins" Relationship="SSMModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserLogin" />
+          <NavigationProperty Name="attributeOptions" Relationship="SSMModel.FK_attributeOption_AspNetUsers" FromRole="AspNetUser" ToRole="attributeOption" />
+          <NavigationProperty Name="company_responsible" Relationship="SSMModel.FK_company_responsible_AspNetUsers" FromRole="AspNetUser" ToRole="company_responsible" />
+          <NavigationProperty Name="contact_resposible" Relationship="SSMModel.FK_contact_resposible_AspNetUsers" FromRole="AspNetUser" ToRole="contact_resposible" />
+          <NavigationProperty Name="Deal_SaleRep_Respon" Relationship="SSMModel.FK_Deal_SaleRep_Respon_AspNetUsers" FromRole="AspNetUser" ToRole="Deal_SaleRep_Respon" />
+          <NavigationProperty Name="AspNetRoles" Relationship="SSMModel.AspNetUserRoles" FromRole="AspNetUser" ToRole="AspNetRole" />
+        </EntityType>
+        <EntityType Name="attributeOption">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="code" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="price" Type="Double" Nullable="false" />
+          <Property Name="attributeID" Type="Int32" Nullable="false" />
+          <Property Name="Creator" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="SSMModel.FK_attributeOption_AspNetUsers" FromRole="attributeOption" ToRole="AspNetUser" />
+          <NavigationProperty Name="productAttribute" Relationship="SSMModel.FK_attributeOption_productAttributes" FromRole="attributeOption" ToRole="productAttribute" />
+          <NavigationProperty Name="PlanOptions" Relationship="SSMModel.FK_PlanOptions_attributeOption" FromRole="attributeOption" ToRole="PlanOption" />
+        </EntityType>
+        <EntityType Name="company">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="companyName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="logo" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Industry" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Employees" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="annualIncome" Type="Double" />
+          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="sites" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Street" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="city" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="region" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="State" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Country" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="company_responsible" Relationship="SSMModel.FK_company_responsible_companies" FromRole="company" ToRole="company_responsible" />
+        </EntityType>
+        <EntityType Name="company_responsible">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="companyID" Type="Int32" Nullable="false" />
+          <Property Name="userID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="SSMModel.FK_company_responsible_AspNetUsers" FromRole="company_responsible" ToRole="AspNetUser" />
+          <NavigationProperty Name="company" Relationship="SSMModel.FK_company_responsible_companies" FromRole="company_responsible" ToRole="company" />
+        </EntityType>
+        <EntityType Name="contact_resposible">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="contactID" Type="Int32" Nullable="false" />
+          <Property Name="userID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="SSMModel.FK_contact_resposible_AspNetUsers" FromRole="contact_resposible" ToRole="AspNetUser" />
+          <NavigationProperty Name="contact" Relationship="SSMModel.FK_contact_resposible_contacts" FromRole="contact_resposible" ToRole="contact" />
+        </EntityType>
+        <EntityType Name="contact">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MiddleName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Photo" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DateOfBirth" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="emails" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Sites" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CompanyID" Type="Int32" />
+          <Property Name="Street" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Region" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="State" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Zip" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="contact_resposible" Relationship="SSMModel.FK_contact_resposible_contacts" FromRole="contact" ToRole="contact_resposible" />
+        </EntityType>
+        <EntityType Name="customer">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cusName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="cusEmail" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="cusPhone" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="cusAddress" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="cusCompany" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Licenses" Relationship="SSMModel.FK_Licenses_customers" FromRole="customer" ToRole="License" />
+          <NavigationProperty Name="orders" Relationship="SSMModel.FK_orders_customers" FromRole="customer" ToRole="order" />
+        </EntityType>
+        <EntityType Name="Deal">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Stage" Type="Int32" />
+          <Property Name="Value" Type="Double" />
+          <Property Name="Probability" Type="Double" />
+          <Property Name="Creator" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="CompleteOn" Type="DateTime" Precision="0" />
+          <Property Name="Client" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Deal_Product" Relationship="SSMModel.FK_Deal_Product_Deal" FromRole="Deal" ToRole="Deal_Product" />
+          <NavigationProperty Name="Deal_SaleRep_Respon" Relationship="SSMModel.FK_Deal_SaleRep_Respon_Deal" FromRole="Deal" ToRole="Deal_SaleRep_Respon" />
+        </EntityType>
+        <EntityType Name="Deal_Product">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="productID" Type="Int32" Nullable="false" />
+          <Property Name="dealID" Type="Int32" Nullable="false" />
+          <Property Name="addedDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="removedDate" Type="DateTime" Precision="0" />
+          <Property Name="planID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Deal" Relationship="SSMModel.FK_Deal_Product_Deal" FromRole="Deal_Product" ToRole="Deal" />
+          <NavigationProperty Name="softwareProduct" Relationship="SSMModel.FK_Deal_Product_softwareProduct" FromRole="Deal_Product" ToRole="softwareProduct" />
+        </EntityType>
+        <EntityType Name="Deal_SaleRep_Respon">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="dealID" Type="Int32" Nullable="false" />
+          <Property Name="startDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="endDate" Type="DateTime" Precision="0" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="AspNetUser" Relationship="SSMModel.FK_Deal_SaleRep_Respon_AspNetUsers" FromRole="Deal_SaleRep_Respon" ToRole="AspNetUser" />
+          <NavigationProperty Name="Deal" Relationship="SSMModel.FK_Deal_SaleRep_Respon_Deal" FromRole="Deal_SaleRep_Respon" ToRole="Deal" />
+        </EntityType>
+        <EntityType Name="Email_Template">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MailContent" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="creatorID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="createdDate" Type="DateTime" Precision="0" />
+          <Property Name="lastUpdate" Type="DateTime" Precision="0" />
+          <Property Name="isActive" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="License">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="licenseType" Type="Int32" />
+          <Property Name="licenseKey" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="licenseDuration" Type="Int32" />
+          <Property Name="status" Type="Int32" />
+          <Property Name="customerID" Type="Int32" />
+          <Property Name="productID" Type="Int32" />
+          <Property Name="nextTransactionDate" Type="DateTime" Precision="0" />
+          <Property Name="startDate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="customer" Relationship="SSMModel.FK_Licenses_customers" FromRole="License" ToRole="customer" />
+          <NavigationProperty Name="softwareProduct" Relationship="SSMModel.FK_Licenses_softwareProduct" FromRole="License" ToRole="softwareProduct" />
+        </EntityType>
+        <EntityType Name="MarketPlanPurchased">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="orderID" Type="Int32" Nullable="false" />
+          <Property Name="planID" Type="Int32" Nullable="false" />
+          <Property Name="SoldPrice" Type="Double" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="order" Relationship="SSMModel.FK_MarketPlanPurchased_orders" FromRole="MarketPlanPurchased" ToRole="order" />
+          <NavigationProperty Name="productMarketPlan" Relationship="SSMModel.FK_MarketPlanPurchased_productMarketPlan" FromRole="MarketPlanPurchased" ToRole="productMarketPlan" />
+        </EntityType>
+        <EntityType Name="order">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="customerID" Type="Int32" Nullable="false" />
+          <Property Name="orderNumber" Type="Int32" Nullable="false" />
+          <Property Name="total" Type="Double" Nullable="false" />
+          <Property Name="VAT" Type="Double" />
+          <Property Name="subtotal" Type="Double" />
+          <Property Name="createDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="lastModifiedDate" Type="DateTime" Precision="0" />
+          <Property Name="status" Type="Int32" Nullable="false" />
+          <Property Name="completedDate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="customer" Relationship="SSMModel.FK_orders_customers" FromRole="order" ToRole="customer" />
+          <NavigationProperty Name="MarketPlanPurchaseds" Relationship="SSMModel.FK_MarketPlanPurchased_orders" FromRole="order" ToRole="MarketPlanPurchased" />
+        </EntityType>
+        <EntityType Name="Plan_Step">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="planID" Type="Int32" Nullable="false" />
+          <Property Name="previousStep" Type="Int32" />
+          <Property Name="nextStep" Type="Int32" />
+          <Property Name="stepNo" Type="Int32" Nullable="false" />
+          <Property Name="StepEmailContent" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Plan_Step1" Relationship="SSMModel.FK_Plan_Step_Plan_Step" FromRole="Plan_Step" ToRole="Plan_Step1" />
+          <NavigationProperty Name="Plan_Step2" Relationship="SSMModel.FK_Plan_Step_Plan_Step" FromRole="Plan_Step1" ToRole="Plan_Step" />
+          <NavigationProperty Name="Plan_Step11" Relationship="SSMModel.FK_Plan_Step_Plan_Step1" FromRole="Plan_Step" ToRole="Plan_Step1" />
+          <NavigationProperty Name="Plan_Step3" Relationship="SSMModel.FK_Plan_Step_Plan_Step1" FromRole="Plan_Step1" ToRole="Plan_Step" />
+          <NavigationProperty Name="PrePurchase_FollowUp_Plan" Relationship="SSMModel.FK_Plan_Step_PrePurchase_FollowUp_Plan" FromRole="Plan_Step" ToRole="PrePurchase_FollowUp_Plan" />
+        </EntityType>
+        <EntityType Name="PlanOption">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="orderItemID" Type="Int32" Nullable="false" />
+          <Property Name="optionID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="attributeOption" Relationship="SSMModel.FK_PlanOptions_attributeOption" FromRole="PlanOption" ToRole="attributeOption" />
+          <NavigationProperty Name="productMarketPlan" Relationship="SSMModel.FK_PlanOptions_productMarketPlan" FromRole="PlanOption" ToRole="productMarketPlan" />
+        </EntityType>
+        <EntityType Name="PrePurchase_FollowUp_Plan">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="productID" Type="Int32" Nullable="false" />
+          <Property Name="createDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="lastUpdate" Type="DateTime" Precision="0" />
+          <Property Name="isActive" Type="Boolean" Nullable="false" />
+          <Property Name="fullDuration" Type="Double" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Plan_Step" Relationship="SSMModel.FK_Plan_Step_PrePurchase_FollowUp_Plan" FromRole="PrePurchase_FollowUp_Plan" ToRole="Plan_Step" />
+          <NavigationProperty Name="softwareProduct" Relationship="SSMModel.FK_PrePurchase_FollowUp_Plan_softwareProduct" FromRole="PrePurchase_FollowUp_Plan" ToRole="softwareProduct" />
+        </EntityType>
+        <EntityType Name="productAttribute">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="code" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="isActive" Type="Boolean" Nullable="false" />
+          <Property Name="screenShots" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="productID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="attributeOptions" Relationship="SSMModel.FK_attributeOption_productAttributes" FromRole="productAttribute" ToRole="attributeOption" />
+          <NavigationProperty Name="softwareProduct" Relationship="SSMModel.FK_productAttributes_softwareProduct" FromRole="productAttribute" ToRole="softwareProduct" />
+        </EntityType>
+        <EntityType Name="productMarketPlan">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="productID" Type="Int32" Nullable="false" />
+          <Property Name="Price" Type="Double" Nullable="false" />
+          <Property Name="ceilPrice" Type="Double" Nullable="false" />
+          <Property Name="floorprice" Type="Double" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDay" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="lastUpdate" Type="DateTime" Precision="0" />
+          <Property Name="isActive" Type="Boolean" Nullable="false" />
+          <Property Name="operating" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="MarketPlanPurchaseds" Relationship="SSMModel.FK_MarketPlanPurchased_productMarketPlan" FromRole="productMarketPlan" ToRole="MarketPlanPurchased" />
+          <NavigationProperty Name="PlanOptions" Relationship="SSMModel.FK_PlanOptions_productMarketPlan" FromRole="productMarketPlan" ToRole="PlanOption" />
+          <NavigationProperty Name="softwareProduct" Relationship="SSMModel.FK_orderItems_softwareProduct" FromRole="productMarketPlan" ToRole="softwareProduct" />
+        </EntityType>
+        <EntityType Name="softwareProduct">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SKU" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="keywords" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="shortDescription" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fullDescription" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="isActive" Type="Boolean" Nullable="false" />
+          <Property Name="unitPrice" Type="Double" Nullable="false" />
+          <Property Name="altPrice1" Type="Double" />
+          <Property Name="altPrice2" Type="Double" />
+          <Property Name="screenShots" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="icon" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Deal_Product" Relationship="SSMModel.FK_Deal_Product_softwareProduct" FromRole="softwareProduct" ToRole="Deal_Product" />
+          <NavigationProperty Name="Licenses" Relationship="SSMModel.FK_Licenses_softwareProduct" FromRole="softwareProduct" ToRole="License" />
+          <NavigationProperty Name="PrePurchase_FollowUp_Plan" Relationship="SSMModel.FK_PrePurchase_FollowUp_Plan_softwareProduct" FromRole="softwareProduct" ToRole="PrePurchase_FollowUp_Plan" />
+          <NavigationProperty Name="productAttributes" Relationship="SSMModel.FK_productAttributes_softwareProduct" FromRole="softwareProduct" ToRole="productAttribute" />
+          <NavigationProperty Name="productMarketPlans" Relationship="SSMModel.FK_orderItems_softwareProduct" FromRole="softwareProduct" ToRole="productMarketPlan" />
+        </EntityType>
+        <EntityType Name="task_customer">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="taskID" Type="Int32" Nullable="false" />
+          <Property Name="customerID" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="task_user">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="taskID" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TaskStatu">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="description" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ActTasks" Relationship="SSMModel.FK_Tasks_TaskStatus" FromRole="TaskStatu" ToRole="ActTask" />
+        </EntityType>
+        <EntityType Name="TaskType">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="typeName" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_Tasks_AspNetUsers">
+          <End Type="SSMModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+          <End Type="SSMModel.ActTask" Role="ActTask" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ActTask">
+              <PropertyRef Name="creatorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tasks_TaskStatus">
+          <End Type="SSMModel.TaskStatu" Role="TaskStatu" Multiplicity="1" />
+          <End Type="SSMModel.ActTask" Role="ActTask" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TaskStatu">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ActTask">
+              <PropertyRef Name="status" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Type="SSMModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="SSMModel.AspNetUserClaim" Role="AspNetUserClaim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaim">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Type="SSMModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="SSMModel.AspNetUserLogin" Role="AspNetUserLogin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogin">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_attributeOption_AspNetUsers">
+          <End Type="SSMModel.AspNetUser" Role="AspNetUser" Multiplicity="0..1" />
+          <End Type="SSMModel.attributeOption" Role="attributeOption" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="attributeOption">
+              <PropertyRef Name="Creator" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_company_responsible_AspNetUsers">
+          <End Type="SSMModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+          <End Type="SSMModel.company_responsible" Role="company_responsible" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="company_responsible">
+              <PropertyRef Name="userID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_contact_resposible_AspNetUsers">
+          <End Type="SSMModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+          <End Type="SSMModel.contact_resposible" Role="contact_resposible" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="contact_resposible">
+              <PropertyRef Name="userID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Deal_SaleRep_Respon_AspNetUsers">
+          <End Type="SSMModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+          <End Type="SSMModel.Deal_SaleRep_Respon" Role="Deal_SaleRep_Respon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Deal_SaleRep_Respon">
+              <PropertyRef Name="userID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_attributeOption_productAttributes">
+          <End Type="SSMModel.productAttribute" Role="productAttribute" Multiplicity="1" />
+          <End Type="SSMModel.attributeOption" Role="attributeOption" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="productAttribute">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="attributeOption">
+              <PropertyRef Name="attributeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlanOptions_attributeOption">
+          <End Type="SSMModel.attributeOption" Role="attributeOption" Multiplicity="1" />
+          <End Type="SSMModel.PlanOption" Role="PlanOption" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="attributeOption">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PlanOption">
+              <PropertyRef Name="optionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_company_responsible_companies">
+          <End Type="SSMModel.company" Role="company" Multiplicity="1" />
+          <End Type="SSMModel.company_responsible" Role="company_responsible" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="company">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="company_responsible">
+              <PropertyRef Name="companyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_contact_resposible_contacts">
+          <End Type="SSMModel.contact" Role="contact" Multiplicity="1" />
+          <End Type="SSMModel.contact_resposible" Role="contact_resposible" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="contact">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="contact_resposible">
+              <PropertyRef Name="contactID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Licenses_customers">
+          <End Type="SSMModel.customer" Role="customer" Multiplicity="0..1" />
+          <End Type="SSMModel.License" Role="License" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="customer">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="License">
+              <PropertyRef Name="customerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_orders_customers">
+          <End Type="SSMModel.customer" Role="customer" Multiplicity="1" />
+          <End Type="SSMModel.order" Role="order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="customer">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="order">
+              <PropertyRef Name="customerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Deal_Product_Deal">
+          <End Type="SSMModel.Deal" Role="Deal" Multiplicity="1" />
+          <End Type="SSMModel.Deal_Product" Role="Deal_Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Deal">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Deal_Product">
+              <PropertyRef Name="dealID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Deal_SaleRep_Respon_Deal">
+          <End Type="SSMModel.Deal" Role="Deal" Multiplicity="1" />
+          <End Type="SSMModel.Deal_SaleRep_Respon" Role="Deal_SaleRep_Respon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Deal">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Deal_SaleRep_Respon">
+              <PropertyRef Name="dealID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Deal_Product_softwareProduct">
+          <End Type="SSMModel.softwareProduct" Role="softwareProduct" Multiplicity="1" />
+          <End Type="SSMModel.Deal_Product" Role="Deal_Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="softwareProduct">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Deal_Product">
+              <PropertyRef Name="productID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Licenses_softwareProduct">
+          <End Type="SSMModel.softwareProduct" Role="softwareProduct" Multiplicity="0..1" />
+          <End Type="SSMModel.License" Role="License" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="softwareProduct">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="License">
+              <PropertyRef Name="productID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MarketPlanPurchased_orders">
+          <End Type="SSMModel.order" Role="order" Multiplicity="1" />
+          <End Type="SSMModel.MarketPlanPurchased" Role="MarketPlanPurchased" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="order">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="MarketPlanPurchased">
+              <PropertyRef Name="orderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MarketPlanPurchased_productMarketPlan">
+          <End Type="SSMModel.productMarketPlan" Role="productMarketPlan" Multiplicity="1" />
+          <End Type="SSMModel.MarketPlanPurchased" Role="MarketPlanPurchased" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="productMarketPlan">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="MarketPlanPurchased">
+              <PropertyRef Name="planID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Plan_Step_Plan_Step">
+          <End Type="SSMModel.Plan_Step" Role="Plan_Step" Multiplicity="0..1" />
+          <End Type="SSMModel.Plan_Step" Role="Plan_Step1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Plan_Step">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Plan_Step1">
+              <PropertyRef Name="previousStep" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Plan_Step_Plan_Step1">
+          <End Type="SSMModel.Plan_Step" Role="Plan_Step" Multiplicity="0..1" />
+          <End Type="SSMModel.Plan_Step" Role="Plan_Step1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Plan_Step">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Plan_Step1">
+              <PropertyRef Name="nextStep" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Plan_Step_PrePurchase_FollowUp_Plan">
+          <End Type="SSMModel.PrePurchase_FollowUp_Plan" Role="PrePurchase_FollowUp_Plan" Multiplicity="1" />
+          <End Type="SSMModel.Plan_Step" Role="Plan_Step" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PrePurchase_FollowUp_Plan">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Plan_Step">
+              <PropertyRef Name="planID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlanOptions_productMarketPlan">
+          <End Type="SSMModel.productMarketPlan" Role="productMarketPlan" Multiplicity="1" />
+          <End Type="SSMModel.PlanOption" Role="PlanOption" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="productMarketPlan">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PlanOption">
+              <PropertyRef Name="orderItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PrePurchase_FollowUp_Plan_softwareProduct">
+          <End Type="SSMModel.softwareProduct" Role="softwareProduct" Multiplicity="1" />
+          <End Type="SSMModel.PrePurchase_FollowUp_Plan" Role="PrePurchase_FollowUp_Plan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="softwareProduct">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PrePurchase_FollowUp_Plan">
+              <PropertyRef Name="productID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_productAttributes_softwareProduct">
+          <End Type="SSMModel.softwareProduct" Role="softwareProduct" Multiplicity="1" />
+          <End Type="SSMModel.productAttribute" Role="productAttribute" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="softwareProduct">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="productAttribute">
+              <PropertyRef Name="productID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_orderItems_softwareProduct">
+          <End Type="SSMModel.softwareProduct" Role="softwareProduct" Multiplicity="1" />
+          <End Type="SSMModel.productMarketPlan" Role="productMarketPlan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="softwareProduct">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="productMarketPlan">
+              <PropertyRef Name="productID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AspNetUserRoles">
+          <End Type="SSMModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
+          <End Type="SSMModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SSMModelStoreContainer" CdmEntityContainer="SSMEntities">
+          <EntitySetMapping Name="ActTasks">
+            <EntityTypeMapping TypeName="SSMModel.ActTask">
+              <MappingFragment StoreEntitySet="ActTask">
+                <ScalarProperty Name="creatorID" ColumnName="creatorID" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Reminder" ColumnName="Reminder" />
+                <ScalarProperty Name="repeatByTime" ColumnName="repeatByTime" />
+                <ScalarProperty Name="deadline" ColumnName="deadline" />
+                <ScalarProperty Name="createdDate" ColumnName="createdDate" />
+                <ScalarProperty Name="taskType" ColumnName="taskType" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetRoles">
+            <EntityTypeMapping TypeName="SSMModel.AspNetRole">
+              <MappingFragment StoreEntitySet="AspNetRoles">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserClaims">
+            <EntityTypeMapping TypeName="SSMModel.AspNetUserClaim">
+              <MappingFragment StoreEntitySet="AspNetUserClaims">
+                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserLogins">
+            <EntityTypeMapping TypeName="SSMModel.AspNetUserLogin">
+              <MappingFragment StoreEntitySet="AspNetUserLogins">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUsers">
+            <EntityTypeMapping TypeName="SSMModel.AspNetUser">
+              <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="attributeOptions">
+            <EntityTypeMapping TypeName="SSMModel.attributeOption">
+              <MappingFragment StoreEntitySet="attributeOption">
+                <ScalarProperty Name="Creator" ColumnName="Creator" />
+                <ScalarProperty Name="attributeID" ColumnName="attributeID" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="companies">
+            <EntityTypeMapping TypeName="SSMModel.company">
+              <MappingFragment StoreEntitySet="companies">
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="region" ColumnName="region" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="Street" ColumnName="Street" />
+                <ScalarProperty Name="sites" ColumnName="sites" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="annualIncome" ColumnName="annualIncome" />
+                <ScalarProperty Name="Employees" ColumnName="Employees" />
+                <ScalarProperty Name="Industry" ColumnName="Industry" />
+                <ScalarProperty Name="logo" ColumnName="logo" />
+                <ScalarProperty Name="companyName" ColumnName="companyName" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="company_responsible">
+            <EntityTypeMapping TypeName="SSMModel.company_responsible">
+              <MappingFragment StoreEntitySet="company_responsible">
+                <ScalarProperty Name="userID" ColumnName="userID" />
+                <ScalarProperty Name="companyID" ColumnName="companyID" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="contact_resposible">
+            <EntityTypeMapping TypeName="SSMModel.contact_resposible">
+              <MappingFragment StoreEntitySet="contact_resposible">
+                <ScalarProperty Name="userID" ColumnName="userID" />
+                <ScalarProperty Name="contactID" ColumnName="contactID" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="contacts">
+            <EntityTypeMapping TypeName="SSMModel.contact">
+              <MappingFragment StoreEntitySet="contacts">
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="Zip" ColumnName="Zip" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Region" ColumnName="Region" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Street" ColumnName="Street" />
+                <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
+                <ScalarProperty Name="Sites" ColumnName="Sites" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="emails" ColumnName="emails" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="Photo" ColumnName="Photo" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="customers">
+            <EntityTypeMapping TypeName="SSMModel.customer">
+              <MappingFragment StoreEntitySet="customers">
+                <ScalarProperty Name="cusCompany" ColumnName="cusCompany" />
+                <ScalarProperty Name="cusAddress" ColumnName="cusAddress" />
+                <ScalarProperty Name="cusPhone" ColumnName="cusPhone" />
+                <ScalarProperty Name="cusEmail" ColumnName="cusEmail" />
+                <ScalarProperty Name="cusName" ColumnName="cusName" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Deals">
+            <EntityTypeMapping TypeName="SSMModel.Deal">
+              <MappingFragment StoreEntitySet="Deal">
+                <ScalarProperty Name="Client" ColumnName="Client" />
+                <ScalarProperty Name="CompleteOn" ColumnName="CompleteOn" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="Creator" ColumnName="Creator" />
+                <ScalarProperty Name="Probability" ColumnName="Probability" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="Stage" ColumnName="Stage" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Deal_Product">
+            <EntityTypeMapping TypeName="SSMModel.Deal_Product">
+              <MappingFragment StoreEntitySet="Deal_Product">
+                <ScalarProperty Name="planID" ColumnName="planID" />
+                <ScalarProperty Name="removedDate" ColumnName="removedDate" />
+                <ScalarProperty Name="addedDate" ColumnName="addedDate" />
+                <ScalarProperty Name="dealID" ColumnName="dealID" />
+                <ScalarProperty Name="productID" ColumnName="productID" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Deal_SaleRep_Respon">
+            <EntityTypeMapping TypeName="SSMModel.Deal_SaleRep_Respon">
+              <MappingFragment StoreEntitySet="Deal_SaleRep_Respon">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="endDate" ColumnName="endDate" />
+                <ScalarProperty Name="startDate" ColumnName="startDate" />
+                <ScalarProperty Name="dealID" ColumnName="dealID" />
+                <ScalarProperty Name="userID" ColumnName="userID" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Email_Template">
+            <EntityTypeMapping TypeName="SSMModel.Email_Template">
+              <MappingFragment StoreEntitySet="Email_Template">
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+                <ScalarProperty Name="lastUpdate" ColumnName="lastUpdate" />
+                <ScalarProperty Name="createdDate" ColumnName="createdDate" />
+                <ScalarProperty Name="creatorID" ColumnName="creatorID" />
+                <ScalarProperty Name="MailContent" ColumnName="MailContent" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Licenses">
+            <EntityTypeMapping TypeName="SSMModel.License">
+              <MappingFragment StoreEntitySet="Licenses">
+                <ScalarProperty Name="startDate" ColumnName="startDate" />
+                <ScalarProperty Name="nextTransactionDate" ColumnName="nextTransactionDate" />
+                <ScalarProperty Name="productID" ColumnName="productID" />
+                <ScalarProperty Name="customerID" ColumnName="customerID" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="licenseDuration" ColumnName="licenseDuration" />
+                <ScalarProperty Name="licenseKey" ColumnName="licenseKey" />
+                <ScalarProperty Name="licenseType" ColumnName="licenseType" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MarketPlanPurchaseds">
+            <EntityTypeMapping TypeName="SSMModel.MarketPlanPurchased">
+              <MappingFragment StoreEntitySet="MarketPlanPurchased">
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="SoldPrice" ColumnName="SoldPrice" />
+                <ScalarProperty Name="planID" ColumnName="planID" />
+                <ScalarProperty Name="orderID" ColumnName="orderID" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="orders">
+            <EntityTypeMapping TypeName="SSMModel.order">
+              <MappingFragment StoreEntitySet="orders">
+                <ScalarProperty Name="completedDate" ColumnName="completedDate" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="lastModifiedDate" ColumnName="lastModifiedDate" />
+                <ScalarProperty Name="createDate" ColumnName="createDate" />
+                <ScalarProperty Name="subtotal" ColumnName="subtotal" />
+                <ScalarProperty Name="VAT" ColumnName="VAT" />
+                <ScalarProperty Name="total" ColumnName="total" />
+                <ScalarProperty Name="orderNumber" ColumnName="orderNumber" />
+                <ScalarProperty Name="customerID" ColumnName="customerID" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Plan_Step">
+            <EntityTypeMapping TypeName="SSMModel.Plan_Step">
+              <MappingFragment StoreEntitySet="Plan_Step">
+                <ScalarProperty Name="StepEmailContent" ColumnName="StepEmailContent" />
+                <ScalarProperty Name="stepNo" ColumnName="stepNo" />
+                <ScalarProperty Name="nextStep" ColumnName="nextStep" />
+                <ScalarProperty Name="previousStep" ColumnName="previousStep" />
+                <ScalarProperty Name="planID" ColumnName="planID" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PlanOptions">
+            <EntityTypeMapping TypeName="SSMModel.PlanOption">
+              <MappingFragment StoreEntitySet="PlanOptions">
+                <ScalarProperty Name="optionID" ColumnName="optionID" />
+                <ScalarProperty Name="orderItemID" ColumnName="orderItemID" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PrePurchase_FollowUp_Plan">
+            <EntityTypeMapping TypeName="SSMModel.PrePurchase_FollowUp_Plan">
+              <MappingFragment StoreEntitySet="PrePurchase_FollowUp_Plan">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="fullDuration" ColumnName="fullDuration" />
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+                <ScalarProperty Name="lastUpdate" ColumnName="lastUpdate" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="createDate" ColumnName="createDate" />
+                <ScalarProperty Name="productID" ColumnName="productID" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="productAttributes">
+            <EntityTypeMapping TypeName="SSMModel.productAttribute">
+              <MappingFragment StoreEntitySet="productAttributes">
+                <ScalarProperty Name="productID" ColumnName="productID" />
+                <ScalarProperty Name="screenShots" ColumnName="screenShots" />
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="productMarketPlans">
+            <EntityTypeMapping TypeName="SSMModel.productMarketPlan">
+              <MappingFragment StoreEntitySet="productMarketPlan">
+                <ScalarProperty Name="operating" ColumnName="operating" />
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+                <ScalarProperty Name="lastUpdate" ColumnName="lastUpdate" />
+                <ScalarProperty Name="CreatedDay" ColumnName="CreatedDay" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="floorprice" ColumnName="floorprice" />
+                <ScalarProperty Name="ceilPrice" ColumnName="ceilPrice" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="productID" ColumnName="productID" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="softwareProducts">
+            <EntityTypeMapping TypeName="SSMModel.softwareProduct">
+              <MappingFragment StoreEntitySet="softwareProduct">
+                <ScalarProperty Name="icon" ColumnName="icon" />
+                <ScalarProperty Name="screenShots" ColumnName="screenShots" />
+                <ScalarProperty Name="altPrice2" ColumnName="altPrice2" />
+                <ScalarProperty Name="altPrice1" ColumnName="altPrice1" />
+                <ScalarProperty Name="unitPrice" ColumnName="unitPrice" />
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+                <ScalarProperty Name="fullDescription" ColumnName="fullDescription" />
+                <ScalarProperty Name="shortDescription" ColumnName="shortDescription" />
+                <ScalarProperty Name="keywords" ColumnName="keywords" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="SKU" ColumnName="SKU" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="task_customer">
+            <EntityTypeMapping TypeName="SSMModel.task_customer">
+              <MappingFragment StoreEntitySet="task_customer">
+                <ScalarProperty Name="customerID" ColumnName="customerID" />
+                <ScalarProperty Name="taskID" ColumnName="taskID" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="task_user">
+            <EntityTypeMapping TypeName="SSMModel.task_user">
+              <MappingFragment StoreEntitySet="task_user">
+                <ScalarProperty Name="taskID" ColumnName="taskID" />
+                <ScalarProperty Name="userID" ColumnName="userID" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TaskStatus">
+            <EntityTypeMapping TypeName="SSMModel.TaskStatu">
+              <MappingFragment StoreEntitySet="TaskStatus">
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TaskTypes">
+            <EntityTypeMapping TypeName="SSMModel.TaskType">
+              <MappingFragment StoreEntitySet="TaskType">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="typeName" ColumnName="typeName" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="AspNetUserRoles" TypeName="SSMModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+            <EndProperty Name="AspNetUser">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+            <EndProperty Name="AspNetRole">
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

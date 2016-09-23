@@ -4,14 +4,18 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace TEMP.Controllers
+namespace SSM.Controllers
 {
-    public class LicenseController : Controller
+    public class LicenseController : iController
     {
         // GET: License
         public ActionResult Index()
         {
+            ViewData["licenseList"] = dbcnt.Licenses.ToList();
             return View("Manage");
+        }
+        public ActionResult licenseDetail(int id) {
+            return View("LicenseDetil");
         }
     }
 }
