@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 
-namespace TEMP
+namespace SSM
 {
     public class FilterConfig
     {

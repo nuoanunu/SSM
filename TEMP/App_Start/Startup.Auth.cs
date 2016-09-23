@@ -5,9 +5,9 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
-using TEMP.Models;
+using SSM.Models;
 
-namespace TEMP
+namespace SSM
 {
     public partial class Startup
     {
