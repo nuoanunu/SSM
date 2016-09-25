@@ -1,4 +1,6 @@
-﻿
+﻿@using SSM.Models;
+<script src="~/Scripts/tinymce/jquery.tinymce.min.js"></script>
+<script src="~/Scripts/tinymce/tinymce.min.js"></script>
 <style>
     @@font-face {
         font-family: 'Roboto-Light';
@@ -9,7 +11,6 @@
         font-family: 'Roboto-Black';
         src: url("../../fonts/Roboto-Black.ttf") format('truetype');
     }
-
 </style>
 <script>
     var n = 25;
@@ -29,61 +30,139 @@
         $(ev.target).css('background-color', '#ffffff');
     }
     function drop(ev) {
+        var $tr = $(ev.target).closest('tr');
+        var myRow = $tr.index();
+        var stepno = 0;
+        stepno = $(ev.target).index() + myRow * 5;
+        alert(stepno);
+        ev.target.style.backgroundColor = "#ffffff";
+        ev.target.innerHTML = "";
         n = n + 1;
         ev.preventDefault();
-        var parrent ;
+        var parrent;
         var flag = false;
         var data = ev.dataTransfer.getData("DroperID");
         if ($("#" + data).parent().attr('class') == "templateContainer") {
+            var cloned = $("#" + data).clone();
+            cloned.appendTo($("#" + data).parent());
+            var cloned2 = $("#myModal").clone();
+            cloned2.prop("id", "template" + stepno);
+            cloned2.appendTo($("#myModalContainer"));
 
-            $("#" + data).clone().prop("id", "img" + n).appendTo($("#" + data).parent());
-
+            $('#editable', "#template" + stepno).prop("id", "editext" + stepno);
+            $('#DayFromLastStepOfNo', "#template" + stepno).prop("id", "DayFromLastStepOfNo" + stepno);
         }
         else {
             parrent = document.getElementById(data).parentElement;
             flag = true;
-          
+            $("#" + data).removeProp("style");
         }
- 
-
-        ev.target.style.backgroundColor = "#ffffff";
-        ev.target.innerHTML = "";
-        alert(document.getElementById(data));
-        alert(" ev.target" + ev.target);
         ev.target.appendChild(document.getElementById(data));
-        linebreak = document.createElement("br");
-        ev.target.appendChild(linebreak);
-        $("#btnBase").clone().prop("id", "btn" + n).appendTo(ev.target);
-        $("#btn" + n).css("display", "");
+        if (!flag) {
+            $("#" + data).removeProp("style");
+            $("#" + data).prop("id", "fbtn" + stepno);
+            $("#" + "fbtn" + stepno).attr('data-target', '#template' + stepno);
+            $("#editext" + stepno).val($("#" + data + "value").val());
+
+            tinymce.init({
+                selector: 'textarea#editext' + stepno,
+                height: 500,
+                plugins: [
+                  'advlist autolink lists link image charmap print preview anchor',
+                  'searchreplace visualblocks code fullscreen',
+                  'insertdatetime media table contextmenu paste code'
+                ],
+                toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+                content_css: '//www.tinymce.com/css/codepen.min.css'
+
+
+            });
+
+
+
+        }
+        else {
+            var oldStepNo = data.replace("fbtn", "");
+            $("#editext" + oldStepNo).tinymce().remove();
+            $("#fbtn" + oldStepNo).prop("id", "fbtn" + stepno);
+            $("#fbtn" + stepno).attr('data-target', '#template' + stepno);
+            $("#template" + oldStepNo).prop("id", "template" + stepno);
+            $('#editext' + oldStepNo, "#template" + stepno).prop("id", "editext" + stepno);
+            $('#DayFromLastStepOfNo' + oldStepNo, "#template" + stepno).prop("id", "DayFromLastStepOfNo" + stepno);
+            tinymce.init({
+                selector: 'textarea#editext' + stepno,
+                height: 500,
+                plugins: [
+                  'advlist autolink lists link image charmap print preview anchor',
+                  'searchreplace visualblocks code fullscreen',
+                  'insertdatetime media table contextmenu paste code'
+                ],
+                toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+                content_css: '//www.tinymce.com/css/codepen.min.css'
+
+
+            });
+
+        }
+
         if (flag) {
             parrent.innerHTML = "";
         }
     }
 
-    
+    function createNewPlan() {
+        var planID =  @ViewData["planID"];
+        var description = $("#PlanDescription").val();
+        var name =  $("#PlanName").val();
+        var stepdata = "";
+        for(var i =1 ; i < 20; i++ ) {
+            if( document.getElementById("editext"+i+"_ifr") != null) {
+                stepdata = stepdata +  document.getElementById("editext"+i+"_ifr").contentWindow.document.body.innerHTML + "[endofmail]";
+                stepdata = stepdata +        $('#DayFromLastStepOfNo' + i).val() + "[endofStep]";
+            }
+        }
+        $("#planidform").val(planID );
+        $("#newnameform").val(name );
+        $("#desform").val(description );
+        $("#stepdataform").val(stepdata );
+        $("#myform").submit();
+
+        
+    }
 </script>
-<h1> <font style="font-family:Roboto-Light"> New plan for product MS365-001</font> </h1>
+<table width="100%">
+    <tr>
+        <td align="left">
+            <h1> <font style="font-family:Roboto-Light"> New plan for product MS365-001</font> </h1>
+        </td>
+        <td align="right">
+            <button onclick="createNewPlan()" class="btn btn-info btn-lg" >Complete</button>
+
+        </td>
+    </tr>
+</table>
+     
+
 <h3> <font style="font-family:Roboto-Light"> Date: 9/18/2016   Creator: Vũ Huỳnh Nguyên Nhật</font> </h3>
 
 <div class="row">
-    <div class="col-sm-3" >
+    <div class="col-sm-3">
         <div class="panel-thumbnail">
             <table width="100%" height="575px" style="border: 1px solid #ddd;">
-                <tr style="border: 1px solid #ddd;"> <td colspan="2" style="background:#2FC7F7" align="center"><font size="10"  style="font-family:Roboto-Light">Plan description</font</td></tr>
-                <tr style="border: 1px solid #ddd;"><td align="left">Total duration</td><td align="right" >2 months</td></tr>
+                <tr style="border: 1px solid #ddd;"> <td colspan="2" style="background:#2FC7F7" align="center"><font color="white" size="10" style="font-family:Roboto-Light;">Plan description</font></td></tr>
+                <tr style="border: 1px solid #ddd;"><td align="left">Name</td><td align="right"><input type="text" id="PlanName" placeholder="PlanName" /></td></tr>
+                <tr style="border: 1px solid #ddd;"><td align="left">Total duration</td><td align="right">2 months</td></tr>
                 <tr style="border: 1px solid #ddd;"><td align="left">Apply to customer</td><td align="right">All</td></tr>
-                <tr style="border: 1px solid #ddd;"><td align="left">Description</td><td align="right"> <textarea></textarea> </td></tr>
-                <tr style="border: 1px solid #ddd;"><td align="left">Method </td><td align="right">Mail/SSM</td></tr>
+                <tr style="border: 1px solid #ddd;"><td align="left">Description</td><td align="right"> <textarea id="PlanDescription" ></textarea> </td></tr>
+
             </table>
         </div>
     </div>
-    <div class="col-sm-9">
+    <div class="col-sm-9 pre-scrollable" style="height:575px; max-height:575px;">
         <div class="panel">
             <table width="100%">
                 <tr>
-                    <td align="center" width="5%" height="200px">
-                        <img width="50px" src="~/Content/play-icon.png" />
-                    </td>
+                    <td align="center" width="5%" height="200px"></td>
                     <td style="border: 1px solid #eee;" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="removeStyle(event)" height="100dp" width="25%" align="center">1</td>
                     <td align="center" width="10%">
                         <img width="50dp" src="~/Content/flat-right-arrow-line-theme-action-icon.png" />
@@ -97,166 +176,107 @@
                     <td align="center" width="10%" height="200px">
                         <img width="50dp" src="~/Content/flat-right-arrow-line-theme-action-icon.png" />
                     </td>
-                    <td style="border: 1px solid #eee;" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="removeStyle(event)" height="100dp" width="25%" align="center">1</td>
+                    <td style="border: 1px solid #eee;" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="removeStyle(event)" height="100dp" width="25%" align="center">4</td>
                     <td align="center" width="10%">
                         <img width="50dp" src="~/Content/flat-right-arrow-line-theme-action-icon.png" />
                     </td>
-                    <td style="border: 1px solid #eee;" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="removeStyle(event)" height="100dp" width="25%" align="center">2</td>
+                    <td style="border: 1px solid #eee;" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="removeStyle(event)" height="100dp" width="25%" align="center">5</td>
                     <td align="center" width="10%">
                         <img width="50dp" src="~/Content/flat-right-arrow-line-theme-action-icon.png" />
                     </td>
-                    <td style="border: 1px solid #eee;" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="removeStyle(event)" height="100dp" width="25%" align="center">3</td>
+                    <td style="border: 1px solid #eee;" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="removeStyle(event)" height="100dp" width="25%" align="center">6</td>
                 </tr>
                 <tr>
                     <td align="center" width="10%" height="200px">
                         <img width="50dp" src="~/Content/flat-right-arrow-line-theme-action-icon.png" />
                     </td>
-                    <td style="border: 1px solid #eee;" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="removeStyle(event)" height="100dp" width="25%" align="center">1</td>
+                    <td style="border: 1px solid #eee;" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="removeStyle(event)" height="100dp" width="25%" align="center">7</td>
                     <td align="center" width="10%">
                         <img width="50dp" src="~/Content/flat-right-arrow-line-theme-action-icon.png" />
                     </td>
-                    <td style="border: 1px solid #eee;" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="removeStyle(event)" height="100dp" width="25%" align="center">2</td>
+                    <td style="border: 1px solid #eee;" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="removeStyle(event)" height="100dp" width="25%" align="center">8</td>
                     <td align="center" width="10%">
                         <img width="50dp" src="~/Content/flat-right-arrow-line-theme-action-icon.png" />
                     </td>
-                    <td style="border: 1px solid #eee;" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="removeStyle(event)" height="100dp" width="25%" align="center">3</td>
+                    <td style="border: 1px solid #eee;" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="removeStyle(event)" height="100dp" width="25%" align="center">9</td>
                 </tr>
             </table>
         </div>
     </div>
-    </div>
+</div>
 
 
 
-    <div class="panel">
-        <table width="100%">
-            <tr>
-                <th align="center" height="75dp" style="background-color:#44B3C2">
-                <font style="font-family:Roboto-Light ; color:white;" size="6">Intro mail </font>     
+<div class="panel">
+    <table width="100%">
+        <tr>
+            @foreach (EMAIL_Category cate in (List<EMAIL_Category>)ViewData["MailCate"])
+            {
+                <th align="center" height="75dp" style="background-color:@cate.color">
+                    <font style="font-family:Roboto-Light ; color:white;" size="6">@cate.Name</font>
                 </th>
-                <th  align="center" style="background-color:#F1A94E">
-                    <font style="font-family:Roboto-Light; color:white;" size="6"> Convince mail</font>  
-                </th>
-                <th  align="center" style="background-color:#E45641" >
-                    <font style="font-family:Roboto-Light; colsor:white;" size="6">  ASking mail</font>  
-                </th>
-                <th align="center"  style="background-color:#5D4C46">
-                    <font style="font-family:Roboto-Light; color:white;" size="6"> Order mail</font>  
-                </th>
-                <th  align="center" style="background-color:#7B8D8E">
-                    <font style="font-family:Roboto-Light; color:white;" size="6">  Feedback mail</font>  
-                </th>
-            </tr>
-            <tr>
-                <td align="center"  class="templateContainer" width="20%">
-                    <div class="pre-scrollable" style="max-height:300px">
-                        <br /> <img id="img01" draggable="true" ondragstart="drag(event)" style="width:100px" src="http://www.iigce.com/wp-content/uploads/2016/06/document-download-flat.png" /></br>
-                        <br />  <img id="img02" draggable="true" ondragstart="drag(event)" style="width:100px" src="http://www.iigce.com/wp-content/uploads/2016/06/document-download-flat.png" /></br>
-                        <br /> <img id="img11" draggable="true" ondragstart="drag(event)" style="width:100px" src="http://www.iigce.com/wp-content/uploads/2016/06/document-download-flat.png" /></br>
-                        <br />  <img id="img22" draggable="true" ondragstart="drag(event)" style="width:100px" src="http://www.iigce.com/wp-content/uploads/2016/06/document-download-flat.png" /></br>
+            }
 
-                        <br /> <img id="img13" draggable="true" ondragstart="drag(event)" style="width:100px" src="http://www.iigce.com/wp-content/uploads/2016/06/document-download-flat.png" /></br>
-                        <br />  <img id="img23" draggable="true" ondragstart="drag(event)" style="width:100px" src="http://www.iigce.com/wp-content/uploads/2016/06/document-download-flat.png" /></br>
-
-                    </div>
-
-                </td>
-
-                <td align="center"  class="templateContainer" width="20%">
-                    <div class="pre-scrollable" style="max-height:300px">
-                        <div class="templateContainer">
-                            <br /> <img id="img1" draggable="true" ondragstart="drag(event)" style="width:100px" src="http://www.iigce.com/wp-content/uploads/2016/06/document-download-flat.png" /></br>
-
-                        </div>
-                        <div class="templateContainer">
-                            <br /> <img id="img2" draggable="true" ondragstart="drag(event)" style="width:100px" src="http://www.iigce.com/wp-content/uploads/2016/06/document-download-flat.png" /></br>
-
-                        </div>
-                        <div class="templateContainer">
-                            <br /> <img id="img3" draggable="true" ondragstart="drag(event)" style="width:100px" src="http://www.iigce.com/wp-content/uploads/2016/06/document-download-flat.png" /></br>
-
-                        </div>
-                        <div class="templateContainer">
-                            <br /> <img id="img4" draggable="true" ondragstart="drag(event)" style="width:100px" src="http://www.iigce.com/wp-content/uploads/2016/06/document-download-flat.png" /></br>
-
-                        </div>
-                        <div class="templateContainer">
-                            <br /> <img id="img5" draggable="true" ondragstart="drag(event)" style="width:100px" src="http://www.iigce.com/wp-content/uploads/2016/06/document-download-flat.png" /></br>
-
-                        </div>
-                 
-                    </div>
-                </td>
+        </tr>
+        <tr>
+            @foreach (EMAIL_Category cate in (List<EMAIL_Category>)ViewData["MailCate"])
+            {
                 <td align="center" class="templateContainer" width="20%">
                     <div class="pre-scrollable" style="max-height:300px">
+                        @foreach (Email_Template et in cate.Email_Template.ToList())
+                        {
+                            <div class="templateContainer">
+                                <button class="btn btn-info btn-lg" id="@("btn" +et.id)" draggable="true" ondragstart="drag(event)" data-toggle="modal" data-target="#myModal" type="button">@et.Name</button>
+                                <input type="hidden" value="@et.MailContent" id="@("btn" +et.id + "value")" />
+                                <br />
 
-                        <br /> <img id="img7" draggable="true" ondragstart="drag(event)" style="width:100px" src="http://www.iigce.com/wp-content/uploads/2016/06/document-download-flat.png" /></br>
-                        <br />  <img id="img8" draggable="true" ondragstart="drag(event)" style="width:100px" src="http://www.iigce.com/wp-content/uploads/2016/06/document-download-flat.png" /></br>
-                        <br /> <img id="img9" draggable="true" ondragstart="drag(event)" style="width:100px" src="http://www.iigce.com/wp-content/uploads/2016/06/document-download-flat.png" /></br>
-                        <br />  <img id="img10" draggable="true" ondragstart="drag(event)" style="width:100px" src="http://www.iigce.com/wp-content/uploads/2016/06/document-download-flat.png" /></br>
-
-                        <br /> <img id="img11" draggable="true" ondragstart="drag(event)" style="width:100px" src="http://www.iigce.com/wp-content/uploads/2016/06/document-download-flat.png" /></br>
-                        <br />  <img id="img12" draggable="true" ondragstart="drag(event)" style="width:100px" src="http://www.iigce.com/wp-content/uploads/2016/06/document-download-flat.png" /></br>
-
+                            </div>
+                        }
                     </div>
                 </td>
-                <td align="center"  class="templateContainer" width="20%">
-                    <div class="pre-scrollable" style="max-height:300px">
-                        <br /> <img id="img13" draggable="true" ondragstart="drag(event)" style="width:100px" src="http://www.iigce.com/wp-content/uploads/2016/06/document-download-flat.png" /></br>
-                        <br />  <img id="img14" draggable="true" ondragstart="drag(event)" style="width:100px" src="http://www.iigce.com/wp-content/uploads/2016/06/document-download-flat.png" /></br>
-                        <br /> <img id="img15" draggable="true" ondragstart="drag(event)" style="width:100px" src="http://www.iigce.com/wp-content/uploads/2016/06/document-download-flat.png" /></br>
-                        <br />  <img id="img16" draggable="true" ondragstart="drag(event)" style="width:100px" src="http://www.iigce.com/wp-content/uploads/2016/06/document-download-flat.png" /></br>
+            }
 
-                        <br /> <img id="img17" draggable="true" ondragstart="drag(event)" style="width:100px" src="http://www.iigce.com/wp-content/uploads/2016/06/document-download-flat.png" /></br>
-                        <br />  <img id="img18" draggable="true" ondragstart="drag(event)" style="width:100px" src="http://www.iigce.com/wp-content/uploads/2016/06/document-download-flat.png" /></br>
 
-                    </div>
-                </td>
-                <td align="center"  class="templateContainer" width="20%">
-                    <div class="pre-scrollable" style="max-height:300px">
-                        <br /> <img id="img19" draggable="true" ondragstart="drag(event)" style="width:100px" src="http://www.iigce.com/wp-content/uploads/2016/06/document-download-flat.png" /></br>
-                        <br />  <img id="img20" draggable="true" ondragstart="drag(event)" style="width:100px" src="http://www.iigce.com/wp-content/uploads/2016/06/document-download-flat.png" /></br>
-                        <br /> <img id="img21" draggable="true" ondragstart="drag(event)" style="width:100px" src="http://www.iigce.com/wp-content/uploads/2016/06/document-download-flat.png" /></br>
-                        <br />  <img id="img22" draggable="true" ondragstart="drag(event)" style="width:100px" src="http://www.iigce.com/wp-content/uploads/2016/06/document-download-flat.png" /></br>
 
-                        <br /> <img id="img23" draggable="true" ondragstart="drag(event)" style="width:100px" src="http://www.iigce.com/wp-content/uploads/2016/06/document-download-flat.png" /></br>
-                        <br />  <img id="img24" draggable="true" ondragstart="drag(event)" style="width:100px" src="http://www.iigce.com/wp-content/uploads/2016/06/document-download-flat.png" /></br>
+        </tr>
+    </table>
 
-                    </div>
-                </td>
-            </tr>
-        </table>
-
-    </div>
-    <div class="container">
-        <button style="display:none" id="btnBase" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Edit</button>
-        <div class="modal fade" id="myModal" role="dialog">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Template: Intro mail No.1</h4>
-                    </div>
-                    <div class="modal-body">
-                        <p>
-                            Subject Line: Welcome [FIRST NAME], here’s the login for your free trial.
-                            Body:
-                            Hi [FIRST NAME],
-                            Thanks for your time today. As promised, here is your customized login information for your free 3 month trial:
-                            URL: [URL LINK]
-                            Login: [LOGIN]
-                            Password: [PASSWORD]
-                            I will check back in a couple of days to see how it is working out for you and to answer any additional questions that may have come up. In the meantime, feel free to reach out anytime and I will be happy to assist.
-                            Here’s a link to a few helpful videos to get you started: OD Online Product Features
-                            Thanks!
-                        </p>
-                        <label> Days from last Step</label> <input type="text" />
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    </div>
+</div>
+<div class="container" id="myModalContainer">
+    <button style="display:none" id="btnBase" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Edit</button>
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Template: Intro mail No.1</h4>
                 </div>
+                <div class="modal-body">
+                    <textarea id="editable"></textarea>
+                    <label>  Days from last Step</label> <input value="14" id="DayFromLastStepOfNo" type="text" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" onclick="aaaa()" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+                <script>
+
+                </script>
             </div>
         </div>
     </div>
 
+</div>
+<form id="myform" hidden="hidden" action="/Product/CreateNewPlan" method="post">
+    <input  name="planID" id="planidform" value=""/>
+    <input name="name" id="newnameform" value="" />
+    <input name="description" id="desform" value=""/>
+    <input name="stepdata" id="stepdataform" value="" />
+</form>
+<script>
+    function aaaa() {
+        var x = document.getElementById("editable_ifr").contentWindow.document.body.innerHTML;
+
+        alert(x);
+        tinymce.execCommand('mceRemoveControl', true, 'editable');
+    }
+</script>

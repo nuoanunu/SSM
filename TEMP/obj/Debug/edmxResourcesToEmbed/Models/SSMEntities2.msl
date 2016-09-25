@@ -190,6 +190,7 @@
     <EntitySetMapping Name="Email_Template">
       <EntityTypeMapping TypeName="SSMModel.Email_Template">
         <MappingFragment StoreEntitySet="Email_Template">
+          <ScalarProperty Name="CateID" ColumnName="CateID" />
           <ScalarProperty Name="isActive" ColumnName="isActive" />
           <ScalarProperty Name="lastUpdate" ColumnName="lastUpdate" />
           <ScalarProperty Name="createdDate" ColumnName="createdDate" />
@@ -245,6 +246,7 @@
     <EntitySetMapping Name="Plan_Step">
       <EntityTypeMapping TypeName="SSMModel.Plan_Step">
         <MappingFragment StoreEntitySet="Plan_Step">
+          <ScalarProperty Name="TimeFromLastStep" ColumnName="TimeFromLastStep" />
           <ScalarProperty Name="StepEmailContent" ColumnName="StepEmailContent" />
           <ScalarProperty Name="stepNo" ColumnName="stepNo" />
           <ScalarProperty Name="nextStep" ColumnName="nextStep" />
@@ -266,6 +268,7 @@
     <EntitySetMapping Name="PrePurchase_FollowUp_Plan">
       <EntityTypeMapping TypeName="SSMModel.PrePurchase_FollowUp_Plan">
         <MappingFragment StoreEntitySet="PrePurchase_FollowUp_Plan">
+          <ScalarProperty Name="isOperation" ColumnName="isOperation" />
           <ScalarProperty Name="Description" ColumnName="Description" />
           <ScalarProperty Name="fullDuration" ColumnName="fullDuration" />
           <ScalarProperty Name="isActive" ColumnName="isActive" />
@@ -369,5 +372,18 @@
         <ScalarProperty Name="Id" ColumnName="RoleId" />
       </EndProperty>
     </AssociationSetMapping>
+    <EntitySetMapping Name="EMAIL_Category">
+      <EntityTypeMapping TypeName="SSMModel.EMAIL_Category">
+        <MappingFragment StoreEntitySet="EMAIL_Category">
+          <ScalarProperty Name="color" ColumnName="color" />
+          <ScalarProperty Name="creator" ColumnName="creator" />
+          <ScalarProperty Name="createddate" ColumnName="createddate" />
+          <ScalarProperty Name="lastupdate" ColumnName="lastupdate" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

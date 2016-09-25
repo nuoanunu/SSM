@@ -53,5 +53,6 @@ namespace SSM.Models
         public virtual DbSet<task_user> task_user { get; set; }
         public virtual DbSet<TaskStatu> TaskStatus { get; set; }
         public virtual DbSet<TaskType> TaskTypes { get; set; }
+        public virtual DbSet<EMAIL_Category> EMAIL_Category { get; set; }
     }
 }

@@ -21,5 +21,8 @@ namespace SSM.Models
         public Nullable<System.DateTime> createdDate { get; set; }
         public Nullable<System.DateTime> lastUpdate { get; set; }
         public bool isActive { get; set; }
+        public Nullable<int> CateID { get; set; }
+    
+        public virtual EMAIL_Category EMAIL_Category { get; set; }
     }
 }
