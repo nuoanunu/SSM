@@ -1,3 +1,4 @@
+C:\Users\NhatVHN\Desktop\SSM\TEMP\obj\Debug\SSM.csprojResolveAssemblyReference.cache
 C:\Users\NhatVHN\Desktop\SSM\TEMP\bin\ApplicationInsights.config
 C:\Users\NhatVHN\Desktop\SSM\TEMP\bin\roslyn\csc.exe
 C:\Users\NhatVHN\Desktop\SSM\TEMP\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
@@ -79,4 +80,3 @@ C:\Users\NhatVHN\Desktop\SSM\TEMP\bin\Microsoft.Owin.Security.Twitter.xml
 C:\Users\NhatVHN\Desktop\SSM\TEMP\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 C:\Users\NhatVHN\Desktop\SSM\TEMP\obj\Debug\SSM.dll
 C:\Users\NhatVHN\Desktop\SSM\TEMP\obj\Debug\SSM.pdb
-C:\Users\NhatVHN\Desktop\SSM\TEMP\obj\Debug\SSM.csprojResolveAssemblyReference.cache

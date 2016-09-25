@@ -200,6 +200,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\iController.cs" />
@@ -287,6 +288,7 @@
     <Compile Include="Models\productMarketPlan.cs">
       <DependentUpon>SSMEntities2.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Repository\contactRepository.cs" />
     <Compile Include="Models\Repository\customerRepository.cs" />
     <Compile Include="Models\Repository\iRepository.cs" />
     <Compile Include="Models\Repository\orderRepository.cs" />
@@ -323,6 +325,7 @@
     <Compile Include="Models\task_user.cs">
       <DependentUpon>SSMEntities2.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\TempModel\ContactEntity.cs" />
     <Compile Include="Models\TempModel\EmailModel.cs" />
     <Compile Include="Models\TempModel\ProductInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -416,6 +419,7 @@
     <Content Include="Scripts\switchery.js" />
     <Content Include="Scripts\tinymce.min.js" />
     <Content Include="Scripts\tinymce\jquery.tinymce.min.js" />
+    <Content Include="Scripts\tinymce\license.txt" />
     <Content Include="Scripts\tinymce\plugins\advlist\plugin.min.js" />
     <Content Include="Scripts\tinymce\plugins\anchor\plugin.min.js" />
     <Content Include="Scripts\tinymce\plugins\autolink\plugin.min.js" />
@@ -554,9 +558,13 @@
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce.ttf" />
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce.woff" />
     <Content Include="Views\Product\EditFollowUpPlan.cshtml" />
+    <Content Include="Views\Contact\ContactEditForm.cshtml" />
+    <Content Include="Views\Contact\ContactInsertForm.cshtml" />
+    <Content Include="Views\Contact\ContactList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="bin\roslyn\" />
     <Folder Include="Views\i\" />
   </ItemGroup>
   <ItemGroup>
