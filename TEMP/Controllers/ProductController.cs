@@ -24,10 +24,77 @@ namespace SSM.Controllers
             ViewData["productList"] = pr.getAll();
             return View("ProductList");
         }
-        public ActionResult NewPlan()
+        public ActionResult NewPlan(int productID)
         {
-            ViewData["MailCate"] = (new SSMEntities()).EMAIL_Category.ToList();
-                return View("NewFollowUpPlan");
+            SSMEntities se = new SSMEntities();
+
+            ViewData["MailCate"] = se.EMAIL_Category.ToList();
+            PrePurchase_FollowUp_Plan preplan = new PrePurchase_FollowUp_Plan();
+            preplan.name = " New Followup plan - " + DateTime.Today;
+            preplan.Description = " New plan";
+            preplan.isActive = true;
+            preplan.createDate = DateTime.Today;
+            preplan.productID = productID;
+            preplan.fullDuration = 0;
+            se.PrePurchase_FollowUp_Plan.Add(preplan);
+            se.SaveChanges();
+            ViewData["planID"] = preplan.id;
+            ViewData["Product"] = productID;
+            return View("NewFollowUpPlan");
+        }
+        public ActionResult EditPlan(int planID)
+        {
+            SSMEntities se = new SSMEntities();
+            ViewData["MailCate"] = se.EMAIL_Category.ToList();
+            PrePurchase_FollowUp_Plan preplan = se.PrePurchase_FollowUp_Plan.Find(planID);
+            ViewData["planID"] = preplan.id;
+            ViewData["Product"] = preplan.softwareProduct.id;
+            ViewData["steps"] = preplan.Plan_Step.ToList();
+            return View("EditFollowUpPlan"); 
+        }
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult CreateNewPlan(int planID, String name, String description, String stepdata)
+        {
+
+            SSMEntities se = new SSMEntities();
+            PrePurchase_FollowUp_Plan preplan = se.PrePurchase_FollowUp_Plan.Find(planID);
+            if (preplan != null) {
+                preplan.name = name;
+                preplan.Description = description;
+                se.SaveChanges();
+            }
+            System.Diagnostics.Debug.WriteLine(stepdata);
+            String[] steps = stepdata.Split(new[] { "[endofStep]" }, StringSplitOptions.RemoveEmptyEntries);
+            int index = 1;
+            List<Plan_Step> lst = new List<Plan_Step>();
+            foreach (String step in steps) {
+                System.Diagnostics.Debug.WriteLine(step);
+                        String[] values = step.Split(new[] { "[endofmail]" }, StringSplitOptions.None);
+                if (values.Length > 1) {
+                    Plan_Step planstep = new Plan_Step();
+                    planstep.planID = planID;
+                    planstep.StepEmailContent = values[0];
+                    planstep.TimeFromLastStep = int.Parse ( values[1] );
+                    planstep.stepNo = index;
+                    se.Plan_Step.Add(planstep);
+
+                    se.SaveChanges();
+                    lst.Add(planstep);
+                }
+                index = index + 1;
+            }
+            for (int i = 0; i < index-2; i++) {
+                Plan_Step plan = lst[i];
+                plan.nextStep = lst[i + 1].id;
+            }
+            for (int i = 1; i < index-1 ; i++)
+            {
+                Plan_Step plan = lst[i];
+                plan.previousStep = lst[i - 1].id;
+            }
+            se.SaveChanges();
+            return RedirectToAction("Detail", "Product", new { id = preplan.softwareProduct.id });
         }
         public ActionResult Detail(int id)
         {

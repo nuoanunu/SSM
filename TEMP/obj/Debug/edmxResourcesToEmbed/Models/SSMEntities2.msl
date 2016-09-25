@@ -246,6 +246,7 @@
     <EntitySetMapping Name="Plan_Step">
       <EntityTypeMapping TypeName="SSMModel.Plan_Step">
         <MappingFragment StoreEntitySet="Plan_Step">
+          <ScalarProperty Name="TimeFromLastStep" ColumnName="TimeFromLastStep" />
           <ScalarProperty Name="StepEmailContent" ColumnName="StepEmailContent" />
           <ScalarProperty Name="stepNo" ColumnName="stepNo" />
           <ScalarProperty Name="nextStep" ColumnName="nextStep" />
@@ -267,6 +268,7 @@
     <EntitySetMapping Name="PrePurchase_FollowUp_Plan">
       <EntityTypeMapping TypeName="SSMModel.PrePurchase_FollowUp_Plan">
         <MappingFragment StoreEntitySet="PrePurchase_FollowUp_Plan">
+          <ScalarProperty Name="isOperation" ColumnName="isOperation" />
           <ScalarProperty Name="Description" ColumnName="Description" />
           <ScalarProperty Name="fullDuration" ColumnName="fullDuration" />
           <ScalarProperty Name="isActive" ColumnName="isActive" />

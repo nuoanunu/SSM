@@ -425,6 +425,7 @@
     <NavigationProperty Name="Plan_Step11" Relationship="SSMModel.FK_Plan_Step_Plan_Step1" FromRole="Plan_Step" ToRole="Plan_Step1" />
     <NavigationProperty Name="Plan_Step3" Relationship="SSMModel.FK_Plan_Step_Plan_Step1" FromRole="Plan_Step1" ToRole="Plan_Step" />
     <NavigationProperty Name="PrePurchase_FollowUp_Plan" Relationship="SSMModel.FK_Plan_Step_PrePurchase_FollowUp_Plan" FromRole="Plan_Step" ToRole="PrePurchase_FollowUp_Plan" />
+    <Property Name="TimeFromLastStep" Type="Int32" />
   </EntityType>
   <EntityType Name="PlanOption">
     <Key>
@@ -450,6 +451,7 @@
     <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Plan_Step" Relationship="SSMModel.FK_Plan_Step_PrePurchase_FollowUp_Plan" FromRole="PrePurchase_FollowUp_Plan" ToRole="Plan_Step" />
     <NavigationProperty Name="softwareProduct" Relationship="SSMModel.FK_PrePurchase_FollowUp_Plan_softwareProduct" FromRole="PrePurchase_FollowUp_Plan" ToRole="softwareProduct" />
+    <Property Name="isOperation" Type="Boolean" Nullable="false" />
   </EntityType>
   <EntityType Name="productAttribute">
     <Key>

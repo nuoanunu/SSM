@@ -159,6 +159,10 @@
                 });
 
             }
+
+            function editplan(id) {
+                window.location = "/Product/EditPlan?planID=" + id;
+            }
 </script>
 <h1> <font style="font-family:Roboto-Light"> Product Detail</font> </h1>
 @if (ViewData["productDetail"] != null)
@@ -577,6 +581,9 @@
         <table id="myData" class="table table-striped table-bordered" cellspacing="0">
             <tr>
                 <th>
+                    Is Active
+                </th>
+                <th>
                     Plan name
                 </th>
                 <th>
@@ -595,13 +602,26 @@
             @foreach (PrePurchase_FollowUp_Plan plan in product.PrePurchase_FollowUp_Plan)
                 {
                     String corlor = "#ffffff";
-                    if (plan.isActive)
-                    {
-                        corlor = "#98FB98";
-                    }
+                
 
-                    <tr style="background-color:@corlor">
+                    <tr>
+                        <td>
+                            @if (plan.isOperation)
+                            {
+                                <label class="switch">
+                                    <input id="@("oper"+plan.id)" type="checkbox" checked>
+                                    <div class="slider round"></div>
+                                </label>
+                            }
+                            else
+                            {
+                                <label class="switch">
+                                    <input id="@("oper"+plan.id)" type="checkbox">
+                                    <div class="slider round"></div>
+                                </label>
+                            }
 
+                        </td>
 
                         <td>
                             @plan.name
@@ -616,7 +636,7 @@
                             @plan.Plan_Step.ToList().Count()
                         </td>
                         <td>
-                            <button>Edit</button>
+                            <button onclick="editplan(@plan.id)">Edit</button>
                         </td>
                     </tr>
             }
@@ -625,7 +645,7 @@
     </div>
     <script>
         function redirectToNewPlan() {
-            window.location = "/Product/NewPlan";
+            window.location = "/Product/NewPlan?productID="+ @product.id;
         }
 
     </script>

@@ -28,6 +28,7 @@ namespace SSM.Models
         public bool isActive { get; set; }
         public Nullable<double> fullDuration { get; set; }
         public string Description { get; set; }
+        public bool isOperation { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Plan_Step> Plan_Step { get; set; }

@@ -11,6 +11,27 @@
         font-family: 'Roboto-Black';
         src: url("../../fonts/Roboto-Black.ttf") format('truetype');
     }
+.right-arrow {
+    width:60%;
+	display: inline-block;
+	position: relative;
+	background: orange;
+	padding: 15px;
+}
+.right-arrow:after {
+	content: '';
+	display: block;  
+	position: absolute;
+	left: 100%;
+	top: 50%;
+	margin-top: -10px;
+	width: 0;
+	height: 0;
+	border-top: 10px solid transparent;
+	border-right: 10px solid transparent;
+	border-bottom: 10px solid transparent;
+	border-left: 10px solid orange;
+}
 </style>
 <script>
     var n = 25;
@@ -127,8 +148,44 @@
         $("#stepdataform").val(stepdata );
         $("#myform").submit();
 
-        
+
     }
+    function updatetable ( ) {
+        
+        var n = 0;
+        n = n+ @(  ((List<Plan_Step>)ViewData["steps"]).Count());
+        for(var i = 1; i < n+1 ; i++) {
+    
+            var row =0;
+            var col =0;
+
+            if(  i % 3 == 0)  {row = Math.floor (i/3); col = 2; }
+            else {
+                row = Math.floor (i/3) ; col = i - Math.floor (row*3) -1; 
+            }
+            alert("ROw " +row + " col " + col) ;
+         $('#stepstable tr:eq(' + row + ') td:eq(' + col + ')').html("");;
+            
+         $('#stepstable tr:eq(' + row + ') td:eq(' + col + ')').append('<button id="fbtn'+i+'" type="button" class="right-arrow" data-toggle="modal" data-target="#template'+i+'" draggable="true" ondragstart="drag(event)" ">Step '+i+'</button>');
+         tinymce.init({
+             selector: 'textarea#editext' + i,
+             height: 500,
+             plugins: [
+               'advlist autolink lists link image charmap print preview anchor',
+               'searchreplace visualblocks code fullscreen',
+               'insertdatetime media table contextmenu paste code'
+             ],
+             toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+             content_css: '//www.tinymce.com/css/codepen.min.css'
+
+
+         });
+        }
+    }
+    $(document).ready(function (){
+        updatetable();
+    })
+
 </script>
 <table width="100%">
     <tr>
@@ -136,12 +193,12 @@
             <h1> <font style="font-family:Roboto-Light"> New plan for product MS365-001</font> </h1>
         </td>
         <td align="right">
-            <button onclick="createNewPlan()" class="btn btn-info btn-lg" >Complete</button>
+            <button onclick="createNewPlan()" class="btn btn-info btn-lg">Complete</button>
 
         </td>
     </tr>
 </table>
-     
+
 
 <h3> <font style="font-family:Roboto-Light"> Date: 9/18/2016   Creator: Vũ Huỳnh Nguyên Nhật</font> </h3>
 
@@ -153,52 +210,30 @@
                 <tr style="border: 1px solid #ddd;"><td align="left">Name</td><td align="right"><input type="text" id="PlanName" placeholder="PlanName" /></td></tr>
                 <tr style="border: 1px solid #ddd;"><td align="left">Total duration</td><td align="right">2 months</td></tr>
                 <tr style="border: 1px solid #ddd;"><td align="left">Apply to customer</td><td align="right">All</td></tr>
-                <tr style="border: 1px solid #ddd;"><td align="left">Description</td><td align="right"> <textarea id="PlanDescription" ></textarea> </td></tr>
+                <tr style="border: 1px solid #ddd;"><td align="left">Description</td><td align="right"> <textarea id="PlanDescription"></textarea> </td></tr>
 
             </table>
         </div>
     </div>
     <div class="col-sm-9 pre-scrollable" style="height:575px; max-height:575px;">
         <div class="panel">
-            <table width="100%">
+            <table width="100%" id="stepstable">
                 <tr>
-                    <td align="center" width="5%" height="200px"></td>
-                    <td style="border: 1px solid #eee;" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="removeStyle(event)" height="100dp" width="25%" align="center">1</td>
-                    <td align="center" width="10%">
-                        <img width="50dp" src="~/Content/flat-right-arrow-line-theme-action-icon.png" />
+                    <td style="border: 1px solid #eee;" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="removeStyle(event)" height="100dp" width="25%" align="center">
+                  
+                    </td>
                     <td style="border: 1px solid #eee;" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="removeStyle(event)" height="100dp" width="25%" align="center">2</td>
-                    <td align="center" width="10%">
-                        <img width="50dp" src="~/Content/flat-right-arrow-line-theme-action-icon.png" />
-                    </td>
-                    <td style="border: 1px solid #eee;" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="removeStyle(event)" height="100dp" width="25%" align="center">3</td>
+                  <td style="border: 1px solid #eee;" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="removeStyle(event)" height="100dp" width="25%" align="center">3</td>
                 </tr>
                 <tr>
-                    <td align="center" width="10%" height="200px">
-                        <img width="50dp" src="~/Content/flat-right-arrow-line-theme-action-icon.png" />
-                    </td>
-                    <td style="border: 1px solid #eee;" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="removeStyle(event)" height="100dp" width="25%" align="center">4</td>
-                    <td align="center" width="10%">
-                        <img width="50dp" src="~/Content/flat-right-arrow-line-theme-action-icon.png" />
-                    </td>
-                    <td style="border: 1px solid #eee;" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="removeStyle(event)" height="100dp" width="25%" align="center">5</td>
-                    <td align="center" width="10%">
-                        <img width="50dp" src="~/Content/flat-right-arrow-line-theme-action-icon.png" />
-                    </td>
-                    <td style="border: 1px solid #eee;" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="removeStyle(event)" height="100dp" width="25%" align="center">6</td>
+                   <td style="border: 1px solid #eee;" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="removeStyle(event)" height="100dp" width="25%" align="center">4</td>
+                   <td style="border: 1px solid #eee;" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="removeStyle(event)" height="100dp" width="25%" align="center">5</td>
+                  <td style="border: 1px solid #eee;" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="removeStyle(event)" height="100dp" width="25%" align="center">6</td>
                 </tr>
                 <tr>
-                    <td align="center" width="10%" height="200px">
-                        <img width="50dp" src="~/Content/flat-right-arrow-line-theme-action-icon.png" />
-                    </td>
-                    <td style="border: 1px solid #eee;" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="removeStyle(event)" height="100dp" width="25%" align="center">7</td>
-                    <td align="center" width="10%">
-                        <img width="50dp" src="~/Content/flat-right-arrow-line-theme-action-icon.png" />
-                    </td>
-                    <td style="border: 1px solid #eee;" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="removeStyle(event)" height="100dp" width="25%" align="center">8</td>
-                    <td align="center" width="10%">
-                        <img width="50dp" src="~/Content/flat-right-arrow-line-theme-action-icon.png" />
-                    </td>
-                    <td style="border: 1px solid #eee;" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="removeStyle(event)" height="100dp" width="25%" align="center">9</td>
+                   <td style="border: 1px solid #eee;" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="removeStyle(event)" height="100dp" width="25%" align="center">7</td>
+                   <td style="border: 1px solid #eee;" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="removeStyle(event)" height="100dp" width="25%" align="center">8</td>
+                  <td style="border: 1px solid #eee;" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="removeStyle(event)" height="100dp" width="25%" align="center">9</td>
                 </tr>
             </table>
         </div>
@@ -226,7 +261,7 @@
                         @foreach (Email_Template et in cate.Email_Template.ToList())
                         {
                             <div class="templateContainer">
-                                <button class="btn btn-info btn-lg" id="@("btn" +et.id)" draggable="true" ondragstart="drag(event)" data-toggle="modal" data-target="#myModal" type="button">@et.Name</button>
+                                <button class="right-arrow" id="@("btn" +et.id)" draggable="true" ondragstart="drag(event)" data-toggle="modal" data-target="#myModal" type="button">@et.Name</button>
                                 <input type="hidden" value="@et.MailContent" id="@("btn" +et.id + "value")" />
                                 <br />
 
@@ -256,7 +291,7 @@
                     <label>  Days from last Step</label> <input value="14" id="DayFromLastStepOfNo" type="text" />
                 </div>
                 <div class="modal-footer">
-                    <button type="button" onclick="aaaa()" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
                 <script>
 
@@ -264,12 +299,34 @@
             </div>
         </div>
     </div>
+    @foreach (Plan_Step step in (List<Plan_Step>)ViewData["steps"])
+    {
+        <div class="modal fade" id="@("template"+step.stepNo)" role="dialog">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Template: Intro mail No.1</h4>
+                    </div>
+                    <div class="modal-body">
+                        <textarea id="@("editext"+step.stepNo)"> @step.StepEmailContent </textarea>
+                        <label>  Days from last Step</label> <input value="@step.TimeFromLastStep" id="DayFromLastStepOfNo" type="text" />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                    <script>
 
+                    </script>
+                </div>
+            </div>
+        </div>
+    }
 </div>
 <form id="myform" hidden="hidden" action="/Product/CreateNewPlan" method="post">
-    <input  name="planID" id="planidform" value=""/>
+    <input name="planID" id="planidform" value="" />
     <input name="name" id="newnameform" value="" />
-    <input name="description" id="desform" value=""/>
+    <input name="description" id="desform" value="" />
     <input name="stepdata" id="stepdataform" value="" />
 </form>
 <script>

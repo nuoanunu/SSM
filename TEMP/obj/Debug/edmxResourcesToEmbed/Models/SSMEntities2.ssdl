@@ -256,6 +256,7 @@
     <Property Name="nextStep" Type="int" />
     <Property Name="stepNo" Type="int" Nullable="false" />
     <Property Name="StepEmailContent" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="TimeFromLastStep" Type="int" />
   </EntityType>
   <EntityType Name="PlanOptions">
     <Key>
@@ -277,6 +278,7 @@
     <Property Name="isActive" Type="bit" Nullable="false" />
     <Property Name="fullDuration" Type="float" />
     <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="isOperation" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="productAttributes">
     <Key>
