@@ -141,6 +141,11 @@
       <End Role="AspNetRole" EntitySet="AspNetRoles" />
       <End Role="AspNetUser" EntitySet="AspNetUsers" />
     </AssociationSet>
+    <EntitySet Name="EMAIL_Category" EntityType="SSMModel.EMAIL_Category" />
+    <AssociationSet Name="FK_Email_Template_EMAIL_Category" Association="SSMModel.FK_Email_Template_EMAIL_Category">
+      <End Role="EMAIL_Category" EntitySet="EMAIL_Category" />
+      <End Role="Email_Template" EntitySet="Email_Template" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="ActTask">
     <Key>
@@ -357,6 +362,8 @@
     <Property Name="createdDate" Type="DateTime" Precision="0" />
     <Property Name="lastUpdate" Type="DateTime" Precision="0" />
     <Property Name="isActive" Type="Boolean" Nullable="false" />
+    <Property Name="CateID" Type="Int32" />
+    <NavigationProperty Name="EMAIL_Category" Relationship="SSMModel.FK_Email_Template_EMAIL_Category" FromRole="Email_Template" ToRole="EMAIL_Category" />
   </EntityType>
   <EntityType Name="License">
     <Key>
@@ -863,5 +870,30 @@
   <Association Name="AspNetUserRoles">
     <End Type="SSMModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
     <End Type="SSMModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
+  </Association>
+  <EntityType Name="EMAIL_Category">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="lastupdate" Type="DateTime" Precision="0" />
+    <Property Name="createddate" Type="DateTime" Precision="0" />
+    <Property Name="creator" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Email_Template" Relationship="SSMModel.FK_Email_Template_EMAIL_Category" FromRole="EMAIL_Category" ToRole="Email_Template" />
+    <Property Name="color" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <Association Name="FK_Email_Template_EMAIL_Category">
+    <End Type="SSMModel.EMAIL_Category" Role="EMAIL_Category" Multiplicity="0..1" />
+    <End Type="SSMModel.Email_Template" Role="Email_Template" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EMAIL_Category">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Email_Template">
+        <PropertyRef Name="CateID" />
+      </Dependent>
+    </ReferentialConstraint>
   </Association>
 </Schema>

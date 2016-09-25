@@ -61,6 +61,8 @@
         <AssociationConnector Association="SSMModel.FK_productAttributes_softwareProduct" />
         <AssociationConnector Association="SSMModel.FK_orderItems_softwareProduct" />
         <AssociationConnector Association="SSMModel.AspNetUserRoles" />
+        <EntityTypeShape EntityType="SSMModel.EMAIL_Category" Width="1.5" PointX="13.375" PointY="0.75" />
+        <AssociationConnector Association="SSMModel.FK_Email_Template_EMAIL_Category" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

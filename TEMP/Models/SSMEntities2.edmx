@@ -187,6 +187,18 @@
           <Property Name="endDate" Type="date" />
           <Property Name="Active" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="EMAIL_Category">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="description" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="lastupdate" Type="date" />
+          <Property Name="createddate" Type="date" />
+          <Property Name="creator" Type="nvarchar" MaxLength="128" />
+          <Property Name="color" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="Email_Template">
           <Key>
             <PropertyRef Name="id" />
@@ -198,6 +210,7 @@
           <Property Name="createdDate" Type="date" />
           <Property Name="lastUpdate" Type="date" />
           <Property Name="isActive" Type="bit" Nullable="false" />
+          <Property Name="CateID" Type="int" />
         </EntityType>
         <EntityType Name="Licenses">
           <Key>
@@ -523,6 +536,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Email_Template_EMAIL_Category">
+          <End Role="EMAIL_Category" Type="Self.EMAIL_Category" Multiplicity="0..1" />
+          <End Role="Email_Template" Type="Self.Email_Template" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EMAIL_Category">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Email_Template">
+              <PropertyRef Name="CateID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Licenses_customers">
           <End Role="customers" Type="Self.customers" Multiplicity="0..1" />
           <End Role="Licenses" Type="Self.Licenses" Multiplicity="*" />
@@ -719,6 +744,7 @@
           <EntitySet Name="Deal" EntityType="Self.Deal" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Deal_Product" EntityType="Self.Deal_Product" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Deal_SaleRep_Respon" EntityType="Self.Deal_SaleRep_Respon" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EMAIL_Category" EntityType="Self.EMAIL_Category" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Email_Template" EntityType="Self.Email_Template" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Licenses" EntityType="Self.Licenses" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MarketPlanPurchased" EntityType="Self.MarketPlanPurchased" Schema="dbo" store:Type="Tables" />
@@ -788,6 +814,10 @@
           <AssociationSet Name="FK_Deal_SaleRep_Respon_Deal" Association="Self.FK_Deal_SaleRep_Respon_Deal">
             <End Role="Deal" EntitySet="Deal" />
             <End Role="Deal_SaleRep_Respon" EntitySet="Deal_SaleRep_Respon" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Email_Template_EMAIL_Category" Association="Self.FK_Email_Template_EMAIL_Category">
+            <End Role="EMAIL_Category" EntitySet="EMAIL_Category" />
+            <End Role="Email_Template" EntitySet="Email_Template" />
           </AssociationSet>
           <AssociationSet Name="FK_Licenses_customers" Association="Self.FK_Licenses_customers">
             <End Role="customers" EntitySet="customers" />
@@ -994,6 +1024,11 @@
           <AssociationSet Name="AspNetUserRoles" Association="SSMModel.AspNetUserRoles">
             <End Role="AspNetRole" EntitySet="AspNetRoles" />
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <EntitySet Name="EMAIL_Category" EntityType="SSMModel.EMAIL_Category" />
+          <AssociationSet Name="FK_Email_Template_EMAIL_Category" Association="SSMModel.FK_Email_Template_EMAIL_Category">
+            <End Role="EMAIL_Category" EntitySet="EMAIL_Category" />
+            <End Role="Email_Template" EntitySet="Email_Template" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="ActTask">
@@ -1211,6 +1246,8 @@
           <Property Name="createdDate" Type="DateTime" Precision="0" />
           <Property Name="lastUpdate" Type="DateTime" Precision="0" />
           <Property Name="isActive" Type="Boolean" Nullable="false" />
+          <Property Name="CateID" Type="Int32" />
+          <NavigationProperty Name="EMAIL_Category" Relationship="SSMModel.FK_Email_Template_EMAIL_Category" FromRole="Email_Template" ToRole="EMAIL_Category" />
         </EntityType>
         <EntityType Name="License">
           <Key>
@@ -1718,6 +1755,31 @@
           <End Type="SSMModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
           <End Type="SSMModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
         </Association>
+        <EntityType Name="EMAIL_Category">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="lastupdate" Type="DateTime" Precision="0" />
+          <Property Name="createddate" Type="DateTime" Precision="0" />
+          <Property Name="creator" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Email_Template" Relationship="SSMModel.FK_Email_Template_EMAIL_Category" FromRole="EMAIL_Category" ToRole="Email_Template" />
+          <Property Name="color" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_Email_Template_EMAIL_Category">
+          <End Type="SSMModel.EMAIL_Category" Role="EMAIL_Category" Multiplicity="0..1" />
+          <End Type="SSMModel.Email_Template" Role="Email_Template" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EMAIL_Category">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Email_Template">
+              <PropertyRef Name="CateID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1913,6 +1975,7 @@
           <EntitySetMapping Name="Email_Template">
             <EntityTypeMapping TypeName="SSMModel.Email_Template">
               <MappingFragment StoreEntitySet="Email_Template">
+                <ScalarProperty Name="CateID" ColumnName="CateID" />
                 <ScalarProperty Name="isActive" ColumnName="isActive" />
                 <ScalarProperty Name="lastUpdate" ColumnName="lastUpdate" />
                 <ScalarProperty Name="createdDate" ColumnName="createdDate" />
@@ -2092,6 +2155,19 @@
               <ScalarProperty Name="Id" ColumnName="RoleId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="EMAIL_Category">
+            <EntityTypeMapping TypeName="SSMModel.EMAIL_Category">
+              <MappingFragment StoreEntitySet="EMAIL_Category">
+                <ScalarProperty Name="color" ColumnName="color" />
+                <ScalarProperty Name="creator" ColumnName="creator" />
+                <ScalarProperty Name="createddate" ColumnName="createddate" />
+                <ScalarProperty Name="lastupdate" ColumnName="lastupdate" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

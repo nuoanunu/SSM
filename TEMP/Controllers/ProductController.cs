@@ -5,6 +5,9 @@ using System.Web;
 using System.Web.Mvc;
 using SSM.Models;
 using SSM.Models.Repository;
+using System.Net.Mail;
+using System.Net;
+using System.Threading.Tasks;
 
 namespace SSM.Controllers
 {
@@ -23,8 +26,8 @@ namespace SSM.Controllers
         }
         public ActionResult NewPlan()
         {
-
-            return View("NewFollowUpPlan");
+            ViewData["MailCate"] = (new SSMEntities()).EMAIL_Category.ToList();
+                return View("NewFollowUpPlan");
         }
         public ActionResult Detail(int id)
         {
@@ -112,6 +115,33 @@ namespace SSM.Controllers
             }
             return Json(new { result = "false" }, JsonRequestBehavior.AllowGet);
 
+        }
+        public async Task<ActionResult> guimail() {
+            var body = "<p>Email From: {0} ({1})</p><p>Message:</p><p>{2}</p>";
+            var message = new MailMessage();
+            message.To.Add(new MailAddress("nhatvhn99@gmail.com"));  // replace with valid value 
+            message.From = new MailAddress("dwarpro@gmail.com");  // replace with valid value
+            message.Subject = "Your email subject";
+            SSMEntities context = new SSMEntities();
+           
+                message.Body = string.Format(body, "dwarpro@gmail.com", "dwarpro@gmail.com", context.Email_Template.ToList().First().MailContent);
+            message.IsBodyHtml = true;
+
+            using (var smtp = new SmtpClient())
+            {
+                var credential = new NetworkCredential
+                {
+                    UserName = "dwarpro@gmail.com",  // replace with valid value
+                    Password = "320395qww"  // replace with valid value
+                };
+                smtp.Credentials = credential;
+                smtp.Host = "smtp.gmail.com";
+                smtp.Port = 587;
+                smtp.EnableSsl = true;
+                await smtp.SendMailAsync(message);
+                return Json(new { success = " suc" }, JsonRequestBehavior.AllowGet);
+            }
+            return Json(new { success =" fale" }, JsonRequestBehavior.AllowGet);
         }
     }
     }

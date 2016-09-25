@@ -182,6 +182,18 @@
     <Property Name="endDate" Type="date" />
     <Property Name="Active" Type="bit" Nullable="false" />
   </EntityType>
+  <EntityType Name="EMAIL_Category">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="description" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="lastupdate" Type="date" />
+    <Property Name="createddate" Type="date" />
+    <Property Name="creator" Type="nvarchar" MaxLength="128" />
+    <Property Name="color" Type="nvarchar" MaxLength="50" />
+  </EntityType>
   <EntityType Name="Email_Template">
     <Key>
       <PropertyRef Name="id" />
@@ -193,6 +205,7 @@
     <Property Name="createdDate" Type="date" />
     <Property Name="lastUpdate" Type="date" />
     <Property Name="isActive" Type="bit" Nullable="false" />
+    <Property Name="CateID" Type="int" />
   </EntityType>
   <EntityType Name="Licenses">
     <Key>
@@ -518,6 +531,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Email_Template_EMAIL_Category">
+    <End Role="EMAIL_Category" Type="Self.EMAIL_Category" Multiplicity="0..1" />
+    <End Role="Email_Template" Type="Self.Email_Template" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EMAIL_Category">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Email_Template">
+        <PropertyRef Name="CateID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Licenses_customers">
     <End Role="customers" Type="Self.customers" Multiplicity="0..1" />
     <End Role="Licenses" Type="Self.Licenses" Multiplicity="*" />
@@ -714,6 +739,7 @@
     <EntitySet Name="Deal" EntityType="Self.Deal" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Deal_Product" EntityType="Self.Deal_Product" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Deal_SaleRep_Respon" EntityType="Self.Deal_SaleRep_Respon" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EMAIL_Category" EntityType="Self.EMAIL_Category" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Email_Template" EntityType="Self.Email_Template" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Licenses" EntityType="Self.Licenses" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MarketPlanPurchased" EntityType="Self.MarketPlanPurchased" Schema="dbo" store:Type="Tables" />
@@ -783,6 +809,10 @@
     <AssociationSet Name="FK_Deal_SaleRep_Respon_Deal" Association="Self.FK_Deal_SaleRep_Respon_Deal">
       <End Role="Deal" EntitySet="Deal" />
       <End Role="Deal_SaleRep_Respon" EntitySet="Deal_SaleRep_Respon" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Email_Template_EMAIL_Category" Association="Self.FK_Email_Template_EMAIL_Category">
+      <End Role="EMAIL_Category" EntitySet="EMAIL_Category" />
+      <End Role="Email_Template" EntitySet="Email_Template" />
     </AssociationSet>
     <AssociationSet Name="FK_Licenses_customers" Association="Self.FK_Licenses_customers">
       <End Role="customers" EntitySet="customers" />

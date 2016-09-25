@@ -190,6 +190,7 @@
     <EntitySetMapping Name="Email_Template">
       <EntityTypeMapping TypeName="SSMModel.Email_Template">
         <MappingFragment StoreEntitySet="Email_Template">
+          <ScalarProperty Name="CateID" ColumnName="CateID" />
           <ScalarProperty Name="isActive" ColumnName="isActive" />
           <ScalarProperty Name="lastUpdate" ColumnName="lastUpdate" />
           <ScalarProperty Name="createdDate" ColumnName="createdDate" />
@@ -369,5 +370,18 @@
         <ScalarProperty Name="Id" ColumnName="RoleId" />
       </EndProperty>
     </AssociationSetMapping>
+    <EntitySetMapping Name="EMAIL_Category">
+      <EntityTypeMapping TypeName="SSMModel.EMAIL_Category">
+        <MappingFragment StoreEntitySet="EMAIL_Category">
+          <ScalarProperty Name="color" ColumnName="color" />
+          <ScalarProperty Name="creator" ColumnName="creator" />
+          <ScalarProperty Name="createddate" ColumnName="createddate" />
+          <ScalarProperty Name="lastupdate" ColumnName="lastupdate" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>
