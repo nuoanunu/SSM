@@ -131,8 +131,8 @@
         }
     }
 
-    function createNewPlan() {
-        var planID =  @ViewData["planID"];
+    function EditNewPlan(id) {
+        var planID =  id;
         var description = $("#PlanDescription").val();
         var name =  $("#PlanName").val();
         var stepdata = "";
@@ -187,30 +187,34 @@
     })
 
 </script>
-<table width="100%">
-    <tr>
-        <td align="left">
-            <h1> <font style="font-family:Roboto-Light"> New plan for product MS365-001</font> </h1>
-        </td>
-        <td align="right">
-            <button onclick="createNewPlan()" class="btn btn-info btn-lg">Complete</button>
 
-        </td>
-    </tr>
-</table>
+@if (ViewData["plan"] != null)
+{
+    PrePurchase_FollowUp_Plan plan = (PrePurchase_FollowUp_Plan)ViewData["plan"];
+    <table width="100%">
+        <tr>
+            <td align="left">
+                <h1> <font style="font-family:Roboto-Light"> New plan for product MS365-001</font> </h1>
+            </td>
+            <td align="right">
+                <button onclick="EditNewPlan(@plan.id)" class="btn btn-info btn-lg">Edit</button>
+
+            </td>
+        </tr>
+    </table>
 
 
-<h3> <font style="font-family:Roboto-Light"> Date: 9/18/2016   Creator: Vũ Huỳnh Nguyên Nhật</font> </h3>
+    <h3> <font style="font-family:Roboto-Light"> Date: @DateTime.Today  Creator: Vũ Huỳnh Nguyên Nhật</font> </h3>
 
 <div class="row">
     <div class="col-sm-3">
         <div class="panel-thumbnail">
             <table width="100%" height="575px" style="border: 1px solid #ddd;">
                 <tr style="border: 1px solid #ddd;"> <td colspan="2" style="background:#2FC7F7" align="center"><font color="white" size="10" style="font-family:Roboto-Light;">Plan description</font></td></tr>
-                <tr style="border: 1px solid #ddd;"><td align="left">Name</td><td align="right"><input type="text" id="PlanName" placeholder="PlanName" /></td></tr>
-                <tr style="border: 1px solid #ddd;"><td align="left">Total duration</td><td align="right">2 months</td></tr>
-                <tr style="border: 1px solid #ddd;"><td align="left">Apply to customer</td><td align="right">All</td></tr>
-                <tr style="border: 1px solid #ddd;"><td align="left">Description</td><td align="right"> <textarea id="PlanDescription"></textarea> </td></tr>
+                <tr style="border: 1px solid #ddd;"><td align="left">Name</td><td align="right"><input type="text" id="PlanName" placeholder="PlanName" value="@plan.name"/></td></tr>
+                <tr style="border: 1px solid #ddd;"><td align="left">Total duration</td><td align="right"></td></tr>
+
+                <tr style="border: 1px solid #ddd;"><td align="left">Description</td><td align="right"> <textarea id="PlanDescription">@plan.Description</textarea> </td></tr>
 
             </table>
         </div>
@@ -261,8 +265,8 @@
                         @foreach (Email_Template et in cate.Email_Template.ToList())
                         {
                             <div class="templateContainer">
-                                <button class="right-arrow" id="@("btn" +et.id)" draggable="true" ondragstart="drag(event)" data-toggle="modal" data-target="#myModal" type="button">@et.Name</button>
-                                <input type="hidden" value="@et.MailContent" id="@("btn" +et.id + "value")" />
+                                <button class="right-arrow" id="@("btn" + et.id)" draggable="true" ondragstart="drag(event)" data-toggle="modal" data-target="#myModal" type="button">@et.Name</button>
+                                <input type="hidden" value="@et.MailContent" id="@("btn" + et.id + "value")" />
                                 <br />
 
                             </div>
@@ -301,7 +305,7 @@
     </div>
     @foreach (Plan_Step step in (List<Plan_Step>)ViewData["steps"])
     {
-        <div class="modal fade" id="@("template"+step.stepNo)" role="dialog">
+        <div class="modal fade" id="@("template" + step.stepNo)" role="dialog">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -309,7 +313,7 @@
                         <h4 class="modal-title">Template: Intro mail No.1</h4>
                     </div>
                     <div class="modal-body">
-                        <textarea id="@("editext"+step.stepNo)"> @step.StepEmailContent </textarea>
+                        <textarea id="@("editext" + step.stepNo)"> @step.StepEmailContent </textarea>
                         <label>  Days from last Step</label> <input value="@step.TimeFromLastStep" id="DayFromLastStepOfNo" type="text" />
                     </div>
                     <div class="modal-footer">
@@ -337,3 +341,4 @@
         tinymce.execCommand('mceRemoveControl', true, 'editable');
     }
 </script>
+}

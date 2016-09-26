@@ -202,6 +202,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
+    <Compile Include="Controllers\DealController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\iController.cs" />
     <Compile Include="Controllers\LicenseController.cs" />
@@ -290,10 +291,12 @@
     </Compile>
     <Compile Include="Models\Repository\contactRepository.cs" />
     <Compile Include="Models\Repository\customerRepository.cs" />
+    <Compile Include="Models\Repository\DealRepository.cs" />
     <Compile Include="Models\Repository\iRepository.cs" />
     <Compile Include="Models\Repository\orderRepository.cs" />
     <Compile Include="Models\Repository\productRepository.cs" />
     <Compile Include="Models\Repository\taskRepository.cs" />
+    <Compile Include="Models\Services\DealServices.cs" />
     <Compile Include="Models\Services\ProductServices.cs" />
     <Compile Include="Models\softwareProduct.cs">
       <DependentUpon>SSMEntities2.tt</DependentUpon>
@@ -338,11 +341,13 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\buttonStyle.css" />
     <Content Include="Content\calendar_g.css" />
     <Content Include="Content\calendar_green.css" />
     <Content Include="Content\calendar_traditional.css" />
     <Content Include="Content\calendar_transparent.css" />
     <Content Include="Content\calendar_white.css" />
+    <Content Include="Content\dealtable.css" />
     <Content Include="Content\flat-right-arrow-line-theme-action-icon.png" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\jquery-ui-timepicker-addon.css" />
@@ -351,7 +356,9 @@
     <Content Include="Content\mailboxStyle.css" />
     <Content Include="Content\navbar-fixed-side.css" />
     <Content Include="Content\play-icon.png" />
+    <Content Include="Content\ProcessBar.css" />
     <Content Include="Content\switecherry.css" />
+    <Content Include="Content\w3.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -561,6 +568,8 @@
     <Content Include="Views\Contact\ContactEditForm.cshtml" />
     <Content Include="Views\Contact\ContactInsertForm.cshtml" />
     <Content Include="Views\Contact\ContactList.cshtml" />
+    <Content Include="Views\Deal\index.cshtml" />
+    <Content Include="Views\Deal\temp.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -70,12 +70,13 @@ namespace SSM.Controllers
         {
             return View("orderDetail");
         }
-        public ActionResult NewDeal(Deal newdeal, String responsiblesRole ,String options)
+        public ActionResult NewDeal(Deal newdeal, String responsiblesRole ,int planID)
         {
+            
             productRepository pr = new productRepository(new SSMEntities());
             ViewData["AllProductDetail"] = pr.getAll();
             return View("CreateDeal");
         }
-    
+      
     }
 }

@@ -48,6 +48,7 @@ namespace SSM.Controllers
             ViewData["MailCate"] = se.EMAIL_Category.ToList();
             PrePurchase_FollowUp_Plan preplan = se.PrePurchase_FollowUp_Plan.Find(planID);
             ViewData["planID"] = preplan.id;
+            ViewData["plan"] = preplan;
             ViewData["Product"] = preplan.softwareProduct.id;
             ViewData["steps"] = preplan.Plan_Step.ToList();
             return View("EditFollowUpPlan"); 

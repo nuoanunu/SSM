@@ -15,6 +15,7 @@
     <EntitySet Name="Deals" EntityType="SSMModel.Deal" />
     <EntitySet Name="Deal_Product" EntityType="SSMModel.Deal_Product" />
     <EntitySet Name="Deal_SaleRep_Respon" EntityType="SSMModel.Deal_SaleRep_Respon" />
+    <EntitySet Name="EMAIL_Category" EntityType="SSMModel.EMAIL_Category" />
     <EntitySet Name="Email_Template" EntityType="SSMModel.Email_Template" />
     <EntitySet Name="Licenses" EntityType="SSMModel.License" />
     <EntitySet Name="MarketPlanPurchaseds" EntityType="SSMModel.MarketPlanPurchased" />
@@ -77,6 +78,10 @@
       <End Role="contact" EntitySet="contacts" />
       <End Role="contact_resposible" EntitySet="contact_resposible" />
     </AssociationSet>
+    <AssociationSet Name="FK_Deal_contacts" Association="SSMModel.FK_Deal_contacts">
+      <End Role="contact" EntitySet="contacts" />
+      <End Role="Deal" EntitySet="Deals" />
+    </AssociationSet>
     <AssociationSet Name="FK_Licenses_customers" Association="SSMModel.FK_Licenses_customers">
       <End Role="customer" EntitySet="customers" />
       <End Role="License" EntitySet="Licenses" />
@@ -93,9 +98,13 @@
       <End Role="Deal" EntitySet="Deals" />
       <End Role="Deal_SaleRep_Respon" EntitySet="Deal_SaleRep_Respon" />
     </AssociationSet>
-    <AssociationSet Name="FK_Deal_Product_softwareProduct" Association="SSMModel.FK_Deal_Product_softwareProduct">
-      <End Role="softwareProduct" EntitySet="softwareProducts" />
+    <AssociationSet Name="FK_Deal_Product_productMarketPlan" Association="SSMModel.FK_Deal_Product_productMarketPlan">
+      <End Role="productMarketPlan" EntitySet="productMarketPlans" />
       <End Role="Deal_Product" EntitySet="Deal_Product" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Email_Template_EMAIL_Category" Association="SSMModel.FK_Email_Template_EMAIL_Category">
+      <End Role="EMAIL_Category" EntitySet="EMAIL_Category" />
+      <End Role="Email_Template" EntitySet="Email_Template" />
     </AssociationSet>
     <AssociationSet Name="FK_Licenses_softwareProduct" Association="SSMModel.FK_Licenses_softwareProduct">
       <End Role="softwareProduct" EntitySet="softwareProducts" />
@@ -140,11 +149,6 @@
     <AssociationSet Name="AspNetUserRoles" Association="SSMModel.AspNetUserRoles">
       <End Role="AspNetRole" EntitySet="AspNetRoles" />
       <End Role="AspNetUser" EntitySet="AspNetUsers" />
-    </AssociationSet>
-    <EntitySet Name="EMAIL_Category" EntityType="SSMModel.EMAIL_Category" />
-    <AssociationSet Name="FK_Email_Template_EMAIL_Category" Association="SSMModel.FK_Email_Template_EMAIL_Category">
-      <End Role="EMAIL_Category" EntitySet="EMAIL_Category" />
-      <End Role="Email_Template" EntitySet="Email_Template" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="ActTask">
@@ -295,6 +299,7 @@
     <Property Name="Zip" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="contact_resposible" Relationship="SSMModel.FK_contact_resposible_contacts" FromRole="contact" ToRole="contact_resposible" />
+    <NavigationProperty Name="Deals" Relationship="SSMModel.FK_Deal_contacts" FromRole="contact" ToRole="Deal" />
   </EntityType>
   <EntityType Name="customer">
     <Key>
@@ -322,6 +327,9 @@
     <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="0" />
     <Property Name="CompleteOn" Type="DateTime" Precision="0" />
     <Property Name="Client" Type="Int32" Nullable="false" />
+    <Property Name="LastUpdateStage" Type="DateTime" Precision="0" />
+    <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="contact" Relationship="SSMModel.FK_Deal_contacts" FromRole="Deal" ToRole="contact" />
     <NavigationProperty Name="Deal_Product" Relationship="SSMModel.FK_Deal_Product_Deal" FromRole="Deal" ToRole="Deal_Product" />
     <NavigationProperty Name="Deal_SaleRep_Respon" Relationship="SSMModel.FK_Deal_SaleRep_Respon_Deal" FromRole="Deal" ToRole="Deal_SaleRep_Respon" />
   </EntityType>
@@ -330,13 +338,12 @@
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="productID" Type="Int32" Nullable="false" />
     <Property Name="dealID" Type="Int32" Nullable="false" />
     <Property Name="addedDate" Type="DateTime" Nullable="false" Precision="0" />
     <Property Name="removedDate" Type="DateTime" Precision="0" />
     <Property Name="planID" Type="Int32" Nullable="false" />
     <NavigationProperty Name="Deal" Relationship="SSMModel.FK_Deal_Product_Deal" FromRole="Deal_Product" ToRole="Deal" />
-    <NavigationProperty Name="softwareProduct" Relationship="SSMModel.FK_Deal_Product_softwareProduct" FromRole="Deal_Product" ToRole="softwareProduct" />
+    <NavigationProperty Name="productMarketPlan" Relationship="SSMModel.FK_Deal_Product_productMarketPlan" FromRole="Deal_Product" ToRole="productMarketPlan" />
   </EntityType>
   <EntityType Name="Deal_SaleRep_Respon">
     <Key>
@@ -350,6 +357,19 @@
     <Property Name="Active" Type="Boolean" Nullable="false" />
     <NavigationProperty Name="AspNetUser" Relationship="SSMModel.FK_Deal_SaleRep_Respon_AspNetUsers" FromRole="Deal_SaleRep_Respon" ToRole="AspNetUser" />
     <NavigationProperty Name="Deal" Relationship="SSMModel.FK_Deal_SaleRep_Respon_Deal" FromRole="Deal_SaleRep_Respon" ToRole="Deal" />
+  </EntityType>
+  <EntityType Name="EMAIL_Category">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="lastupdate" Type="DateTime" Precision="0" />
+    <Property Name="createddate" Type="DateTime" Precision="0" />
+    <Property Name="creator" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="color" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Email_Template" Relationship="SSMModel.FK_Email_Template_EMAIL_Category" FromRole="EMAIL_Category" ToRole="Email_Template" />
   </EntityType>
   <EntityType Name="Email_Template">
     <Key>
@@ -420,12 +440,12 @@
     <Property Name="nextStep" Type="Int32" />
     <Property Name="stepNo" Type="Int32" Nullable="false" />
     <Property Name="StepEmailContent" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="TimeFromLastStep" Type="Int32" />
     <NavigationProperty Name="Plan_Step1" Relationship="SSMModel.FK_Plan_Step_Plan_Step" FromRole="Plan_Step" ToRole="Plan_Step1" />
     <NavigationProperty Name="Plan_Step2" Relationship="SSMModel.FK_Plan_Step_Plan_Step" FromRole="Plan_Step1" ToRole="Plan_Step" />
     <NavigationProperty Name="Plan_Step11" Relationship="SSMModel.FK_Plan_Step_Plan_Step1" FromRole="Plan_Step" ToRole="Plan_Step1" />
     <NavigationProperty Name="Plan_Step3" Relationship="SSMModel.FK_Plan_Step_Plan_Step1" FromRole="Plan_Step1" ToRole="Plan_Step" />
     <NavigationProperty Name="PrePurchase_FollowUp_Plan" Relationship="SSMModel.FK_Plan_Step_PrePurchase_FollowUp_Plan" FromRole="Plan_Step" ToRole="PrePurchase_FollowUp_Plan" />
-    <Property Name="TimeFromLastStep" Type="Int32" />
   </EntityType>
   <EntityType Name="PlanOption">
     <Key>
@@ -449,9 +469,9 @@
     <Property Name="isActive" Type="Boolean" Nullable="false" />
     <Property Name="fullDuration" Type="Double" />
     <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="isOperation" Type="Boolean" Nullable="false" />
     <NavigationProperty Name="Plan_Step" Relationship="SSMModel.FK_Plan_Step_PrePurchase_FollowUp_Plan" FromRole="PrePurchase_FollowUp_Plan" ToRole="Plan_Step" />
     <NavigationProperty Name="softwareProduct" Relationship="SSMModel.FK_PrePurchase_FollowUp_Plan_softwareProduct" FromRole="PrePurchase_FollowUp_Plan" ToRole="softwareProduct" />
-    <Property Name="isOperation" Type="Boolean" Nullable="false" />
   </EntityType>
   <EntityType Name="productAttribute">
     <Key>
@@ -482,6 +502,7 @@
     <Property Name="lastUpdate" Type="DateTime" Precision="0" />
     <Property Name="isActive" Type="Boolean" Nullable="false" />
     <Property Name="operating" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Deal_Product" Relationship="SSMModel.FK_Deal_Product_productMarketPlan" FromRole="productMarketPlan" ToRole="Deal_Product" />
     <NavigationProperty Name="MarketPlanPurchaseds" Relationship="SSMModel.FK_MarketPlanPurchased_productMarketPlan" FromRole="productMarketPlan" ToRole="MarketPlanPurchased" />
     <NavigationProperty Name="PlanOptions" Relationship="SSMModel.FK_PlanOptions_productMarketPlan" FromRole="productMarketPlan" ToRole="PlanOption" />
     <NavigationProperty Name="softwareProduct" Relationship="SSMModel.FK_orderItems_softwareProduct" FromRole="productMarketPlan" ToRole="softwareProduct" />
@@ -502,7 +523,6 @@
     <Property Name="altPrice2" Type="Double" />
     <Property Name="screenShots" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="icon" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="Deal_Product" Relationship="SSMModel.FK_Deal_Product_softwareProduct" FromRole="softwareProduct" ToRole="Deal_Product" />
     <NavigationProperty Name="Licenses" Relationship="SSMModel.FK_Licenses_softwareProduct" FromRole="softwareProduct" ToRole="License" />
     <NavigationProperty Name="PrePurchase_FollowUp_Plan" Relationship="SSMModel.FK_PrePurchase_FollowUp_Plan_softwareProduct" FromRole="softwareProduct" ToRole="PrePurchase_FollowUp_Plan" />
     <NavigationProperty Name="productAttributes" Relationship="SSMModel.FK_productAttributes_softwareProduct" FromRole="softwareProduct" ToRole="productAttribute" />
@@ -689,6 +709,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Deal_contacts">
+    <End Type="SSMModel.contact" Role="contact" Multiplicity="1" />
+    <End Type="SSMModel.Deal" Role="Deal" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="contact">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Deal">
+        <PropertyRef Name="Client" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Licenses_customers">
     <End Type="SSMModel.customer" Role="customer" Multiplicity="0..1" />
     <End Type="SSMModel.License" Role="License" Multiplicity="*" />
@@ -737,15 +769,27 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Deal_Product_softwareProduct">
-    <End Type="SSMModel.softwareProduct" Role="softwareProduct" Multiplicity="1" />
+  <Association Name="FK_Deal_Product_productMarketPlan">
+    <End Type="SSMModel.productMarketPlan" Role="productMarketPlan" Multiplicity="1" />
     <End Type="SSMModel.Deal_Product" Role="Deal_Product" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="softwareProduct">
+      <Principal Role="productMarketPlan">
         <PropertyRef Name="id" />
       </Principal>
       <Dependent Role="Deal_Product">
-        <PropertyRef Name="productID" />
+        <PropertyRef Name="planID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Email_Template_EMAIL_Category">
+    <End Type="SSMModel.EMAIL_Category" Role="EMAIL_Category" Multiplicity="0..1" />
+    <End Type="SSMModel.Email_Template" Role="Email_Template" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EMAIL_Category">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Email_Template">
+        <PropertyRef Name="CateID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -872,30 +916,5 @@
   <Association Name="AspNetUserRoles">
     <End Type="SSMModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
     <End Type="SSMModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
-  </Association>
-  <EntityType Name="EMAIL_Category">
-    <Key>
-      <PropertyRef Name="id" />
-    </Key>
-    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="lastupdate" Type="DateTime" Precision="0" />
-    <Property Name="createddate" Type="DateTime" Precision="0" />
-    <Property Name="creator" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="Email_Template" Relationship="SSMModel.FK_Email_Template_EMAIL_Category" FromRole="EMAIL_Category" ToRole="Email_Template" />
-    <Property Name="color" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-  </EntityType>
-  <Association Name="FK_Email_Template_EMAIL_Category">
-    <End Type="SSMModel.EMAIL_Category" Role="EMAIL_Category" Multiplicity="0..1" />
-    <End Type="SSMModel.Email_Template" Role="Email_Template" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="EMAIL_Category">
-        <PropertyRef Name="id" />
-      </Principal>
-      <Dependent Role="Email_Template">
-        <PropertyRef Name="CateID" />
-      </Dependent>
-    </ReferentialConstraint>
   </Association>
 </Schema>
