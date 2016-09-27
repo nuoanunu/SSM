@@ -431,12 +431,12 @@
                 </th>
             </tr>
             @foreach (productMarketPlan plan in product.productMarketPlans)
-            {
-                String corlor = "#ffffff";
-                if (plan.operating)
-                {
-                    corlor = "#98FB98";
-                }
+            {if (plan.isActive) {
+                    String corlor = "#ffffff";
+                    if (plan.operating)
+                    {
+                        corlor = "#98FB98";
+                    }
 
                 <tr >
 
@@ -445,14 +445,14 @@
                         {
                             <label class="switch">
                                 <input id="@("oper"+plan.id)" type="checkbox" checked>
-                                <div class="slider round"></div>
+                                <div  onclick="updateMarketPlan(@plan.id)" class="slider round"></div>
                             </label>
                         }
                         else
                         {
                             <label class="switch">
                                 <input id="@("oper"+plan.id)" type="checkbox" >
-                                <div class="slider round"></div>
+                                <div  onclick="updateMarketPlan(@plan.id)" class="slider round"></div>
                             </label>
                         }
 
@@ -477,10 +477,14 @@
                     </td>
                     <td>
                         <button class="push_button blue">Edit</button>
-
+                        <form action="/Product/SetInactiveMarketPlan" method="post">
+                            <input type="hidden" name="planid" value="@plan.id" />
+                            <input type="hidden" name="productID" value="@product.id" />
+                            <button class="push_button red">Delete</button>
+                        </form>
                     </td>
                 </tr>
-            }
+            }}
         </table>
 
     </div>
@@ -601,24 +605,24 @@
                 </th>
             </tr>
             @foreach (PrePurchase_FollowUp_Plan plan in product.PrePurchase_FollowUp_Plan)
-                {
-                    String corlor = "#ffffff";
-                
-
+            {
+            if (plan.isActive)
+            {
+                String corlor = "#ffffff";
                     <tr>
                         <td>
                             @if (plan.isOperation)
                             {
                                 <label class="switch">
-                                    <input id="@("oper"+plan.id)" type="checkbox" checked>
-                                    <div class="slider round"></div>
+                                    <input id="@("oper" + plan.id)" type="checkbox" class="PlanActiveSwitch" checked>
+                                    <div  onclick="updatePrePlan(@plan.id)" class="slider round"></div>
                                 </label>
                             }
                             else
                             {
                                 <label class="switch">
-                                    <input id="@("oper"+plan.id)" type="checkbox">
-                                    <div class="slider round"></div>
+                                    <input id="@("oper" + plan.id)" type="checkbox">
+                                    <div  onclick="updatePrePlan(@plan.id)" class="slider round"></div>
                                 </label>
                             }
 
@@ -637,9 +641,16 @@
                             @plan.Plan_Step.ToList().Count()
                         </td>
                         <td>
-                            <button class="push_button blue" onclick="editplan(@plan.id)">Edit</button>
+                            <button  class="push_button blue" onclick="editplan(@plan.id)">Edit</button>
+                            <form action="/Product/SetInactive" method="post">
+                                <input type="hidden" name="planid" value="@plan.id"/>
+                                <input type="hidden" name="productID" value="@product.id" />
+                                <button class="push_button red">Delete</button>
+                            </form>
+                          
                         </td>
                     </tr>
+            }
             }
         </table>
         <button type="button" onclick="redirectToNewPlan()" class="btn btn-info btn-lg">+New Plan</button>
@@ -651,6 +662,7 @@
 
     </script>
     <script>
+    
         function AddNewOpt(id) {
             var newOptCode = $("#" + id + "NewOptCode").val();
             var newOptName = $("#" + id + "NewOptName").val();
@@ -691,7 +703,43 @@
                 })
             });
         }
+        function updateMarketPlan(id){
+            $.getJSON("/Product/MarketPlanSwitchStatus?id="+id, function (result) {       
+                $.each(result, function (name, value) {
+                    if (name == "result") {
+                        if(value == "succeed") {
+                            alert("Success");
+                        }
+                        else {
+                            alert("Oops, something wrong happened");
+                        }
+                    }
+                });
+            });
+        }
+        function updatePrePlan(id){
+            $.getJSON("/Product/PrePlanSwitchStatus?id="+id, function (result) {       
+                $.each(result, function (name, value) {
+                    if (name == "result") {
+                        if(value == "succeed") {
+                            alert("Success");
+                        }
+                        else {
+                            alert("Oops, something wrong happened");
+                        }
+                    }
+                });
+            });
+        }
+        $(document).ready(function (){
 
+            $(".PlanActiveSwitch").each(function(){
+                $(this).change (function (){
+                    var id = $(this).val().replace("oper","")
+             
+                });
+            });
+        });
     </script>
 
 }
