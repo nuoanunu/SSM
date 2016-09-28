@@ -12,19 +12,19 @@ namespace SSM.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class ActTask
+    public partial class DealTask
     {
         public int id { get; set; }
-        public string taskType { get; set; }
-        public System.DateTime createdDate { get; set; }
-        public System.DateTime deadline { get; set; }
-        public Nullable<int> repeatByTime { get; set; }
-        public bool Reminder { get; set; }
-        public string Description { get; set; }
+        public string TaskName { get; set; }
+        public string TaskDescription { get; set; }
+        public System.DateTime CreateDate { get; set; }
+        public Nullable<System.DateTime> Deadline { get; set; }
         public int status { get; set; }
-        public string creatorID { get; set; }
+        public int type { get; set; }
+        public int dealID { get; set; }
     
-        public virtual AspNetUser AspNetUser { get; set; }
+        public virtual Deal Deal { get; set; }
         public virtual TaskStatu TaskStatu { get; set; }
+        public virtual TaskType TaskType { get; set; }
     }
 }

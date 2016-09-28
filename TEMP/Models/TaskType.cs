@@ -14,8 +14,17 @@ namespace SSM.Models
     
     public partial class TaskType
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public TaskType()
+        {
+            this.DealTasks = new HashSet<DealTask>();
+        }
+    
         public int id { get; set; }
         public string typeName { get; set; }
         public string Description { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DealTask> DealTasks { get; set; }
     }
 }

@@ -1,0 +1,540 @@
+﻿@using SSM.Models;
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<link href="~/Content/buttonStyle.css" rel="stylesheet" />
+<script src="~/Scripts/timelinermodernizr.js"></script>
+<script src="~/Scripts/timelinemain.js"></script>
+<link href="~/Content/ProcessDeal.css" rel="stylesheet" />
+<link href="~/Content/timelinestyle.css" rel="stylesheet" />
+<link href="~/Content/timelinereset.css" rel="stylesheet" />
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+    $(function () {
+        $("#datepicker").datepicker();
+    });
+</script>
+<style type="text/css">
+    @@font-face {
+        font-family: 'Roboto-Light';
+        src: url("../../fonts/Roboto-Light.ttf") format('truetype');
+    }
+
+    @@font-face {
+        font-family: 'Roboto-Black';
+        src: url("../../fonts/Roboto-Black.ttf") format('truetype');
+    }
+
+    .basic-grey {
+        margin-left: auto;
+        margin-right: auto;
+        background: #F7F7F7;
+        padding: 25px 15px 25px 10px;
+        font: 12px Georgia, "Times New Roman", Times, serif;
+        color: #888;
+        text-shadow: 1px 1px 1px #FFF;
+        border: 1px solid #E4E4E4;
+    }
+
+        .basic-grey h1 {
+            font-size: 25px;
+            padding: 0px 0px 10px 40px;
+            display: block;
+            border-bottom: 1px solid #E4E4E4;
+            margin: -10px -15px 30px -10px;
+            color: #888;
+        }
+
+            .basic-grey h1 > span {
+                display: block;
+                font-size: 11px;
+            }
+
+        .basic-grey label {
+            display: block;
+            margin: 0px;
+        }
+
+            .basic-grey label > span {
+                float: left;
+                width: 20%;
+                text-align: right;
+                padding-right: 10px;
+                margin-top: 10px;
+                color: #888;
+            }
+
+        .basic-grey input[type="text"], .basic-grey input[type="email"], .basic-grey textarea, .basic-grey select {
+            border: 1px solid #DADADA;
+            color: #888;
+            height: 30px;
+            margin-bottom: 16px;
+            margin-right: 6px;
+            margin-top: 2px;
+            outline: 0 none;
+            padding: 3px 3px 3px 5px;
+            font-size: 12px;
+            line-height: 15px;
+            box-shadow: inset 0px 1px 4px #ECECEC;
+            -moz-box-shadow: inset 0px 1px 4px #ECECEC;
+            -webkit-box-shadow: inset 0px 1px 4px #ECECEC;
+        }
+
+        .basic-grey textarea {
+            padding: 5px 3px 3px 5px;
+        }
+
+        .basic-grey select {
+            background: #FFF url('down-arrow.png') no-repeat right;
+            background: #FFF url('down-arrow.png') no-repeat right);
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            text-indent: 0.01px;
+            text-overflow: '';
+            width: 70%;
+            height: 35px;
+            line-height: 25px;
+        }
+
+        .basic-grey textarea {
+            height: 100px;
+        }
+
+        .basic-grey .button {
+            background: #E27575;
+            border: none;
+            padding: 10px 25px 10px 25px;
+            color: #FFF;
+            box-shadow: 1px 1px 5px #B6B6B6;
+            border-radius: 3px;
+            text-shadow: 1px 1px 1px #9E3F3F;
+            cursor: pointer;
+        }
+
+            .basic-grey .button:hover {
+                background: #CF7A7A;
+            }
+</style>
+<script>
+    $(document).ready(function () {
+
+        $("#timelinecontainer").on('scroll', function () {
+
+
+            $(".cd-timeline-block").each(function () {
+                alert("thay nè");
+                if ($(this).offset().top <= $(window).scrollTop() + $(window).height() * 0.75 && $(this).find('.cd-timeline-img').hasClass('is-hidden')) {
+                    $(this).find('.cd-timeline-img, .cd-timeline-content').removeClass('is-hidden').addClass('bounce-in');
+                }
+            });
+        });
+    })
+
+</script>
+@if (ViewData["DealDetail"] != null)
+{
+    Deal thisDeal = (Deal)ViewData["DealDetail"];
+    <div style="background:white;height:200px;ma" class="row">
+        <div style="margin-top:20px" class="col-sm-8">
+            <h1 style="font-size:30px;color:#595959">@thisDeal.Name</h1>
+            <div>
+                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                <span>@thisDeal.contact.FirstName</span>
+                <span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
+                <span class="sr-only"></span>
+            </div>
+
+        </div>
+        <div class="col-sm-2"> <button class="push_button blue"> Win </button></div>
+
+        <div class="col-sm-2"> <button class="push_button red"> Lost </button></div>
+
+        <br />
+        <div style="background-color:white;" class="checkout-wrap">
+            <ul class="checkout-bar">
+
+                @foreach (Plan_Step step in ((PrePurchase_FollowUp_Plan)ViewData["ActiveFollowUpPlan"]).Plan_Step.ToList())
+                {
+                    float width = 100 / (((PrePurchase_FollowUp_Plan)ViewData["ActiveFollowUpPlan"]).Plan_Step.ToList().Count());
+                    String wid = width + "%";
+             
+                    if (step.stepNo < thisDeal.Stage)
+                    {
+                        <li style="width:@wid" class="previous visited">@step.stepNo</li>
+                    }
+                    else
+                    if (step.stepNo == thisDeal.Stage)
+                    {
+                        <li style="width:@wid" class="active">@step.stepNo</li>
+                    }
+                    else
+                    if (step.stepNo == thisDeal.Stage + 1)
+                    {
+
+                        <li style="width:@wid" class="next">@step.stepNo</li>
+                    }
+                    else
+                    if (step.stepNo > thisDeal.Stage + 1)
+                    {
+
+                        <li style="width:@wid" class="">@step.stepNo</li>
+                    }
+                }
+
+
+            </ul>
+
+        </div>
+
+    </div>
+    <div style="margin-top:10px" class="row">
+
+        <!-- main col left -->
+        <div class="col-sm-3">
+
+            <div class="panel panel-default">
+                <div class="panel-thumbnail">
+                    <table width="100%" height="300px" style="border: 1px solid #ddd;">
+                        <tr> <td style="padding-left:10px" align="left"><font color="black" style="font-family:Roboto-Light;" size="10px"> Detail</font></td></tr>
+                        <tr><td style="padding-left:10px">Start Date</td> <td align="right" style="padding-right:10px">@thisDeal.StartDate</td></tr>
+                        <tr><td style="padding-left:10px">Total Value</td> <td align="right" style="padding-right:10px">@thisDeal.Value</td></tr>
+                        <tr><td style="padding-left:10px">Aged</td> <td align="right" style="padding-right:10px">@(DateTime.Today - thisDeal.StartDate )</td></tr>
+                        <tr><td style="padding-left:10px">Last Updated</td> <td align="right" style="padding-right:10px">@thisDeal.LastUpdateStage</td></tr>
+                        <tr><td style="padding-left:10px">Status</td> <td align="right" style="padding-right:10px">@thisDeal.Status</td></tr>
+                    </table>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-thumbnail">
+                    <table width="100%" height="300px" style="border: 1px solid #ddd;">
+                        <tr> <td style="padding-left:10px" align="left"><font color="black" style="font-family:Roboto-Light;" size="10px"> Person</font></td></tr>
+                        <tr>
+                            <td style="padding-left:10px">
+                                <img width="30%" sstyle="vertical-align:middle" src="@thisDeal.contact.Photo">
+                                <span style="">@(thisDeal.contact.FirstName + " " + thisDeal.contact.MiddleName + " " + thisDeal.contact.LastName )</span>
+                            </td>
+                            <td style="padding-right:10px"> </td>
+                        </tr>
+                        <tr><td style="padding-left:10px">@thisDeal.contact.emails</td> <td align="right" style="padding-right:10px">Email</td></tr>
+                        <tr><td style="padding-left:10px">@thisDeal.contact.Phone</td> <td align="right" style="padding-right:10px">Phone</td></tr>
+                        <tr><td style="padding-left:10px">@thisDeal.contact.DateOfBirth</td> <td align="right" style="padding-right:10px"> Date of Birth</td></tr>
+                    </table>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-thumbnail">
+                    <table width="100%" height="300px" style="border: 1px solid #ddd;">
+                        <tr> <td style="padding-left:10px" align="left"><font color="black" style="font-family:Roboto-Light;" size="10px"> Company</font></td></tr>
+                        <tr>
+                            <td style="padding-left:10px">
+                                <img width="30%" style="vertical-align:middle" src="https://placehold.it/60x60">
+                                <span style="">Lương Công Thuận</span>
+                            </td>
+                            <td style="padding-right:10px"> </td>
+                        </tr>
+                        <tr><td style="padding-left:10px">thuan@gmail.com</td> <td align="right" style="padding-right:10px">Email</td></tr>
+                        <tr><td style="padding-left:10px">09666026198</td> <td align="right" style="padding-right:10px">Phone</td></tr>
+                        <tr><td style="padding-left:10px">79/51/20 Phu Dinh</td> <td align="right" style="padding-right:10px"> Address</td></tr>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- main col right -->
+        <div class="col-sm-9">
+            <form style="width:100%" action="CreateNewTask" method="post" class="basic-grey">
+
+                <p style="text-align: center;font-size:30px"><strong>New Task</strong></p>
+                <label style="width:100%">
+                    <span style="width:20%">Task Title :</span>
+                    <input type="hidden" value="@thisDeal.id" name="dealID"/>
+                    <input style="width:70%;max-width:70%" id="title" type="text" name="title" />
+                </label>
+
+                <label style="width:100%">
+                    <span style="width:20%">Description :</span>
+                    <textarea style="width:70%;max-width:70%" id="message" name="description"></textarea>
+                </label>
+                <label style="width:100%">
+                    <span>Type</span><select name="type">
+                        @foreach (TaskType type in (List<TaskType>)ViewData["TaskTypes"])
+                        {
+                            <option value="@type.id">@type.typeName</option>
+                        }
+
+
+                    </select>
+                </label>
+                <label style="width:100%">
+                    <span style="width:20%">DeadLine :</span>
+                    <input style="width:70%" type="text" name="deadline" id="datepicker">
+                </label>
+                <label>
+                    <span>&nbsp;</span>
+                    <input type="submit" class="button" value="Send" />
+                </label>
+            </form>
+        </div>
+        <div class="col-sm-9">
+            <p style="text-align: center;font-size:30px"><strong>Up-comming tasks</strong></p>
+
+
+            <div class="pre-scrollable" id="timelinecontainer" style="height:800px;max-height: 800px; ">
+
+                <section id="cd-timeline" class="cd-container">
+                    @foreach (DealTask task in thisDeal.DealTasks.ToList().OrderByDescending(x => x.Deadline))
+                    {
+                        if (task.Deadline > DateTime.Today)
+                        {
+                            <div class="cd-timeline-block">
+                                <div class="cd-timeline-img cd-location">
+                                    <img src="~/Content/@(task.TaskType.Description.Trim()).png" alt="Picture" />
+
+                                </div> <!-- cd-timeline-img -->
+                                <div class="cd-timeline-content">
+                                    <h2 style="font-size:25px">@task.TaskName</h2>
+                                    <p style="font-size:15px">@task.TaskDescription</p>
+                                    <a href="#0" class="cd-read-more">Finish It!</a>
+                                    <span class="cd-date">@task.Deadline</span>
+                                </div> <!-- cd-timeline-content -->
+                            </div> <!-- cd-timeline-block -->
+                        }
+                    }
+
+                </section> <!-- cd-timeline -->
+            </div>
+            <p style="text-align: center;font-size:30px"><strong>In the Past</strong></p>
+            <div style="margin-top:20px" class="tab" role="tabpanel">
+                <!-- Nav tabs -->
+                <ul style="list-style:none;position:relative;left:25%;" class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#Section1" aria-controls="home" role="tab" data-toggle="tab"><i class="fa fa-envelope-o"></i>All</a></li>
+                    <li role="presentation"><a href="#Section2" aria-controls="profile" role="tab" data-toggle="tab"><i class="fa fa-cube"></i>Memo</a></li>
+                    <li role="presentation"><a href="#Section3" aria-controls="settings" role="tab" data-toggle="tab"><i class="fa fa-comment"></i>Email</a></li>
+                    <li role="presentation"><a href="#Section4" aria-controls="settings" role="tab" data-toggle="tab"><i class="fa fa-comment"></i>Phone Call</a></li>
+                    <li role="presentation"><a href="#Section5" aria-controls="settings" role="tab" data-toggle="tab"><i class="fa fa-comment"></i>Meetings</a></li>
+                    <li role="presentation"><a href="#Section6" aria-controls="settings" role="tab" data-toggle="tab"><i class="fa fa-comment"></i>Document</a></li>
+
+                    <li role="presentation"><a href="#Section7" aria-controls="settings" role="tab" data-toggle="tab"><i class="fa fa-comment"></i>Incomplete/Late</a></li>
+
+                    <li role="presentation"><a href="#Section8" aria-controls="settings" role="tab" data-toggle="tab"><i class="fa fa-comment"></i>Completed</a></li>
+
+                </ul>
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane fade in active" id="Section1">
+                        <div class="pre-scrollable" id="timelinecontainer" style="height:800px;max-height: 800px; ">
+
+                            <section id="cd-timeline" class="cd-container">
+                                @foreach (DealTask task in thisDeal.DealTasks.ToList().OrderByDescending(x => x.Deadline))
+                                {
+                                    if (task.Deadline < DateTime.Today)
+                                    {
+                                        <div class="cd-timeline-block">
+                                            <div class="cd-timeline-img cd-location">
+                                                <img src="~/Content/@(task.TaskType.Description).png" alt="Picture" />
+
+                                            </div> <!-- cd-timeline-img -->
+                                            <div class="cd-timeline-content">
+                                                <h2 style="font-size:25px">@task.TaskName</h2>
+                                                <p style="font-size:15px">@task.TaskDescription</p>
+                                                <a href="#0" class="cd-read-more">Finish It!</a>
+                                                <span class="cd-date">@task.Deadline</span>
+                                            </div> <!-- cd-timeline-content -->
+                                        </div> <!-- cd-timeline-block -->
+                                    }
+                                }
+
+
+                            </section> <!-- cd-timeline -->
+                        </div>
+                    </div>
+
+                    <div role="tabpanel" class="tab-pane fade" id="Section2">
+                        <div class="pre-scrollable" id="timelinecontainer" style="height:800px;max-height: 800px; ">
+
+                            <section id="cd-timeline" class="cd-container">
+                                @foreach (DealTask task in thisDeal.DealTasks.ToList().OrderByDescending(x => x.Deadline))
+                                {
+                                    if (task.Deadline < DateTime.Today && task.type == 1)
+                                    {
+                                        <div class="cd-timeline-block">
+                                            <div class="cd-timeline-img cd-location">
+                                                <img src="~/Content/@(task.TaskType.Description).png" alt="Picture" />
+
+                                            </div> <!-- cd-timeline-img -->
+                                            <div class="cd-timeline-content">
+                                                <h2 style="font-size:25px">@task.TaskName</h2>
+                                                <p style="font-size:15px">@task.TaskDescription</p>
+                                                <a href="#0" class="cd-read-more">Finish It!</a>
+                                                <span class="cd-date">@task.Deadline</span>
+                                            </div> <!-- cd-timeline-content -->
+                                        </div> <!-- cd-timeline-block -->
+                                    }
+                                }
+                            </section> <!-- cd-timeline -->
+                        </div>
+                    </div>
+
+                    <div role="tabpanel" class="tab-pane fade" id="Section3">
+                        <div class="pre-scrollable" id="timelinecontainer" style="height:800px;max-height: 800px; ">
+
+                            <section id="cd-timeline" class="cd-container">
+                                @foreach (DealTask task in thisDeal.DealTasks.ToList().OrderByDescending(x => x.Deadline))
+                                {
+                                    if (task.Deadline < DateTime.Today && task.type == 2)
+                                    {
+                                        <div class="cd-timeline-block">
+                                            <div class="cd-timeline-img cd-location">
+                                                <img src="~/Content/@(task.TaskType.Description).png" alt="Picture" />
+
+                                            </div> <!-- cd-timeline-img -->
+                                            <div class="cd-timeline-content">
+                                                <h2 style="font-size:25px">@task.TaskName</h2>
+                                                <p style="font-size:15px">@task.TaskDescription</p>
+                                                <a href="#0" class="cd-read-more">Finish It!</a>
+                                                <span class="cd-date">@task.Deadline</span>
+                                            </div> <!-- cd-timeline-content -->
+                                        </div> <!-- cd-timeline-block -->
+                                    }
+                                }
+
+                            </section> <!-- cd-timeline -->
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="Section4">
+                        <div class="pre-scrollable" id="timelinecontainer" style="height:800px;max-height: 800px; ">
+
+                            <section id="cd-timeline" class="cd-container">
+                                @foreach (DealTask task in thisDeal.DealTasks.ToList().OrderByDescending(x => x.Deadline))
+                                {
+                                    if (task.Deadline < DateTime.Today && task.type == 3)
+                                    {
+                                        <div class="cd-timeline-block">
+                                            <div class="cd-timeline-img cd-location">
+                                                <img src="~/Content/@(task.TaskType.Description).png" alt="Picture" />
+
+                                            </div> <!-- cd-timeline-img -->
+                                            <div class="cd-timeline-content">
+                                                <h2 style="font-size:25px">@task.TaskName</h2>
+                                                <p style="font-size:15px">@task.TaskDescription</p>
+                                                <a href="#0" class="cd-read-more">Finish It!</a>
+                                                <span class="cd-date">@task.Deadline</span>
+                                            </div> <!-- cd-timeline-content -->
+                                        </div> <!-- cd-timeline-block -->
+                                    }
+                                }
+
+                            </section> <!-- cd-timeline -->
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="Section5">
+                        <div class="pre-scrollable" id="timelinecontainer" style="height:800px;max-height: 800px; ">
+
+                            <section id="cd-timeline" class="cd-container">
+                                @foreach (DealTask task in thisDeal.DealTasks.ToList().OrderByDescending(x => x.Deadline))
+                                {
+                                    if (task.Deadline < DateTime.Today && task.type == 4)
+                                    {
+                                        <div class="cd-timeline-block">
+                                            <div class="cd-timeline-img cd-location">
+                                                <img src="~/Content/@(task.TaskType.Description).png" alt="Picture" />
+
+                                            </div> <!-- cd-timeline-img -->
+                                            <div class="cd-timeline-content">
+                                                <h2 style="font-size:25px">@task.TaskName</h2>
+                                                <p style="font-size:15px">@task.TaskDescription</p>
+                                                <a href="#0" class="cd-read-more">Finish It!</a>
+                                                <span class="cd-date">@task.Deadline</span>
+                                            </div> <!-- cd-timeline-content -->
+                                        </div> <!-- cd-timeline-block -->
+                                    }
+                                }
+
+                            </section> <!-- cd-timeline -->
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="Section6">
+                        <div class="pre-scrollable" id="timelinecontainer" style="height:800px;max-height: 800px; ">
+
+                            <section id="cd-timeline" class="cd-container">
+                                @foreach (DealTask task in thisDeal.DealTasks.ToList().OrderByDescending(x => x.Deadline))
+                                {
+                                    if (task.Deadline < DateTime.Today && task.type == 5)
+                                    {
+                                        <div class="cd-timeline-block">
+                                            <div class="cd-timeline-img cd-location">
+                                                <img src="~/Content/@(task.TaskType.Description).png" alt="Picture" />
+
+                                            </div> <!-- cd-timeline-img -->
+                                            <div class="cd-timeline-content">
+                                                <h2 style="font-size:25px">@task.TaskName</h2>
+                                                <p style="font-size:15px">@task.TaskDescription</p>
+                                                <a href="#0" class="cd-read-more">Finish It!</a>
+                                                <span class="cd-date">@task.Deadline</span>
+                                            </div> <!-- cd-timeline-content -->
+                                        </div> <!-- cd-timeline-block -->
+                                    }
+                                }
+
+                            </section> <!-- cd-timeline -->
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="Section7">
+                        <div class="pre-scrollable" id="timelinecontainer" style="height:800px;max-height: 800px; ">
+
+                            <section id="cd-timeline" class="cd-container">
+                                @foreach (DealTask task in thisDeal.DealTasks.ToList().OrderByDescending(x => x.Deadline))
+                                {
+                                    if (task.Deadline < DateTime.Today && task.status == 4)
+                                    {
+                                        <div class="cd-timeline-block">
+                                            <div class="cd-timeline-img cd-location">
+                                                <img src="~/Content/@(task.TaskType.Description).png" alt="Picture" />
+
+                                            </div> <!-- cd-timeline-img -->
+                                            <div class="cd-timeline-content">
+                                                <h2 style="font-size:25px">@task.TaskName</h2>
+                                                <p style="font-size:15px">@task.TaskDescription</p>
+                                                <a href="#0" class="cd-read-more">Finish It!</a>
+                                                <span class="cd-date">@task.Deadline</span>
+                                            </div> <!-- cd-timeline-content -->
+                                        </div> <!-- cd-timeline-block -->
+                                    }
+                                }
+
+                            </section> <!-- cd-timeline -->
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="Section8">
+                        <div class="pre-scrollable" id="timelinecontainer" style="height:800px;max-height: 800px; ">
+
+                            <section id="cd-timeline" class="cd-container">
+                                @foreach (DealTask task in thisDeal.DealTasks.ToList().OrderByDescending(x => x.Deadline))
+                                {
+                                    if (task.Deadline < DateTime.Today && (task.status == 5 || task.status == 2))
+                                    {
+                                        <div class="cd-timeline-block">
+                                            <div class="cd-timeline-img cd-location">
+                                                <img src="~/Content/@(task.TaskType.Description).png" alt="Picture" />
+
+                                            </div> <!-- cd-timeline-img -->
+                                            <div class="cd-timeline-content">
+                                                <h2 style="font-size:25px">@task.TaskName</h2>
+                                                <p style="font-size:15px">@task.TaskDescription</p>
+                                                <a href="#0" class="cd-read-more">Finish It!</a>
+                                                <span class="cd-date">@task.Deadline</span>
+                                            </div> <!-- cd-timeline-content -->
+                                        </div> <!-- cd-timeline-block -->
+                                    }
+                                }
+
+                            </section> <!-- cd-timeline -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+}

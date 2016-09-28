@@ -1,21 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="SSMModelStoreContainer" CdmEntityContainer="SSMEntities">
-    <EntitySetMapping Name="ActTasks">
-      <EntityTypeMapping TypeName="SSMModel.ActTask">
-        <MappingFragment StoreEntitySet="ActTask">
-          <ScalarProperty Name="creatorID" ColumnName="creatorID" />
-          <ScalarProperty Name="status" ColumnName="status" />
-          <ScalarProperty Name="Description" ColumnName="Description" />
-          <ScalarProperty Name="Reminder" ColumnName="Reminder" />
-          <ScalarProperty Name="repeatByTime" ColumnName="repeatByTime" />
-          <ScalarProperty Name="deadline" ColumnName="deadline" />
-          <ScalarProperty Name="createdDate" ColumnName="createdDate" />
-          <ScalarProperty Name="taskType" ColumnName="taskType" />
-          <ScalarProperty Name="id" ColumnName="id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="AspNetRoles">
       <EntityTypeMapping TypeName="SSMModel.AspNetRole">
         <MappingFragment StoreEntitySet="AspNetRoles">
@@ -136,6 +121,19 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Customer_Request">
+      <EntityTypeMapping TypeName="SSMModel.Customer_Request">
+        <MappingFragment StoreEntitySet="Customer_Request">
+          <ScalarProperty Name="DealID" ColumnName="DealID" />
+          <ScalarProperty Name="RequestDemoDay" ColumnName="RequestDemoDay" />
+          <ScalarProperty Name="PlanID" ColumnName="PlanID" />
+          <ScalarProperty Name="CusID" ColumnName="CusID" />
+          <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+          <ScalarProperty Name="RequestNo" ColumnName="RequestNo" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="customers">
       <EntityTypeMapping TypeName="SSMModel.customer">
         <MappingFragment StoreEntitySet="customers">
@@ -184,6 +182,20 @@
           <ScalarProperty Name="startDate" ColumnName="startDate" />
           <ScalarProperty Name="dealID" ColumnName="dealID" />
           <ScalarProperty Name="userID" ColumnName="userID" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DealTasks">
+      <EntityTypeMapping TypeName="SSMModel.DealTask">
+        <MappingFragment StoreEntitySet="DealTasks">
+          <ScalarProperty Name="dealID" ColumnName="dealID" />
+          <ScalarProperty Name="type" ColumnName="type" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="Deadline" ColumnName="Deadline" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="TaskDescription" ColumnName="TaskDescription" />
+          <ScalarProperty Name="TaskName" ColumnName="TaskName" />
           <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>
       </EntityTypeMapping>

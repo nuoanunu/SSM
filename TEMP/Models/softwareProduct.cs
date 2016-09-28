@@ -17,6 +17,7 @@ namespace SSM.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public softwareProduct()
         {
+            this.Customer_Request = new HashSet<Customer_Request>();
             this.Licenses = new HashSet<License>();
             this.PrePurchase_FollowUp_Plan = new HashSet<PrePurchase_FollowUp_Plan>();
             this.productAttributes = new HashSet<productAttribute>();
@@ -36,6 +37,8 @@ namespace SSM.Models
         public string screenShots { get; set; }
         public string icon { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Customer_Request> Customer_Request { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<License> Licenses { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -12,19 +12,27 @@ namespace SSM.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class TaskStatu
+    public partial class Customer_Request
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public TaskStatu()
+        public Customer_Request()
         {
-            this.DealTasks = new HashSet<DealTask>();
+            this.Customer_Request1 = new HashSet<Customer_Request>();
         }
     
         public int id { get; set; }
-        public string name { get; set; }
-        public string description { get; set; }
+        public string RequestNo { get; set; }
+        public int ProductID { get; set; }
+        public int CusID { get; set; }
+        public Nullable<int> PlanID { get; set; }
+        public string RequestDemoDay { get; set; }
+        public Nullable<int> DealID { get; set; }
     
+        public virtual contact contact { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DealTask> DealTasks { get; set; }
+        public virtual ICollection<Customer_Request> Customer_Request1 { get; set; }
+        public virtual Customer_Request Customer_Request2 { get; set; }
+        public virtual productMarketPlan productMarketPlan { get; set; }
+        public virtual softwareProduct softwareProduct { get; set; }
     }
 }

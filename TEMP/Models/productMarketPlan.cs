@@ -17,6 +17,7 @@ namespace SSM.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public productMarketPlan()
         {
+            this.Customer_Request = new HashSet<Customer_Request>();
             this.Deal_Product = new HashSet<Deal_Product>();
             this.MarketPlanPurchaseds = new HashSet<MarketPlanPurchased>();
             this.PlanOptions = new HashSet<PlanOption>();
@@ -34,6 +35,8 @@ namespace SSM.Models
         public bool isActive { get; set; }
         public bool operating { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Customer_Request> Customer_Request { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Deal_Product> Deal_Product { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

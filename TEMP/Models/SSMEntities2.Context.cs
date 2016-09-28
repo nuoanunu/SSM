@@ -25,7 +25,6 @@ namespace SSM.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<ActTask> ActTasks { get; set; }
         public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
         public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
         public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
@@ -35,10 +34,12 @@ namespace SSM.Models
         public virtual DbSet<company_responsible> company_responsible { get; set; }
         public virtual DbSet<contact_resposible> contact_resposible { get; set; }
         public virtual DbSet<contact> contacts { get; set; }
+        public virtual DbSet<Customer_Request> Customer_Request { get; set; }
         public virtual DbSet<customer> customers { get; set; }
         public virtual DbSet<Deal> Deals { get; set; }
         public virtual DbSet<Deal_Product> Deal_Product { get; set; }
         public virtual DbSet<Deal_SaleRep_Respon> Deal_SaleRep_Respon { get; set; }
+        public virtual DbSet<DealTask> DealTasks { get; set; }
         public virtual DbSet<EMAIL_Category> EMAIL_Category { get; set; }
         public virtual DbSet<Email_Template> Email_Template { get; set; }
         public virtual DbSet<License> Licenses { get; set; }
