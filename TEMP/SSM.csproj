@@ -206,6 +206,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\iController.cs" />
     <Compile Include="Controllers\LicenseController.cs" />
+    <Compile Include="Controllers\MailTemplateController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
@@ -295,7 +296,9 @@
     <Compile Include="Models\Repository\contactRepository.cs" />
     <Compile Include="Models\Repository\customerRepository.cs" />
     <Compile Include="Models\Repository\DealRepository.cs" />
+    <Compile Include="Models\Repository\EmailCategoryRepository.cs" />
     <Compile Include="Models\Repository\iRepository.cs" />
+    <Compile Include="Models\Repository\MailTemplateRepository.cs" />
     <Compile Include="Models\Repository\orderRepository.cs" />
     <Compile Include="Models\Repository\productRepository.cs" />
     <Compile Include="Models\Repository\taskRepository.cs" />
@@ -332,10 +335,16 @@
       <DependentUpon>SSMEntities2.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TempModel\ContactEntity.cs" />
+    <Compile Include="Models\TempModel\EmailCategory.cs" />
     <Compile Include="Models\TempModel\EmailModel.cs" />
+    <Compile Include="Models\TempModel\EmailTemplateEntity.cs" />
     <Compile Include="Models\TempModel\ProductInfo.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\CreateEmailTemplateViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-datetimepicker.css" />
@@ -584,6 +593,7 @@
     <Content Include="Views\Deal\index.cshtml" />
     <Content Include="Views\Deal\temp.cshtml" />
     <Content Include="Views\Deal\Detail.cshtml" />
+    <Content Include="Views\MailTemplate\Add.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
