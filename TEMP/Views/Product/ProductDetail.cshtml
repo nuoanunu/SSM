@@ -1,5 +1,6 @@
 ﻿@using SSM.Models;
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<link href="~/Content/buttonStyle.css" rel="stylesheet" />
 <style>
     @@font-face {
         font-family: 'Roboto-Light';
@@ -183,45 +184,45 @@
                 </tr>
                 <tr style="border: 2px solid  #eeeeee;">
                     <td align="left">
-                        <label>Product Nam</label>
+                        <label style="padding-left:10px">Product Name</label>
                     </td>
                     <td align="right">
-                        <input type="text" value="@product.name" />
+                        <input style="padding-right:10px" type="text" value="@product.name" />
 
                     </td>
                 </tr>
                 <tr style="border: 2px solid  #eeeeee;">
                     <td align="left">
-                        <label>SKU</label>
+                        <label style="padding-left:10px">SKU</label>
 
                     </td>
                     <td align="right">
-                        <input type="text" value="@product.SKU" />
+                        <input type="text" style="padding-right:10px" value="@product.SKU" />
                     </td>
                 </tr>
                 <tr style="border: 2px solid  #eeeeee;">
                     <td align="left">
-                        <label>Short Description</label>
+                        <label style="padding-left:10px">Short Description</label>
 
                     </td>
                     <td align="right">
-                        <input type="text" value="@product.shortDescription" />
-
-                    </td>
-                </tr>
-                <tr style="border: 2px solid  #eeeeee;">
-                    <td align="left">
-                        <label>Full Description</label>
-
-                    </td>
-                    <td align="right">
-                        <textarea name="message" rows="0" cols="0">@product.fullDescription</textarea>
+                        <input type="text" style="padding-right:10px"  value="@product.shortDescription" />
 
                     </td>
                 </tr>
                 <tr style="border: 2px solid  #eeeeee;">
                     <td align="left">
-                        <label>Screen Shots</label>
+                        <label style="padding-left:10px">Full Description</label>
+
+                    </td>
+                    <td align="right">
+                        <textarea style="padding-right:10px" name="message" rows="0" cols="0">@product.fullDescription</textarea>
+
+                    </td>
+                </tr>
+                <tr style="border: 2px solid  #eeeeee;">
+                    <td align="left">
+                        <label style="padding-left:10px">Screen Shots</label>
 
                     </td>
                     <td align="right">
@@ -268,7 +269,7 @@
                             </td>
                             <td width="25%">
 
-                                <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#@mymodelid">Edit</button>
+                                <button type="button" class="push_button blue" data-toggle="modal" data-target="#@mymodelid">Edit</button>
                                 <div class="modal fade" id="@mymodelid" role="dialog">
                                     <div class="modal-dialog">
 
@@ -430,12 +431,12 @@
                 </th>
             </tr>
             @foreach (productMarketPlan plan in product.productMarketPlans)
-            {
-                String corlor = "#ffffff";
-                if (plan.operating)
-                {
-                    corlor = "#98FB98";
-                }
+            {if (plan.isActive) {
+                    String corlor = "#ffffff";
+                    if (plan.operating)
+                    {
+                        corlor = "#98FB98";
+                    }
 
                 <tr >
 
@@ -444,14 +445,14 @@
                         {
                             <label class="switch">
                                 <input id="@("oper"+plan.id)" type="checkbox" checked>
-                                <div class="slider round"></div>
+                                <div  onclick="updateMarketPlan(@plan.id)" class="slider round"></div>
                             </label>
                         }
                         else
                         {
                             <label class="switch">
                                 <input id="@("oper"+plan.id)" type="checkbox" >
-                                <div class="slider round"></div>
+                                <div  onclick="updateMarketPlan(@plan.id)" class="slider round"></div>
                             </label>
                         }
 
@@ -475,11 +476,15 @@
                         @plan.MarketPlanPurchaseds.ToList().Count
                     </td>
                     <td>
-                        <button>Edit</button>
-
+                        <button class="push_button blue">Edit</button>
+                        <form action="/Product/SetInactiveMarketPlan" method="post">
+                            <input type="hidden" name="planid" value="@plan.id" />
+                            <input type="hidden" name="productID" value="@product.id" />
+                            <button class="push_button red">Delete</button>
+                        </form>
                     </td>
                 </tr>
-            }
+            }}
         </table>
 
     </div>
@@ -600,24 +605,24 @@
                 </th>
             </tr>
             @foreach (PrePurchase_FollowUp_Plan plan in product.PrePurchase_FollowUp_Plan)
-                {
-                    String corlor = "#ffffff";
-                
-
+            {
+            if (plan.isActive)
+            {
+                String corlor = "#ffffff";
                     <tr>
                         <td>
                             @if (plan.isOperation)
                             {
                                 <label class="switch">
-                                    <input id="@("oper"+plan.id)" type="checkbox" checked>
-                                    <div class="slider round"></div>
+                                    <input id="@("oper" + plan.id)" type="checkbox" class="PlanActiveSwitch" checked>
+                                    <div  onclick="updatePrePlan(@plan.id)" class="slider round"></div>
                                 </label>
                             }
                             else
                             {
                                 <label class="switch">
-                                    <input id="@("oper"+plan.id)" type="checkbox">
-                                    <div class="slider round"></div>
+                                    <input id="@("oper" + plan.id)" type="checkbox">
+                                    <div  onclick="updatePrePlan(@plan.id)" class="slider round"></div>
                                 </label>
                             }
 
@@ -636,9 +641,16 @@
                             @plan.Plan_Step.ToList().Count()
                         </td>
                         <td>
-                            <button onclick="editplan(@plan.id)">Edit</button>
+                            <button  class="push_button blue" onclick="editplan(@plan.id)">Edit</button>
+                            <form action="/Product/SetInactive" method="post">
+                                <input type="hidden" name="planid" value="@plan.id"/>
+                                <input type="hidden" name="productID" value="@product.id" />
+                                <button class="push_button red">Delete</button>
+                            </form>
+                          
                         </td>
                     </tr>
+            }
             }
         </table>
         <button type="button" onclick="redirectToNewPlan()" class="btn btn-info btn-lg">+New Plan</button>
@@ -650,6 +662,7 @@
 
     </script>
     <script>
+    
         function AddNewOpt(id) {
             var newOptCode = $("#" + id + "NewOptCode").val();
             var newOptName = $("#" + id + "NewOptName").val();
@@ -690,7 +703,43 @@
                 })
             });
         }
+        function updateMarketPlan(id){
+            $.getJSON("/Product/MarketPlanSwitchStatus?id="+id, function (result) {       
+                $.each(result, function (name, value) {
+                    if (name == "result") {
+                        if(value == "succeed") {
+                            alert("Success");
+                        }
+                        else {
+                            alert("Oops, something wrong happened");
+                        }
+                    }
+                });
+            });
+        }
+        function updatePrePlan(id){
+            $.getJSON("/Product/PrePlanSwitchStatus?id="+id, function (result) {       
+                $.each(result, function (name, value) {
+                    if (name == "result") {
+                        if(value == "succeed") {
+                            alert("Success");
+                        }
+                        else {
+                            alert("Oops, something wrong happened");
+                        }
+                    }
+                });
+            });
+        }
+        $(document).ready(function (){
 
+            $(".PlanActiveSwitch").each(function(){
+                $(this).change (function (){
+                    var id = $(this).val().replace("oper","")
+             
+                });
+            });
+        });
     </script>
 
 }

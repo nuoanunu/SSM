@@ -48,6 +48,7 @@ namespace SSM.Controllers
             ViewData["MailCate"] = se.EMAIL_Category.ToList();
             PrePurchase_FollowUp_Plan preplan = se.PrePurchase_FollowUp_Plan.Find(planID);
             ViewData["planID"] = preplan.id;
+            ViewData["plan"] = preplan;
             ViewData["Product"] = preplan.softwareProduct.id;
             ViewData["steps"] = preplan.Plan_Step.ToList();
             return View("EditFollowUpPlan"); 
@@ -96,8 +97,46 @@ namespace SSM.Controllers
             se.SaveChanges();
             return RedirectToAction("Detail", "Product", new { id = preplan.softwareProduct.id });
         }
+        [HttpPost]
+        public ActionResult SetInactive(int planid, int productID) {
+            try
+            {
+                SSMEntities se = new SSMEntities();
+                PrePurchase_FollowUp_Plan plan = se.PrePurchase_FollowUp_Plan.Find(planid);
+                plan.isActive = false;
+                se.SaveChanges();
+                System.Diagnostics.Debug.WriteLine("cccccccc " + productID);
+                return RedirectToAction("Detail", new { id = productID });
+            }
+            catch (Exception e) {
+
+            }
+
+            return RedirectToAction("Index");
+
+        }
+        public ActionResult SetInactiveMarketPlan(int planid, int productID)
+        {
+            try
+            {
+                SSMEntities se = new SSMEntities();
+                productMarketPlan plan = se.productMarketPlans.Find(planid);
+                plan.isActive = false;
+                se.SaveChanges();
+                System.Diagnostics.Debug.WriteLine("cccccccc " + productID);
+                return RedirectToAction("Detail", new { id = productID });
+            }
+            catch (Exception e)
+            {
+
+            }
+
+            return RedirectToAction("Index");
+
+        }
         public ActionResult Detail(int id)
         {
+            System.Diagnostics.Debug.WriteLine("12111211 " + id);
             productRepository pr = new productRepository(new SSMEntities());
             try
             {
@@ -209,6 +248,40 @@ namespace SSM.Controllers
                 return Json(new { success = " suc" }, JsonRequestBehavior.AllowGet);
             }
             return Json(new { success =" fale" }, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult PrePlanSwitchStatus(int id) {
+            try {
+                SSMEntities se = new SSMEntities();
+                PrePurchase_FollowUp_Plan myplan = se.PrePurchase_FollowUp_Plan.Find(id);
+                softwareProduct software = myplan.softwareProduct;
+                foreach (PrePurchase_FollowUp_Plan plan in software.PrePurchase_FollowUp_Plan.ToList())
+                {
+                    if(plan.id != id)
+                    plan.isOperation = false;
+                }
+                myplan.isOperation = !myplan.isOperation;
+                se.SaveChanges();
+                return Json(new { result = "succeed" }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception e) {
+
+            }
+            return Json(new { result = "fail" }, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult MarketPlanSwitchStatus(int id) {
+            try
+            {
+                SSMEntities se = new SSMEntities();
+                productMarketPlan myplan = se.productMarketPlans.Find(id);
+                myplan.operating = !myplan.operating;
+                se.SaveChanges();
+                return Json(new { result = "succeed" }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception e)
+            {
+
+            }
+            return Json(new { result = "fail" }, JsonRequestBehavior.AllowGet);
         }
     }
     }

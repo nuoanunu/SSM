@@ -1,14 +1,30 @@
 ﻿@using SSM.Models;
 <link href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css" rel="stylesheet" />
 <link href="~/Content/dealtable.css" rel="stylesheet" />
-<script src="//code.jquery.com/jquery-1.12.3.js"> </script>
+<link href="~/Content/w3.css" rel="stylesheet" />
 <link rel="stylesheet" media="all" type="text/css" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 <link href="~/Content/jquery-ui-timepicker-addon.css" rel="stylesheet" />
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
 <script type="text/javascript" src="http://code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"> </script>
 <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"> </script>
+
 <script src="~/Scripts/jquery-ui-timepicker-addon.js"></script>
+
+
+<script>
+		$(function() {s
+		    $(".meter > span").each(function () {
+		
+				$(this)
+					.data("origWidth", $(this).width())
+					.width(0)
+					.animate({
+						width: $(this).data("origWidth")
+					}, 1200);
+			});
+		});
+</script>
 <script>
   $(document).ready( function() {
       $("#idStartDate").datetimepicker();
@@ -66,7 +82,7 @@
 </script>
 
 <h1> <font style="font-family:Roboto-Light"> Deal Management</font> </h1>
-<button type="button" class="btn btn-info btn-lg" onclick="redirectToNewDeal()" >+Create Deal</button>
+<button type="button" class="btn btn-info btn-lg" onclick="redirectToNewDeal()">+Create Deal</button>
 
 <ul class="nav nav-tabs">
     <li class="active"><a data-toggle="tab" href="#home">All deals</a></li>
@@ -98,20 +114,25 @@
 
                             <div class="plan">
                                 <h3>@deal.Name<span> <img width="100px" src="@deal.contact.Photo" /> </span></h3>
-                                <a class="signup" href=""> @(deal.contact.FirstName + " " + deal.contact.MiddleName + " "+ deal.contact.LastName) </a>
+                                <a href=""><font size="5" style="font-family:Roboto-Light" >@(deal.contact.FirstName + " " + deal.contact.MiddleName + " " + deal.contact.LastName) </font> </a>
                                 <ul>
                                     <li><b>Values</b> @(" $" + deal.Value)</li>
                                     <li><b>Startdate</b> @deal.StartDate</li>
                                     <li><b>Last Update</b> @deal.LastUpdateStage </li>
-                                    <li> <button>Detail</button></li>
+                                    <div class="w3-progress-container">
+                                        <div id="myBar" class="w3-progressbar w3-green" style="width:1%"></div>
+                                    </div>
+                                  
+                                    <li> <button class="signup"  >Detail</button></li>
                                 </ul>
+                        
                             </div>
                         }
 
 
                     </div>
                     }
-                   
+
 
 
 
@@ -170,7 +191,7 @@
                 </div>
             </div>
 
-            
+
         </div>
 
     </div>
@@ -214,7 +235,7 @@
                                     <input type="text" name="responsible" value="" class="form-control text-box single-line" />
                                 </div>
                             </div>
-                     
+
                             <div class="form-group">
                                 @Html.LabelFor(model => model.Stage, htmlAttributes: new { @class = "control-label col-md-2" })
                                 <div class="col-md-10">

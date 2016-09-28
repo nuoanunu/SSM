@@ -30,7 +30,10 @@ namespace SSM.Models
         public System.DateTime StartDate { get; set; }
         public Nullable<System.DateTime> CompleteOn { get; set; }
         public int Client { get; set; }
+        public Nullable<System.DateTime> LastUpdateStage { get; set; }
+        public string Status { get; set; }
     
+        public virtual contact contact { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Deal_Product> Deal_Product { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

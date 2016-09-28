@@ -15,13 +15,12 @@ namespace SSM.Models
     public partial class Deal_Product
     {
         public int id { get; set; }
-        public int productID { get; set; }
         public int dealID { get; set; }
         public System.DateTime addedDate { get; set; }
         public Nullable<System.DateTime> removedDate { get; set; }
         public int planID { get; set; }
     
         public virtual Deal Deal { get; set; }
-        public virtual softwareProduct softwareProduct { get; set; }
+        public virtual productMarketPlan productMarketPlan { get; set; }
     }
 }

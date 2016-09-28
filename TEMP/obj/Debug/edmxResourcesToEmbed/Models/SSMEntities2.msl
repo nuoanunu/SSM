@@ -151,6 +151,8 @@
     <EntitySetMapping Name="Deals">
       <EntityTypeMapping TypeName="SSMModel.Deal">
         <MappingFragment StoreEntitySet="Deal">
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="LastUpdateStage" ColumnName="LastUpdateStage" />
           <ScalarProperty Name="Client" ColumnName="Client" />
           <ScalarProperty Name="CompleteOn" ColumnName="CompleteOn" />
           <ScalarProperty Name="StartDate" ColumnName="StartDate" />
@@ -170,7 +172,6 @@
           <ScalarProperty Name="removedDate" ColumnName="removedDate" />
           <ScalarProperty Name="addedDate" ColumnName="addedDate" />
           <ScalarProperty Name="dealID" ColumnName="dealID" />
-          <ScalarProperty Name="productID" ColumnName="productID" />
           <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -183,6 +184,19 @@
           <ScalarProperty Name="startDate" ColumnName="startDate" />
           <ScalarProperty Name="dealID" ColumnName="dealID" />
           <ScalarProperty Name="userID" ColumnName="userID" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EMAIL_Category">
+      <EntityTypeMapping TypeName="SSMModel.EMAIL_Category">
+        <MappingFragment StoreEntitySet="EMAIL_Category">
+          <ScalarProperty Name="color" ColumnName="color" />
+          <ScalarProperty Name="creator" ColumnName="creator" />
+          <ScalarProperty Name="createddate" ColumnName="createddate" />
+          <ScalarProperty Name="lastupdate" ColumnName="lastupdate" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -372,18 +386,5 @@
         <ScalarProperty Name="Id" ColumnName="RoleId" />
       </EndProperty>
     </AssociationSetMapping>
-    <EntitySetMapping Name="EMAIL_Category">
-      <EntityTypeMapping TypeName="SSMModel.EMAIL_Category">
-        <MappingFragment StoreEntitySet="EMAIL_Category">
-          <ScalarProperty Name="color" ColumnName="color" />
-          <ScalarProperty Name="creator" ColumnName="creator" />
-          <ScalarProperty Name="createddate" ColumnName="createddate" />
-          <ScalarProperty Name="lastupdate" ColumnName="lastupdate" />
-          <ScalarProperty Name="description" ColumnName="description" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="id" ColumnName="id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

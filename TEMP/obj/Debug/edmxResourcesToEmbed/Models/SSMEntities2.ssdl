@@ -159,13 +159,14 @@
     <Property Name="StartDate" Type="date" Nullable="false" />
     <Property Name="CompleteOn" Type="date" />
     <Property Name="Client" Type="int" Nullable="false" />
+    <Property Name="LastUpdateStage" Type="date" />
+    <Property Name="Status" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="Deal_Product">
     <Key>
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="productID" Type="int" Nullable="false" />
     <Property Name="dealID" Type="int" Nullable="false" />
     <Property Name="addedDate" Type="date" Nullable="false" />
     <Property Name="removedDate" Type="date" />
@@ -485,6 +486,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Deal_contacts">
+    <End Role="contacts" Type="Self.contacts" Multiplicity="1" />
+    <End Role="Deal" Type="Self.Deal" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="contacts">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Deal">
+        <PropertyRef Name="Client" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Deal_Product_Deal">
     <End Role="Deal" Type="Self.Deal" Multiplicity="1" />
     <End Role="Deal_Product" Type="Self.Deal_Product" Multiplicity="*" />
@@ -497,15 +510,15 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Deal_Product_softwareProduct">
-    <End Role="softwareProduct" Type="Self.softwareProduct" Multiplicity="1" />
+  <Association Name="FK_Deal_Product_productMarketPlan">
+    <End Role="productMarketPlan" Type="Self.productMarketPlan" Multiplicity="1" />
     <End Role="Deal_Product" Type="Self.Deal_Product" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="softwareProduct">
+      <Principal Role="productMarketPlan">
         <PropertyRef Name="id" />
       </Principal>
       <Dependent Role="Deal_Product">
-        <PropertyRef Name="productID" />
+        <PropertyRef Name="planID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -796,12 +809,16 @@
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />
       <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
     </AssociationSet>
+    <AssociationSet Name="FK_Deal_contacts" Association="Self.FK_Deal_contacts">
+      <End Role="contacts" EntitySet="contacts" />
+      <End Role="Deal" EntitySet="Deal" />
+    </AssociationSet>
     <AssociationSet Name="FK_Deal_Product_Deal" Association="Self.FK_Deal_Product_Deal">
       <End Role="Deal" EntitySet="Deal" />
       <End Role="Deal_Product" EntitySet="Deal_Product" />
     </AssociationSet>
-    <AssociationSet Name="FK_Deal_Product_softwareProduct" Association="Self.FK_Deal_Product_softwareProduct">
-      <End Role="softwareProduct" EntitySet="softwareProduct" />
+    <AssociationSet Name="FK_Deal_Product_productMarketPlan" Association="Self.FK_Deal_Product_productMarketPlan">
+      <End Role="productMarketPlan" EntitySet="productMarketPlan" />
       <End Role="Deal_Product" EntitySet="Deal_Product" />
     </AssociationSet>
     <AssociationSet Name="FK_Deal_SaleRep_Respon_AspNetUsers" Association="Self.FK_Deal_SaleRep_Respon_AspNetUsers">
