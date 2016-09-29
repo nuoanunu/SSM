@@ -123,7 +123,7 @@
                                         <div id="myBar" class="w3-progressbar w3-green" style="width:1%"></div>
                                     </div>
                                   
-                                    <li> <button class="signup"  >Detail</button></li>
+                                    <li> <button class="signup" onclick="Detail(@deal.id)"  >Detail</button></li>
                                 </ul>
                         
                             </div>
@@ -200,6 +200,10 @@
     $(document).ready(function () {
         $('#datatableExaple').DataTable();
     });
+
+    function Detail(id) {
+        window.location = "/Deal/Detail?id=" + id;
+    }
 </script>
 <div class="modal fade" id="myDealModal" role="dialog">
     <div class="modal-dialog">
