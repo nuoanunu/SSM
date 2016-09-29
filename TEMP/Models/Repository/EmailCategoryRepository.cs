@@ -38,5 +38,12 @@ namespace SSM.Models.Repository
             Dispose(true);
             GC.SuppressFinalize(this);
         }
+
+        public EMAIL_Category CreateNewEmailCategory(EMAIL_Category emailCategory)
+        {
+            context.EMAIL_Category.Add(emailCategory);
+            context.SaveChanges();
+            return emailCategory;
+        }
     }
 }

@@ -13,5 +13,6 @@ namespace SSM.ViewModels
     {
         public IEnumerable<EmailCategory> EmailCategories { get; set; }
         public EmailTemplateEntity EmailTemplateEntity { get; set; }
+        public EmailCategory EmailCategory { get; set; }
     }
 }
