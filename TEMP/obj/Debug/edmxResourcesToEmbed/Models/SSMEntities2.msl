@@ -398,5 +398,66 @@
         <ScalarProperty Name="Id" ColumnName="RoleId" />
       </EndProperty>
     </AssociationSetMapping>
+    <EntitySetMapping Name="MasterCalendars">
+      <EntityTypeMapping TypeName="SSMModel.MasterCalendar">
+        <MappingFragment StoreEntitySet="MasterCalendar">
+          <ScalarProperty Name="dayofweek" ColumnName="dayofweek" />
+          <ScalarProperty Name="fromto" ColumnName="fromto" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MasterSchedule_User">
+      <EntityTypeMapping TypeName="SSMModel.MasterSchedule_User">
+        <MappingFragment StoreEntitySet="MasterSchedule_User">
+          <ScalarProperty Name="scheduleID" ColumnName="scheduleID" />
+          <ScalarProperty Name="userID" ColumnName="userID" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SaleRepProfiles">
+      <EntityTypeMapping TypeName="SSMModel.SaleRepProfile">
+        <MappingFragment StoreEntitySet="SaleRepProfile">
+          <ScalarProperty Name="dateOfBirth" ColumnName="dateOfBirth" />
+          <ScalarProperty Name="Country" ColumnName="Country" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="userID" ColumnName="userID" />
+          <ScalarProperty Name="Territoryplanning" ColumnName="Territoryplanning" />
+          <ScalarProperty Name="AdministrativeCRM" ColumnName="AdministrativeCRM" />
+          <ScalarProperty Name="ProposalCreation" ColumnName="ProposalCreation" />
+          <ScalarProperty Name="LOUs" ColumnName="LOUs" />
+          <ScalarProperty Name="Savvy" ColumnName="Savvy" />
+          <ScalarProperty Name="Chemistry" ColumnName="Chemistry" />
+          <ScalarProperty Name="ProActivity" ColumnName="ProActivity" />
+          <ScalarProperty Name="Recognition" ColumnName="Recognition" />
+          <ScalarProperty Name="Competency" ColumnName="Competency" />
+          <ScalarProperty Name="Integrity" ColumnName="Integrity" />
+          <ScalarProperty Name="CrosssellUpsell" ColumnName="CrosssellUpsell" />
+          <ScalarProperty Name="NextSteClosing" ColumnName="NextSteClosing" />
+          <ScalarProperty Name="Presentation" ColumnName="Presentation" />
+          <ScalarProperty Name="Objections" ColumnName="Objections" />
+          <ScalarProperty Name="Timeline" ColumnName="Timeline" />
+          <ScalarProperty Name="Risk" ColumnName="Risk" />
+          <ScalarProperty Name="BuyingCommittee" ColumnName="BuyingCommittee" />
+          <ScalarProperty Name="Budget" ColumnName="Budget" />
+          <ScalarProperty Name="NeedsAnalysis" ColumnName="NeedsAnalysis" />
+          <ScalarProperty Name="Opening" ColumnName="Opening" />
+          <ScalarProperty Name="Gatekeepers" ColumnName="Gatekeepers" />
+          <ScalarProperty Name="ReferenceStories" ColumnName="ReferenceStories" />
+          <ScalarProperty Name="NeedsAnalysisQuestions" ColumnName="NeedsAnalysisQuestions" />
+          <ScalarProperty Name="Prospecting" ColumnName="Prospecting" />
+          <ScalarProperty Name="EmployedScine" ColumnName="EmployedScine" />
+          <ScalarProperty Name="Suffix" ColumnName="Suffix" />
+          <ScalarProperty Name="Avatar" ColumnName="Avatar" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

@@ -210,6 +210,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\TaskController.cs" />
     <Compile Include="Global.asax.cs">
@@ -275,6 +276,12 @@
     <Compile Include="Models\MarketPlanPurchased.cs">
       <DependentUpon>SSMEntities2.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\MasterCalendar.cs">
+      <DependentUpon>SSMEntities2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MasterSchedule_User.cs">
+      <DependentUpon>SSMEntities2.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\order.cs">
       <DependentUpon>SSMEntities2.tt</DependentUpon>
     </Compile>
@@ -296,13 +303,18 @@
     <Compile Include="Models\Repository\contactRepository.cs" />
     <Compile Include="Models\Repository\customerRepository.cs" />
     <Compile Include="Models\Repository\DealRepository.cs" />
+    <Compile Include="Models\Repository\DealTaskRepo.cs" />
     <Compile Include="Models\Repository\EmailCategoryRepository.cs" />
     <Compile Include="Models\Repository\iRepository.cs" />
     <Compile Include="Models\Repository\MailTemplateRepository.cs" />
     <Compile Include="Models\Repository\orderRepository.cs" />
     <Compile Include="Models\Repository\productRepository.cs" />
     <Compile Include="Models\Repository\taskRepository.cs" />
+    <Compile Include="Models\SaleRepProfile.cs">
+      <DependentUpon>SSMEntities2.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Services\DealServices.cs" />
+    <Compile Include="Models\Services\DealTaskServices.cs" />
     <Compile Include="Models\Services\ProductServices.cs" />
     <Compile Include="Models\softwareProduct.cs">
       <DependentUpon>SSMEntities2.tt</DependentUpon>
@@ -354,6 +366,8 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\buttonStyle.css" />
+    <Content Include="Content\CalendarStyle.css" />
+    <Content Include="Content\CalendarStyleNoHover.css" />
     <Content Include="Content\calendar_g.css" />
     <Content Include="Content\calendar_green.css" />
     <Content Include="Content\calendar_traditional.css" />
@@ -374,7 +388,9 @@
     <Content Include="Content\play-icon.png" />
     <Content Include="Content\ProcessBar.css" />
     <Content Include="Content\ProcessDeal.css" />
+    <Content Include="Content\Profile.css" />
     <Content Include="Content\switecherry.css" />
+    <Content Include="Content\themeprofile.css" />
     <Content Include="Content\timelinereset.css" />
     <Content Include="Content\timelinestyle.css" />
     <Content Include="Content\updoc.png" />
@@ -420,12 +436,16 @@
     <Content Include="Models\SSMEntities2.edmx.diagram">
       <DependentUpon>SSMEntities2.edmx</DependentUpon>
     </Content>
+    <Content Include="fonts\OpenSans-Bold.ttf" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\animateprofile.js" />
     <Content Include="Scripts\bootstrap-datetimepicker.js" />
     <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\Chart.js" />
     <Content Include="Scripts\daypilot-all.min.js" />
+    <Content Include="Scripts\eve.min.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -436,11 +456,13 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\JustGage.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\moment-with-locales.js" />
     <Content Include="Scripts\moment-with-locales.min.js" />
     <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\moment.min.js" />
+    <Content Include="Scripts\Raphael.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\switchery.js" />
@@ -594,6 +616,7 @@
     <Content Include="Views\Deal\temp.cshtml" />
     <Content Include="Views\Deal\Detail.cshtml" />
     <Content Include="Views\MailTemplate\Add.cshtml" />
+    <Content Include="Views\Profile\index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
