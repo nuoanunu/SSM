@@ -55,5 +55,8 @@ namespace SSM.Models
         public virtual DbSet<task_user> task_user { get; set; }
         public virtual DbSet<TaskStatu> TaskStatus { get; set; }
         public virtual DbSet<TaskType> TaskTypes { get; set; }
+        public virtual DbSet<MasterCalendar> MasterCalendars { get; set; }
+        public virtual DbSet<MasterSchedule_User> MasterSchedule_User { get; set; }
+        public virtual DbSet<SaleRepProfile> SaleRepProfiles { get; set; }
     }
 }

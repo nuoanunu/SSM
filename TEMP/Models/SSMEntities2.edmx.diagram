@@ -70,6 +70,12 @@
         <AssociationConnector Association="SSMModel.FK_productAttributes_softwareProduct" />
         <AssociationConnector Association="SSMModel.FK_orderItems_softwareProduct" />
         <AssociationConnector Association="SSMModel.AspNetUserRoles" />
+        <EntityTypeShape EntityType="SSMModel.MasterCalendar" Width="1.5" PointX="11" PointY="23.625" />
+        <EntityTypeShape EntityType="SSMModel.MasterSchedule_User" Width="1.5" PointX="13.25" PointY="12.625" />
+        <AssociationConnector Association="SSMModel.FK_MasterSchedule_User_AspNetUsers" />
+        <AssociationConnector Association="SSMModel.FK_MasterSchedule_User_MasterCalendar" />
+        <EntityTypeShape EntityType="SSMModel.SaleRepProfile" Width="1.5" PointX="5.25" PointY="40.75" />
+        <AssociationConnector Association="SSMModel.FK_SaleRepProfile_AspNetUsers" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

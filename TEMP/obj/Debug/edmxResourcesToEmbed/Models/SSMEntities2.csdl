@@ -171,6 +171,21 @@
       <End Role="AspNetRole" EntitySet="AspNetRoles" />
       <End Role="AspNetUser" EntitySet="AspNetUsers" />
     </AssociationSet>
+    <EntitySet Name="MasterCalendars" EntityType="SSMModel.MasterCalendar" />
+    <EntitySet Name="MasterSchedule_User" EntityType="SSMModel.MasterSchedule_User" />
+    <AssociationSet Name="FK_MasterSchedule_User_AspNetUsers" Association="SSMModel.FK_MasterSchedule_User_AspNetUsers">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="MasterSchedule_User" EntitySet="MasterSchedule_User" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MasterSchedule_User_MasterCalendar" Association="SSMModel.FK_MasterSchedule_User_MasterCalendar">
+      <End Role="MasterCalendar" EntitySet="MasterCalendars" />
+      <End Role="MasterSchedule_User" EntitySet="MasterSchedule_User" />
+    </AssociationSet>
+    <EntitySet Name="SaleRepProfiles" EntityType="SSMModel.SaleRepProfile" />
+    <AssociationSet Name="FK_SaleRepProfile_AspNetUsers" Association="SSMModel.FK_SaleRepProfile_AspNetUsers">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="SaleRepProfile" EntitySet="SaleRepProfiles" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="AspNetRole">
     <Key>
@@ -224,6 +239,8 @@
     <NavigationProperty Name="contact_resposible" Relationship="SSMModel.FK_contact_resposible_AspNetUsers" FromRole="AspNetUser" ToRole="contact_resposible" />
     <NavigationProperty Name="Deal_SaleRep_Respon" Relationship="SSMModel.FK_Deal_SaleRep_Respon_AspNetUsers" FromRole="AspNetUser" ToRole="Deal_SaleRep_Respon" />
     <NavigationProperty Name="AspNetRoles" Relationship="SSMModel.AspNetUserRoles" FromRole="AspNetUser" ToRole="AspNetRole" />
+    <NavigationProperty Name="MasterSchedule_User" Relationship="SSMModel.FK_MasterSchedule_User_AspNetUsers" FromRole="AspNetUser" ToRole="MasterSchedule_User" />
+    <NavigationProperty Name="SaleRepProfiles" Relationship="SSMModel.FK_SaleRepProfile_AspNetUsers" FromRole="AspNetUser" ToRole="SaleRepProfile" />
   </EntityType>
   <EntityType Name="attributeOption">
     <Key>
@@ -1018,5 +1035,103 @@
   <Association Name="AspNetUserRoles">
     <End Type="SSMModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
     <End Type="SSMModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
+  </Association>
+  <EntityType Name="MasterCalendar">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="fromto" Type="String" Nullable="false" MaxLength="20" FixedLength="true" Unicode="true" />
+    <Property Name="dayofweek" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="MasterSchedule_User" Relationship="SSMModel.FK_MasterSchedule_User_MasterCalendar" FromRole="MasterCalendar" ToRole="MasterSchedule_User" />
+  </EntityType>
+  <EntityType Name="MasterSchedule_User">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="userID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="scheduleID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="AspNetUser" Relationship="SSMModel.FK_MasterSchedule_User_AspNetUsers" FromRole="MasterSchedule_User" ToRole="AspNetUser" />
+    <NavigationProperty Name="MasterCalendar" Relationship="SSMModel.FK_MasterSchedule_User_MasterCalendar" FromRole="MasterSchedule_User" ToRole="MasterCalendar" />
+  </EntityType>
+  <Association Name="FK_MasterSchedule_User_AspNetUsers">
+    <End Type="SSMModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+    <End Type="SSMModel.MasterSchedule_User" Role="MasterSchedule_User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="MasterSchedule_User">
+        <PropertyRef Name="userID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MasterSchedule_User_MasterCalendar">
+    <End Type="SSMModel.MasterCalendar" Role="MasterCalendar" Multiplicity="1" />
+    <End Type="SSMModel.MasterSchedule_User" Role="MasterSchedule_User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MasterCalendar">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="MasterSchedule_User">
+        <PropertyRef Name="scheduleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="SaleRepProfile">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="FirstName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="LastName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="FullName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Phone" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Avatar" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Suffix" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="EmployedScine" Type="DateTime" Precision="0" />
+    <Property Name="Prospecting" Type="Int32" />
+    <Property Name="NeedsAnalysisQuestions" Type="Int32" />
+    <Property Name="ReferenceStories" Type="Int32" />
+    <Property Name="Gatekeepers" Type="Int32" />
+    <Property Name="Opening" Type="Int32" />
+    <Property Name="NeedsAnalysis" Type="Int32" />
+    <Property Name="Budget" Type="Int32" />
+    <Property Name="BuyingCommittee" Type="Int32" />
+    <Property Name="Risk" Type="Int32" />
+    <Property Name="Timeline" Type="Int32" />
+    <Property Name="Objections" Type="Int32" />
+    <Property Name="Presentation" Type="Int32" />
+    <Property Name="NextSteClosing" Type="Int32" />
+    <Property Name="CrosssellUpsell" Type="Int32" />
+    <Property Name="Integrity" Type="Int32" />
+    <Property Name="Competency" Type="Int32" />
+    <Property Name="Recognition" Type="Int32" />
+    <Property Name="ProActivity" Type="Int32" />
+    <Property Name="Chemistry" Type="Int32" />
+    <Property Name="Savvy" Type="Int32" />
+    <Property Name="LOUs" Type="Int32" />
+    <Property Name="ProposalCreation" Type="Int32" />
+    <Property Name="AdministrativeCRM" Type="Int32" />
+    <Property Name="Territoryplanning" Type="Int32" />
+    <Property Name="userID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUser" Relationship="SSMModel.FK_SaleRepProfile_AspNetUsers" FromRole="SaleRepProfile" ToRole="AspNetUser" />
+    <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="dateOfBirth" Type="DateTime" Precision="0" />
+  </EntityType>
+  <Association Name="FK_SaleRepProfile_AspNetUsers">
+    <End Type="SSMModel.AspNetUser" Role="AspNetUser" Multiplicity="0..1" />
+    <End Type="SSMModel.SaleRepProfile" Role="SaleRepProfile" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SaleRepProfile">
+        <PropertyRef Name="userID" />
+      </Dependent>
+    </ReferentialConstraint>
   </Association>
 </Schema>
