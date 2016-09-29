@@ -28,11 +28,12 @@ namespace SSM.Controllers
 
 
         public ActionResult Add()
-        {   
+        {
             var viewModel = new CreateEmailTemplateViewModel
             {
                 EmailTemplateEntity = new EmailTemplateEntity(),
-                EmailCategories = getCategories()
+                EmailCategories = getCategories(),
+                EmailCategory = new EmailCategory()
             };
             return View("Add",viewModel);
         }
@@ -63,6 +64,44 @@ namespace SSM.Controllers
                 mailRepo.EditMailTemplate(emailTemplate);
             }
             return RedirectToAction("Add", "MailTemplate");
+        }
+
+
+        //Not used yet, insert category not using ajax
+        [ValidateInput(false)]
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        public ActionResult InsertNewCategory(CreateEmailTemplateViewModel viewModel)
+        {
+            var emailCategory = viewModel.EmailCategory;
+            var dbEmailCategory = new EMAIL_Category();
+            dbEmailCategory.Name = emailCategory.Name;
+            dbEmailCategory.description = emailCategory.description;
+            dbEmailCategory.createddate = DateTime.Now;
+            cateRepo.CreateNewEmailCategory(dbEmailCategory);
+            var newViewModel = new CreateEmailTemplateViewModel
+            {
+                EmailTemplateEntity = viewModel.EmailTemplateEntity,
+                EmailCategories = getCategories(),
+                EmailCategory = new EmailCategory()
+            };
+            return RedirectToAction("Add", "MailTemplate");
+        }
+
+
+        [ValidateInput(false)]
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        public ActionResult InsertNewCategoryUsingAjax(CreateEmailTemplateViewModel viewModel)
+        {
+            var emailCategory = viewModel.EmailCategory;
+            var dbEmailCategory = new EMAIL_Category();
+            dbEmailCategory.Name = emailCategory.Name;
+            dbEmailCategory.description = emailCategory.description;
+            dbEmailCategory.createddate = DateTime.Now;
+            
+            var dbEmailCategoryAfterInsert = cateRepo.CreateNewEmailCategory(dbEmailCategory);
+            return Json(dbEmailCategoryAfterInsert);
         }
 
         public List<EmailCategory> getCategories()
