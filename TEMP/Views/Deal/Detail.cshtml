@@ -145,12 +145,12 @@
             </div>
 
         </div>
-        <div class="col-sm-2"> <button class="push_button blue"> Win </button></div>
+        <div class="col-sm-2"> <button class="button"> Win </button></div>
 
-        <div class="col-sm-2"> <button class="push_button red"> Lost </button></div>
+        <div class="col-sm-2"> <button class="button"> Lost </button></div>
 
         <br />
-        <div style="background-color:white;" class="checkout-wrap">
+        <div style="background-color:white;margin-top:20px" class="checkout-wrap">
             <ul class="checkout-bar">
 
                 @foreach (Plan_Step step in ((PrePurchase_FollowUp_Plan)ViewData["ActiveFollowUpPlan"]).Plan_Step.ToList())
