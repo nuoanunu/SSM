@@ -280,7 +280,7 @@
             <p style="text-align: center;font-size:30px"><strong>Up-comming tasks</strong></p>
 
 
-            <div class="pre-scrollable" id="timelinecontainer" style="height:800px;max-height: 800px; ">
+            <div class="pre-scrollable" id="timelinecontainer" style="max-height: 800px; ">
 
                 <section id="cd-timeline" class="cd-container">
                     @foreach (DealTask task in thisDeal.DealTasks.ToList().OrderByDescending(x => x.Deadline))
