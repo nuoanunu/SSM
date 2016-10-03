@@ -44,19 +44,22 @@ namespace SSM.Models
         public virtual DbSet<Email_Template> Email_Template { get; set; }
         public virtual DbSet<License> Licenses { get; set; }
         public virtual DbSet<MarketPlanPurchased> MarketPlanPurchaseds { get; set; }
+        public virtual DbSet<MasterCalendar> MasterCalendars { get; set; }
+        public virtual DbSet<MasterSchedule_User> MasterSchedule_User { get; set; }
+        public virtual DbSet<oder_item> oder_item { get; set; }
         public virtual DbSet<order> orders { get; set; }
+        public virtual DbSet<Payment> Payments { get; set; }
+        public virtual DbSet<payment_status> payment_status { get; set; }
         public virtual DbSet<Plan_Step> Plan_Step { get; set; }
         public virtual DbSet<PlanOption> PlanOptions { get; set; }
         public virtual DbSet<PrePurchase_FollowUp_Plan> PrePurchase_FollowUp_Plan { get; set; }
         public virtual DbSet<productAttribute> productAttributes { get; set; }
         public virtual DbSet<productMarketPlan> productMarketPlans { get; set; }
+        public virtual DbSet<SaleRepProfile> SaleRepProfiles { get; set; }
         public virtual DbSet<softwareProduct> softwareProducts { get; set; }
         public virtual DbSet<task_customer> task_customer { get; set; }
         public virtual DbSet<task_user> task_user { get; set; }
         public virtual DbSet<TaskStatu> TaskStatus { get; set; }
         public virtual DbSet<TaskType> TaskTypes { get; set; }
-        public virtual DbSet<MasterCalendar> MasterCalendars { get; set; }
-        public virtual DbSet<MasterSchedule_User> MasterSchedule_User { get; set; }
-        public virtual DbSet<SaleRepProfile> SaleRepProfiles { get; set; }
     }
 }

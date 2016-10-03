@@ -282,7 +282,16 @@
     <Compile Include="Models\MasterSchedule_User.cs">
       <DependentUpon>SSMEntities2.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\oder_item.cs">
+      <DependentUpon>SSMEntities2.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\order.cs">
+      <DependentUpon>SSMEntities2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Payment.cs">
+      <DependentUpon>SSMEntities2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\payment_status.cs">
       <DependentUpon>SSMEntities2.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PlanOption.cs">

@@ -8,6 +8,8 @@
 <link href="~/Content/timelinereset.css" rel="stylesheet" />
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="~/Scripts/tinymce/jquery.tinymce.min.js"></script>
+<script src="~/Scripts/tinymce/tinymce.min.js"></script>
 <script>
     $(function () {
         $("#datepicker").datepicker();
@@ -298,32 +300,165 @@
         <!-- main col right -->
 
         <div class="col-sm-9">
-            <p style="text-align: center;font-size:30px"><strong>Up-comming tasks</strong></p>
 
 
-            <div class="pre-scrollable" id="timelinecontainer" style=";max-height: 800px; ">
 
-                <section id="cd-timeline" class="cd-container">
-                    @foreach (DealTask task in thisDeal.DealTasks.ToList().OrderByDescending(x => x.Deadline))
-                    {
-                        if (task.Deadline > DateTime.Today)
+            @*<div class="pre-scrollable" id="timelinecontainer" style=";max-height: 800px; ">
+
+                    <section id="cd-timeline" class="cd-container">
+                        @foreach (DealTask task in thisDeal.DealTasks.ToList().OrderByDescending(x => x.Deadline))
                         {
-                            <div class="cd-timeline-block">
-                                <div class="cd-timeline-img cd-location">
-                                    <img src="~/Content/@(task.TaskType.Description.Trim()).png" alt="Picture" />
+                            if (task.Deadline > DateTime.Today && task.TaskContent.Length == 0 )
+                            {
+                                <div class="cd-timeline-block">
+                                    <div class="cd-timeline-img cd-location">
+                                        <img src="~/Content/@(task.TaskType.Description.Trim()).png" alt="Picture" />
 
-                                </div> <!-- cd-timeline-img -->
-                                <div class="cd-timeline-content">
-                                    <h2 style="font-size:25px">@task.TaskName</h2>
-                                    <p style="font-size:15px">@task.TaskDescription</p>
-                                    <a href="#0" class="cd-read-more">Finish It!</a>
-                                    <span class="cd-date">@task.Deadline</span>
-                                </div> <!-- cd-timeline-content -->
-                            </div> <!-- cd-timeline-block -->
+                                    </div> <!-- cd-timeline-img -->
+                                    <div class="cd-timeline-content">
+                                        <h2 style="font-size:25px">@task.TaskName</h2>
+                                        <p style="font-size:15px">@task.TaskDescription</p>
+                                        <a href="#0" class="cd-read-more">Finish It!</a>
+                                        <span class="cd-date">@task.Deadline</span>
+                                    </div> <!-- cd-timeline-content -->
+                                </div> <!-- cd-timeline-block -->
+                            }
                         }
-                    }
 
-                </section> <!-- cd-timeline -->
+                    </section> <!-- cd-timeline -->
+                </div>*@
+            <div style="margin-top:20px" class="tab" role="tabpanel">
+                <!-- Nav tabs -->
+                <ul style="list-style:none;  text-align:center;align-content:center" class="nav nav-tabs" role="tablist">
+                    <li style="float:none;display:inline-block;" role="presentation" class="active"><a href="#normaltask" aria-controls="home" role="tab" data-toggle="tab"><i class="fa fa-envelope-o"></i><p style="text-align: center;font-size:30px"><strong>Up-comming tasks</strong></p></a></li>
+                    <li style="float:none;display:inline-block;" role="presentation"><a href="#emailconversation" aria-controls="profile" role="tab" data-toggle="tab"><i class="fa fa-cube"></i><p style="text-align: center;font-size:30px"><strong>Conversation</strong></p></a></li>
+                </ul>
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane fade in active" id="normaltask">
+                        <div class="pre-scrollable" id="timelinecontainer" style="height:800px;max-height: 800px; ">
+
+                            <section id="cd-timeline" class="cd-container">
+                                @foreach (DealTask task in thisDeal.DealTasks.ToList().OrderByDescending(x => x.Deadline))
+                                {
+                                    if (task.Deadline > DateTime.Today && task.TaskType.id != 7 && task.TaskType.id != 8)
+                                    {
+                                        <div class="cd-timeline-block">
+                                            <div class="cd-timeline-img cd-location">
+                                                <img src="~/Content/@(task.TaskType.Description.Trim()).png" alt="Picture" />
+
+                                            </div> <!-- cd-timeline-img -->
+                                            <div class="cd-timeline-content">
+                                                <h2 style="font-size:25px">@task.TaskName</h2>
+                                                <p style="font-size:15px">@task.TaskDescription</p>
+                                                <a href="#0" class="cd-read-more">Finish It!</a>
+                                                <span class="cd-date">@task.Deadline</span>
+                                            </div> <!-- cd-timeline-content -->
+                                        </div> <!-- cd-timeline-block -->
+                                    }
+                                }
+
+
+                            </section> <!-- cd-timeline -->
+                        </div>
+                    </div>
+
+                    <div role="tabpanel" class="tab-pane fade" id="emailconversation">
+                        <div class="pre-scrollable" id="timelinecontainer" style="height:800px;max-height: 800px; ">
+
+                            <section id="cd-timeline" class="cd-container">
+                     
+                                @foreach (DealTask task in thisDeal.DealTasks.ToList().OrderByDescending(x => x.Deadline))
+                                {
+                                    if (task.TaskType.id == 7 || task.TaskType.id == 8)
+                                    {
+                                        <div class="cd-timeline-block">
+                                            <div class="cd-timeline-img cd-location">
+                                                <img src="~/Content/@(task.TaskType.Description).png" alt="Picture" />
+
+                                            </div>
+                                            @if (task.TaskType.id == 7)
+                                            {
+                                                <!-- cd-timeline-img -->
+                                                <div class="cd-timeline-content" style="float:right">
+                                                    <h2 style="font-size:25px">@task.TaskName</h2>
+                                                   
+                                                    <div  > <iframe id="@(task.id+"mailcontent")"> </iframe></div>
+                                                    <a href="#0" class="cd-read-more" data-toggle="modal" data-target="#myMailModal">Reply</a>
+                                                    <span>@task.CreateDate</span>
+                                                    <script>
+
+                                                        var iframedoc = document.getElementById("@(task.id+"mailcontent")").contentDocument;
+                                                        iframedoc.body.innerHTML = "@task.TaskDescription";
+                                                    </script>
+                                                </div> <!-- cd-timeline-content -->
+
+                                            }
+                                            else
+                                            {
+                                                <div class="cd-timeline-content" style="float:left">
+                                                    <h2 style="font-size:25px">@task.TaskName</h2>
+                                                    <div> <iframe id="@(task.id+"mailcontent")"> </iframe></div>
+
+                                                    <span>@task.CreateDate</span>
+                                                </div> <!-- cd-timeline-content -->
+                                                <script>
+
+                                                    var iframedoc = document.getElementById("@(task.id+"mailcontent")").contentDocument;
+                                                    iframedoc.open();
+                                                    iframedoc.writeln("@task.TaskDescription");
+                                                    iframedoc.close();
+                                                        @*iframedoc.body.innerHTML = "@task.TaskDescription";*@
+                                                </script>
+                                            }
+
+                                        </div> <!-- cd-timeline-block -->
+                                    }
+                                }
+                                <div class="modal fade" id="myMailModal" role="dialog">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                <h4 class="modal-title">Modal Header</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <textarea id="mailaread"></textarea>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <script>
+                                $(document).ready(function () {
+
+                                    tinymce.init({
+                                        selector: 'textarea#mailaread',
+                                        height: 500,
+                                        plugins: [
+                                          'advlist autolink lists link image charmap print preview anchor',
+                                          'searchreplace visualblocks code fullscreen',
+                                          'insertdatetime media table contextmenu paste code'
+                                        ],
+                                        toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+                                        content_css: '//www.tinymce.com/css/codepen.min.css'
+
+
+                                    });
+                                });
+                            </script>
+                            </section> <!-- cd-timeline -->
+                        </div>
+                    </div>
+
+
+
+
+
+
+                </div>
             </div>
             <p style="text-align: center;font-size:30px"><strong>In the Past</strong></p>
             <div style="margin-top:20px" class="tab" role="tabpanel">
@@ -351,18 +486,18 @@
                                 {
                                     if (task.Deadline < DateTime.Today)
                                     {
-                                        <div class="cd-timeline-block">
-                                            <div class="cd-timeline-img cd-location">
-                                                <img src="~/Content/@(task.TaskType.Description.Trim()).png" alt="Picture" />
+                            <div class="cd-timeline-block">
+                                <div class="cd-timeline-img cd-location">
+                                    <img src="~/Content/@(task.TaskType.Description.Trim()).png" alt="Picture" />
 
-                                            </div> <!-- cd-timeline-img -->
-                                            <div class="cd-timeline-content">
-                                                <h2 style="font-size:25px">@task.TaskName</h2>
-                                                <p style="font-size:15px">@task.TaskDescription</p>
-                                                <a href="#0" class="cd-read-more">Finish It!</a>
-                                                <span class="cd-date">@task.Deadline</span>
-                                            </div> <!-- cd-timeline-content -->
-                                        </div> <!-- cd-timeline-block -->
+                                </div> <!-- cd-timeline-img -->
+                                <div class="cd-timeline-content">
+                                    <h2 style="font-size:25px">@task.TaskName</h2>
+                                    <p style="font-size:15px">@task.TaskDescription</p>
+                                    <a href="#0" class="cd-read-more">Finish It!</a>
+                                    <span class="cd-date">@task.Deadline</span>
+                                </div> <!-- cd-timeline-content -->
+                            </div> <!-- cd-timeline-block -->
                                     }
                                 }
 
@@ -379,18 +514,18 @@
                                 {
                                     if (task.Deadline < DateTime.Today && task.type == 1)
                                     {
-                                        <div class="cd-timeline-block">
-                                            <div class="cd-timeline-img cd-location">
-                                                <img src="~/Content/@(task.TaskType.Description).png" alt="Picture" />
+                            <div class="cd-timeline-block">
+                                <div class="cd-timeline-img cd-location">
+                                    <img src="~/Content/@(task.TaskType.Description).png" alt="Picture" />
 
-                                            </div> <!-- cd-timeline-img -->
-                                            <div class="cd-timeline-content">
-                                                <h2 style="font-size:25px">@task.TaskName</h2>
-                                                <p style="font-size:15px">@task.TaskDescription</p>
-                                                <a href="#0" class="cd-read-more">Finish It!</a>
-                                                <span class="cd-date">@task.Deadline</span>
-                                            </div> <!-- cd-timeline-content -->
-                                        </div> <!-- cd-timeline-block -->
+                                </div> <!-- cd-timeline-img -->
+                                <div class="cd-timeline-content">
+                                    <h2 style="font-size:25px">@task.TaskName</h2>
+                                    <p style="font-size:15px">@task.TaskDescription</p>
+                                    <a href="#0" class="cd-read-more">Finish It!</a>
+                                    <span class="cd-date">@task.Deadline</span>
+                                </div> <!-- cd-timeline-content -->
+                            </div> <!-- cd-timeline-block -->
                                     }
                                 }
                             </section> <!-- cd-timeline -->
@@ -405,18 +540,18 @@
                                 {
                                     if (task.Deadline < DateTime.Today && task.type == 2)
                                     {
-                                        <div class="cd-timeline-block">
-                                            <div class="cd-timeline-img cd-location">
-                                                <img src="~/Content/@(task.TaskType.Description).png" alt="Picture" />
+                            <div class="cd-timeline-block">
+                                <div class="cd-timeline-img cd-location">
+                                    <img src="~/Content/@(task.TaskType.Description).png" alt="Picture" />
 
-                                            </div> <!-- cd-timeline-img -->
-                                            <div class="cd-timeline-content">
-                                                <h2 style="font-size:25px">@task.TaskName</h2>
-                                                <p style="font-size:15px">@task.TaskDescription</p>
-                                                <a href="#0" class="cd-read-more">Finish It!</a>
-                                                <span class="cd-date">@task.Deadline</span>
-                                            </div> <!-- cd-timeline-content -->
-                                        </div> <!-- cd-timeline-block -->
+                                </div> <!-- cd-timeline-img -->
+                                <div class="cd-timeline-content">
+                                    <h2 style="font-size:25px">@task.TaskName</h2>
+                                    <p style="font-size:15px">@task.TaskDescription</p>
+                                    <a href="#0" class="cd-read-more">Finish It!</a>
+                                    <span class="cd-date">@task.Deadline</span>
+                                </div> <!-- cd-timeline-content -->
+                            </div> <!-- cd-timeline-block -->
                                     }
                                 }
 
@@ -431,18 +566,18 @@
                                 {
                                     if (task.Deadline < DateTime.Today && task.type == 3)
                                     {
-                                        <div class="cd-timeline-block">
-                                            <div class="cd-timeline-img cd-location">
-                                                <img src="~/Content/@(task.TaskType.Description).png" alt="Picture" />
+                            <div class="cd-timeline-block">
+                                <div class="cd-timeline-img cd-location">
+                                    <img src="~/Content/@(task.TaskType.Description).png" alt="Picture" />
 
-                                            </div> <!-- cd-timeline-img -->
-                                            <div class="cd-timeline-content">
-                                                <h2 style="font-size:25px">@task.TaskName</h2>
-                                                <p style="font-size:15px">@task.TaskDescription</p>
-                                                <a href="#0" class="cd-read-more">Finish It!</a>
-                                                <span class="cd-date">@task.Deadline</span>
-                                            </div> <!-- cd-timeline-content -->
-                                        </div> <!-- cd-timeline-block -->
+                                </div> <!-- cd-timeline-img -->
+                                <div class="cd-timeline-content">
+                                    <h2 style="font-size:25px">@task.TaskName</h2>
+                                    <p style="font-size:15px">@task.TaskDescription</p>
+                                    <a href="#0" class="cd-read-more">Finish It!</a>
+                                    <span class="cd-date">@task.Deadline</span>
+                                </div> <!-- cd-timeline-content -->
+                            </div> <!-- cd-timeline-block -->
                                     }
                                 }
 
@@ -457,18 +592,18 @@
                                 {
                                     if (task.Deadline < DateTime.Today && task.type == 4)
                                     {
-                                        <div class="cd-timeline-block">
-                                            <div class="cd-timeline-img cd-location">
-                                                <img src="~/Content/@(task.TaskType.Description).png" alt="Picture" />
+                            <div class="cd-timeline-block">
+                                <div class="cd-timeline-img cd-location">
+                                    <img src="~/Content/@(task.TaskType.Description).png" alt="Picture" />
 
-                                            </div> <!-- cd-timeline-img -->
-                                            <div class="cd-timeline-content">
-                                                <h2 style="font-size:25px">@task.TaskName</h2>
-                                                <p style="font-size:15px">@task.TaskDescription</p>
-                                                <a href="#0" class="cd-read-more">Finish It!</a>
-                                                <span class="cd-date">@task.Deadline</span>
-                                            </div> <!-- cd-timeline-content -->
-                                        </div> <!-- cd-timeline-block -->
+                                </div> <!-- cd-timeline-img -->
+                                <div class="cd-timeline-content">
+                                    <h2 style="font-size:25px">@task.TaskName</h2>
+                                    <p style="font-size:15px">@task.TaskDescription</p>
+                                    <a href="#0" class="cd-read-more">Finish It!</a>
+                                    <span class="cd-date">@task.Deadline</span>
+                                </div> <!-- cd-timeline-content -->
+                            </div> <!-- cd-timeline-block -->
                                     }
                                 }
 
@@ -483,18 +618,18 @@
                                 {
                                     if (task.Deadline < DateTime.Today && task.type == 5)
                                     {
-                                        <div class="cd-timeline-block">
-                                            <div class="cd-timeline-img cd-location">
-                                                <img src="~/Content/@(task.TaskType.Description).png" alt="Picture" />
+                            <div class="cd-timeline-block">
+                                <div class="cd-timeline-img cd-location">
+                                    <img src="~/Content/@(task.TaskType.Description).png" alt="Picture" />
 
-                                            </div> <!-- cd-timeline-img -->
-                                            <div class="cd-timeline-content">
-                                                <h2 style="font-size:25px">@task.TaskName</h2>
-                                                <p style="font-size:15px">@task.TaskDescription</p>
-                                                <a href="#0" class="cd-read-more">Finish It!</a>
-                                                <span class="cd-date">@task.Deadline</span>
-                                            </div> <!-- cd-timeline-content -->
-                                        </div> <!-- cd-timeline-block -->
+                                </div> <!-- cd-timeline-img -->
+                                <div class="cd-timeline-content">
+                                    <h2 style="font-size:25px">@task.TaskName</h2>
+                                    <p style="font-size:15px">@task.TaskDescription</p>
+                                    <a href="#0" class="cd-read-more">Finish It!</a>
+                                    <span class="cd-date">@task.Deadline</span>
+                                </div> <!-- cd-timeline-content -->
+                            </div> <!-- cd-timeline-block -->
                                     }
                                 }
 
@@ -509,18 +644,18 @@
                                 {
                                     if (task.Deadline < DateTime.Today && task.status == 4)
                                     {
-                                        <div class="cd-timeline-block">
-                                            <div class="cd-timeline-img cd-location">
-                                                <img src="~/Content/@(task.TaskType.Description).png" alt="Picture" />
+                            <div class="cd-timeline-block">
+                                <div class="cd-timeline-img cd-location">
+                                    <img src="~/Content/@(task.TaskType.Description).png" alt="Picture" />
 
-                                            </div> <!-- cd-timeline-img -->
-                                            <div class="cd-timeline-content">
-                                                <h2 style="font-size:25px">@task.TaskName</h2>
-                                                <p style="font-size:15px">@task.TaskDescription</p>
-                                                <a href="#0" class="cd-read-more">Finish It!</a>
-                                                <span class="cd-date">@task.Deadline</span>
-                                            </div> <!-- cd-timeline-content -->
-                                        </div> <!-- cd-timeline-block -->
+                                </div> <!-- cd-timeline-img -->
+                                <div class="cd-timeline-content">
+                                    <h2 style="font-size:25px">@task.TaskName</h2>
+                                    <p style="font-size:15px">@task.TaskDescription</p>
+                                    <a href="#0" class="cd-read-more">Finish It!</a>
+                                    <span class="cd-date">@task.Deadline</span>
+                                </div> <!-- cd-timeline-content -->
+                            </div> <!-- cd-timeline-block -->
                                     }
                                 }
 
@@ -535,18 +670,18 @@
                                 {
                                     if (task.Deadline < DateTime.Today && (task.status == 5 || task.status == 2))
                                     {
-                                        <div class="cd-timeline-block">
-                                            <div class="cd-timeline-img cd-location">
-                                                <img src="~/Content/@(task.TaskType.Description).png" alt="Picture" />
+                            <div class="cd-timeline-block">
+                                <div class="cd-timeline-img cd-location">
+                                    <img src="~/Content/@(task.TaskType.Description).png" alt="Picture" />
 
-                                            </div> <!-- cd-timeline-img -->
-                                            <div class="cd-timeline-content">
-                                                <h2 style="font-size:25px">@task.TaskName</h2>
-                                                <p style="font-size:15px">@task.TaskDescription</p>
-                                                <a href="#0" class="cd-read-more">Finish It!</a>
-                                                <span class="cd-date">@task.Deadline</span>
-                                            </div> <!-- cd-timeline-content -->
-                                        </div> <!-- cd-timeline-block -->
+                                </div> <!-- cd-timeline-img -->
+                                <div class="cd-timeline-content">
+                                    <h2 style="font-size:25px">@task.TaskName</h2>
+                                    <p style="font-size:15px">@task.TaskDescription</p>
+                                    <a href="#0" class="cd-read-more">Finish It!</a>
+                                    <span class="cd-date">@task.Deadline</span>
+                                </div> <!-- cd-timeline-content -->
+                            </div> <!-- cd-timeline-block -->
                                     }
                                 }
 
@@ -573,7 +708,11 @@
                         <span>Type</span><select name="type">
                             @foreach (TaskType type in (List<TaskType>)ViewData["TaskTypes"])
                             {
-                                <option value="@type.id">@type.typeName</option>
+                                if (type.id != 7 && type.id != 8)
+                                {
+                                    <option value="@type.id">@type.typeName</option>
+                                }
+
                             }
 
 
