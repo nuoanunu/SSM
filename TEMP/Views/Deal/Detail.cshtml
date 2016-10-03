@@ -24,6 +24,11 @@
         src: url("../../fonts/Roboto-Black.ttf") format('truetype');
     }
 
+    @@font-face {
+        font-family: 'OpenSans-Bold';
+        src: url('../../fonts/OpenSans-Bold.ttf') format('truetype');
+    }
+
     .basic-grey {
         margin-left: auto;
         margin-right: auto;
@@ -145,9 +150,12 @@
             </div>
 
         </div>
-        <div class="col-sm-2"> <button class="push_button blue"> Win </button></div>
 
-        <div class="col-sm-2"> <button class="push_button red"> Lost </button></div>
+        <div class="col-sm-2"> <button class="push_button blue" style="width:200px"> Win </button></div>
+
+        <div class="col-sm-2"> <button class="push_button red" style="width:200px"> Lost </button></div>
+
+        <br />
 
         <br />
         <div style="background-color:white;" class="checkout-wrap">
@@ -157,7 +165,7 @@
                 {
                     float width = 100 / (((PrePurchase_FollowUp_Plan)ViewData["ActiveFollowUpPlan"]).Plan_Step.ToList().Count());
                     String wid = width + "%";
-             
+
                     if (step.stepNo < thisDeal.Stage)
                     {
                         <li style="width:@wid" class="previous visited">@step.stepNo</li>
@@ -191,91 +199,104 @@
 
         <!-- main col left -->
         <div class="col-sm-3">
+            <div class="panel widget light-widget panel-bd-top">
+                <div class="panel-body">
+                    <div class="text-center vd_info-parent" style="width:100%;padding-top:0;margin-top:0">  <span style="font-family:OpenSans-Bold;font-size:50px;">DETAIL</span></div>
+                    <br />
+                    <div class="mgtp-20">
+                        <table class="table table-striped table-hover">
+                            <tbody>
+                                <tr>
+                                    <td style="width:60%;"><font color="black"> Start Date</font></td>
+                                    <td><span>@thisDeal.StartDate</span></td>
+                                </tr>
+                                <tr>
+                                    <td><font color="black"> Total Value</font></td>
+                                    <td><font color="black">@thisDeal.Value</font></td>
+                                </tr>
+                                <tr>
+                                    <td><font color="black">Aged</font></td>
+                                    <td><font color="black">@((DateTime.Today - thisDeal.StartDate).TotalDays ) days</font> </td>
+                                </tr>
+                                <tr>
+                                    <td><font color="black"> Last Updated </font></td>
+                                    <td><font color="black">@thisDeal.LastUpdateStage</font> </td>
+                                </tr>
+                                <tr>
+                                    <td><font color="black">  Status </font></td>
+                                    <td><font class="label label-success" color="black">@thisDeal.Status</font> </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="panel widget light-widget panel-bd-top">
+                <div class="panel-heading no-title"><span style="font-family:OpenSans-Bold;font-size:20px;">Customer</span> </div>
+                <div class="panel-body">
+                    <div class="text-center vd_info-parent"> <img alt="example image" src="@thisDeal.contact.Photo"> </div>
+                    <br />
+                    <div class="mgtp-20">
+                        <table class="table table-striped table-hover">
+                            <tbody>
+                                <tr>
+                                    <td><font color="black"> Full Name</font></td>
+                                    <td><font color="black">@(thisDeal.contact.FirstName + " " + thisDeal.contact.MiddleName + " " + thisDeal.contact.LastName )</font></td>
+                                </tr>
+                                <tr>
+                                    <td><font color="black">Emails</font></td>
+                                    <td><font color="black">@thisDeal.contact.emails</font> </td>
+                                </tr>
+                                <tr>
+                                    <td><font color="black"> Phone</font></td>
+                                    <td><font color="black">@thisDeal.contact.Phone</font> </td>
+                                </tr>
+                                <tr>
+                                    <td><font color="black">  Birthday </font></td>
+                                    <td><font color="black">@thisDeal.contact.DateOfBirth</font> </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="panel widget light-widget panel-bd-top">
+                <div class="panel-heading no-title"><span style="font-family:OpenSans-Bold;font-size:20px;">Comoany</span> </div>
+                <div class="panel-body">
+                    <div class="text-center vd_info-parent"> <img alt="example image" src="https://d13yacurqjgara.cloudfront.net/users/16411/screenshots/1069159/enterprise.png "> </div>
+                    <br />
+                    <div class="mgtp-20">
+                        <table class="table table-striped table-hover">
+                            <tbody>
 
-            <div class="panel panel-default">
-                <div class="panel-thumbnail">
-                    <table width="100%" height="300px" style="border: 1px solid #ddd;">
-                        <tr> <td style="padding-left:10px" align="left"><font color="black" style="font-family:Roboto-Light;" size="10px"> Detail</font></td></tr>
-                        <tr><td style="padding-left:10px">Start Date</td> <td align="right" style="padding-right:10px">@thisDeal.StartDate</td></tr>
-                        <tr><td style="padding-left:10px">Total Value</td> <td align="right" style="padding-right:10px">@thisDeal.Value</td></tr>
-                        <tr><td style="padding-left:10px">Aged</td> <td align="right" style="padding-right:10px">@(DateTime.Today - thisDeal.StartDate )</td></tr>
-                        <tr><td style="padding-left:10px">Last Updated</td> <td align="right" style="padding-right:10px">@thisDeal.LastUpdateStage</td></tr>
-                        <tr><td style="padding-left:10px">Status</td> <td align="right" style="padding-right:10px">@thisDeal.Status</td></tr>
-                    </table>
+                                <tr>
+                                    <td><font color="black">Name</font></td>
+                                    <td><font color="black"></font></td>
+                                </tr>
+                                <tr>
+                                    <td><font color="black">Emails</font></td>
+                                    <td><font color="black"></font> </td>
+                                </tr>
+                                <tr>
+                                    <td><font color="black">Scale</font></td>
+                                    <td><font color="black"></font> </td>
+                                </tr>
+                                <tr>
+                                    <td><font color="black">Address</font></td>
+                                    <td><font color="black"></font> </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
-            <div class="panel panel-default">
-                <div class="panel-thumbnail">
-                    <table width="100%" height="300px" style="border: 1px solid #ddd;">
-                        <tr> <td style="padding-left:10px" align="left"><font color="black" style="font-family:Roboto-Light;" size="10px"> Person</font></td></tr>
-                        <tr>
-                            <td style="padding-left:10px">
-                                <img width="30%" sstyle="vertical-align:middle" src="@thisDeal.contact.Photo">
-                                <span style="">@(thisDeal.contact.FirstName + " " + thisDeal.contact.MiddleName + " " + thisDeal.contact.LastName )</span>
-                            </td>
-                            <td style="padding-right:10px"> </td>
-                        </tr>
-                        <tr><td style="padding-left:10px">@thisDeal.contact.emails</td> <td align="right" style="padding-right:10px">Email</td></tr>
-                        <tr><td style="padding-left:10px">@thisDeal.contact.Phone</td> <td align="right" style="padding-right:10px">Phone</td></tr>
-                        <tr><td style="padding-left:10px">@thisDeal.contact.DateOfBirth</td> <td align="right" style="padding-right:10px"> Date of Birth</td></tr>
-                    </table>
-                </div>
-            </div>
-            <div class="panel panel-default">
-                <div class="panel-thumbnail">
-                    <table width="100%" height="300px" style="border: 1px solid #ddd;">
-                        <tr> <td style="padding-left:10px" align="left"><font color="black" style="font-family:Roboto-Light;" size="10px"> Company</font></td></tr>
-                        <tr>
-                            <td style="padding-left:10px">
-                                <img width="30%" style="vertical-align:middle" src="https://placehold.it/60x60">
-                                <span style="">Lương Công Thuận</span>
-                            </td>
-                            <td style="padding-right:10px"> </td>
-                        </tr>
-                        <tr><td style="padding-left:10px">thuan@gmail.com</td> <td align="right" style="padding-right:10px">Email</td></tr>
-                        <tr><td style="padding-left:10px">09666026198</td> <td align="right" style="padding-right:10px">Phone</td></tr>
-                        <tr><td style="padding-left:10px">79/51/20 Phu Dinh</td> <td align="right" style="padding-right:10px"> Address</td></tr>
-                    </table>
-                </div>
-            </div>
+
+
 
         </div>
 
         <!-- main col right -->
-        <div class="col-sm-9">
-            <form style="width:100%" action="CreateNewTask" method="post" class="basic-grey">
 
-                <p style="text-align: center;font-size:30px"><strong>New Task</strong></p>
-                <label style="width:100%">
-                    <span style="width:20%">Task Title :</span>
-                    <input type="hidden" value="@thisDeal.id" name="dealID"/>
-                    <input style="width:70%;max-width:70%" id="title" type="text" name="title" />
-                </label>
-
-                <label style="width:100%">
-                    <span style="width:20%">Description :</span>
-                    <textarea style="width:70%;max-width:70%" id="message" name="description"></textarea>
-                </label>
-                <label style="width:100%">
-                    <span>Type</span><select name="type">
-                        @foreach (TaskType type in (List<TaskType>)ViewData["TaskTypes"])
-                        {
-                            <option value="@type.id">@type.typeName</option>
-                        }
-
-
-                    </select>
-                </label>
-                <label style="width:100%">
-                    <span style="width:20%">DeadLine :</span>
-                    <input style="width:70%" type="text" name="deadline" id="datepicker">
-                </label>
-                <label>
-                    <span>&nbsp;</span>
-                    <input type="submit" class="button" value="Send" />
-                </label>
-            </form>
-        </div>
         <div class="col-sm-9">
             <p style="text-align: center;font-size:30px"><strong>Up-comming tasks</strong></p>
 
@@ -307,7 +328,7 @@
             <p style="text-align: center;font-size:30px"><strong>In the Past</strong></p>
             <div style="margin-top:20px" class="tab" role="tabpanel">
                 <!-- Nav tabs -->
-                <ul style="list-style:none;position:relative;left:25%;" class="nav nav-tabs" role="tablist">
+                <ul style="list-style:none;" class="nav nav-tabs" role="tablist">
                     <li role="presentation" class="active"><a href="#Section1" aria-controls="home" role="tab" data-toggle="tab"><i class="fa fa-envelope-o"></i>All</a></li>
                     <li role="presentation"><a href="#Section2" aria-controls="profile" role="tab" data-toggle="tab"><i class="fa fa-cube"></i>Memo</a></li>
                     <li role="presentation"><a href="#Section3" aria-controls="settings" role="tab" data-toggle="tab"><i class="fa fa-comment"></i>Email</a></li>
@@ -534,7 +555,40 @@
                     </div>
                 </div>
             </div>
+            <div class="col-sm-9">
+                <form style="width:100%" action="CreateNewTask" method="post" class="basic-grey">
 
+                    <p style="text-align: center;font-size:30px"><strong>New Task</strong></p>
+                    <label style="width:100%">
+                        <span style="width:20%">Task Title :</span>
+                        <input type="hidden" value="@thisDeal.id" name="dealID" />
+                        <input style="width:70%;max-width:70%" id="title" type="text" name="title" />
+                    </label>
+
+                    <label style="width:100%">
+                        <span style="width:20%">Description :</span>
+                        <textarea style="width:70%;max-width:70%" id="message" name="description"></textarea>
+                    </label>
+                    <label style="width:100%">
+                        <span>Type</span><select name="type">
+                            @foreach (TaskType type in (List<TaskType>)ViewData["TaskTypes"])
+                            {
+                                <option value="@type.id">@type.typeName</option>
+                            }
+
+
+                        </select>
+                    </label>
+                    <label style="width:100%">
+                        <span style="width:20%">DeadLine :</span>
+                        <input style="width:70%" type="text" name="deadline" id="datepicker">
+                    </label>
+                    <label>
+                        <span>&nbsp;</span>
+                        <input type="submit" class="button" value="Make" />
+                    </label>
+                </form>
+            </div>
         </div>
     </div>
 }
