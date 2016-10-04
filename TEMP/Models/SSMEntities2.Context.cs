@@ -61,5 +61,6 @@ namespace SSM.Models
         public virtual DbSet<task_user> task_user { get; set; }
         public virtual DbSet<TaskStatu> TaskStatus { get; set; }
         public virtual DbSet<TaskType> TaskTypes { get; set; }
+        public virtual DbSet<database_firewall_rules> database_firewall_rules { get; set; }
     }
 }

@@ -37,6 +37,7 @@
     <EntitySet Name="task_user" EntityType="SSMModel.task_user" />
     <EntitySet Name="TaskStatus" EntityType="SSMModel.TaskStatu" />
     <EntitySet Name="TaskTypes" EntityType="SSMModel.TaskType" />
+    <EntitySet Name="database_firewall_rules" EntityType="SSMModel.database_firewall_rules" />
     <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="SSMModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
       <End Role="AspNetUser" EntitySet="AspNetUsers" />
       <End Role="AspNetUserClaim" EntitySet="AspNetUserClaims" />
@@ -171,6 +172,10 @@
     </AssociationSet>
     <AssociationSet Name="FK_MarketPlanPurchased_productMarketPlan" Association="SSMModel.FK_MarketPlanPurchased_productMarketPlan">
       <End Role="productMarketPlan" EntitySet="productMarketPlans" />
+      <End Role="MarketPlanPurchased" EntitySet="MarketPlanPurchaseds" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MarketPlanPurchased_softwareProduct" Association="SSMModel.FK_MarketPlanPurchased_softwareProduct">
+      <End Role="softwareProduct" EntitySet="softwareProducts" />
       <End Role="MarketPlanPurchased" EntitySet="MarketPlanPurchaseds" />
     </AssociationSet>
     <AssociationSet Name="FK_MasterSchedule_User_MasterCalendar" Association="SSMModel.FK_MasterSchedule_User_MasterCalendar">
@@ -451,10 +456,10 @@
     <Property Name="status" Type="Int32" Nullable="false" />
     <Property Name="type" Type="Int32" Nullable="false" />
     <Property Name="dealID" Type="Int32" Nullable="false" />
+    <Property Name="TaskContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Deal" Relationship="SSMModel.FK_Tasks_Deal" FromRole="DealTask" ToRole="Deal" />
     <NavigationProperty Name="TaskStatu" Relationship="SSMModel.FK_Tasks_TaskStatus" FromRole="DealTask" ToRole="TaskStatu" />
     <NavigationProperty Name="TaskType" Relationship="SSMModel.FK_Tasks_TaskType" FromRole="DealTask" ToRole="TaskType" />
-    <Property Name="TaskContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="EMAIL_Category">
     <Key>
@@ -509,9 +514,10 @@
     <Property Name="orderID" Type="Int32" Nullable="false" />
     <Property Name="planID" Type="Int32" Nullable="false" />
     <Property Name="SoldPrice" Type="Double" Nullable="false" />
-    <Property Name="Quantity" Type="Int32" Nullable="false" />
+    <Property Name="productID" Type="Int32" Nullable="false" />
     <NavigationProperty Name="order" Relationship="SSMModel.FK_MarketPlanPurchased_orders" FromRole="MarketPlanPurchased" ToRole="order" />
     <NavigationProperty Name="productMarketPlan" Relationship="SSMModel.FK_MarketPlanPurchased_productMarketPlan" FromRole="MarketPlanPurchased" ToRole="productMarketPlan" />
+    <NavigationProperty Name="softwareProduct" Relationship="SSMModel.FK_MarketPlanPurchased_softwareProduct" FromRole="MarketPlanPurchased" ToRole="softwareProduct" />
   </EntityType>
   <EntityType Name="MasterCalendar">
     <Key>
@@ -725,6 +731,7 @@
     <Property Name="icon" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Customer_Request" Relationship="SSMModel.FK_Customer_Request_softwareProduct" FromRole="softwareProduct" ToRole="Customer_Request" />
     <NavigationProperty Name="Licenses" Relationship="SSMModel.FK_Licenses_softwareProduct" FromRole="softwareProduct" ToRole="License" />
+    <NavigationProperty Name="MarketPlanPurchaseds" Relationship="SSMModel.FK_MarketPlanPurchased_softwareProduct" FromRole="softwareProduct" ToRole="MarketPlanPurchased" />
     <NavigationProperty Name="PrePurchase_FollowUp_Plan" Relationship="SSMModel.FK_PrePurchase_FollowUp_Plan_softwareProduct" FromRole="softwareProduct" ToRole="PrePurchase_FollowUp_Plan" />
     <NavigationProperty Name="productAttributes" Relationship="SSMModel.FK_productAttributes_softwareProduct" FromRole="softwareProduct" ToRole="productAttribute" />
     <NavigationProperty Name="productMarketPlans" Relationship="SSMModel.FK_orderItems_softwareProduct" FromRole="softwareProduct" ToRole="productMarketPlan" />
@@ -762,6 +769,22 @@
     <Property Name="typeName" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
     <Property Name="Description" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
     <NavigationProperty Name="DealTasks" Relationship="SSMModel.FK_Tasks_TaskType" FromRole="TaskType" ToRole="DealTask" />
+  </EntityType>
+  <EntityType Name="database_firewall_rules">
+    <Key>
+      <PropertyRef Name="id" />
+      <PropertyRef Name="name" />
+      <PropertyRef Name="start_ip_address" />
+      <PropertyRef Name="end_ip_address" />
+      <PropertyRef Name="create_date" />
+      <PropertyRef Name="modify_date" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="start_ip_address" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="end_ip_address" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="create_date" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="modify_date" Type="DateTime" Nullable="false" Precision="3" />
   </EntityType>
   <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
     <End Type="SSMModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
@@ -1172,6 +1195,18 @@
       </Principal>
       <Dependent Role="MarketPlanPurchased">
         <PropertyRef Name="planID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MarketPlanPurchased_softwareProduct">
+    <End Type="SSMModel.softwareProduct" Role="softwareProduct" Multiplicity="1" />
+    <End Type="SSMModel.MarketPlanPurchased" Role="MarketPlanPurchased" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="softwareProduct">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="MarketPlanPurchased">
+        <PropertyRef Name="productID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

@@ -8,6 +8,7 @@ using SSM.Models.Repository;
 using System.Net.Mail;
 using System.Net;
 using System.Threading.Tasks;
+using SSM.Models.Services;
 
 namespace SSM.Controllers
 {
@@ -51,7 +52,8 @@ namespace SSM.Controllers
             ViewData["plan"] = preplan;
             ViewData["Product"] = preplan.softwareProduct.id;
             ViewData["steps"] = preplan.Plan_Step.ToList();
-            return View("EditFollowUpPlan"); 
+            // return View("EditFollowUpPlan");
+            return View("FollowUpProgressEditor");
         }
         [HttpPost]
         [ValidateInput(false)]
@@ -60,7 +62,8 @@ namespace SSM.Controllers
 
             SSMEntities se = new SSMEntities();
             PrePurchase_FollowUp_Plan preplan = se.PrePurchase_FollowUp_Plan.Find(planID);
-            if (preplan != null) {
+            if (preplan != null)
+            {
                 preplan.name = name;
                 preplan.Description = description;
                 se.SaveChanges();
@@ -69,14 +72,16 @@ namespace SSM.Controllers
             String[] steps = stepdata.Split(new[] { "[endofStep]" }, StringSplitOptions.RemoveEmptyEntries);
             int index = 1;
             List<Plan_Step> lst = new List<Plan_Step>();
-            foreach (String step in steps) {
+            foreach (String step in steps)
+            {
                 System.Diagnostics.Debug.WriteLine(step);
-                        String[] values = step.Split(new[] { "[endofmail]" }, StringSplitOptions.None);
-                if (values.Length > 1) {
+                String[] values = step.Split(new[] { "[endofmail]" }, StringSplitOptions.None);
+                if (values.Length > 1)
+                {
                     Plan_Step planstep = new Plan_Step();
                     planstep.planID = planID;
                     planstep.StepEmailContent = values[0];
-                    planstep.TimeFromLastStep = int.Parse ( values[1] );
+                    planstep.TimeFromLastStep = int.Parse(values[1]);
                     planstep.stepNo = index;
                     se.Plan_Step.Add(planstep);
 
@@ -85,11 +90,12 @@ namespace SSM.Controllers
                 }
                 index = index + 1;
             }
-            for (int i = 0; i < index-2; i++) {
+            for (int i = 0; i < index - 2; i++)
+            {
                 Plan_Step plan = lst[i];
                 plan.nextStep = lst[i + 1].id;
             }
-            for (int i = 1; i < index-1 ; i++)
+            for (int i = 1; i < index - 1; i++)
             {
                 Plan_Step plan = lst[i];
                 plan.previousStep = lst[i - 1].id;
@@ -98,7 +104,8 @@ namespace SSM.Controllers
             return RedirectToAction("Detail", "Product", new { id = preplan.softwareProduct.id });
         }
         [HttpPost]
-        public ActionResult SetInactive(int planid, int productID) {
+        public ActionResult SetInactive(int planid, int productID)
+        {
             try
             {
                 SSMEntities se = new SSMEntities();
@@ -108,7 +115,8 @@ namespace SSM.Controllers
                 System.Diagnostics.Debug.WriteLine("cccccccc " + productID);
                 return RedirectToAction("Detail", new { id = productID });
             }
-            catch (Exception e) {
+            catch (Exception e)
+            {
 
             }
 
@@ -143,8 +151,17 @@ namespace SSM.Controllers
                 softwareProduct product = pr.getById(id);
                 if (product != null)
                 {
+                    List<double> totalvalues = new List<double>();
+                    ProductServices ps = new ProductServices();
+                    for (int i = 0; i < 12; i++)
+                    {
+                        totalvalues .Add( ps.getMonthValues(i, product.id));
+                        System.Diagnostics.Debug.WriteLine("added " + ps.getMonthValues(i, product.id))  ;
+                    }
                     ViewData["productDetail"] = product;
-                    return View("ProductDetail");
+
+                    ViewData["productperformance"] = totalvalues;
+                    return View("ProductDescription");
                 }
             }
             catch (Exception e)
@@ -222,15 +239,16 @@ namespace SSM.Controllers
             return Json(new { result = "false" }, JsonRequestBehavior.AllowGet);
 
         }
-        public async Task<ActionResult> guimail() {
+        public async Task<ActionResult> guimail()
+        {
             var body = "<p>Email From: {0} ({1})</p><p>Message:</p><p>{2}</p>";
             var message = new MailMessage();
             message.To.Add(new MailAddress("nhatvhn99@gmail.com"));  // replace with valid value 
             message.From = new MailAddress("dwarpro@gmail.com");  // replace with valid value
             message.Subject = "Your email subject";
             SSMEntities context = new SSMEntities();
-           
-                message.Body = string.Format(body, "dwarpro@gmail.com", "dwarpro@gmail.com", context.Email_Template.ToList().First().MailContent);
+
+            message.Body = string.Format(body, "dwarpro@gmail.com", "dwarpro@gmail.com", context.Email_Template.ToList().First().MailContent);
             message.IsBodyHtml = true;
 
             using (var smtp = new SmtpClient())
@@ -247,28 +265,32 @@ namespace SSM.Controllers
                 await smtp.SendMailAsync(message);
                 return Json(new { success = " suc" }, JsonRequestBehavior.AllowGet);
             }
-            return Json(new { success =" fale" }, JsonRequestBehavior.AllowGet);
+            return Json(new { success = " fale" }, JsonRequestBehavior.AllowGet);
         }
-        public JsonResult PrePlanSwitchStatus(int id) {
-            try {
+        public JsonResult PrePlanSwitchStatus(int id)
+        {
+            try
+            {
                 SSMEntities se = new SSMEntities();
                 PrePurchase_FollowUp_Plan myplan = se.PrePurchase_FollowUp_Plan.Find(id);
                 softwareProduct software = myplan.softwareProduct;
                 foreach (PrePurchase_FollowUp_Plan plan in software.PrePurchase_FollowUp_Plan.ToList())
                 {
-                    if(plan.id != id)
-                    plan.isOperation = false;
+                    if (plan.id != id)
+                        plan.isOperation = false;
                 }
                 myplan.isOperation = !myplan.isOperation;
                 se.SaveChanges();
                 return Json(new { result = "succeed" }, JsonRequestBehavior.AllowGet);
             }
-            catch (Exception e) {
+            catch (Exception e)
+            {
 
             }
             return Json(new { result = "fail" }, JsonRequestBehavior.AllowGet);
         }
-        public JsonResult MarketPlanSwitchStatus(int id) {
+        public JsonResult MarketPlanSwitchStatus(int id)
+        {
             try
             {
                 SSMEntities se = new SSMEntities();
@@ -284,4 +306,4 @@ namespace SSM.Controllers
             return Json(new { result = "fail" }, JsonRequestBehavior.AllowGet);
         }
     }
-    }
+}
