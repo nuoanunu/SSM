@@ -26,7 +26,11 @@ namespace SSM.Models.Repository
             }
             this.disposed = true;
         }
-
+        public Deal getByID(int id) {
+            try { return context.Deals.Find(id); }
+            catch (Exception e) { }
+            return null;
+        }
         public void Dispose()
         {
             Dispose(true);

@@ -5,6 +5,9 @@ using System.Web;
 using System.Web.Mvc;
 using SSM.Models;
 using Microsoft.AspNet.Identity;
+using Hangfire;
+using SSM.Models.Services;
+
 namespace SSM.Controllers
 {
     public class DealController : Controller
@@ -28,6 +31,14 @@ namespace SSM.Controllers
 
             se.Deals.Add(deal);
             se.SaveChanges();
+            foreach (Plan_Step tep in se.PrePurchase_FollowUp_Plan.Find(plan).Plan_Step) {
+                if (tep.TimeFromLastStep == null) tep.TimeFromLastStep = 0;
+                if (tep.TimeFromLastStep == 0) BackgroundJob.Enqueue(() => EmailServices.SendMail(deal.id, tep.stepNo));
+                else {
+                    BackgroundJob.Schedule(() => EmailServices.SendMail(deal.id, tep.stepNo), TimeSpan.FromDays((int)tep.TimeFromLastStep));
+                } 
+            }
+        
             return RedirectToAction("Detail", new { id = deal.id });
 
         }
