@@ -22,10 +22,11 @@ namespace SSM.Models
             this.attributeOptions = new HashSet<attributeOption>();
             this.company_responsible = new HashSet<company_responsible>();
             this.contact_resposible = new HashSet<contact_resposible>();
+            this.contacts = new HashSet<contact>();
             this.Deal_SaleRep_Respon = new HashSet<Deal_SaleRep_Respon>();
-            this.AspNetRoles = new HashSet<AspNetRole>();
             this.MasterSchedule_User = new HashSet<MasterSchedule_User>();
             this.SaleRepProfiles = new HashSet<SaleRepProfile>();
+            this.AspNetRoles = new HashSet<AspNetRole>();
         }
     
         public string Id { get; set; }
@@ -52,12 +53,14 @@ namespace SSM.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<contact_resposible> contact_resposible { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Deal_SaleRep_Respon> Deal_SaleRep_Respon { get; set; }
+        public virtual ICollection<contact> contacts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AspNetRole> AspNetRoles { get; set; }
+        public virtual ICollection<Deal_SaleRep_Respon> Deal_SaleRep_Respon { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MasterSchedule_User> MasterSchedule_User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SaleRepProfile> SaleRepProfiles { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AspNetRole> AspNetRoles { get; set; }
     }
 }

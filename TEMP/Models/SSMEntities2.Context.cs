@@ -37,26 +37,29 @@ namespace SSM.Models
         public virtual DbSet<Customer_Request> Customer_Request { get; set; }
         public virtual DbSet<customer> customers { get; set; }
         public virtual DbSet<Deal> Deals { get; set; }
-        public virtual DbSet<Deal_Product> Deal_Product { get; set; }
         public virtual DbSet<Deal_SaleRep_Respon> Deal_SaleRep_Respon { get; set; }
+        public virtual DbSet<DealStatu> DealStatus { get; set; }
         public virtual DbSet<DealTask> DealTasks { get; set; }
         public virtual DbSet<EMAIL_Category> EMAIL_Category { get; set; }
         public virtual DbSet<Email_Template> Email_Template { get; set; }
         public virtual DbSet<License> Licenses { get; set; }
         public virtual DbSet<MarketPlanPurchased> MarketPlanPurchaseds { get; set; }
+        public virtual DbSet<MasterCalendar> MasterCalendars { get; set; }
+        public virtual DbSet<MasterSchedule_User> MasterSchedule_User { get; set; }
+        public virtual DbSet<oder_item> oder_item { get; set; }
         public virtual DbSet<order> orders { get; set; }
+        public virtual DbSet<Payment> Payments { get; set; }
+        public virtual DbSet<payment_status> payment_status { get; set; }
         public virtual DbSet<Plan_Step> Plan_Step { get; set; }
         public virtual DbSet<PlanOption> PlanOptions { get; set; }
         public virtual DbSet<PrePurchase_FollowUp_Plan> PrePurchase_FollowUp_Plan { get; set; }
         public virtual DbSet<productAttribute> productAttributes { get; set; }
         public virtual DbSet<productMarketPlan> productMarketPlans { get; set; }
+        public virtual DbSet<SaleRepProfile> SaleRepProfiles { get; set; }
         public virtual DbSet<softwareProduct> softwareProducts { get; set; }
         public virtual DbSet<task_customer> task_customer { get; set; }
         public virtual DbSet<task_user> task_user { get; set; }
         public virtual DbSet<TaskStatu> TaskStatus { get; set; }
         public virtual DbSet<TaskType> TaskTypes { get; set; }
-        public virtual DbSet<MasterCalendar> MasterCalendars { get; set; }
-        public virtual DbSet<MasterSchedule_User> MasterSchedule_User { get; set; }
-        public virtual DbSet<SaleRepProfile> SaleRepProfiles { get; set; }
     }
 }

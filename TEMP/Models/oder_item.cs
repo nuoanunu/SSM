@@ -12,15 +12,13 @@ namespace SSM.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Deal_Product
+    public partial class oder_item
     {
         public int id { get; set; }
-        public int dealID { get; set; }
-        public System.DateTime addedDate { get; set; }
-        public Nullable<System.DateTime> removedDate { get; set; }
-        public int planID { get; set; }
+        public Nullable<int> orderID { get; set; }
+        public Nullable<int> licenseID { get; set; }
     
-        public virtual Deal Deal { get; set; }
-        public virtual productMarketPlan productMarketPlan { get; set; }
+        public virtual License License { get; set; }
+        public virtual order order { get; set; }
     }
 }

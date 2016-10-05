@@ -22,6 +22,7 @@ namespace SSM.Models
         public int status { get; set; }
         public int type { get; set; }
         public int dealID { get; set; }
+        public string TaskContent { get; set; }
     
         public virtual Deal Deal { get; set; }
         public virtual TaskStatu TaskStatu { get; set; }

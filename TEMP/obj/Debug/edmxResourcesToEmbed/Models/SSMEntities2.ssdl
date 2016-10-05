@@ -120,6 +120,7 @@
     <Property Name="Country" Type="nvarchar" MaxLength="50" />
     <Property Name="Zip" Type="nvarchar" MaxLength="50" />
     <Property Name="Comment" Type="nvarchar(max)" />
+    <Property Name="userID" Type="nvarchar" MaxLength="128" />
   </EntityType>
   <EntityType Name="Customer_Request">
     <Key>
@@ -137,7 +138,7 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id" Type="int" Nullable="false" />
     <Property Name="cusName" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="cusEmail" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="cusPhone" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -150,7 +151,7 @@
     </Key>
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="Stage" Type="int" />
+    <Property Name="Stage" Type="int" Nullable="false" />
     <Property Name="Value" Type="float" />
     <Property Name="Probability" Type="float" />
     <Property Name="Creator" Type="nvarchar" MaxLength="128" Nullable="false" />
@@ -158,17 +159,8 @@
     <Property Name="CompleteOn" Type="date" />
     <Property Name="Client" Type="int" Nullable="false" />
     <Property Name="LastUpdateStage" Type="date" />
-    <Property Name="Status" Type="nvarchar" MaxLength="50" />
-  </EntityType>
-  <EntityType Name="Deal_Product">
-    <Key>
-      <PropertyRef Name="id" />
-    </Key>
-    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="dealID" Type="int" Nullable="false" />
-    <Property Name="addedDate" Type="date" Nullable="false" />
-    <Property Name="removedDate" Type="date" />
-    <Property Name="planID" Type="int" Nullable="false" />
+    <Property Name="Status" Type="int" />
+    <Property Name="planID" Type="int" />
   </EntityType>
   <EntityType Name="Deal_SaleRep_Respon">
     <Key>
@@ -180,6 +172,14 @@
     <Property Name="startDate" Type="date" Nullable="false" />
     <Property Name="endDate" Type="date" />
     <Property Name="Active" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DealStatus">
+    <Key>
+      <PropertyRef Name="statusID" />
+    </Key>
+    <Property Name="statusID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="DealTasks">
     <Key>
@@ -193,6 +193,7 @@
     <Property Name="status" Type="int" Nullable="false" />
     <Property Name="type" Type="int" Nullable="false" />
     <Property Name="dealID" Type="int" Nullable="false" />
+    <Property Name="TaskContent" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="EMAIL_Category">
     <Key>
@@ -241,7 +242,7 @@
     <Property Name="orderID" Type="int" Nullable="false" />
     <Property Name="planID" Type="int" Nullable="false" />
     <Property Name="SoldPrice" Type="float" Nullable="false" />
-    <Property Name="Quantity" Type="int" Nullable="false" />
+    <Property Name="productID" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="MasterCalendar">
     <Key>
@@ -259,6 +260,14 @@
     <Property Name="userID" Type="nvarchar" MaxLength="128" Nullable="false" />
     <Property Name="scheduleID" Type="int" Nullable="false" />
   </EntityType>
+  <EntityType Name="oder_item">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="orderID" Type="int" />
+    <Property Name="licenseID" Type="int" />
+  </EntityType>
   <EntityType Name="orders">
     <Key>
       <PropertyRef Name="id" />
@@ -274,6 +283,26 @@
     <Property Name="status" Type="int" Nullable="false" />
     <Property Name="completedDate" Type="date" />
   </EntityType>
+  <EntityType Name="Payment">
+    <Key>
+      <PropertyRef Name="PaymentID" />
+    </Key>
+    <Property Name="PaymentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CustomerID" Type="int" Nullable="false" />
+    <Property Name="Amount" Type="int" Nullable="false" />
+    <Property Name="PaymentTypeID" Type="int" Nullable="false" />
+    <Property Name="Date" Type="datetime" Nullable="false" />
+    <Property Name="orderID" Type="int" />
+    <Property Name="status" Type="int" />
+  </EntityType>
+  <EntityType Name="payment_status">
+    <Key>
+      <PropertyRef Name="StatusID" />
+    </Key>
+    <Property Name="StatusID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nchar" MaxLength="50" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
   <EntityType Name="Plan_Step">
     <Key>
       <PropertyRef Name="id" />
@@ -285,6 +314,7 @@
     <Property Name="stepNo" Type="int" Nullable="false" />
     <Property Name="StepEmailContent" Type="nvarchar(max)" Nullable="false" />
     <Property Name="TimeFromLastStep" Type="int" />
+    <Property Name="sendDate" Type="date" />
   </EntityType>
   <EntityType Name="PlanOptions">
     <Key>
@@ -499,6 +529,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_contacts_AspNetUsers">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+    <End Role="contacts" Type="Self.contacts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="contacts">
+        <PropertyRef Name="userID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Customer_Request_contacts">
     <End Role="contacts" Type="Self.contacts" Multiplicity="1" />
     <End Role="Customer_Request" Type="Self.Customer_Request" Multiplicity="*" />
@@ -615,26 +657,26 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Deal_Product_Deal">
-    <End Role="Deal" Type="Self.Deal" Multiplicity="1" />
-    <End Role="Deal_Product" Type="Self.Deal_Product" Multiplicity="*" />
+  <Association Name="FK_Deal_DealStatus">
+    <End Role="DealStatus" Type="Self.DealStatus" Multiplicity="0..1" />
+    <End Role="Deal" Type="Self.Deal" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Deal">
-        <PropertyRef Name="id" />
+      <Principal Role="DealStatus">
+        <PropertyRef Name="statusID" />
       </Principal>
-      <Dependent Role="Deal_Product">
-        <PropertyRef Name="dealID" />
+      <Dependent Role="Deal">
+        <PropertyRef Name="Status" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Deal_Product_productMarketPlan">
-    <End Role="productMarketPlan" Type="Self.productMarketPlan" Multiplicity="1" />
-    <End Role="Deal_Product" Type="Self.Deal_Product" Multiplicity="*" />
+  <Association Name="FK_Deal_PrePurchase_FollowUp_Plan">
+    <End Role="PrePurchase_FollowUp_Plan" Type="Self.PrePurchase_FollowUp_Plan" Multiplicity="0..1" />
+    <End Role="Deal" Type="Self.Deal" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="productMarketPlan">
+      <Principal Role="PrePurchase_FollowUp_Plan">
         <PropertyRef Name="id" />
       </Principal>
-      <Dependent Role="Deal_Product">
+      <Dependent Role="Deal">
         <PropertyRef Name="planID" />
       </Dependent>
     </ReferentialConstraint>
@@ -672,6 +714,18 @@
       </Principal>
       <Dependent Role="Email_Template">
         <PropertyRef Name="CateID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Licenses_contacts">
+    <End Role="contacts" Type="Self.contacts" Multiplicity="0..1" />
+    <End Role="Licenses" Type="Self.Licenses" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="contacts">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Licenses">
+        <PropertyRef Name="customerID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -723,6 +777,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_MarketPlanPurchased_softwareProduct">
+    <End Role="softwareProduct" Type="Self.softwareProduct" Multiplicity="1" />
+    <End Role="MarketPlanPurchased" Type="Self.MarketPlanPurchased" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="softwareProduct">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="MarketPlanPurchased">
+        <PropertyRef Name="productID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_MasterSchedule_User_AspNetUsers">
     <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
     <End Role="MasterSchedule_User" Type="Self.MasterSchedule_User" Multiplicity="*" />
@@ -747,6 +813,30 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_oder_item_Licenses">
+    <End Role="Licenses" Type="Self.Licenses" Multiplicity="0..1" />
+    <End Role="oder_item" Type="Self.oder_item" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Licenses">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="oder_item">
+        <PropertyRef Name="licenseID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_oder_item_orders">
+    <End Role="orders" Type="Self.orders" Multiplicity="0..1" />
+    <End Role="oder_item" Type="Self.oder_item" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="orders">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="oder_item">
+        <PropertyRef Name="orderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_orderItems_softwareProduct">
     <End Role="softwareProduct" Type="Self.softwareProduct" Multiplicity="1" />
     <End Role="productMarketPlan" Type="Self.productMarketPlan" Multiplicity="*" />
@@ -759,6 +849,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_orders_contacts">
+    <End Role="contacts" Type="Self.contacts" Multiplicity="1" />
+    <End Role="orders" Type="Self.orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="contacts">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="orders">
+        <PropertyRef Name="customerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_orders_customers">
     <End Role="customers" Type="Self.customers" Multiplicity="1" />
     <End Role="orders" Type="Self.orders" Multiplicity="*" />
@@ -768,6 +870,42 @@
       </Principal>
       <Dependent Role="orders">
         <PropertyRef Name="customerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Payment_contacts">
+    <End Role="contacts" Type="Self.contacts" Multiplicity="1" />
+    <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="contacts">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Payment">
+        <PropertyRef Name="CustomerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Payment_orders">
+    <End Role="orders" Type="Self.orders" Multiplicity="0..1" />
+    <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="orders">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Payment">
+        <PropertyRef Name="orderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Payment_payment_status">
+    <End Role="payment_status" Type="Self.payment_status" Multiplicity="0..1" />
+    <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="payment_status">
+        <PropertyRef Name="StatusID" />
+      </Principal>
+      <Dependent Role="Payment">
+        <PropertyRef Name="status" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -917,8 +1055,8 @@
     <EntitySet Name="Customer_Request" EntityType="Self.Customer_Request" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="customers" EntityType="Self.customers" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Deal" EntityType="Self.Deal" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Deal_Product" EntityType="Self.Deal_Product" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Deal_SaleRep_Respon" EntityType="Self.Deal_SaleRep_Respon" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DealStatus" EntityType="Self.DealStatus" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="DealTasks" EntityType="Self.DealTasks" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="EMAIL_Category" EntityType="Self.EMAIL_Category" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Email_Template" EntityType="Self.Email_Template" Schema="dbo" store:Type="Tables" />
@@ -926,7 +1064,10 @@
     <EntitySet Name="MarketPlanPurchased" EntityType="Self.MarketPlanPurchased" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MasterCalendar" EntityType="Self.MasterCalendar" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MasterSchedule_User" EntityType="Self.MasterSchedule_User" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="oder_item" EntityType="Self.oder_item" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="orders" EntityType="Self.orders" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Payment" EntityType="Self.Payment" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="payment_status" EntityType="Self.payment_status" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Plan_Step" EntityType="Self.Plan_Step" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PlanOptions" EntityType="Self.PlanOptions" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PrePurchase_FollowUp_Plan" EntityType="Self.PrePurchase_FollowUp_Plan" Schema="dbo" store:Type="Tables" />
@@ -961,6 +1102,10 @@
     <AssociationSet Name="FK_contact_resposible_contacts" Association="Self.FK_contact_resposible_contacts">
       <End Role="contacts" EntitySet="contacts" />
       <End Role="contact_resposible" EntitySet="contact_resposible" />
+    </AssociationSet>
+    <AssociationSet Name="FK_contacts_AspNetUsers" Association="Self.FK_contacts_AspNetUsers">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="contacts" EntitySet="contacts" />
     </AssociationSet>
     <AssociationSet Name="FK_Customer_Request_contacts" Association="Self.FK_Customer_Request_contacts">
       <End Role="contacts" EntitySet="contacts" />
@@ -998,13 +1143,13 @@
       <End Role="contacts" EntitySet="contacts" />
       <End Role="Deal" EntitySet="Deal" />
     </AssociationSet>
-    <AssociationSet Name="FK_Deal_Product_Deal" Association="Self.FK_Deal_Product_Deal">
+    <AssociationSet Name="FK_Deal_DealStatus" Association="Self.FK_Deal_DealStatus">
+      <End Role="DealStatus" EntitySet="DealStatus" />
       <End Role="Deal" EntitySet="Deal" />
-      <End Role="Deal_Product" EntitySet="Deal_Product" />
     </AssociationSet>
-    <AssociationSet Name="FK_Deal_Product_productMarketPlan" Association="Self.FK_Deal_Product_productMarketPlan">
-      <End Role="productMarketPlan" EntitySet="productMarketPlan" />
-      <End Role="Deal_Product" EntitySet="Deal_Product" />
+    <AssociationSet Name="FK_Deal_PrePurchase_FollowUp_Plan" Association="Self.FK_Deal_PrePurchase_FollowUp_Plan">
+      <End Role="PrePurchase_FollowUp_Plan" EntitySet="PrePurchase_FollowUp_Plan" />
+      <End Role="Deal" EntitySet="Deal" />
     </AssociationSet>
     <AssociationSet Name="FK_Deal_SaleRep_Respon_AspNetUsers" Association="Self.FK_Deal_SaleRep_Respon_AspNetUsers">
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -1017,6 +1162,10 @@
     <AssociationSet Name="FK_Email_Template_EMAIL_Category" Association="Self.FK_Email_Template_EMAIL_Category">
       <End Role="EMAIL_Category" EntitySet="EMAIL_Category" />
       <End Role="Email_Template" EntitySet="Email_Template" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Licenses_contacts" Association="Self.FK_Licenses_contacts">
+      <End Role="contacts" EntitySet="contacts" />
+      <End Role="Licenses" EntitySet="Licenses" />
     </AssociationSet>
     <AssociationSet Name="FK_Licenses_customers" Association="Self.FK_Licenses_customers">
       <End Role="customers" EntitySet="customers" />
@@ -1034,6 +1183,10 @@
       <End Role="productMarketPlan" EntitySet="productMarketPlan" />
       <End Role="MarketPlanPurchased" EntitySet="MarketPlanPurchased" />
     </AssociationSet>
+    <AssociationSet Name="FK_MarketPlanPurchased_softwareProduct" Association="Self.FK_MarketPlanPurchased_softwareProduct">
+      <End Role="softwareProduct" EntitySet="softwareProduct" />
+      <End Role="MarketPlanPurchased" EntitySet="MarketPlanPurchased" />
+    </AssociationSet>
     <AssociationSet Name="FK_MasterSchedule_User_AspNetUsers" Association="Self.FK_MasterSchedule_User_AspNetUsers">
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />
       <End Role="MasterSchedule_User" EntitySet="MasterSchedule_User" />
@@ -1042,13 +1195,37 @@
       <End Role="MasterCalendar" EntitySet="MasterCalendar" />
       <End Role="MasterSchedule_User" EntitySet="MasterSchedule_User" />
     </AssociationSet>
+    <AssociationSet Name="FK_oder_item_Licenses" Association="Self.FK_oder_item_Licenses">
+      <End Role="Licenses" EntitySet="Licenses" />
+      <End Role="oder_item" EntitySet="oder_item" />
+    </AssociationSet>
+    <AssociationSet Name="FK_oder_item_orders" Association="Self.FK_oder_item_orders">
+      <End Role="orders" EntitySet="orders" />
+      <End Role="oder_item" EntitySet="oder_item" />
+    </AssociationSet>
     <AssociationSet Name="FK_orderItems_softwareProduct" Association="Self.FK_orderItems_softwareProduct">
       <End Role="softwareProduct" EntitySet="softwareProduct" />
       <End Role="productMarketPlan" EntitySet="productMarketPlan" />
     </AssociationSet>
+    <AssociationSet Name="FK_orders_contacts" Association="Self.FK_orders_contacts">
+      <End Role="contacts" EntitySet="contacts" />
+      <End Role="orders" EntitySet="orders" />
+    </AssociationSet>
     <AssociationSet Name="FK_orders_customers" Association="Self.FK_orders_customers">
       <End Role="customers" EntitySet="customers" />
       <End Role="orders" EntitySet="orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Payment_contacts" Association="Self.FK_Payment_contacts">
+      <End Role="contacts" EntitySet="contacts" />
+      <End Role="Payment" EntitySet="Payment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Payment_orders" Association="Self.FK_Payment_orders">
+      <End Role="orders" EntitySet="orders" />
+      <End Role="Payment" EntitySet="Payment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Payment_payment_status" Association="Self.FK_Payment_payment_status">
+      <End Role="payment_status" EntitySet="payment_status" />
+      <End Role="Payment" EntitySet="Payment" />
     </AssociationSet>
     <AssociationSet Name="FK_Plan_Step_Plan_Step" Association="Self.FK_Plan_Step_Plan_Step">
       <End Role="Plan_Step" EntitySet="Plan_Step" />
