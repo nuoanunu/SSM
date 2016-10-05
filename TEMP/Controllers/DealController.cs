@@ -7,6 +7,7 @@ using SSM.Models;
 using Microsoft.AspNet.Identity;
 using Hangfire;
 using SSM.Models.Services;
+using SSM.Models.Repository;
 
 namespace SSM.Controllers
 {
@@ -102,6 +103,41 @@ namespace SSM.Controllers
             ViewData["ProductResponsibleFor"] = productPlan;
             ViewData["ClientResponsibleFor"]  = client;
             return View("Create");
+        }
+        public void DealWon(int id) {
+            SSMEntities se = new SSMEntities();
+            DealRepository dealrepo = new DealRepository(se );
+            Deal deal = dealrepo.getByID(id);
+            if (deal != null) {
+                deal.Status = 3;
+                order order = new order();
+                customer cus = new customer();
+                cus.cusAddress = deal.contact.Street + " " + deal.contact.City + " "+ deal.contact.Region + " ";
+                cus.cusCompany = 1;
+                cus.cusEmail = deal.contact.emails;
+                cus.cusName = deal.contact.FirstName + " " + deal.contact.MiddleName + " " + deal.contact.LastName;
+                cus.cusPhone = deal.contact.Phone;
+                se.customers.Add(cus);
+                se.SaveChanges();
+                order.customerID = cus.id;
+                float price = 0;
+                order.orderNumber = 123123123;
+                order.subtotal = deal.productMarketPlan.Price;
+                order.status = 1;
+                order.total = (double) order.subtotal * 1.1;
+                order.VAT = (double)order.subtotal * 0.1;
+                se.orders.Add(order);
+                se.SaveChanges();
+                MarketPlanPurchased mp = new MarketPlanPurchased();
+                mp.orderID = order.id;
+                mp.planID = deal.productMarketPlan.id;
+                mp.productID = deal.productMarketPlan.productID;
+                mp.SoldPrice = 10000;
+                se.MarketPlanPurchaseds.Add(mp);
+                se.SaveChanges();
+
+
+            }
         }
     }
 }

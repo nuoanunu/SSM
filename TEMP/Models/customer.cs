@@ -19,18 +19,24 @@ namespace SSM.Models
         {
             this.Licenses = new HashSet<License>();
             this.orders = new HashSet<order>();
+            this.Payments = new HashSet<Payment>();
         }
     
         public int id { get; set; }
-        public string cusName { get; set; }
-        public string cusEmail { get; set; }
-        public string cusPhone { get; set; }
+        public Nullable<int> cusCompany { get; set; }
         public string cusAddress { get; set; }
-        public string cusCompany { get; set; }
+        public string userID { get; set; }
+        public Nullable<System.DateTime> customerScine { get; set; }
+        public string cusEmail { get; set; }
+        public string cusName { get; set; }
+        public string cusPhone { get; set; }
     
+        public virtual AspNetUser AspNetUser { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<License> Licenses { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<order> orders { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Payment> Payments { get; set; }
     }
 }

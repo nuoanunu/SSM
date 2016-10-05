@@ -22,7 +22,7 @@ namespace SSM.Models
             this.attributeOptions = new HashSet<attributeOption>();
             this.company_responsible = new HashSet<company_responsible>();
             this.contact_resposible = new HashSet<contact_resposible>();
-            this.contacts = new HashSet<contact>();
+            this.customers = new HashSet<customer>();
             this.Deal_SaleRep_Respon = new HashSet<Deal_SaleRep_Respon>();
             this.MasterSchedule_User = new HashSet<MasterSchedule_User>();
             this.SaleRepProfiles = new HashSet<SaleRepProfile>();
@@ -53,7 +53,7 @@ namespace SSM.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<contact_resposible> contact_resposible { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<contact> contacts { get; set; }
+        public virtual ICollection<customer> customers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Deal_SaleRep_Respon> Deal_SaleRep_Respon { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

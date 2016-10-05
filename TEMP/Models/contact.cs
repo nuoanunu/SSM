@@ -20,9 +20,6 @@ namespace SSM.Models
             this.contact_resposible = new HashSet<contact_resposible>();
             this.Customer_Request = new HashSet<Customer_Request>();
             this.Deals = new HashSet<Deal>();
-            this.Licenses = new HashSet<License>();
-            this.orders = new HashSet<order>();
-            this.Payments = new HashSet<Payment>();
         }
     
         public int id { get; set; }
@@ -44,18 +41,11 @@ namespace SSM.Models
         public string Comment { get; set; }
         public string userID { get; set; }
     
-        public virtual AspNetUser AspNetUser { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<contact_resposible> contact_resposible { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Customer_Request> Customer_Request { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Deal> Deals { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<License> Licenses { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<order> orders { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Payment> Payments { get; set; }
     }
 }
