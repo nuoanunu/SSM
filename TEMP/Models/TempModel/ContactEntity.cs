@@ -10,27 +10,45 @@ namespace SSM.Models.TempModel
     {
         
         public int id { get; set; }
-        [Required(ErrorMessage ="Please enter customer's last name")]
+
+        //[Required(ErrorMessage ="Please enter customer's last name")]
+        [Required]
         [StringLength(255)]
         [Display(Name ="Last Name")]
         public string LastName { get; set; }
+
         [Required]
+        [Display(Name = "First Name")]
         public string FirstName { get; set; }
+
         [Required]
+        [Display(Name = "Middle Name")]
         public string MiddleName { get; set; }
+
         [Required]
         public string Photo { get; set; }
+
         [Required]
+        [Display(Name = "Date Of Birth")]
         public System.DateTime DateOfBirth { get; set; }
+
         [Required]
         [EmailAddress]
+        [Display(Name = "Email")]
         public string emails { get; set; }
+
         [Required]
         [Phone]
         public string Phone { get; set; }
+
         [Url]
+        [Display(Name = "Site")]
         public string Sites { get; set; }
+
+        [Display(Name = "Company")]
         public Nullable<int> CompanyID { get; set; }
+
+
         public string Street { get; set; }
         public string City { get; set; }
         public string Region { get; set; }
