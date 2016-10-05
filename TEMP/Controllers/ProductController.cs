@@ -9,6 +9,7 @@ using System.Net.Mail;
 using System.Net;
 using System.Threading.Tasks;
 using SSM.Models.Services;
+using SSM.Models.TempModel;
 
 namespace SSM.Controllers
 {
@@ -53,7 +54,7 @@ namespace SSM.Controllers
             ViewData["Product"] = preplan.softwareProduct.id;
             ViewData["steps"] = preplan.Plan_Step.ToList();
             // return View("EditFollowUpPlan");
-            return View("FollowUpProgressEditor");
+            return View("FollowUpProgressEditor", new FollowupProgressModel(preplan));
         }
         [HttpPost]
         [ValidateInput(false)]
@@ -304,6 +305,9 @@ namespace SSM.Controllers
 
             }
             return Json(new { result = "fail" }, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult editFollowupProgress(int id, String newname, String newSteps) {
+            return View();
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿@using SSM.Models;
-
+@model SSM.Models.TempModel.FollowupProgressModel
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <!-- Meta, title, CSS, favicons, etc. -->
@@ -33,7 +33,7 @@
         }
         function drag(ev) {
 
-            //   ev.dataTransfer.setData("DroperID", ev.target.id);
+            ev.dataTransfer.setData("DroperID", ev.target.id);
 
         }
         function removeStyle(ev) {
@@ -41,8 +41,24 @@
         }
         function drop(ev) {
             ev.preventDefault();
-            var data = ev.dataTransfer.getData("text");
-            ev.target.innerHTML = "ASDAS";
+            var data = ev.dataTransfer.getData("DroperID");
+            var content = $("#" + data).find("input").val();
+            ev.target.innerHTML = content;
+            var targetid = ev.target.id;
+            tinymce.init({
+                selector: 'textarea#' + targetid,
+
+                height: 200,
+                plugins: [
+                  'advlist autolink lists link image charmap print preview anchor',
+                  'searchreplace visualblocks code fullscreen',
+                  'insertdatetime media table contextmenu paste code'
+                ],
+                toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+                content_css: '//www.tinymce.com/css/codepen.min.css'
+
+
+            });
         }
     </script>
     <script type="text/javascript">
@@ -70,7 +86,15 @@
             background: white;
         }
     </style>
+    <script>
+        function EditPlan(id) {
+            var newname = $("#planname");
+            var plandescription = $("#planname");
+            for (var i = 1; i < 12 ; i++) {
 
+            }
+        }
+    </script>
 </head>
 <div class="">
     <div class="page-title">
@@ -84,7 +108,59 @@
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2>Mail templates<small>Choose your mail template</small></h2>
+                    <h2>Details<small> Descriptions</small></h2>
+                    <ul class="nav navbar-right panel_toolbox">
+
+                        <li class="dropdown">
+                            <button onclick="EditPlan(@(ViewData["planID"] ))" style="width:80px" type="button" class="btn btn-success">Edit</button>
+
+                        </li>
+                        <li>
+                            <button style="width:80px" type="button" class="btn btn-danger">Cancel</button>
+                        </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3" for="first-name">
+                                    Name
+                                </label>
+                                <div class="col-md-6 col-sm-9">
+                                     @Html.TextAreaFor(model=>model.Name , new { @class = "form-control col-md-7 col-xs-12" })
+                                   </div>
+                            </div>
+
+
+                        </div>
+                        <div class="col-md-4">
+
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3" for="first-name">
+                                    Description
+                                </label>
+                                <div class="col-md-8 col-sm-9">
+                                    @Html.TextAreaFor(model => model.Desription, new { @class = "form-control col-md-7 col-xs-12" })
+                                 </div>
+                            </div>
+
+
+
+                        </div>
+                        <div class="col-md-4">
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Mail templates<small>Drag mail template to text box to create content</small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                         <li>
                             <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -110,39 +186,43 @@
                     <div class="row">
                         @foreach (EMAIL_Category templatelist in (List<EMAIL_Category>)ViewData["MailCate"])
                         {
-                            <div class="col-sm-3">
+                            <div class="col-sm-3 pre-scrollable" style="max-height:200px;height:200px">
                                 <div class="x_title">
                                     <h2>@templatelist.Name</h2>
+                                    <div class="clearfix"></div>
                                 </div>
+
                                 <ul class="list-unstyled top_profiles scroll-view" tabindex="5001" style="overflow: hidden; outline: none; cursor: -webkit-grab;">
                                     @foreach (Email_Template template in templatelist.Email_Template)
                                     {
-                                        <li class="media event" draggable="true" ondragstart="drag(event)">
+                                        <li class="media event" draggable="true" ondragstart="drag(event)" id="@("li"+template.id)">
+                                            <input type="hidden" value="@template.MailContent" />
                                             <a class="pull-left border-aero profile_thumb">
-                                                <i class="fa fa-user aero">@template.Name</i>
+                                                <i class="fa fa-file-text aero"></i>
                                             </a>
                                             <div class="media-body">
-                                                <a class="title"></a>
+                                                <a class="title">@template.Name</a>
 
                                                 @if (template.createdDate != null)
                                                 {    <p>
-                                                    <strong>
-                                                        @( ((DateTime)template.createdDate).ToShortDateString() )
-                                                    </strong> @template.creatorID </p>
+                                                        <strong>
+                                                            @( ((DateTime)template.createdDate).ToShortDateString() )
+                                                        </strong> @template.creatorID
+                                                    </p>
                                                 }
                                                 else
                                                 {
                                                     <p>
                                                         <strong>
-                                                           Created Date: unknown
+                                                            Created Date: unknown
                                                         </strong> @template.creatorID
                                                     </p>
                                                 }
 
                                                 @if (template.lastUpdate != null)
                                                 {    <p>
-                                                         <small>Last update: @( ((DateTime)template.lastUpdate).ToShortDateString() )</small>
-                                                </p>
+                                                        <small>Last update: @( ((DateTime)template.lastUpdate).ToShortDateString() )</small>
+                                                    </p>
                                                 }
                                                 else
                                                 {
@@ -150,9 +230,9 @@
                                                         <small>Last update: Not yet</small>
                                                     </p>
                                                 }
-                                           
-                                        </div>
-                                    </li>
+
+                                            </div>
+                                        </li>
                                     }
 
 
@@ -161,7 +241,7 @@
                                 </ul>
                             </div>
                         }
-                        <div class="col-sm-3">
+                        <div class="col-sm-3 pre-scrollable" style="max-height:200px;height:200px">
                             <div class="x_title">
                                 <h2>Top Profiles</h2>
                                 <ul class="nav navbar-right panel_toolbox">
@@ -248,7 +328,7 @@
                                 </li>
                             </ul>
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-sm-3 pre-scrollable" style="max-height:200px;height:200px">
                             <div class="x_title">
                                 <h2>Top Profiles</h2>
                                 <ul class="nav navbar-right panel_toolbox">
@@ -404,272 +484,60 @@
 
 
                         </ul>
-                        <div id="stepcontent-1">
-                            <h2 class="StepTitle">Step 1 Content</h2>
-                            <form class="form-horizontal form-label-left">
+                     @for (int i = 0; i < Model.steps.Count(); i++)
+                     {
+                        <div id="@("stepcontent-" + Model.steps[i].stepNo )" style="width:100%">
+                            <h2 class="StepTitle">Step @Model.steps[i].stepNo  Content</h2>
+                            <div class="form-horizontal form-label-left">
                                 <div class="form-group">
                                     <label class="control-label col-md-3 col-sm-3" for="first-name">
                                         Time from last Step
                                     </label>
                                     <div class="col-md-6 col-sm-6">
-                                        <input type="text" id="step1time" required="required" class="form-control col-md-7 col-xs-12">
+                                        @Html.TextBoxFor(m => Model.steps[i].TimeFromLastStep, new { @class = "form-control col-md-7 col-xs-12" });
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-md-3 col-sm-3" for="first-name">
                                         Content
                                     </label>
-                                    <div class="col-md-6 col-sm-6">
-                                        <textarea ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="removeStyle(event)" type="text" id="step1content" required="required" class="form-control col-md-7 col-xs-12"> </textarea>
+                                    <div class="col-md-8 col-sm-8">
+                                        @Html.TextAreaFor(m => Model.steps[i].StepEmailContent, new { @class = "form-control col-md-7 col-xs-12" });
                                     </div>
                                 </div>
-
-                            </form>
+                            </div>
                         </div>
-                        <div id="stepcontent-2">
-                            <h2 class="StepTitle">Step 2 Content</h2>
-                            <form class="form-horizontal form-label-left">
-                                <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3" for="first-name">
-                                        Time from last Step
-                                    </label>
-                                    <div class="col-md-6 col-sm-6">
-                                        <input type="text" id="step2time" required="required" class="form-control col-md-7 col-xs-12">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3" for="first-name">
-                                        Content
-                                    </label>
-                                    <div class="col-md-6 col-sm-6">
-                                        <textarea type="text" id="step2content" required="required" class="form-control col-md-7 col-xs-12"> </textarea>
-                                    </div>
-                                </div>
+                     }
+                         
+                        
 
-                            </form>
-                        </div>
-                        <div id="stepcontent-3">
-                            <h2 class="StepTitle">Step 3 Content</h2>
-                            <form class="form-horizontal form-label-left">
-                                <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3" for="first-name">
-                                        Time from last Step
-                                    </label>
-                                    <div class="col-md-6 col-sm-6">
-                                        <input type="text" id="step3time" required="required" class="form-control col-md-7 col-xs-12">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3" for="first-name">
-                                        Content
-                                    </label>
-                                    <div class="col-md-6 col-sm-6">
-                                        <textarea type="text" id="step3content" required="required" class="form-control col-md-7 col-xs-12"> </textarea>
-                                    </div>
-                                </div>
-
-                            </form>
-                        </div>
-                        <div id="stepcontent-4">
-                            <h2 class="StepTitle">Step 4 Content</h2>
-                            <form class="form-horizontal form-label-left">
-                                <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3" for="first-name">
-                                        Time from last Step
-                                    </label>
-                                    <div class="col-md-6 col-sm-6">
-                                        <input type="text" id="step4time" required="required" class="form-control col-md-7 col-xs-12">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3" for="first-name">
-                                        Content
-                                    </label>
-                                    <div class="col-md-6 col-sm-6">
-                                        <textarea type="text" id="step4content" required="required" class="form-control col-md-7 col-xs-12"> </textarea>
-                                    </div>
-                                </div>
-
-                            </form>
-                        </div>
-                        <div id="stepcontent-5">
-                            <h2 class="StepTitle">Step 5 Content</h2>
-                            <form class="form-horizontal form-label-left">
-                                <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3" for="first-name">
-                                        Time from last Step
-                                    </label>
-                                    <div class="col-md-6 col-sm-6">
-                                        <input type="text" id="step5time" required="required" class="form-control col-md-7 col-xs-12">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3" for="first-name">
-                                        Content
-                                    </label>
-                                    <div class="col-md-6 col-sm-6">
-                                        <textarea type="text" id="step5content" required="required" class="form-control col-md-7 col-xs-12"> </textarea>
-                                    </div>
-                                </div>
-
-                            </form>
-                        </div>
-                        <div id="stepcontent-6">
-                            <h2 class="StepTitle">Step 6 Content</h2>
-                            <form class="form-horizontal form-label-left">
-                                <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3" for="first-name">
-                                        Time from last Step
-                                    </label>
-                                    <div class="col-md-6 col-sm-6">
-                                        <input type="text" id="step6time" required="required" class="form-control col-md-7 col-xs-12">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3" for="first-name">
-                                        Content
-                                    </label>
-                                    <div class="col-md-6 col-sm-6">
-                                        <textarea type="text" id="step6content" required="required" class="form-control col-md-7 col-xs-12"> </textarea>
-                                    </div>
-                                </div>
-
-                            </form>
-                        </div>
-                        <div id="stepcontent-7">
-                            <h2 class="StepTitle">Step 7 Content</h2>
-                            <form class="form-horizontal form-label-left">
-                                <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3" for="first-name">
-                                        Time from last Step
-                                    </label>
-                                    <div class="col-md-6 col-sm-6">
-                                        <input type="text" id="step7time" required="required" class="form-control col-md-7 col-xs-12">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3" for="first-name">
-                                        Content
-                                    </label>
-                                    <div class="col-md-6 col-sm-6">
-                                        <textarea type="text" id="step7content" required="required" class="form-control col-md-7 col-xs-12"> </textarea>
-                                    </div>
-                                </div>
-
-                            </form>
-                        </div>
-                        <div id="stepcontent-8">
-                            <h2 class="StepTitle">Step 8 Content</h2>
-                            <form class="form-horizontal form-label-left">
-                                <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3" for="first-name">
-                                        Time from last Step
-                                    </label>
-                                    <div class="col-md-6 col-sm-6">
-                                        <input type="text" id="step8time" required="required" class="form-control col-md-7 col-xs-12">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3" for="first-name">
-                                        Content
-                                    </label>
-                                    <div class="col-md-6 col-sm-6">
-                                        <textarea type="text" id="step8content" required="required" class="form-control col-md-7 col-xs-12"> </textarea>
-                                    </div>
-                                </div>
-
-                            </form>
-                        </div>
-                        <div id="stepcontent-9">
-                            <h2 class="StepTitle">Step 9 Content</h2>
-                            <form class="form-horizontal form-label-left">
-                                <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3" for="first-name">
-                                        Time from last Step
-                                    </label>
-                                    <div class="col-md-6 col-sm-6">
-                                        <input type="text" id="step9time" required="required" class="form-control col-md-7 col-xs-12">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3" for="first-name">
-                                        Content
-                                    </label>
-                                    <div class="col-md-6 col-sm-6">
-                                        <textarea type="text" id="step9content" required="required" class="form-control col-md-7 col-xs-12"> </textarea>
-                                    </div>
-                                </div>
-
-                            </form>
-                        </div>
-                        <div id="stepcontent-10">
-                            <h2 class="StepTitle">Step 10 Content</h2>
-                            <form class="form-horizontal form-label-left">
-                                <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3" for="first-name">
-                                        Time from last Step
-                                    </label>
-                                    <div class="col-md-6 col-sm-6">
-                                        <input type="text" id="step10time" required="required" class="form-control col-md-7 col-xs-12">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3" for="first-name">
-                                        Content
-                                    </label>
-                                    <div class="col-md-6 col-sm-6">
-                                        <textarea type="text" id="step10content" required="required" class="form-control col-md-7 col-xs-12"> </textarea>
-                                    </div>
-                                </div>
-
-                            </form>
-                        </div>
-                        <div id="stepcontent-11">
-                            <h2 class="StepTitle">Step 11 Content</h2>
-                            <form class="form-horizontal form-label-left">
-                                <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3" for="first-name">
-                                        Time from last Step
-                                    </label>
-                                    <div class="col-md-6 col-sm-6">
-                                        <input type="text" id="step11time" required="required" class="form-control col-md-7 col-xs-12">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3" for="first-name">
-                                        Content
-                                    </label>
-                                    <div class="col-md-6 col-sm-6">
-                                        <textarea type="text" id="step11content" required="required" class="form-control col-md-7 col-xs-12"> </textarea>
-                                    </div>
-                                </div>
-
-                            </form>
-                        </div>
-
-                        <!-- End SmartWizard Content -->
+                      
 
                     </div>
+
+                    <!-- End SmartWizard Content -->
+
                 </div>
             </div>
         </div>
     </div>
-    <script>
-        function hidesteps() {
-            for (var i = 5 ; i < 12 ; i++) {
-                var textare = $("#step" + i + "content");
-                if (textare.val().trim() == "") {
-                    alert("dam " + i);
-                    $("#steptitle-" + i).hide();
+</div>
+<script>
+    function hidesteps() {
+        for (var i = 5 ; i < 12 ; i++) {
+            var textare = $("#step" + i + "content");
+            if (textare.val().trim() == "") {
+                alert("dam " + i);
+                $("#steptitle-" + i).hide();
 
-                }
-                else {
-                    alert();
-                    alert("dammmm " + textare.val() + " i: " + i);
-                    $("#steptitle-" + i).show();
+            }
+            else {
+                alert();
+                alert("dammmm " + textare.val() + " i: " + i);
+                $("#steptitle-" + i).show();
 
-                }
             }
         }
-        setInterval(hidesteps, 200);
-    </script>
+    }
+    setInterval(hidesteps, 200);
+</script>

@@ -244,3 +244,4 @@ C:\Users\Nguyen Nhat\Documents\GitHub\SSM\TEMP\bin\Microsoft.Owin.Security.Micro
 C:\Users\Nguyen Nhat\Documents\GitHub\SSM\TEMP\obj\Debug\SSM.csprojResolveAssemblyReference.cache
 C:\Users\Nguyen Nhat\Documents\GitHub\SSM\TEMP\obj\Debug\SSM.dll
 C:\Users\Nguyen Nhat\Documents\GitHub\SSM\TEMP\obj\Debug\SSM.pdb
+C:\Users\Nguyen Nhat\Documents\GitHub\SSM\TEMP\bin\DocX.dll
