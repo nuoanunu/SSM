@@ -17,14 +17,13 @@ namespace SSM.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Deal()
         {
-            this.Deal_Product = new HashSet<Deal_Product>();
             this.Deal_SaleRep_Respon = new HashSet<Deal_SaleRep_Respon>();
             this.DealTasks = new HashSet<DealTask>();
         }
     
         public int id { get; set; }
         public string Name { get; set; }
-        public Nullable<int> Stage { get; set; }
+        public int Stage { get; set; }
         public Nullable<double> Value { get; set; }
         public Nullable<double> Probability { get; set; }
         public string Creator { get; set; }
@@ -32,11 +31,12 @@ namespace SSM.Models
         public Nullable<System.DateTime> CompleteOn { get; set; }
         public int Client { get; set; }
         public Nullable<System.DateTime> LastUpdateStage { get; set; }
-        public string Status { get; set; }
+        public Nullable<int> Status { get; set; }
+        public Nullable<int> planID { get; set; }
     
         public virtual contact contact { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Deal_Product> Deal_Product { get; set; }
+        public virtual DealStatu DealStatu { get; set; }
+        public virtual PrePurchase_FollowUp_Plan PrePurchase_FollowUp_Plan { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Deal_SaleRep_Respon> Deal_SaleRep_Respon { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

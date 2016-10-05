@@ -151,7 +151,7 @@
     </Key>
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="Stage" Type="int" />
+    <Property Name="Stage" Type="int" Nullable="false" />
     <Property Name="Value" Type="float" />
     <Property Name="Probability" Type="float" />
     <Property Name="Creator" Type="nvarchar" MaxLength="128" Nullable="false" />
@@ -159,17 +159,8 @@
     <Property Name="CompleteOn" Type="date" />
     <Property Name="Client" Type="int" Nullable="false" />
     <Property Name="LastUpdateStage" Type="date" />
-    <Property Name="Status" Type="nvarchar" MaxLength="50" />
-  </EntityType>
-  <EntityType Name="Deal_Product">
-    <Key>
-      <PropertyRef Name="id" />
-    </Key>
-    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="dealID" Type="int" Nullable="false" />
-    <Property Name="addedDate" Type="date" Nullable="false" />
-    <Property Name="removedDate" Type="date" />
-    <Property Name="planID" Type="int" Nullable="false" />
+    <Property Name="Status" Type="int" />
+    <Property Name="planID" Type="int" />
   </EntityType>
   <EntityType Name="Deal_SaleRep_Respon">
     <Key>
@@ -181,6 +172,14 @@
     <Property Name="startDate" Type="date" Nullable="false" />
     <Property Name="endDate" Type="date" />
     <Property Name="Active" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DealStatus">
+    <Key>
+      <PropertyRef Name="statusID" />
+    </Key>
+    <Property Name="statusID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="DealTasks">
     <Key>
@@ -315,6 +314,7 @@
     <Property Name="stepNo" Type="int" Nullable="false" />
     <Property Name="StepEmailContent" Type="nvarchar(max)" Nullable="false" />
     <Property Name="TimeFromLastStep" Type="int" />
+    <Property Name="sendDate" Type="date" />
   </EntityType>
   <EntityType Name="PlanOptions">
     <Key>
@@ -456,24 +456,6 @@
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="typeName" Type="nvarchar" MaxLength="30" Nullable="false" />
     <Property Name="Description" Type="nchar" MaxLength="10" />
-  </EntityType>
-  <!--Errors Found During Generation:
-warning 6002: The table/view 'SSM.sys.database_firewall_rules' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-  <EntityType Name="database_firewall_rules">
-    <Key>
-      <PropertyRef Name="id" />
-      <PropertyRef Name="name" />
-      <PropertyRef Name="start_ip_address" />
-      <PropertyRef Name="end_ip_address" />
-      <PropertyRef Name="create_date" />
-      <PropertyRef Name="modify_date" />
-    </Key>
-    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-    <Property Name="start_ip_address" Type="varchar" MaxLength="45" Nullable="false" />
-    <Property Name="end_ip_address" Type="varchar" MaxLength="45" Nullable="false" />
-    <Property Name="create_date" Type="datetime" Nullable="false" />
-    <Property Name="modify_date" Type="datetime" Nullable="false" />
   </EntityType>
   <Association Name="FK_attributeOption_AspNetUsers">
     <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
@@ -675,26 +657,26 @@ warning 6002: The table/view 'SSM.sys.database_firewall_rules' does not have a p
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Deal_Product_Deal">
-    <End Role="Deal" Type="Self.Deal" Multiplicity="1" />
-    <End Role="Deal_Product" Type="Self.Deal_Product" Multiplicity="*" />
+  <Association Name="FK_Deal_DealStatus">
+    <End Role="DealStatus" Type="Self.DealStatus" Multiplicity="0..1" />
+    <End Role="Deal" Type="Self.Deal" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Deal">
-        <PropertyRef Name="id" />
+      <Principal Role="DealStatus">
+        <PropertyRef Name="statusID" />
       </Principal>
-      <Dependent Role="Deal_Product">
-        <PropertyRef Name="dealID" />
+      <Dependent Role="Deal">
+        <PropertyRef Name="Status" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Deal_Product_productMarketPlan">
-    <End Role="productMarketPlan" Type="Self.productMarketPlan" Multiplicity="1" />
-    <End Role="Deal_Product" Type="Self.Deal_Product" Multiplicity="*" />
+  <Association Name="FK_Deal_PrePurchase_FollowUp_Plan">
+    <End Role="PrePurchase_FollowUp_Plan" Type="Self.PrePurchase_FollowUp_Plan" Multiplicity="0..1" />
+    <End Role="Deal" Type="Self.Deal" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="productMarketPlan">
+      <Principal Role="PrePurchase_FollowUp_Plan">
         <PropertyRef Name="id" />
       </Principal>
-      <Dependent Role="Deal_Product">
+      <Dependent Role="Deal">
         <PropertyRef Name="planID" />
       </Dependent>
     </ReferentialConstraint>
@@ -1073,8 +1055,8 @@ warning 6002: The table/view 'SSM.sys.database_firewall_rules' does not have a p
     <EntitySet Name="Customer_Request" EntityType="Self.Customer_Request" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="customers" EntityType="Self.customers" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Deal" EntityType="Self.Deal" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Deal_Product" EntityType="Self.Deal_Product" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Deal_SaleRep_Respon" EntityType="Self.Deal_SaleRep_Respon" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DealStatus" EntityType="Self.DealStatus" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="DealTasks" EntityType="Self.DealTasks" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="EMAIL_Category" EntityType="Self.EMAIL_Category" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Email_Template" EntityType="Self.Email_Template" Schema="dbo" store:Type="Tables" />
@@ -1097,16 +1079,6 @@ warning 6002: The table/view 'SSM.sys.database_firewall_rules' does not have a p
     <EntitySet Name="task_user" EntityType="Self.task_user" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TaskStatus" EntityType="Self.TaskStatus" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TaskType" EntityType="Self.TaskType" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="database_firewall_rules" EntityType="Self.database_firewall_rules" store:Type="Views" store:Schema="sys">
-      <DefiningQuery>SELECT 
-    [database_firewall_rules].[id] AS [id], 
-    [database_firewall_rules].[name] AS [name], 
-    [database_firewall_rules].[start_ip_address] AS [start_ip_address], 
-    [database_firewall_rules].[end_ip_address] AS [end_ip_address], 
-    [database_firewall_rules].[create_date] AS [create_date], 
-    [database_firewall_rules].[modify_date] AS [modify_date]
-    FROM [sys].[database_firewall_rules] AS [database_firewall_rules]</DefiningQuery>
-    </EntitySet>
     <AssociationSet Name="FK_attributeOption_AspNetUsers" Association="Self.FK_attributeOption_AspNetUsers">
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />
       <End Role="attributeOption" EntitySet="attributeOption" />
@@ -1171,13 +1143,13 @@ warning 6002: The table/view 'SSM.sys.database_firewall_rules' does not have a p
       <End Role="contacts" EntitySet="contacts" />
       <End Role="Deal" EntitySet="Deal" />
     </AssociationSet>
-    <AssociationSet Name="FK_Deal_Product_Deal" Association="Self.FK_Deal_Product_Deal">
+    <AssociationSet Name="FK_Deal_DealStatus" Association="Self.FK_Deal_DealStatus">
+      <End Role="DealStatus" EntitySet="DealStatus" />
       <End Role="Deal" EntitySet="Deal" />
-      <End Role="Deal_Product" EntitySet="Deal_Product" />
     </AssociationSet>
-    <AssociationSet Name="FK_Deal_Product_productMarketPlan" Association="Self.FK_Deal_Product_productMarketPlan">
-      <End Role="productMarketPlan" EntitySet="productMarketPlan" />
-      <End Role="Deal_Product" EntitySet="Deal_Product" />
+    <AssociationSet Name="FK_Deal_PrePurchase_FollowUp_Plan" Association="Self.FK_Deal_PrePurchase_FollowUp_Plan">
+      <End Role="PrePurchase_FollowUp_Plan" EntitySet="PrePurchase_FollowUp_Plan" />
+      <End Role="Deal" EntitySet="Deal" />
     </AssociationSet>
     <AssociationSet Name="FK_Deal_SaleRep_Respon_AspNetUsers" Association="Self.FK_Deal_SaleRep_Respon_AspNetUsers">
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />

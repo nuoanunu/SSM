@@ -245,3 +245,4 @@ C:\Users\Nguyen Nhat\Documents\GitHub\SSM\TEMP\obj\Debug\SSM.csprojResolveAssemb
 C:\Users\Nguyen Nhat\Documents\GitHub\SSM\TEMP\obj\Debug\SSM.dll
 C:\Users\Nguyen Nhat\Documents\GitHub\SSM\TEMP\obj\Debug\SSM.pdb
 C:\Users\Nguyen Nhat\Documents\GitHub\SSM\TEMP\bin\DocX.dll
+C:\Users\NhatVHN\Desktop\SSM\TEMP\bin\DocX.dll

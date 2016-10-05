@@ -145,8 +145,7 @@ namespace SSM.Controllers
         }
         public ActionResult Detail(int id)
         {
-            System.Diagnostics.Debug.WriteLine("12111211 " + id);
-            productRepository pr = new productRepository(new SSMEntities());
+           productRepository pr = new productRepository(new SSMEntities());
             try
             {
                 softwareProduct product = pr.getById(id);
@@ -306,8 +305,65 @@ namespace SSM.Controllers
             }
             return Json(new { result = "fail" }, JsonRequestBehavior.AllowGet);
         }
-        public ActionResult editFollowupProgress(int id, String newname, String newSteps) {
-            return View();
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult FinishEditProgress(FollowupProgressModel model) {
+            SSMEntities se = new SSMEntities();
+            PrePurchase_FollowUp_Plan plan = se.PrePurchase_FollowUp_Plan.Find(model.id);
+            if (plan != null) {
+                plan.name = model.Name;
+                plan.Description = model.Desription;
+                plan.lastUpdate = DateTime.Today;
+                foreach (Plan_Step step in plan.Plan_Step.ToList()) {
+                    step.previousStep = null;
+                    step.nextStep = null;
+                    se.SaveChanges();
+                    se.Plan_Step.Remove(step);
+                }
+                int index = 1;
+                for (int i = 1; i < model.steps.Count()+1; i++) {
+
+                    Plan_Step step = model.steps[i - 1];
+                    if (step.StepEmailContent != null)
+                    {
+                        step.planID = plan.id;
+                        step.stepNo = i;
+
+                        se.Plan_Step.Add(step);
+                        se.SaveChanges();
+                        index = index + 1;
+                    }
+                    else {
+                        model.steps.Remove(step);
+                    }
+                }
+                for (int i = 1; i < model.steps.Count() + 1; i++)
+                {
+                    Plan_Step step = model.steps[i - 1];
+                    try {
+                        step.previousStep = model.steps[i - 2].id;
+                    }
+                    catch (Exception e) { step.previousStep = null; }
+                    try
+                    {
+                        step.nextStep = model.steps[i ].id;
+                    }
+                    catch (Exception e) { step.nextStep = null; }
+                    try
+                    {
+                        if (step.previousStep == 0) step.previousStep = null;
+                    }
+                    catch (Exception e) { }
+                    try
+                    {
+                        if (step.nextStep == 0) step.nextStep = null;
+                    }
+                    catch (Exception e) { }
+                    se.SaveChanges();
+                }
+            }
+            return RedirectToAction("EditPlan", new { planID = plan.id });
         }
+        
     }
 }

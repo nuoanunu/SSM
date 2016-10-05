@@ -37,8 +37,8 @@ namespace SSM.Models
         public virtual DbSet<Customer_Request> Customer_Request { get; set; }
         public virtual DbSet<customer> customers { get; set; }
         public virtual DbSet<Deal> Deals { get; set; }
-        public virtual DbSet<Deal_Product> Deal_Product { get; set; }
         public virtual DbSet<Deal_SaleRep_Respon> Deal_SaleRep_Respon { get; set; }
+        public virtual DbSet<DealStatu> DealStatus { get; set; }
         public virtual DbSet<DealTask> DealTasks { get; set; }
         public virtual DbSet<EMAIL_Category> EMAIL_Category { get; set; }
         public virtual DbSet<Email_Template> Email_Template { get; set; }
@@ -61,6 +61,5 @@ namespace SSM.Models
         public virtual DbSet<task_user> task_user { get; set; }
         public virtual DbSet<TaskStatu> TaskStatus { get; set; }
         public virtual DbSet<TaskType> TaskTypes { get; set; }
-        public virtual DbSet<database_firewall_rules> database_firewall_rules { get; set; }
     }
 }

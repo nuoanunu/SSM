@@ -254,16 +254,13 @@
     <Compile Include="Models\Customer_Request.cs">
       <DependentUpon>SSMEntities2.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\database_firewall_rules.cs">
-      <DependentUpon>SSMEntities2.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Deal.cs">
       <DependentUpon>SSMEntities2.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\DealTask.cs">
+    <Compile Include="Models\DealStatu.cs">
       <DependentUpon>SSMEntities2.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Deal_Product.cs">
+    <Compile Include="Models\DealTask.cs">
       <DependentUpon>SSMEntities2.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Deal_SaleRep_Respon.cs">
@@ -870,6 +867,7 @@
     <Content Include="Scripts\maps\us-unemployment.json" />
     <Content Include="Views\Product\FollowUpProgressEditor.cshtml" />
     <Content Include="Views\Product\Plan_Step.cshtml" />
+    <Content Include="Views\Deal\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
