@@ -152,6 +152,7 @@
     <EntitySetMapping Name="Deals">
       <EntityTypeMapping TypeName="SSMModel.Deal">
         <MappingFragment StoreEntitySet="Deal">
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
           <ScalarProperty Name="marketPlanID" ColumnName="marketPlanID" />
           <ScalarProperty Name="planID" ColumnName="planID" />
           <ScalarProperty Name="Status" ColumnName="Status" />
@@ -249,6 +250,7 @@
     <EntitySetMapping Name="MarketPlanPurchaseds">
       <EntityTypeMapping TypeName="SSMModel.MarketPlanPurchased">
         <MappingFragment StoreEntitySet="MarketPlanPurchased">
+          <ScalarProperty Name="quantity" ColumnName="quantity" />
           <ScalarProperty Name="productID" ColumnName="productID" />
           <ScalarProperty Name="SoldPrice" ColumnName="SoldPrice" />
           <ScalarProperty Name="planID" ColumnName="planID" />

@@ -70,7 +70,12 @@ namespace SSM.Controllers
             {
                 SSMEntities se = new SSMEntities();
                 Deal thisDeal = se.Deals.Find(id);
+                List<SelectListItem> productPlan = new List<SelectListItem>();
+                foreach (productMarketPlan plan in thisDeal.productMarketPlan.softwareProduct.productMarketPlans.ToList()) {
+                    productPlan.Add(new SelectListItem() { Text = plan.Name, Value = plan.id + "" });
+                }
                 ViewData["DealDetail"] = thisDeal;
+                ViewData["PlanList"] = productPlan;
                 ViewData["TaskStatus"] = se.TaskStatus.ToList();
                 ViewData["TaskTypes"] = se.TaskTypes.ToList();
                 softwareProduct thisproduct = thisDeal.PrePurchase_FollowUp_Plan.softwareProduct;
@@ -120,9 +125,9 @@ namespace SSM.Controllers
             {
                 client.Add(new SelectListItem() { Text = crm.contact.FirstName + " " + crm.contact.MiddleName + " " + crm.contact.LastName, Value = crm.contactID + "" });
             }
-            foreach (PrePurchase_FollowUp_Plan plan in se.PrePurchase_FollowUp_Plan.ToList())
+            foreach (productMarketPlan plan in se.productMarketPlans.ToList())
             {
-                productPlan.Add(new SelectListItem() { Text = plan.name, Value = plan.id + "" });
+                productPlan.Add(new SelectListItem() { Text = plan.Name, Value = plan.id + "" });
             }
 
             ViewData["ProductResponsibleFor"] = productPlan;
@@ -139,6 +144,7 @@ namespace SSM.Controllers
                 deal.Status = 3;
                 order order = new order();
                 customer cus = new customer();
+               
                 cus.cusAddress = deal.contact.Street + " " + deal.contact.City + " " + deal.contact.Region + " ";
                 cus.cusCompany = 1;
                 cus.cusEmail = deal.contact.emails;
@@ -149,7 +155,7 @@ namespace SSM.Controllers
                 order.customerID = cus.id;
                 float price = 0;
                 order.orderNumber = 123123123;
-                order.subtotal = deal.productMarketPlan.Price;
+                order.subtotal = deal.Value;
                 order.status = 1;
                 order.total = (double)order.subtotal * 1.1;
                 order.VAT = (double)order.subtotal * 0.1;
@@ -159,7 +165,9 @@ namespace SSM.Controllers
                 mp.orderID = order.id;
                 mp.planID = deal.productMarketPlan.id;
                 mp.productID = deal.productMarketPlan.productID;
-                mp.SoldPrice = 10000;
+
+                mp.SoldPrice = (double) deal.Value ;
+                mp.quantity = deal.Quantity;
                 se.MarketPlanPurchaseds.Add(mp);
                 se.SaveChanges();
 

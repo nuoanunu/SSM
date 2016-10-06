@@ -381,7 +381,7 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="cusCompany" Type="Int32" />
     <Property Name="cusAddress" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
     <Property Name="userID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
@@ -417,6 +417,7 @@
     <NavigationProperty Name="productMarketPlan" Relationship="SSMModel.FK_Deal_productMarketPlan" FromRole="Deal" ToRole="productMarketPlan" />
     <NavigationProperty Name="Deal_SaleRep_Respon" Relationship="SSMModel.FK_Deal_SaleRep_Respon_Deal" FromRole="Deal" ToRole="Deal_SaleRep_Respon" />
     <NavigationProperty Name="DealTasks" Relationship="SSMModel.FK_Tasks_Deal" FromRole="Deal" ToRole="DealTask" />
+    <Property Name="Quantity" Type="Int32" />
   </EntityType>
   <EntityType Name="Deal_SaleRep_Respon">
     <Key>
@@ -513,6 +514,7 @@
     <NavigationProperty Name="order" Relationship="SSMModel.FK_MarketPlanPurchased_orders" FromRole="MarketPlanPurchased" ToRole="order" />
     <NavigationProperty Name="productMarketPlan" Relationship="SSMModel.FK_MarketPlanPurchased_productMarketPlan" FromRole="MarketPlanPurchased" ToRole="productMarketPlan" />
     <NavigationProperty Name="softwareProduct" Relationship="SSMModel.FK_MarketPlanPurchased_softwareProduct" FromRole="MarketPlanPurchased" ToRole="softwareProduct" />
+    <Property Name="quantity" Type="Int32" />
   </EntityType>
   <EntityType Name="MasterCalendar">
     <Key>

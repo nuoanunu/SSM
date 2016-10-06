@@ -11,31 +11,49 @@ namespace SSM.Models.TempModel
         [UIHint("Plan_Step")]
         public List<Plan_Step> steps { get; set; }
         public int id { get; set; }
+
+        public int productID { get; set; }
         public String Name { get; set; }
         public String Desription { get; set; }
-        public FollowupProgressModel() { steps = new List<Plan_Step>(); }
+        public FollowupProgressModel()
+        {
+            steps = new List<Plan_Step>();
+            int count = steps.Count();
+
+            for (int i = count + 1; i < 9; i++)
+            {
+                Plan_Step step = new Plan_Step();
+                step.stepNo = i;
+                step.TimeFromLastStep = 0;
+                steps.Add(step);
+            }
+        }
         public FollowupProgressModel(PrePurchase_FollowUp_Plan plan)
         {
             this.Name = plan.name;
             this.id = plan.id;
             this.Desription = plan.Description;
+
+            this.productID = plan.productID;
             steps = new List<Plan_Step>();
             foreach (Plan_Step step in plan.Plan_Step)
             {
-                System.Diagnostics.Debug.WriteLine("dafug");
+
                 steps.Add(step);
 
             }
 
             int count = steps.Count();
-            System.Diagnostics.Debug.WriteLine("dafug  2"+ count);
-            for (int i = count+1; i < 9; i++) {
+
+            for (int i = count + 1; i < 9; i++)
+            {
                 Plan_Step step = new Plan_Step();
                 step.stepNo = i;
+                step.TimeFromLastStep = 0;
                 steps.Add(step);
             }
-             count = steps.Count();
-            System.Diagnostics.Debug.WriteLine("dafug 3  " + count);
+            count = steps.Count();
+
         }
     }
 }

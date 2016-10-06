@@ -19,6 +19,7 @@ namespace SSM.Models
         public int planID { get; set; }
         public double SoldPrice { get; set; }
         public int productID { get; set; }
+        public Nullable<int> quantity { get; set; }
     
         public virtual order order { get; set; }
         public virtual productMarketPlan productMarketPlan { get; set; }

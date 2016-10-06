@@ -42,7 +42,8 @@ namespace SSM.Controllers
             se.SaveChanges();
             ViewData["planID"] = preplan.id;
             ViewData["Product"] = productID;
-            return View("NewFollowUpPlan");
+
+            return View("NewFollowUpPlan", new FollowupProgressModel());
         }
         public ActionResult EditPlan(int planID)
         {
@@ -53,6 +54,7 @@ namespace SSM.Controllers
             ViewData["plan"] = preplan;
             ViewData["Product"] = preplan.softwareProduct.id;
             ViewData["steps"] = preplan.Plan_Step.ToList();
+            preplan.productID = planID;
             // return View("EditFollowUpPlan");
             return View("FollowUpProgressEditor", new FollowupProgressModel(preplan));
         }
@@ -104,6 +106,44 @@ namespace SSM.Controllers
             se.SaveChanges();
             return RedirectToAction("Detail", "Product", new { id = preplan.softwareProduct.id });
         }
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult CreateNewProgress(FollowupProgressModel model) {
+            PrePurchase_FollowUp_Plan plan = new PrePurchase_FollowUp_Plan();
+            plan.Description = model.Desription;
+            plan.name = model.Name;
+            plan.isActive = true;
+            plan.isOperation = false;
+            plan.productID = model.productID;
+
+            plan.createDate = DateTime.Today;
+            
+            SSMEntities se = new SSMEntities();
+            se.PrePurchase_FollowUp_Plan.Add(plan);
+            se.SaveChanges();
+
+            foreach (Plan_Step step in model.steps.ToList()) {
+                if (step.StepEmailContent == null) model.steps.Remove(step);
+                else if (step.StepEmailContent.Trim().Length ==0) model.steps.Remove(step);
+            }
+            for (int i = 0; i < model.steps.Count(); i++) {
+                Plan_Step step = model.steps[i];
+                step.stepNo = (i + 1);
+                step.planID = plan.id;
+                se.Plan_Step.Add(step);
+                se.SaveChanges();
+            }
+            for (int i = 0; i < model.steps.Count(); i++)
+            {
+                Plan_Step step = model.steps[i];
+                if (i != 0) step.previousStep = model.steps[i - 1].id;
+                if (i != model.steps.Count()-1) step.nextStep = model.steps[i + 1].id;
+                se.SaveChanges();
+            }
+
+            return RedirectToAction("Detail" , new { id = model.productID});
+        }
+
         [HttpPost]
         public ActionResult SetInactive(int planid, int productID)
         {

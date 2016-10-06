@@ -34,6 +34,7 @@ namespace SSM.Models
         public Nullable<int> Status { get; set; }
         public Nullable<int> planID { get; set; }
         public Nullable<int> marketPlanID { get; set; }
+        public Nullable<int> Quantity { get; set; }
     
         public virtual contact contact { get; set; }
         public virtual DealStatu DealStatu { get; set; }

@@ -138,7 +138,7 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="cusCompany" Type="int" />
     <Property Name="cusAddress" Type="nvarchar" MaxLength="128" />
     <Property Name="userID" Type="nvarchar" MaxLength="128" />
@@ -164,6 +164,7 @@
     <Property Name="Status" Type="int" />
     <Property Name="planID" Type="int" />
     <Property Name="marketPlanID" Type="int" />
+    <Property Name="Quantity" Type="int" />
   </EntityType>
   <EntityType Name="Deal_SaleRep_Respon">
     <Key>
@@ -246,6 +247,7 @@
     <Property Name="planID" Type="int" Nullable="false" />
     <Property Name="SoldPrice" Type="float" Nullable="false" />
     <Property Name="productID" Type="int" Nullable="false" />
+    <Property Name="quantity" Type="int" />
   </EntityType>
   <EntityType Name="MasterCalendar">
     <Key>

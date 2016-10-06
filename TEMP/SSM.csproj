@@ -884,6 +884,7 @@
     <Content Include="Views\Product\FollowUpProgressEditor.cshtml" />
     <Content Include="Views\Product\Plan_Step.cshtml" />
     <Content Include="Views\Deal\Create.cshtml" />
+    <Content Include="Views\MailTemplate\MailTemplateList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
