@@ -139,6 +139,9 @@
     <script src="~/Scripts/moris/morris.min.js"></script>
     <script src="~/Scripts/pace/pace.min.js"></script>
     <script>
+        function format2(n, currency) {
+            return currency + " " + n.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+        }
             function updatePrice() {
                // alert("haiz");
                 try {
@@ -149,7 +152,7 @@
                         var priceid = $(this).val() + "optionprice";
                         var pricelabelid = selectid + "priceshow";
 
-                        $("#" + pricelabelid).text($("#" + priceid).val());
+                        $("#" + pricelabelid).text(format2(parseFloat($("#" + priceid).val()),'$'));
                         if (parseFloat($("#" + priceid).val()) >0) {
                             money = money + parseFloat($("#" + priceid).val());
                         }
@@ -396,6 +399,7 @@
                                                         <th>Ceil Price</th>
                                                         <th>Total successfull deal</th>
                                                         <th>Is Active</th>
+                                                        <th>Detail</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -427,6 +431,8 @@
                                                                     <div onclick="updateMarketPlan(@plan.id)" class="slider round"></div>
                                                                 </label>
                                                             }</td>
+
+                                                            <td> <a href="/Product/MarketPlanDetail?id=@(plan.id)">Detail</a></td>
                                                         </tr>
                                                     }
 

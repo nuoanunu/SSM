@@ -26,6 +26,10 @@ namespace SSM.Controllers
             ViewData["productList"] = pr.getAll();
             return View("ProductList");
         }
+        public ActionResult MarketPlanDetail(int id) {
+            SSMEntities se = new SSMEntities();
+            return View("MarketPlanDetail", se.productMarketPlans.Find(id));
+        }
         public ActionResult NewPlan(int productID)
         {
             SSMEntities se = new SSMEntities();

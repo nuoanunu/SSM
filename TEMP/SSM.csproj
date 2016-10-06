@@ -885,6 +885,7 @@
     <Content Include="Views\Product\Plan_Step.cshtml" />
     <Content Include="Views\Deal\Create.cshtml" />
     <Content Include="Views\MailTemplate\MailTemplateList.cshtml" />
+    <Content Include="Views\Product\MarketPlanDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

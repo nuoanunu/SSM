@@ -104,6 +104,9 @@
 <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"> </script>
 <link href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css" rel="stylesheet" />
 <script>
+    function format2(n, currency) {
+        return currency + " " + n.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+    }
             function updatePrice() {
                // alert("haiz");
                 try {
@@ -114,9 +117,11 @@
                         var priceid = $(this).val() + "optionprice";
                         var pricelabelid = selectid + "priceshow";
 
-                        $("#" + pricelabelid).text($("#" + priceid).val());
+                        $("#" + pricelabelid).text(format2($("#" + priceid).val(),'$'));
                         if (parseFloat($("#" + priceid).val()) >0) {
                             money = money + parseFloat($("#" + priceid).val());
+
+                        
                         }
 
                     });
