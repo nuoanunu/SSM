@@ -22,7 +22,7 @@ namespace SSM.Models
         public Nullable<int> orderID { get; set; }
         public Nullable<int> status { get; set; }
     
-        public virtual contact contact { get; set; }
+        public virtual customer customer { get; set; }
         public virtual order order { get; set; }
         public virtual payment_status payment_status { get; set; }
     }

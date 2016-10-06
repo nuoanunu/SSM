@@ -33,10 +33,13 @@ namespace SSM.Models
         public Nullable<System.DateTime> LastUpdateStage { get; set; }
         public Nullable<int> Status { get; set; }
         public Nullable<int> planID { get; set; }
+        public Nullable<int> marketPlanID { get; set; }
+        public Nullable<int> Quantity { get; set; }
     
         public virtual contact contact { get; set; }
         public virtual DealStatu DealStatu { get; set; }
         public virtual PrePurchase_FollowUp_Plan PrePurchase_FollowUp_Plan { get; set; }
+        public virtual productMarketPlan productMarketPlan { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Deal_SaleRep_Respon> Deal_SaleRep_Respon { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

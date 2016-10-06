@@ -34,22 +34,23 @@
     body {
         background-color: white;
     }
-    .float{
-	position:fixed;
-	width:60px;
-	height:60px;
-	bottom:40px;
-	right:40px;
-	background-color:#0C9;
-	color:#FFF;
-	border-radius:50px;
-	text-align:center;
-	box-shadow: 2px 2px 3px #999;
-}
 
-.my-float{
-	margin-top:22px;
-}
+    .float {
+        position: fixed;
+        width: 60px;
+        height: 60px;
+        bottom: 40px;
+        right: 40px;
+        background-color: #0C9;
+        color: #FFF;
+        border-radius: 50px;
+        text-align: center;
+        box-shadow: 2px 2px 3px #999;
+    }
+
+    .my-float {
+        margin-top: 22px;
+    }
 </style>
 <script>
     $(function () {
@@ -193,11 +194,21 @@
             </div>
 
         </div>
+        <form style="display:none" id="dealWonFinalize" action="/Deal/DealWon" method="post">
 
-        <div class="col-sm-2"> <button class="push_button blue" style="width:200px"> Win </button></div>
+            <input type="hidden" name="id" value="@thisDeal.id" />
+        </form>
+        <form style="display:none" id="dealLostFinalize" action="/Deal/DealLost" method="post">
 
+            <input type="hidden" name="id" value="@thisDeal.id" />
+        </form>
+        <div class="col-sm-2"> <button class="push_button blue" style="width:200px" onclick="wondeal()"> Win </button></div>
         <div class="col-sm-2"> <button class="push_button red" style="width:200px"> Lost </button></div>
-
+        <script>
+            function wondeal() {
+                $("#dealWonFinalize").submit();
+            }
+        </script>
         <br />
 
         <br />
@@ -222,7 +233,7 @@
                     if (step.stepNo == thisDeal.Stage + 1)
                     {
 
-                        <li style="width:@wid" >@step.stepNo</li>
+                        <li style="width:@wid">@step.stepNo</li>
                     }
                     else
                     if (step.stepNo > thisDeal.Stage + 1)
@@ -255,7 +266,31 @@
                                 </tr>
                                 <tr>
                                     <td><font color="black"> Total Value</font></td>
-                                    <td><font color="black">@thisDeal.Value</font></td>
+                                    <td><font id="valuetext" color="black">@thisDeal.Value</font>
+                                             <input type="text" id="valuebox" value="@thisDeal.Value" style="display:none"/>
+                                            <i class="fa fa-save" id="savebtn1" onclick="displayBox()" style="display:none"></i>
+                                            <i class="fa fa-edit" onclick="hideBox()"></i>
+                                   
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><font color="black">Product Name</font></td>
+                                    <td><font color="black">@thisDeal.productMarketPlan.softwareProduct.name</font></td>
+                                </tr>
+                                <tr>
+                                    <td><font color="black">Product Market Plan</font></td>
+                                    <td>
+                                        <font color="black">@thisDeal.productMarketPlan.Name</font> 
+                                 
+                                            <i onclick="displayPlan()" class="fa fa-edit"></i> 
+                                            <i class="fa fa-save" id="savebtn2" onclick="hidePlan()" style="display:none"></i>
+                                        @Html.DropDownList("Plan", (List<SelectListItem>)ViewData["PlanList"], htmlAttributes: new { @class = "form-control", @style = "display:none" })
+                                    </td>
+                              
+                                </tr>
+                                <tr>
+                                    <td><font color="black">Quantity</font></td>
+                                    <td><font color="black">@thisDeal.Quantity</font></td>
                                 </tr>
                                 <tr>
                                     <td><font color="black">Aged</font></td>
@@ -271,6 +306,24 @@
                                 </tr>
                             </tbody>
                         </table>
+                        <script>
+                                 function displayPlan (){
+                                     $("#Plan").toggle();
+                                     $("#savebtn2").toggle();
+                                 } 
+                                 function hideBox (){
+                                     $("#valuebox").toggle();
+                                     $("#savebtn1").toggle();
+                                 }
+                                 function hidePlan() {
+                                     $("#Plan").toggle();
+                                     $("#savebtn2").toggle();
+                                 }
+                                 function displayBox() {
+                                     $("#valuebox").toggle();
+                                     $("#savebtn1").toggle();
+                                 }  
+                        </script>
                     </div>
                 </div>
             </div>
@@ -645,8 +698,8 @@
                             </section> <!-- cd-timeline -->
                         </div>
                     </div>
-                    <a href="#" class="float"  data-toggle="modal" data-target="#myNewTaskModal">
-                        <i class="fa fa-plus my-float" ></i>
+                    <a href="#" class="float" data-toggle="modal" data-target="#myNewTaskModal">
+                        <i class="fa fa-plus my-float"></i>
                     </a>
                     <div role="tabpanel" class="tab-pane fade" id="Section2">
                         <div class="pre-scrollable" id="timelinecontainer" style="height:800px;max-height: 800px; ">

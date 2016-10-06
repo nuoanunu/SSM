@@ -18,23 +18,21 @@ namespace SSM.Models
         public static string STRING_COMPANY = "[COMPANY NAME]";
         public static string STRING_LINK = "[LINK";
         public static List<string> AllConstant = new List<string> { STRING_FIRSTNAME, STRING_PRODUCTNAME };
-        public static string replaceMailContent(Deal deal, String content) {
+        public static string replaceMailContent(dealdata data, String content) {
             String result = content;
-            while (content.Contains(STRING_FIRSTNAME)) {
-                result = result.Replace(STRING_FIRSTNAME, deal.contact.FirstName);
+            while (result.Contains(STRING_FIRSTNAME)) {
+                result = result.Replace(STRING_FIRSTNAME, data.contact.FirstName);
             }
-            while (content.Contains(STRING_PRODUCTNAME))
+            while (result.Contains(STRING_PRODUCTNAME))
             {
-                result = result.Replace(STRING_FIRSTNAME, deal.PrePurchase_FollowUp_Plan.softwareProduct.name);
+                result = result.Replace(STRING_FIRSTNAME, data.productname);
             }
-            while (content.Contains(STRING_DATE))
+            while (result.Contains(STRING_DATE))
             {
 
                 DealTask meeting = new DealTask();
-                foreach (DealTask task in deal.DealTasks) {
-                    if (task.type == 4) meeting = task;
-                }
-                result = result.Replace(STRING_FIRSTNAME, ((DateTime) meeting.Deadline).ToShortTimeString() );
+              
+                result = result.Replace(STRING_FIRSTNAME,data.date);
 
             }
     

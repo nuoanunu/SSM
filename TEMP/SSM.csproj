@@ -234,9 +234,6 @@
     </Compile>
     <Compile Include="LogFailureAttribute.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\AggregatedCounter.cs">
-      <DependentUpon>SSMEntities2.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\AspNetRole.cs">
       <DependentUpon>SSMEntities2.tt</DependentUpon>
     </Compile>
@@ -266,16 +263,10 @@
     <Compile Include="Models\contact_resposible.cs">
       <DependentUpon>SSMEntities2.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Counter.cs">
-      <DependentUpon>SSMEntities2.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\customer.cs">
       <DependentUpon>SSMEntities2.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Customer_Request.cs">
-      <DependentUpon>SSMEntities2.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\C__MigrationHistory.cs">
       <DependentUpon>SSMEntities2.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Deal.cs">
@@ -296,23 +287,8 @@
     <Compile Include="Models\Email_Template.cs">
       <DependentUpon>SSMEntities2.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Hash.cs">
-      <DependentUpon>SSMEntities2.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\Job.cs">
-      <DependentUpon>SSMEntities2.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\JobParameter.cs">
-      <DependentUpon>SSMEntities2.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\JobQueue.cs">
-      <DependentUpon>SSMEntities2.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\License.cs">
-      <DependentUpon>SSMEntities2.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\List.cs">
       <DependentUpon>SSMEntities2.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ManageViewModels.cs" />
@@ -365,19 +341,10 @@
     <Compile Include="Models\SaleRepProfile.cs">
       <DependentUpon>SSMEntities2.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Schema.cs">
-      <DependentUpon>SSMEntities2.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Server.cs">
-      <DependentUpon>SSMEntities2.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Services\DealServices.cs" />
     <Compile Include="Models\Services\DealTaskServices.cs" />
     <Compile Include="Models\Services\EmailService.cs" />
     <Compile Include="Models\Services\ProductServices.cs" />
-    <Compile Include="Models\Set.cs">
-      <DependentUpon>SSMEntities2.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\softwareProduct.cs">
       <DependentUpon>SSMEntities2.tt</DependentUpon>
     </Compile>
@@ -395,12 +362,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>SSMEntities2.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Models\State.cs">
-      <DependentUpon>SSMEntities2.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sysdiagram.cs">
-      <DependentUpon>SSMEntities2.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TaskStatu.cs">
       <DependentUpon>SSMEntities2.tt</DependentUpon>
@@ -923,6 +884,7 @@
     <Content Include="Views\Product\FollowUpProgressEditor.cshtml" />
     <Content Include="Views\Product\Plan_Step.cshtml" />
     <Content Include="Views\Deal\Create.cshtml" />
+    <Content Include="Views\MailTemplate\MailTemplateList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
