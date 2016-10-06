@@ -85,7 +85,7 @@
                             @sp.creatorID
                         </td>
                         <td align="center">
-                            @sp.createdDate
+                            @sp.createdDate.Value.ToString("dd MMM yyyy")
                         </td>
                         <td>
                             @Html.ActionLink("Edit", "EditTemplate", "MailTemplate", new { id = @sp.id }, null)
