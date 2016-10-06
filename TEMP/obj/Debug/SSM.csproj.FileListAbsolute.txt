@@ -254,3 +254,11 @@ C:\Users\NhatVHN\Desktop\SSM\TEMP\bin\es\Hangfire.Core.resources.dll
 C:\Users\NhatVHN\Desktop\SSM\TEMP\bin\zh\Hangfire.Core.resources.dll
 C:\Users\NhatVHN\Desktop\SSM\TEMP\bin\System.Web.Http.Common.dll
 C:\Users\NhatVHN\Desktop\SSM\TEMP\bin\System.Web.Http.Common.xml
+C:\Users\Nguyen Nhat\Documents\GitHub\SSM\TEMP\bin\Hangfire.Core.dll
+C:\Users\Nguyen Nhat\Documents\GitHub\SSM\TEMP\bin\Hangfire.SqlServer.dll
+C:\Users\Nguyen Nhat\Documents\GitHub\SSM\TEMP\bin\System.Web.Http.Common.dll
+C:\Users\Nguyen Nhat\Documents\GitHub\SSM\TEMP\bin\Hangfire.Core.xml
+C:\Users\Nguyen Nhat\Documents\GitHub\SSM\TEMP\bin\Hangfire.SqlServer.xml
+C:\Users\Nguyen Nhat\Documents\GitHub\SSM\TEMP\bin\System.Web.Http.Common.xml
+C:\Users\Nguyen Nhat\Documents\GitHub\SSM\TEMP\bin\es\Hangfire.Core.resources.dll
+C:\Users\Nguyen Nhat\Documents\GitHub\SSM\TEMP\bin\zh\Hangfire.Core.resources.dll

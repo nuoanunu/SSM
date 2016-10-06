@@ -57,9 +57,9 @@
       <End Role="AspNetUser" EntitySet="AspNetUsers" />
       <End Role="contact_resposible" EntitySet="contact_resposible" />
     </AssociationSet>
-    <AssociationSet Name="FK_contacts_AspNetUsers" Association="SSMModel.FK_contacts_AspNetUsers">
+    <AssociationSet Name="FK_customers_AspNetUsers" Association="SSMModel.FK_customers_AspNetUsers">
       <End Role="AspNetUser" EntitySet="AspNetUsers" />
-      <End Role="contact" EntitySet="contacts" />
+      <End Role="customer" EntitySet="customers" />
     </AssociationSet>
     <AssociationSet Name="FK_Deal_SaleRep_Respon_AspNetUsers" Association="SSMModel.FK_Deal_SaleRep_Respon_AspNetUsers">
       <End Role="AspNetUser" EntitySet="AspNetUsers" />
@@ -97,18 +97,6 @@
       <End Role="contact" EntitySet="contacts" />
       <End Role="Deal" EntitySet="Deals" />
     </AssociationSet>
-    <AssociationSet Name="FK_Licenses_contacts" Association="SSMModel.FK_Licenses_contacts">
-      <End Role="contact" EntitySet="contacts" />
-      <End Role="License" EntitySet="Licenses" />
-    </AssociationSet>
-    <AssociationSet Name="FK_orders_contacts" Association="SSMModel.FK_orders_contacts">
-      <End Role="contact" EntitySet="contacts" />
-      <End Role="order" EntitySet="orders" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Payment_contacts" Association="SSMModel.FK_Payment_contacts">
-      <End Role="contact" EntitySet="contacts" />
-      <End Role="Payment" EntitySet="Payments" />
-    </AssociationSet>
     <AssociationSet Name="FK_Customer_Request_Customer_Request" Association="SSMModel.FK_Customer_Request_Customer_Request">
       <End Role="Customer_Request" EntitySet="Customer_Request" />
       <End Role="Customer_Request1" EntitySet="Customer_Request" />
@@ -129,12 +117,20 @@
       <End Role="customer" EntitySet="customers" />
       <End Role="order" EntitySet="orders" />
     </AssociationSet>
+    <AssociationSet Name="FK_Payment_customers" Association="SSMModel.FK_Payment_customers">
+      <End Role="customer" EntitySet="customers" />
+      <End Role="Payment" EntitySet="Payments" />
+    </AssociationSet>
     <AssociationSet Name="FK_Deal_DealStatus" Association="SSMModel.FK_Deal_DealStatus">
       <End Role="DealStatu" EntitySet="DealStatus" />
       <End Role="Deal" EntitySet="Deals" />
     </AssociationSet>
     <AssociationSet Name="FK_Deal_PrePurchase_FollowUp_Plan" Association="SSMModel.FK_Deal_PrePurchase_FollowUp_Plan">
       <End Role="PrePurchase_FollowUp_Plan" EntitySet="PrePurchase_FollowUp_Plan" />
+      <End Role="Deal" EntitySet="Deals" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Deal_productMarketPlan" Association="SSMModel.FK_Deal_productMarketPlan">
+      <End Role="productMarketPlan" EntitySet="productMarketPlans" />
       <End Role="Deal" EntitySet="Deals" />
     </AssociationSet>
     <AssociationSet Name="FK_Deal_SaleRep_Respon_Deal" Association="SSMModel.FK_Deal_SaleRep_Respon_Deal">
@@ -225,27 +221,6 @@
       <End Role="AspNetRole" EntitySet="AspNetRoles" />
       <End Role="AspNetUser" EntitySet="AspNetUsers" />
     </AssociationSet>
-    <EntitySet Name="C__MigrationHistory" EntityType="SSMModel.C__MigrationHistory" />
-    <EntitySet Name="sysdiagrams" EntityType="SSMModel.sysdiagram" />
-    <EntitySet Name="AggregatedCounters" EntityType="SSMModel.AggregatedCounter" />
-    <EntitySet Name="Counters" EntityType="SSMModel.Counter" />
-    <EntitySet Name="Hashes" EntityType="SSMModel.Hash" />
-    <EntitySet Name="Jobs" EntityType="SSMModel.Job" />
-    <EntitySet Name="JobParameters" EntityType="SSMModel.JobParameter" />
-    <EntitySet Name="JobQueues" EntityType="SSMModel.JobQueue" />
-    <EntitySet Name="Lists" EntityType="SSMModel.List" />
-    <EntitySet Name="Schemata" EntityType="SSMModel.Schema" />
-    <EntitySet Name="Servers" EntityType="SSMModel.Server" />
-    <EntitySet Name="Sets" EntityType="SSMModel.Set" />
-    <EntitySet Name="States" EntityType="SSMModel.State" />
-    <AssociationSet Name="FK_HangFire_JobParameter_Job" Association="SSMModel.FK_HangFire_JobParameter_Job">
-      <End Role="Job" EntitySet="Jobs" />
-      <End Role="JobParameter" EntitySet="JobParameters" />
-    </AssociationSet>
-    <AssociationSet Name="FK_HangFire_State_Job" Association="SSMModel.FK_HangFire_State_Job">
-      <End Role="Job" EntitySet="Jobs" />
-      <End Role="State" EntitySet="States" />
-    </AssociationSet>
   </EntityContainer>
   <EntityType Name="AspNetRole">
     <Key>
@@ -297,7 +272,7 @@
     <NavigationProperty Name="attributeOptions" Relationship="SSMModel.FK_attributeOption_AspNetUsers" FromRole="AspNetUser" ToRole="attributeOption" />
     <NavigationProperty Name="company_responsible" Relationship="SSMModel.FK_company_responsible_AspNetUsers" FromRole="AspNetUser" ToRole="company_responsible" />
     <NavigationProperty Name="contact_resposible" Relationship="SSMModel.FK_contact_resposible_AspNetUsers" FromRole="AspNetUser" ToRole="contact_resposible" />
-    <NavigationProperty Name="contacts" Relationship="SSMModel.FK_contacts_AspNetUsers" FromRole="AspNetUser" ToRole="contact" />
+    <NavigationProperty Name="customers" Relationship="SSMModel.FK_customers_AspNetUsers" FromRole="AspNetUser" ToRole="customer" />
     <NavigationProperty Name="Deal_SaleRep_Respon" Relationship="SSMModel.FK_Deal_SaleRep_Respon_AspNetUsers" FromRole="AspNetUser" ToRole="Deal_SaleRep_Respon" />
     <NavigationProperty Name="MasterSchedule_User" Relationship="SSMModel.FK_MasterSchedule_User_AspNetUsers" FromRole="AspNetUser" ToRole="MasterSchedule_User" />
     <NavigationProperty Name="SaleRepProfiles" Relationship="SSMModel.FK_SaleRepProfile_AspNetUsers" FromRole="AspNetUser" ToRole="SaleRepProfile" />
@@ -381,13 +356,9 @@
     <Property Name="Zip" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="userID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="AspNetUser" Relationship="SSMModel.FK_contacts_AspNetUsers" FromRole="contact" ToRole="AspNetUser" />
     <NavigationProperty Name="contact_resposible" Relationship="SSMModel.FK_contact_resposible_contacts" FromRole="contact" ToRole="contact_resposible" />
     <NavigationProperty Name="Customer_Request" Relationship="SSMModel.FK_Customer_Request_contacts" FromRole="contact" ToRole="Customer_Request" />
     <NavigationProperty Name="Deals" Relationship="SSMModel.FK_Deal_contacts" FromRole="contact" ToRole="Deal" />
-    <NavigationProperty Name="Licenses" Relationship="SSMModel.FK_Licenses_contacts" FromRole="contact" ToRole="License" />
-    <NavigationProperty Name="orders" Relationship="SSMModel.FK_orders_contacts" FromRole="contact" ToRole="order" />
-    <NavigationProperty Name="Payments" Relationship="SSMModel.FK_Payment_contacts" FromRole="contact" ToRole="Payment" />
   </EntityType>
   <EntityType Name="Customer_Request">
     <Key>
@@ -411,13 +382,17 @@
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="Int32" Nullable="false" />
-    <Property Name="cusName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="cusEmail" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="cusPhone" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="cusAddress" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-    <Property Name="cusCompany" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="cusCompany" Type="Int32" />
+    <Property Name="cusAddress" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="userID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="customerScine" Type="DateTime" Precision="0" />
+    <Property Name="cusEmail" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="cusName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="cusPhone" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUser" Relationship="SSMModel.FK_customers_AspNetUsers" FromRole="customer" ToRole="AspNetUser" />
     <NavigationProperty Name="Licenses" Relationship="SSMModel.FK_Licenses_customers" FromRole="customer" ToRole="License" />
     <NavigationProperty Name="orders" Relationship="SSMModel.FK_orders_customers" FromRole="customer" ToRole="order" />
+    <NavigationProperty Name="Payments" Relationship="SSMModel.FK_Payment_customers" FromRole="customer" ToRole="Payment" />
   </EntityType>
   <EntityType Name="Deal">
     <Key>
@@ -435,9 +410,11 @@
     <Property Name="LastUpdateStage" Type="DateTime" Precision="0" />
     <Property Name="Status" Type="Int32" />
     <Property Name="planID" Type="Int32" />
+    <Property Name="marketPlanID" Type="Int32" />
     <NavigationProperty Name="contact" Relationship="SSMModel.FK_Deal_contacts" FromRole="Deal" ToRole="contact" />
     <NavigationProperty Name="DealStatu" Relationship="SSMModel.FK_Deal_DealStatus" FromRole="Deal" ToRole="DealStatu" />
     <NavigationProperty Name="PrePurchase_FollowUp_Plan" Relationship="SSMModel.FK_Deal_PrePurchase_FollowUp_Plan" FromRole="Deal" ToRole="PrePurchase_FollowUp_Plan" />
+    <NavigationProperty Name="productMarketPlan" Relationship="SSMModel.FK_Deal_productMarketPlan" FromRole="Deal" ToRole="productMarketPlan" />
     <NavigationProperty Name="Deal_SaleRep_Respon" Relationship="SSMModel.FK_Deal_SaleRep_Respon_Deal" FromRole="Deal" ToRole="Deal_SaleRep_Respon" />
     <NavigationProperty Name="DealTasks" Relationship="SSMModel.FK_Tasks_Deal" FromRole="Deal" ToRole="DealTask" />
   </EntityType>
@@ -520,7 +497,6 @@
     <Property Name="productID" Type="Int32" />
     <Property Name="nextTransactionDate" Type="DateTime" Precision="0" />
     <Property Name="startDate" Type="DateTime" Precision="0" />
-    <NavigationProperty Name="contact" Relationship="SSMModel.FK_Licenses_contacts" FromRole="License" ToRole="contact" />
     <NavigationProperty Name="customer" Relationship="SSMModel.FK_Licenses_customers" FromRole="License" ToRole="customer" />
     <NavigationProperty Name="softwareProduct" Relationship="SSMModel.FK_Licenses_softwareProduct" FromRole="License" ToRole="softwareProduct" />
     <NavigationProperty Name="oder_item" Relationship="SSMModel.FK_oder_item_Licenses" FromRole="License" ToRole="oder_item" />
@@ -581,7 +557,6 @@
     <Property Name="lastModifiedDate" Type="DateTime" Precision="0" />
     <Property Name="status" Type="Int32" Nullable="false" />
     <Property Name="completedDate" Type="DateTime" Precision="0" />
-    <NavigationProperty Name="contact" Relationship="SSMModel.FK_orders_contacts" FromRole="order" ToRole="contact" />
     <NavigationProperty Name="customer" Relationship="SSMModel.FK_orders_customers" FromRole="order" ToRole="customer" />
     <NavigationProperty Name="MarketPlanPurchaseds" Relationship="SSMModel.FK_MarketPlanPurchased_orders" FromRole="order" ToRole="MarketPlanPurchased" />
     <NavigationProperty Name="oder_item" Relationship="SSMModel.FK_oder_item_orders" FromRole="order" ToRole="oder_item" />
@@ -598,7 +573,7 @@
     <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="orderID" Type="Int32" />
     <Property Name="status" Type="Int32" />
-    <NavigationProperty Name="contact" Relationship="SSMModel.FK_Payment_contacts" FromRole="Payment" ToRole="contact" />
+    <NavigationProperty Name="customer" Relationship="SSMModel.FK_Payment_customers" FromRole="Payment" ToRole="customer" />
     <NavigationProperty Name="order" Relationship="SSMModel.FK_Payment_orders" FromRole="Payment" ToRole="order" />
     <NavigationProperty Name="payment_status" Relationship="SSMModel.FK_Payment_payment_status" FromRole="Payment" ToRole="payment_status" />
   </EntityType>
@@ -623,12 +598,12 @@
     <Property Name="StepEmailContent" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="TimeFromLastStep" Type="Int32" />
     <Property Name="sendDate" Type="DateTime" Precision="0" />
+    <Property Name="subject" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Plan_Step1" Relationship="SSMModel.FK_Plan_Step_Plan_Step" FromRole="Plan_Step" ToRole="Plan_Step1" />
     <NavigationProperty Name="Plan_Step2" Relationship="SSMModel.FK_Plan_Step_Plan_Step" FromRole="Plan_Step1" ToRole="Plan_Step" />
     <NavigationProperty Name="Plan_Step11" Relationship="SSMModel.FK_Plan_Step_Plan_Step1" FromRole="Plan_Step" ToRole="Plan_Step1" />
     <NavigationProperty Name="Plan_Step3" Relationship="SSMModel.FK_Plan_Step_Plan_Step1" FromRole="Plan_Step1" ToRole="Plan_Step" />
     <NavigationProperty Name="PrePurchase_FollowUp_Plan" Relationship="SSMModel.FK_Plan_Step_PrePurchase_FollowUp_Plan" FromRole="Plan_Step" ToRole="PrePurchase_FollowUp_Plan" />
-    <Property Name="subject" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="PlanOption">
     <Key>
@@ -687,6 +662,7 @@
     <Property Name="isActive" Type="Boolean" Nullable="false" />
     <Property Name="operating" Type="Boolean" Nullable="false" />
     <NavigationProperty Name="Customer_Request" Relationship="SSMModel.FK_Customer_Request_productMarketPlan" FromRole="productMarketPlan" ToRole="Customer_Request" />
+    <NavigationProperty Name="Deals" Relationship="SSMModel.FK_Deal_productMarketPlan" FromRole="productMarketPlan" ToRole="Deal" />
     <NavigationProperty Name="MarketPlanPurchaseds" Relationship="SSMModel.FK_MarketPlanPurchased_productMarketPlan" FromRole="productMarketPlan" ToRole="MarketPlanPurchased" />
     <NavigationProperty Name="PlanOptions" Relationship="SSMModel.FK_PlanOptions_productMarketPlan" FromRole="productMarketPlan" ToRole="PlanOption" />
     <NavigationProperty Name="softwareProduct" Relationship="SSMModel.FK_orderItems_softwareProduct" FromRole="productMarketPlan" ToRole="softwareProduct" />
@@ -855,14 +831,14 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_contacts_AspNetUsers">
+  <Association Name="FK_customers_AspNetUsers">
     <End Type="SSMModel.AspNetUser" Role="AspNetUser" Multiplicity="0..1" />
-    <End Type="SSMModel.contact" Role="contact" Multiplicity="*" />
+    <End Type="SSMModel.customer" Role="customer" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="AspNetUser">
         <PropertyRef Name="Id" />
       </Principal>
-      <Dependent Role="contact">
+      <Dependent Role="customer">
         <PropertyRef Name="userID" />
       </Dependent>
     </ReferentialConstraint>
@@ -975,42 +951,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Licenses_contacts">
-    <End Type="SSMModel.contact" Role="contact" Multiplicity="0..1" />
-    <End Type="SSMModel.License" Role="License" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="contact">
-        <PropertyRef Name="id" />
-      </Principal>
-      <Dependent Role="License">
-        <PropertyRef Name="customerID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_orders_contacts">
-    <End Type="SSMModel.contact" Role="contact" Multiplicity="1" />
-    <End Type="SSMModel.order" Role="order" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="contact">
-        <PropertyRef Name="id" />
-      </Principal>
-      <Dependent Role="order">
-        <PropertyRef Name="customerID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Payment_contacts">
-    <End Type="SSMModel.contact" Role="contact" Multiplicity="1" />
-    <End Type="SSMModel.Payment" Role="Payment" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="contact">
-        <PropertyRef Name="id" />
-      </Principal>
-      <Dependent Role="Payment">
-        <PropertyRef Name="CustomerID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_Customer_Request_Customer_Request">
     <End Type="SSMModel.Customer_Request" Role="Customer_Request" Multiplicity="0..1" />
     <End Type="SSMModel.Customer_Request" Role="Customer_Request1" Multiplicity="*" />
@@ -1071,6 +1011,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Payment_customers">
+    <End Type="SSMModel.customer" Role="customer" Multiplicity="1" />
+    <End Type="SSMModel.Payment" Role="Payment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="customer">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Payment">
+        <PropertyRef Name="CustomerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Deal_DealStatus">
     <End Type="SSMModel.DealStatu" Role="DealStatu" Multiplicity="0..1" />
     <End Type="SSMModel.Deal" Role="Deal" Multiplicity="*" />
@@ -1092,6 +1044,18 @@
       </Principal>
       <Dependent Role="Deal">
         <PropertyRef Name="planID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Deal_productMarketPlan">
+    <End Type="SSMModel.productMarketPlan" Role="productMarketPlan" Multiplicity="0..1" />
+    <End Type="SSMModel.Deal" Role="Deal" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="productMarketPlan">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Deal">
+        <PropertyRef Name="marketPlanID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -1350,159 +1314,5 @@
   <Association Name="AspNetUserRoles">
     <End Type="SSMModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
     <End Type="SSMModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
-  </Association>
-  <EntityType Name="C__MigrationHistory">
-    <Key>
-      <PropertyRef Name="MigrationId" />
-      <PropertyRef Name="ContextKey" />
-    </Key>
-    <Property Name="MigrationId" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
-    <Property Name="ContextKey" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
-    <Property Name="Model" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
-    <Property Name="ProductVersion" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
-  </EntityType>
-  <EntityType Name="sysdiagram">
-    <Key>
-      <PropertyRef Name="diagram_id" />
-    </Key>
-    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-    <Property Name="principal_id" Type="Int32" Nullable="false" />
-    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="version" Type="Int32" />
-    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-  </EntityType>
-  <EntityType Name="AggregatedCounter">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Key" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-    <Property Name="Value" Type="Int64" Nullable="false" />
-    <Property Name="ExpireAt" Type="DateTime" Precision="3" />
-  </EntityType>
-  <EntityType Name="Counter">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Key" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-    <Property Name="Value" Type="Int16" Nullable="false" />
-    <Property Name="ExpireAt" Type="DateTime" Precision="3" />
-  </EntityType>
-  <EntityType Name="Hash">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Key" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-    <Property Name="Field" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-    <Property Name="Value" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="ExpireAt" Type="DateTime" Precision="7" />
-  </EntityType>
-  <EntityType Name="Job">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="StateId" Type="Int32" />
-    <Property Name="StateName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-    <Property Name="InvocationData" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="Arguments" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="ExpireAt" Type="DateTime" Precision="3" />
-    <NavigationProperty Name="JobParameters" Relationship="SSMModel.FK_HangFire_JobParameter_Job" FromRole="Job" ToRole="JobParameter" />
-    <NavigationProperty Name="States" Relationship="SSMModel.FK_HangFire_State_Job" FromRole="Job" ToRole="State" />
-  </EntityType>
-  <EntityType Name="JobParameter">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="JobId" Type="Int32" Nullable="false" />
-    <Property Name="Name" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="true" />
-    <Property Name="Value" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="Job" Relationship="SSMModel.FK_HangFire_JobParameter_Job" FromRole="JobParameter" ToRole="Job" />
-  </EntityType>
-  <EntityType Name="JobQueue">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="JobId" Type="Int32" Nullable="false" />
-    <Property Name="Queue" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="FetchedAt" Type="DateTime" Precision="3" />
-  </EntityType>
-  <EntityType Name="List">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Key" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-    <Property Name="Value" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="ExpireAt" Type="DateTime" Precision="3" />
-  </EntityType>
-  <EntityType Name="Schema">
-    <Key>
-      <PropertyRef Name="Version" />
-    </Key>
-    <Property Name="Version" Type="Int32" Nullable="false" />
-  </EntityType>
-  <EntityType Name="Server">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-    <Property Name="Data" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="LastHeartbeat" Type="DateTime" Nullable="false" Precision="3" />
-  </EntityType>
-  <EntityType Name="Set">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Key" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-    <Property Name="Score" Type="Double" Nullable="false" />
-    <Property Name="Value" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
-    <Property Name="ExpireAt" Type="DateTime" Precision="3" />
-  </EntityType>
-  <EntityType Name="State">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="JobId" Type="Int32" Nullable="false" />
-    <Property Name="Name" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-    <Property Name="Reason" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-    <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="Data" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="Job" Relationship="SSMModel.FK_HangFire_State_Job" FromRole="State" ToRole="Job" />
-  </EntityType>
-  <Association Name="FK_HangFire_JobParameter_Job">
-    <End Type="SSMModel.Job" Role="Job" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Type="SSMModel.JobParameter" Role="JobParameter" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Job">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="JobParameter">
-        <PropertyRef Name="JobId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_HangFire_State_Job">
-    <End Type="SSMModel.Job" Role="Job" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Type="SSMModel.State" Role="State" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Job">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="State">
-        <PropertyRef Name="JobId" />
-      </Dependent>
-    </ReferentialConstraint>
   </Association>
 </Schema>

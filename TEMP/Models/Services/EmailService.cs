@@ -11,26 +11,18 @@ namespace SSM.Models.Services
 {
     public class EmailServices
     {
-        public static async Task SendMail(int dealID , int step)
+        public static async Task SendMail(String mailcontent , String address,String subject )
 
         { DealRepository dealRepo = new DealRepository(new SSMEntities());
-            System.Diagnostics.Debug.WriteLine("DAFUG");
-            Deal deal = dealRepo.getByID(dealID);
-            Plan_Step thisStep = new Plan_Step();
-            List<Plan_Step> Steps = deal.PrePurchase_FollowUp_Plan.Plan_Step.ToList();
-            foreach(Plan_Step stepp in Steps) {
-                if (stepp.stepNo == step) thisStep = stepp;
-            }
-            String mailContent = thisStep.StepEmailContent;
-            mailContent = Constant.replaceMailContent(deal, mailContent);
+  
             var body = "{0}";
             var message = new MailMessage();
-            message.To.Add(new MailAddress(deal.contact.emails));  // replace with valid value 
+            message.To.Add(new MailAddress(address));  // replace with valid value 
             message.From = new MailAddress("dwarpro@gmail.com");  // replace with valid value
-            message.Subject = "Your email subject";
+            message.Subject = subject;
             SSMEntities context = new SSMEntities();
 
-            message.Body = string.Format(body, mailContent);
+            message.Body = string.Format(body, mailcontent);
             message.IsBodyHtml = true;
 
             using (var smtp = new SmtpClient())
