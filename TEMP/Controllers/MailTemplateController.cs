@@ -107,6 +107,30 @@ namespace SSM.Controllers
             return Json(dbEmailCategoryAfterInsert);
         }
 
+        public ActionResult EditTemplate(int id)
+        {
+            Email_Template dbTemplate = mailRepo.getById(id);
+
+            EmailTemplateEntity template = new EmailTemplateEntity();
+            template.Name = dbTemplate.Name;
+            template.MailContent = dbTemplate.MailContent;
+            template.CateID = dbTemplate.CateID;
+
+            EmailCategory cate = new EmailCategory();
+            cate.Name = cateRepo.getById((int)template.CateID).Name;
+
+
+            var viewModel = new CreateEmailTemplateViewModel
+            {
+                EmailTemplateEntity = template,
+                EmailCategories = getCategories(),
+                EmailCategory = cate
+            };
+            return View("EditTemplate", viewModel);
+
+
+        }
+
         public List<EmailCategory> getCategories()
         {
             var dbCategories = cateRepo.getAll();

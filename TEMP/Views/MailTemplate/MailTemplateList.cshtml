@@ -61,6 +61,9 @@
                     Category
                 </th>
                 <th>
+                    Author
+                </th>
+                <th>
                     Created Date
                 </th>
                 <th>Edit</th>
@@ -79,10 +82,13 @@
                             @sp.EMAIL_Category.Name
                         </td>
                         <td align="center">
+                            @sp.creatorID
+                        </td>
+                        <td align="center">
                             @sp.createdDate
                         </td>
                         <td>
-                            @Html.ActionLink("Edit", "EditContact", "Contact", new { id = @sp.id }, null)
+                            @Html.ActionLink("Edit", "EditTemplate", "MailTemplate", new { id = @sp.id }, null)
                         </td>
 
 

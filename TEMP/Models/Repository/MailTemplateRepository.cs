@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using SSM.Models.TempModel;
+using SSM.Models;
 
 namespace SSM.Models.Repository
 {
@@ -72,6 +73,11 @@ namespace SSM.Models.Repository
         {
             Dispose(true);
             GC.SuppressFinalize(this);
+        }
+
+        public Email_Template getById(int id)
+        {
+            return context.Email_Template.Find(id);
         }
     }
 }
