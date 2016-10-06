@@ -88,6 +88,21 @@
         <AssociationConnector Association="SSMModel.FK_productAttributes_softwareProduct" />
         <AssociationConnector Association="SSMModel.FK_orderItems_softwareProduct" />
         <AssociationConnector Association="SSMModel.AspNetUserRoles" />
+        <EntityTypeShape EntityType="SSMModel.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="7.75" />
+        <EntityTypeShape EntityType="SSMModel.sysdiagram" Width="1.5" PointX="2.75" PointY="7.75" />
+        <EntityTypeShape EntityType="SSMModel.AggregatedCounter" Width="1.5" PointX="4.75" PointY="7.75" />
+        <EntityTypeShape EntityType="SSMModel.Counter" Width="1.5" PointX="6.75" PointY="7.75" />
+        <EntityTypeShape EntityType="SSMModel.Hash" Width="1.5" PointX="8.75" PointY="7.75" />
+        <EntityTypeShape EntityType="SSMModel.Job" Width="1.5" PointX="5.75" PointY="2.25" />
+        <EntityTypeShape EntityType="SSMModel.JobParameter" Width="1.5" PointX="8" PointY="4.25" />
+        <EntityTypeShape EntityType="SSMModel.JobQueue" Width="1.5" PointX="10.75" PointY="0.75" />
+        <EntityTypeShape EntityType="SSMModel.List" Width="1.5" PointX="0.75" PointY="10.75" />
+        <EntityTypeShape EntityType="SSMModel.Schema" Width="1.5" PointX="10.75" PointY="3.75" />
+        <EntityTypeShape EntityType="SSMModel.Server" Width="1.5" PointX="10.75" PointY="5.75" />
+        <EntityTypeShape EntityType="SSMModel.Set" Width="1.5" PointX="10.75" PointY="8.75" />
+        <EntityTypeShape EntityType="SSMModel.State" Width="1.5" PointX="8" PointY="1.125" />
+        <AssociationConnector Association="SSMModel.FK_HangFire_JobParameter_Job" />
+        <AssociationConnector Association="SSMModel.FK_HangFire_State_Job" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

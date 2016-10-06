@@ -50,6 +50,14 @@
       <HintPath>..\packages\DocX.1.0.0.22\lib\net40\DocX.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Hangfire.Core, Version=1.6.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Hangfire.Core.1.6.5\lib\net45\Hangfire.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Hangfire.SqlServer, Version=1.6.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Hangfire.SqlServer.1.6.5\lib\net45\Hangfire.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.AI.Agent.Intercept, Version=1.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.1.2.1\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
       <Private>True</Private>
@@ -94,6 +102,10 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Http.Common, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Web.Http.Common.4.0.20126.16343\lib\net40\System.Web.Http.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -220,7 +232,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="LogFailureAttribute.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AggregatedCounter.cs">
+      <DependentUpon>SSMEntities2.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\AspNetRole.cs">
       <DependentUpon>SSMEntities2.tt</DependentUpon>
     </Compile>
@@ -242,16 +258,24 @@
     <Compile Include="Models\company_responsible.cs">
       <DependentUpon>SSMEntities2.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Constant.cs" />
     <Compile Include="Models\contact.cs">
       <DependentUpon>SSMEntities2.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Contactdata.cs" />
     <Compile Include="Models\contact_resposible.cs">
+      <DependentUpon>SSMEntities2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Counter.cs">
       <DependentUpon>SSMEntities2.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\customer.cs">
       <DependentUpon>SSMEntities2.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Customer_Request.cs">
+      <DependentUpon>SSMEntities2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\C__MigrationHistory.cs">
       <DependentUpon>SSMEntities2.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Deal.cs">
@@ -272,8 +296,23 @@
     <Compile Include="Models\Email_Template.cs">
       <DependentUpon>SSMEntities2.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Hash.cs">
+      <DependentUpon>SSMEntities2.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Job.cs">
+      <DependentUpon>SSMEntities2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\JobParameter.cs">
+      <DependentUpon>SSMEntities2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\JobQueue.cs">
+      <DependentUpon>SSMEntities2.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\License.cs">
+      <DependentUpon>SSMEntities2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\List.cs">
       <DependentUpon>SSMEntities2.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ManageViewModels.cs" />
@@ -326,9 +365,19 @@
     <Compile Include="Models\SaleRepProfile.cs">
       <DependentUpon>SSMEntities2.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Schema.cs">
+      <DependentUpon>SSMEntities2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Server.cs">
+      <DependentUpon>SSMEntities2.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Services\DealServices.cs" />
     <Compile Include="Models\Services\DealTaskServices.cs" />
+    <Compile Include="Models\Services\EmailService.cs" />
     <Compile Include="Models\Services\ProductServices.cs" />
+    <Compile Include="Models\Set.cs">
+      <DependentUpon>SSMEntities2.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\softwareProduct.cs">
       <DependentUpon>SSMEntities2.tt</DependentUpon>
     </Compile>
@@ -346,6 +395,12 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>SSMEntities2.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\State.cs">
+      <DependentUpon>SSMEntities2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sysdiagram.cs">
+      <DependentUpon>SSMEntities2.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TaskStatu.cs">
       <DependentUpon>SSMEntities2.tt</DependentUpon>
