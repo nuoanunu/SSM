@@ -45,5 +45,10 @@ namespace SSM.Models.Repository
             context.SaveChanges();
             return emailCategory;
         }
+
+        public EMAIL_Category getById(int id)
+        {
+            return context.EMAIL_Category.Find(id);
+        }
     }
 }

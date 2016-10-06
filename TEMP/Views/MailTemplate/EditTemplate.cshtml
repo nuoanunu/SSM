@@ -1,8 +1,10 @@
-﻿@model SSM.ViewModels.CreateEmailTemplateViewModel
+﻿
+@model SSM.ViewModels.CreateEmailTemplateViewModel
 
 @{
     ViewBag.Title = "Add Email Template";
 }
+
 
 <script src="~/Scripts/tinymce/jquery.tinymce.min.js"></script>
 <script src="~/Scripts/tinymce/tinymce.min.js"></script>
@@ -17,14 +19,16 @@
     }
 </style>
 
-<h2>Create Email Template</h2>
+
+<h2>Edit Email Template</h2>
 
 <button id="btnShow" class="btn btn-primary">Add Category</button>
 
 @using (Html.BeginForm("Save", "MailTemplate", FormMethod.Post, new { id = "submitform" }))
 {
     @Html.ValidationSummary(true, "Please fix the following errors")
-    <div class="form-group">
+    <div class="form-group">      
+        @Html.HiddenFor(m => m.EmailCategory.Name)
         @Html.LabelFor(m => m.EmailTemplateEntity.EmailCategoryId, new { @class = "required" })
         @Html.DropDownListFor(m => m.EmailTemplateEntity.EmailCategoryId, new SelectList(Model.EmailCategories, "id", "Name"), "", new { @class = "form-control" })
         @Html.ValidationMessageFor(m => m.EmailTemplateEntity.EmailCategoryId)
@@ -34,9 +38,10 @@
         @Html.TextBoxFor(m => m.EmailTemplateEntity.Name, new { @class = "form-control" })
         @Html.ValidationMessageFor(m => m.EmailTemplateEntity.Name)
     </div>
+    
 
     //Mail Content
-    <textarea></textarea>
+    <textarea id="contentEmail"></textarea>
 
     <div class="form-group">
         @Html.HiddenFor(m => m.EmailTemplateEntity.id)
@@ -75,7 +80,7 @@
                 }
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>               
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
@@ -84,6 +89,10 @@
 
 <script>
     $(document).ready(function () {
+        $(".EmailTemplateEntity.EmailCategoryId option:contains(" + $('.EmailCategory.Name').val() + ")").attr('selected', 'selected');
+
+        $('#contentEmail').val($('#EmailTemplateEntity_MailContent').val());
+
         tinymce.init({
             //selector: 'textarea#editext' + stepno,
             selector: 'textarea',
@@ -94,13 +103,13 @@
               'insertdatetime media table contextmenu paste code'
             ],
             toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
-            content_css: '//www.tinymce.com/css/codepen.min.css'
-    });
-        
-
+            content_css: '//www.tinymce.com/css/codepen.min.css'           
+        });              
+       
         $("#btnShow").click(function () {
+            
             $('#demoModal').modal('show');
-        });      
+        });
 
         //Check mail content not null and assign value of text area tag to hidden field mail content
         $('#buttonSend').click(function (e) {
@@ -120,7 +129,7 @@
     });
 </script>
 
-<script>
+<script>   
 
     //Function onSuccess of Ajax call
     function onSuccessAddCategory(newCategory) {
@@ -137,29 +146,3 @@
 {
     @Scripts.Render("~/bundles/jqueryval")
 }
-
-@*Reference*@
-<script>
-    //$("#buttonSend").on("click", function () {
-    //    //alert(tinyMCE.activeEditor.getContent());
-    //    $('#EmailTemplateEntity_MailContent').val(tinyMCE.activeEditor.getContent());
-    //    //alert($('#EmailTemplateEntity_MailContent').val());
-    //});
-
-    //$('#submitform').on('submit', function (e) {
-
-    //    var content = tinyMCE.activeEditor.getContent();
-    //    alert("content la" + content);
-    //    if (content == undefined || content == null) {
-    //        alert("Please enter mail content!");
-    //        e.preventDefault();
-    //        e.stopImmediatePropagation();
-    //    }
-    //    else {
-    //        $('#EmailTemplateEntity_MailContent').val(tinyMCE.activeEditor.getContent());
-    //        this.submit();
-    //    }
-    //});
-</script>
-
-
