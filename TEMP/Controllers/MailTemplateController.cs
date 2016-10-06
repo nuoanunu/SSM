@@ -23,7 +23,10 @@ namespace SSM.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            ViewData["templateList"] = mailRepo.getAll();
+            return View("MailTemplateList");
+
+           
         }
 
 
@@ -63,7 +66,7 @@ namespace SSM.Controllers
             {
                 mailRepo.EditMailTemplate(emailTemplate);
             }
-            return RedirectToAction("Add", "MailTemplate");
+            return RedirectToAction("Index", "MailTemplate");
         }
 
 
