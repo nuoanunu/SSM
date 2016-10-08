@@ -8,6 +8,7 @@ using Microsoft.AspNet.Identity;
 using Hangfire;
 using SSM.Models.Services;
 using SSM.Models.Repository;
+using SSM.Models.Storage;
 
 namespace SSM.Controllers
 {
@@ -134,6 +135,7 @@ namespace SSM.Controllers
             ViewData["ClientResponsibleFor"] = client;
             return View("Create");
         }
+       
         public void DealWon(int id)
         {
             SSMEntities se = new SSMEntities();
@@ -144,7 +146,7 @@ namespace SSM.Controllers
                 deal.Status = 3;
                 order order = new order();
                 customer cus = new customer();
-               
+                cus.userID = "ed2fd581-f82a-435b-a748-14003a021f78";
                 cus.cusAddress = deal.contact.Street + " " + deal.contact.City + " " + deal.contact.Region + " ";
                 cus.cusCompany = 1;
                 cus.cusEmail = deal.contact.emails;
@@ -159,7 +161,11 @@ namespace SSM.Controllers
                 order.status = 1;
                 order.total = (double)order.subtotal * 1.1;
                 order.VAT = (double)order.subtotal * 0.1;
+                Storage storeage = new Storage();
+ 
                 se.orders.Add(order);
+                se.SaveChanges();
+                order.Contract = storeage.uploadfile("ed2fd581-f82a-435b-a748-14003a021f78", "order" + order.id);
                 se.SaveChanges();
                 MarketPlanPurchased mp = new MarketPlanPurchased();
                 mp.orderID = order.id;
@@ -170,9 +176,11 @@ namespace SSM.Controllers
                 mp.quantity = deal.Quantity;
                 se.MarketPlanPurchaseds.Add(mp);
                 se.SaveChanges();
+                
 
 
             }
+
         }
     }
 }

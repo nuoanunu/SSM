@@ -289,6 +289,7 @@
     <EntitySetMapping Name="orders">
       <EntityTypeMapping TypeName="SSMModel.order">
         <MappingFragment StoreEntitySet="orders">
+          <ScalarProperty Name="Contract" ColumnName="Contract" />
           <ScalarProperty Name="completedDate" ColumnName="completedDate" />
           <ScalarProperty Name="status" ColumnName="status" />
           <ScalarProperty Name="lastModifiedDate" ColumnName="lastModifiedDate" />

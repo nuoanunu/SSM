@@ -287,6 +287,7 @@
     <Property Name="lastModifiedDate" Type="date" />
     <Property Name="status" Type="int" Nullable="false" />
     <Property Name="completedDate" Type="date" />
+    <Property Name="Contract" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="Payment">
     <Key>

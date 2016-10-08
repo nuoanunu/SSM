@@ -292,6 +292,7 @@
           <Property Name="lastModifiedDate" Type="date" />
           <Property Name="status" Type="int" Nullable="false" />
           <Property Name="completedDate" Type="date" />
+          <Property Name="Contract" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Payment">
           <Key>
@@ -1834,6 +1835,7 @@
           <NavigationProperty Name="MarketPlanPurchaseds" Relationship="SSMModel.FK_MarketPlanPurchased_orders" FromRole="order" ToRole="MarketPlanPurchased" />
           <NavigationProperty Name="oder_item" Relationship="SSMModel.FK_oder_item_orders" FromRole="order" ToRole="oder_item" />
           <NavigationProperty Name="Payments" Relationship="SSMModel.FK_Payment_orders" FromRole="order" ToRole="Payment" />
+          <Property Name="Contract" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Payment">
           <Key>
@@ -2882,6 +2884,7 @@
           <EntitySetMapping Name="orders">
             <EntityTypeMapping TypeName="SSMModel.order">
               <MappingFragment StoreEntitySet="orders">
+                <ScalarProperty Name="Contract" ColumnName="Contract" />
                 <ScalarProperty Name="completedDate" ColumnName="completedDate" />
                 <ScalarProperty Name="status" ColumnName="status" />
                 <ScalarProperty Name="lastModifiedDate" ColumnName="lastModifiedDate" />

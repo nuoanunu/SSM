@@ -563,6 +563,7 @@
     <NavigationProperty Name="MarketPlanPurchaseds" Relationship="SSMModel.FK_MarketPlanPurchased_orders" FromRole="order" ToRole="MarketPlanPurchased" />
     <NavigationProperty Name="oder_item" Relationship="SSMModel.FK_oder_item_orders" FromRole="order" ToRole="oder_item" />
     <NavigationProperty Name="Payments" Relationship="SSMModel.FK_Payment_orders" FromRole="order" ToRole="Payment" />
+    <Property Name="Contract" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="Payment">
     <Key>

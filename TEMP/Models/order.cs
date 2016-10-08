@@ -32,6 +32,7 @@ namespace SSM.Models
         public Nullable<System.DateTime> lastModifiedDate { get; set; }
         public int status { get; set; }
         public Nullable<System.DateTime> completedDate { get; set; }
+        public string Contract { get; set; }
     
         public virtual customer customer { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
