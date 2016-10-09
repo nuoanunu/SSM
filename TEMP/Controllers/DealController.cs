@@ -9,6 +9,10 @@ using Hangfire;
 using SSM.Models.Services;
 using SSM.Models.Repository;
 using SSM.Models.Storage;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
+using System.Threading.Tasks;
 
 namespace SSM.Controllers
 {
@@ -35,29 +39,27 @@ namespace SSM.Controllers
             se.Deals.Add(deal);
             se.SaveChanges();
             contact contact = se.contacts.Find(deal.Client);
+            int day = 0;
             if (contact != null)
             {
                 foreach (Plan_Step tep in se.PrePurchase_FollowUp_Plan.Find(plan).Plan_Step)
                 {
-
+                    
                     if (tep.TimeFromLastStep == null) tep.TimeFromLastStep = 0;
-                    dealdata data = new dealdata();
-                    taskdata taskdata = new taskdata(tep);
-                    Contactdata contactdata = new Contactdata(contact);
-                    data.DealTask = taskdata;
-                    data.contact = contactdata;
-                    String mailContent = Constant.replaceMailContent(data, taskdata.MailContent);
-               
-                    if (tep.TimeFromLastStep == 0)
-                    {
+                    day = day +  (int)tep.TimeFromLastStep;
+                    DealTask task = new DealTask();
+                    task.dealID = deal.id;
+                    task.TaskDescription = tep.StepEmailContent;
 
-                        BackgroundJob.Schedule(() => EmailServices.SendMail(mailContent, contact.emails, taskdata.subject), TimeSpan.FromSeconds(10));
-
-                    }
-                    else
-                    {
-                        BackgroundJob.Schedule(() => EmailServices.SendMail(mailContent, contact.emails, taskdata.subject), TimeSpan.FromDays((int)tep.TimeFromLastStep));
-                    }
+                    task.status = 1;
+                    if (tep.RequireMoreDetail) task.status = 7;
+                    task.Deadline = DateTime.Today.AddDays(day);
+                    task.CreateDate = DateTime.Today;
+                    task.TaskContent = tep.subject;
+                    task.TaskName = "Progress";
+                    task.type = 8;
+                    se.DealTasks.Add(task);
+                    se.SaveChanges();
                 }
             }
 
@@ -135,18 +137,53 @@ namespace SSM.Controllers
             ViewData["ClientResponsibleFor"] = client;
             return View("Create");
         }
-       
-        public void DealWon(int id)
+        [HttpPost]
+        [ValidateInput(false)]
+        public JsonResult EditPlanMail(int taskid, String newcontent) {
+            SSMEntities se = new SSMEntities();
+           DealTask task =se.DealTasks.Find(taskid);
+            try
+            {
+                if (task != null)
+                {
+                    task.TaskDescription = newcontent;
+                    task.status = 1;
+                    se.SaveChanges();
+                    return Json(new { result = "success" }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception e) { }
+      
+            return Json(new { result = "fail" }, JsonRequestBehavior.AllowGet);
+        }
+        private ApplicationUserManager _userManager;
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
+        }
+
+        public void DealWon(int id, String userID)
         {
             SSMEntities se = new SSMEntities();
             DealRepository dealrepo = new DealRepository(se);
             Deal deal = dealrepo.getByID(id);
             if (deal != null)
             {
+           
+
+            
+
                 deal.Status = 3;
-                order order = new order();
+                
                 customer cus = new customer();
-                cus.userID = "ed2fd581-f82a-435b-a748-14003a021f78";
+                cus.userID = userID;
                 cus.cusAddress = deal.contact.Street + " " + deal.contact.City + " " + deal.contact.Region + " ";
                 cus.cusCompany = 1;
                 cus.cusEmail = deal.contact.emails;
@@ -154,33 +191,43 @@ namespace SSM.Controllers
                 cus.cusPhone = deal.contact.Phone;
                 se.customers.Add(cus);
                 se.SaveChanges();
-                order.customerID = cus.id;
-                float price = 0;
-                order.orderNumber = 123123123;
-                order.subtotal = deal.Value;
-                order.status = 1;
-                order.total = (double)order.subtotal * 1.1;
-                order.VAT = (double)order.subtotal * 0.1;
-                Storage storeage = new Storage();
- 
-                se.orders.Add(order);
-                se.SaveChanges();
-                order.Contract = storeage.uploadfile("ed2fd581-f82a-435b-a748-14003a021f78", "order" + order.id);
-                se.SaveChanges();
-                MarketPlanPurchased mp = new MarketPlanPurchased();
-                mp.orderID = order.id;
-                mp.planID = deal.productMarketPlan.id;
-                mp.productID = deal.productMarketPlan.productID;
+                try {
+                    order order = new order();
+                    order.customerID = cus.id;
+                    float price = 0;
+                    order.orderNumber = 123123123;
+                    order.subtotal = deal.Value;
+                    order.status = 1;
+                    order.total = (double)order.subtotal * 1.1;
+                    order.VAT = (double)order.subtotal * 0.1;
+                    Storage storeage = new Storage();
 
-                mp.SoldPrice = (double) deal.Value ;
-                mp.quantity = deal.Quantity;
-                se.MarketPlanPurchaseds.Add(mp);
-                se.SaveChanges();
+                    se.orders.Add(order);
+                    se.SaveChanges();
+                    order.Contract = storeage.uploadfile(userID, "order" + order.id);
+                    se.SaveChanges();
+                    MarketPlanPurchased mp = new MarketPlanPurchased();
+                    mp.orderID = order.id;
+                    mp.planID = deal.productMarketPlan.id;
+                    mp.productID = deal.productMarketPlan.productID;
+
+                    mp.SoldPrice = (double)deal.Value;
+                    mp.quantity = deal.Quantity;
+                    se.MarketPlanPurchaseds.Add(mp);
+                    se.SaveChanges();
+                    deal.Status = 5; se.SaveChanges();
+                }
+                catch (Exception e) {
+                 
+                }
+                
                 
 
 
             }
 
         }
+        
+
     }
 }

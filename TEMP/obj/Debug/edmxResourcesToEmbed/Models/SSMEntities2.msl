@@ -328,6 +328,7 @@
     <EntitySetMapping Name="Plan_Step">
       <EntityTypeMapping TypeName="SSMModel.Plan_Step">
         <MappingFragment StoreEntitySet="Plan_Step">
+          <ScalarProperty Name="RequireMoreDetail" ColumnName="RequireMoreDetail" />
           <ScalarProperty Name="subject" ColumnName="subject" />
           <ScalarProperty Name="sendDate" ColumnName="sendDate" />
           <ScalarProperty Name="TimeFromLastStep" ColumnName="TimeFromLastStep" />
@@ -499,5 +500,31 @@
         <ScalarProperty Name="Id" ColumnName="RoleId" />
       </EndProperty>
     </AssociationSetMapping>
+    <EntitySetMapping Name="TrialAccounts">
+      <EntityTypeMapping TypeName="SSMModel.TrialAccount">
+        <MappingFragment StoreEntitySet="TrialAccount">
+          <ScalarProperty Name="contactID" ColumnName="contactID" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="PlanID" ColumnName="PlanID" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="AccountID" ColumnName="AccountID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Product_responsible">
+      <EntityTypeMapping TypeName="SSMModel.Product_responsible">
+        <MappingFragment StoreEntitySet="Product_responsible">
+          <ScalarProperty Name="TotalRevenue" ColumnName="TotalRevenue" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="maxCommision" ColumnName="maxCommision" />
+          <ScalarProperty Name="minCommision" ColumnName="minCommision" />
+          <ScalarProperty Name="saleRepID" ColumnName="saleRepID" />
+          <ScalarProperty Name="productID" ColumnName="productID" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

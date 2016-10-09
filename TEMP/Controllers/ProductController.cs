@@ -28,23 +28,61 @@ namespace SSM.Controllers
         }
         public ActionResult MarketPlanDetail(int id) {
             SSMEntities se = new SSMEntities();
-            return View("MarketPlanDetail", se.productMarketPlans.Find(id));
+            productMarketPlan plan = se.productMarketPlans.Find(id);
+            if (plan != null) {
+                int totaluser = se.MarketPlanPurchaseds.ToList().Count();
+                int trailInuse = se.TrialAccounts.SqlQuery("SELECT * FROM TrialAccount WHERE planID= " + id + " and status=2").ToList().Count();
+                int salers = se.Product_responsible.SqlQuery("SELECT * FROM Product_responsible WHERE productID=" + plan.productID).ToList().Count();
+
+                List<Product_responsible> topssaler = se.Product_responsible.SqlQuery("SELECT * FROM Product_responsible WHERE productID=" + plan.productID).ToList();
+                topssaler.OrderBy(x => x.TotalRevenue);
+                if(topssaler.Count>6)
+                topssaler.RemoveRange(6, topssaler.Count());
+                List<MarketPlanPurchased> lst = se.MarketPlanPurchaseds.SqlQuery("SELECT * FROM MarketPlanPurchased WHERE productID= " + plan.productID).ToList();
+                double total = 0;
+                double thisplancontribute = 0;
+                foreach (MarketPlanPurchased pl in lst) {
+                    total = total + pl.SoldPrice;
+                    if (pl.id == plan.id) {
+                        thisplancontribute = thisplancontribute + pl.SoldPrice;
+                    }
+
+                }
+                
+                double percentage = 0;
+                if (total != 0) percentage = thisplancontribute * 100 / total;
+                ViewData["trialAccount"] = se.TrialAccounts.SqlQuery("SELECT * FROM TrialAccount WHERE planID= " + id).ToList();
+                ViewData["totaluser"] = totaluser;
+                ViewData["trailInuse"] = trailInuse;
+                ViewData["salers"] = salers;
+                ViewData["percentage"] = percentage;
+                ViewData["total"] = total;
+                ViewData["topssaler"] = topssaler;
+                ViewData["Plan"] = plan;
+                return View("MarketPlanDetail", se.productMarketPlans.Find(id));
+            }
+
+            return View("Index");
+
         }
-        public ActionResult NewPlan(int productID)
+        [HttpPost]
+        public ActionResult NewTrialAccount(String username, String password, int planID) {
+            SSMEntities se = new SSMEntities();
+            TrialAccount trail = new TrialAccount();
+            trail.UserName = username;
+            trail.Password = password;
+            trail.PlanID = planID;
+            trail.Status = 1;
+            se.TrialAccounts.Add(trail);
+            se.SaveChanges();
+            return RedirectToAction("MarketPlanDetail", new { id = planID });
+        }
+       public ActionResult NewPlan(int productID)
         {
             SSMEntities se = new SSMEntities();
 
             ViewData["MailCate"] = se.EMAIL_Category.ToList();
-            PrePurchase_FollowUp_Plan preplan = new PrePurchase_FollowUp_Plan();
-            preplan.name = " New Followup plan - " + DateTime.Today;
-            preplan.Description = " New plan";
-            preplan.isActive = true;
-            preplan.createDate = DateTime.Today;
-            preplan.productID = productID;
-            preplan.fullDuration = 0;
-            se.PrePurchase_FollowUp_Plan.Add(preplan);
-            se.SaveChanges();
-            ViewData["planID"] = preplan.id;
+        
             ViewData["Product"] = productID;
 
             return View("NewFollowUpPlan", new FollowupProgressModel());
@@ -62,54 +100,7 @@ namespace SSM.Controllers
             // return View("EditFollowUpPlan");
             return View("FollowUpProgressEditor", new FollowupProgressModel(preplan));
         }
-        [HttpPost]
-        [ValidateInput(false)]
-        public ActionResult CreateNewPlan(int planID, String name, String description, String stepdata)
-        {
 
-            SSMEntities se = new SSMEntities();
-            PrePurchase_FollowUp_Plan preplan = se.PrePurchase_FollowUp_Plan.Find(planID);
-            if (preplan != null)
-            {
-                preplan.name = name;
-                preplan.Description = description;
-                se.SaveChanges();
-            }
-            System.Diagnostics.Debug.WriteLine(stepdata);
-            String[] steps = stepdata.Split(new[] { "[endofStep]" }, StringSplitOptions.RemoveEmptyEntries);
-            int index = 1;
-            List<Plan_Step> lst = new List<Plan_Step>();
-            foreach (String step in steps)
-            {
-                System.Diagnostics.Debug.WriteLine(step);
-                String[] values = step.Split(new[] { "[endofmail]" }, StringSplitOptions.None);
-                if (values.Length > 1)
-                {
-                    Plan_Step planstep = new Plan_Step();
-                    planstep.planID = planID;
-                    planstep.StepEmailContent = values[0];
-                    planstep.TimeFromLastStep = int.Parse(values[1]);
-                    planstep.stepNo = index;
-                    se.Plan_Step.Add(planstep);
-
-                    se.SaveChanges();
-                    lst.Add(planstep);
-                }
-                index = index + 1;
-            }
-            for (int i = 0; i < index - 2; i++)
-            {
-                Plan_Step plan = lst[i];
-                plan.nextStep = lst[i + 1].id;
-            }
-            for (int i = 1; i < index - 1; i++)
-            {
-                Plan_Step plan = lst[i];
-                plan.previousStep = lst[i - 1].id;
-            }
-            se.SaveChanges();
-            return RedirectToAction("Detail", "Product", new { id = preplan.softwareProduct.id });
-        }
         [HttpPost]
         [ValidateInput(false)]
         public ActionResult CreateNewProgress(FollowupProgressModel model) {

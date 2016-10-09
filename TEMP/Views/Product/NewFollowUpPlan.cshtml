@@ -6,7 +6,7 @@
     <meta charset="utf-8">
 
     <!-- Bootstrap core CSS -->
-
+    <link href="~/Content/animateDroper.css" rel="stylesheet" />
     <link href="~/Content/fonts/css/font-awesome.min.css" rel="stylesheet" />
     <link href="~/Content/animate.min.css" rel="stylesheet" />
     <link href="~/Content/custom.css" rel="stylesheet" />
@@ -26,10 +26,14 @@
     <script src="~/Scripts/tinymce/jquery.tinymce.min.js"></script>
     <script src="~/Scripts/tinymce/tinymce.min.js"></script>
     <script>
+        function testAnim() {
+            $('#animationSandbox').removeClass().addClass('bounceOut animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
+                $(this).removeClass();
+            });
+        };
         function allowDrop(ev) {
             ev.preventDefault();
 
-            $(ev.target).css('background-color', '#d3d3d3');
         }
         function drag(ev) {
 
@@ -37,20 +41,36 @@
 
         }
         function removeStyle(ev) {
-            $(ev.target).css('background-color', '#ffffff');
+       
         }
         function drop(ev) {
+            testAnim();
             ev.preventDefault();
             var data = ev.dataTransfer.getData("DroperID");
+         
             var content = $("#" + data).find("h2").text();
           
             var divid = ev.target.id;
-       
+     
             var targetid = $("#" + divid).find("input").val();
 
-            tinyMCE.get(targetid).setContent(content);
-           
+            tinyMCE.get(targetid).setContent(content);                 
+       
+            $("#"+targetid).val(document.getElementById("steps_0__StepEmailContent_ifr").contentWindow.document.body.innerHTML);
+   
         }
+        function updatecontain() {
+            for (var i = 0 ; i < 9 ; i++) {
+                var content =document.getElementById("steps_0__StepEmailContent_ifr").contentWindow.document.body.innerHTML;
+                if (content.Lenght > 40) {
+                    $("#steps_" + i + "__StepEmailContent").val(content);
+                }
+                else {
+                    $("#steps_" + i + "__StepEmailContent").val("");
+                }
+            }
+        }
+        setInterval(updatecontain(), 500);
     </script>
     <script type="text/javascript">
         $(document).ready(function () {
@@ -447,9 +467,19 @@
                                             <div class="col-md-3 col-sm-3">
                                                 @Html.TextBoxFor(m => Model.steps[i].TimeFromLastStep, new { @class = "form-control col-md-7 col-xs-12" })
                                             </div>
-                                            <div id="@("div"+i)"  class="col-md-3 col-sm-3" ondrop = "drop(event)" ondragover = "allowDrop(event)" ondragleave = "removeStyle(event)" style="background-color:limegreen"  >
-                                                DROP TEMPLATE HERE
+                                            <div id="@("div"+i)"  class="col-md-3 col-sm-3" ondrop = "drop(event)" ondragover = "allowDrop(event)" ondragleave = "removeStyle(event)"  >
+                                                <span id="animationSandbox" style="display: block;" class="">
+                                                <h1 id="@("div"+i)" class="site__title mega">Drop template here</h1>
+                                                </span>
                                                <input type="hidden" value='steps_@(i)__StepEmailContent'/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3" for="first-name">
+                                                Required More Information
+                                            </label>
+                                            <div class="col-md-6 col-sm-6">
+                                                @Html.CheckBoxFor(Model => Model.steps[i].RequireMoreDetail)
                                             </div>
                                         </div>
                                         <div class="form-group">

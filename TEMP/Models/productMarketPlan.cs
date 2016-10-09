@@ -21,6 +21,7 @@ namespace SSM.Models
             this.Deals = new HashSet<Deal>();
             this.MarketPlanPurchaseds = new HashSet<MarketPlanPurchased>();
             this.PlanOptions = new HashSet<PlanOption>();
+            this.TrialAccounts = new HashSet<TrialAccount>();
         }
     
         public int id { get; set; }
@@ -44,5 +45,7 @@ namespace SSM.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PlanOption> PlanOptions { get; set; }
         public virtual softwareProduct softwareProduct { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TrialAccount> TrialAccounts { get; set; }
     }
 }

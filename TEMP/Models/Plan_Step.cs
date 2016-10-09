@@ -30,6 +30,7 @@ namespace SSM.Models
         public Nullable<int> TimeFromLastStep { get; set; }
         public Nullable<System.DateTime> sendDate { get; set; }
         public string subject { get; set; }
+        public bool RequireMoreDetail { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Plan_Step> Plan_Step1 { get; set; }

@@ -62,7 +62,6 @@ C:\Users\NhatVHN\Desktop\SSM\TEMP\bin\System.Web.WebPages.xml
 C:\Users\NhatVHN\Desktop\SSM\TEMP\bin\System.Web.WebPages.Deployment.xml
 C:\Users\NhatVHN\Desktop\SSM\TEMP\bin\System.Web.WebPages.Razor.xml
 C:\Users\NhatVHN\Desktop\SSM\TEMP\bin\Antlr3.Runtime.pdb
-C:\Users\NhatVHN\Desktop\SSM\TEMP\bin\Newtonsoft.Json.xml
 C:\Users\NhatVHN\Desktop\SSM\TEMP\bin\EntityFramework.xml
 C:\Users\NhatVHN\Desktop\SSM\TEMP\bin\EntityFramework.SqlServer.xml
 C:\Users\NhatVHN\Desktop\SSM\TEMP\bin\Microsoft.AspNet.Identity.Core.xml
@@ -313,3 +312,16 @@ C:\Users\Nguyen Nhat\Documents\GitHub\SSM\TEMP\bin\ko\System.Spatial.resources.d
 C:\Users\Nguyen Nhat\Documents\GitHub\SSM\TEMP\bin\ru\System.Spatial.resources.dll
 C:\Users\Nguyen Nhat\Documents\GitHub\SSM\TEMP\bin\zh-Hans\System.Spatial.resources.dll
 C:\Users\Nguyen Nhat\Documents\GitHub\SSM\TEMP\bin\zh-Hant\System.Spatial.resources.dll
+C:\Users\NhatVHN\Desktop\SSM\TEMP\bin\Microsoft.Data.Edm.dll
+C:\Users\NhatVHN\Desktop\SSM\TEMP\bin\Microsoft.Data.OData.dll
+C:\Users\NhatVHN\Desktop\SSM\TEMP\bin\Microsoft.Data.Services.Client.dll
+C:\Users\NhatVHN\Desktop\SSM\TEMP\bin\Microsoft.WindowsAzure.Diagnostics.dll
+C:\Users\NhatVHN\Desktop\SSM\TEMP\bin\System.Spatial.dll
+C:\Users\NhatVHN\Desktop\SSM\TEMP\bin\MonAgentListener.dll
+C:\Users\NhatVHN\Desktop\SSM\TEMP\bin\Microsoft.Azure.KeyVault.Core.xml
+C:\Users\NhatVHN\Desktop\SSM\TEMP\bin\Microsoft.Data.Edm.xml
+C:\Users\NhatVHN\Desktop\SSM\TEMP\bin\Microsoft.Data.OData.xml
+C:\Users\NhatVHN\Desktop\SSM\TEMP\bin\Microsoft.Data.Services.Client.xml
+C:\Users\NhatVHN\Desktop\SSM\TEMP\bin\Microsoft.WindowsAzure.Storage.pdb
+C:\Users\NhatVHN\Desktop\SSM\TEMP\bin\Microsoft.WindowsAzure.Storage.xml
+C:\Users\NhatVHN\Desktop\SSM\TEMP\bin\System.Spatial.xml

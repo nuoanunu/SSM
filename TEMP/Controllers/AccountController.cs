@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using SSM.Models;
+using System.Web.Script.Serialization;
 
 namespace SSM.Controllers
 {
@@ -53,7 +54,25 @@ namespace SSM.Controllers
                 _userManager = value;
             }
         }
+        [AllowAnonymous]
+        public async Task<JsonResult> RegisterNewAccount(String email)
+        {
+            System.Diagnostics.Debug.WriteLine("creating");
+            var user = new ApplicationUser { UserName = email, Email = email };
+            System.Diagnostics.Debug.WriteLine("created use");
+            var result = await UserManager.CreateAsync(user, "320395@qwE");
+            if (result.Succeeded)
+            {
+                 SignInManager.CreateUserIdentity(user);
+                System.Diagnostics.Debug.WriteLine("ytay " + user.Id);
+                await this.UserManager.AddToRoleAsync(user.Id, "Customer");
 
+                return Json(new { result = user.Id }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { result = ""}, JsonRequestBehavior.AllowGet);
+
+        }
         //
         // GET: /Account/Login
         [AllowAnonymous]
@@ -158,6 +177,7 @@ namespace SSM.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                     await this.UserManager.AddToRoleAsync(user.Id, model.Name);
                     //Ends Here
@@ -242,7 +262,8 @@ namespace SSM.Controllers
         {
             return code == null ? View("Error") : View();
         }
-
+ 
+        
         //
         // POST: /Account/ResetPassword
         [HttpPost]

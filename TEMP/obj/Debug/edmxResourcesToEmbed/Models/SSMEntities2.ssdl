@@ -322,6 +322,7 @@
     <Property Name="TimeFromLastStep" Type="int" />
     <Property Name="sendDate" Type="date" />
     <Property Name="subject" Type="nvarchar" MaxLength="128" />
+    <Property Name="RequireMoreDetail" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="PlanOptions">
     <Key>
@@ -344,6 +345,19 @@
     <Property Name="fullDuration" Type="float" />
     <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
     <Property Name="isOperation" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Product_responsible">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="productID" Type="int" Nullable="false" />
+    <Property Name="saleRepID" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="minCommision" Type="float" Nullable="false" />
+    <Property Name="maxCommision" Type="float" Nullable="false" />
+    <Property Name="StartDate" Type="date" Nullable="false" />
+    <Property Name="EndDate" Type="date" />
+    <Property Name="TotalRevenue" Type="float" />
   </EntityType>
   <EntityType Name="productAttributes">
     <Key>
@@ -463,6 +477,17 @@
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="typeName" Type="nvarchar" MaxLength="30" Nullable="false" />
     <Property Name="Description" Type="nchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="TrialAccount">
+    <Key>
+      <PropertyRef Name="AccountID" />
+    </Key>
+    <Property Name="AccountID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="PlanID" Type="int" Nullable="false" />
+    <Property Name="Status" Type="int" Nullable="false" />
+    <Property Name="contactID" Type="int" />
   </EntityType>
   <Association Name="FK_attributeOption_AspNetUsers">
     <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
@@ -976,6 +1001,30 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Product_responsible_AspNetUsers">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+    <End Role="Product_responsible" Type="Self.Product_responsible" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Product_responsible">
+        <PropertyRef Name="saleRepID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Product_responsible_softwareProduct">
+    <End Role="softwareProduct" Type="Self.softwareProduct" Multiplicity="1" />
+    <End Role="Product_responsible" Type="Self.Product_responsible" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="softwareProduct">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Product_responsible">
+        <PropertyRef Name="productID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_productAttributes_softwareProduct">
     <End Role="softwareProduct" Type="Self.softwareProduct" Multiplicity="1" />
     <End Role="productAttributes" Type="Self.productAttributes" Multiplicity="*" />
@@ -1036,6 +1085,30 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_TrialAccount_contacts">
+    <End Role="contacts" Type="Self.contacts" Multiplicity="0..1" />
+    <End Role="TrialAccount" Type="Self.TrialAccount" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="contacts">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="TrialAccount">
+        <PropertyRef Name="contactID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TrialAccount_productMarketPlan">
+    <End Role="productMarketPlan" Type="Self.productMarketPlan" Multiplicity="1" />
+    <End Role="TrialAccount" Type="Self.TrialAccount" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="productMarketPlan">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="TrialAccount">
+        <PropertyRef Name="PlanID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="SSMModelStoreContainer">
     <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
@@ -1066,6 +1139,7 @@
     <EntitySet Name="Plan_Step" EntityType="Self.Plan_Step" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PlanOptions" EntityType="Self.PlanOptions" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PrePurchase_FollowUp_Plan" EntityType="Self.PrePurchase_FollowUp_Plan" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Product_responsible" EntityType="Self.Product_responsible" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="productAttributes" EntityType="Self.productAttributes" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="productMarketPlan" EntityType="Self.productMarketPlan" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="SaleRepProfile" EntityType="Self.SaleRepProfile" Schema="dbo" store:Type="Tables" />
@@ -1074,6 +1148,7 @@
     <EntitySet Name="task_user" EntityType="Self.task_user" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TaskStatus" EntityType="Self.TaskStatus" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TaskType" EntityType="Self.TaskType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TrialAccount" EntityType="Self.TrialAccount" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK_attributeOption_AspNetUsers" Association="Self.FK_attributeOption_AspNetUsers">
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />
       <End Role="attributeOption" EntitySet="attributeOption" />
@@ -1242,6 +1317,14 @@
       <End Role="softwareProduct" EntitySet="softwareProduct" />
       <End Role="PrePurchase_FollowUp_Plan" EntitySet="PrePurchase_FollowUp_Plan" />
     </AssociationSet>
+    <AssociationSet Name="FK_Product_responsible_AspNetUsers" Association="Self.FK_Product_responsible_AspNetUsers">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="Product_responsible" EntitySet="Product_responsible" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Product_responsible_softwareProduct" Association="Self.FK_Product_responsible_softwareProduct">
+      <End Role="softwareProduct" EntitySet="softwareProduct" />
+      <End Role="Product_responsible" EntitySet="Product_responsible" />
+    </AssociationSet>
     <AssociationSet Name="FK_productAttributes_softwareProduct" Association="Self.FK_productAttributes_softwareProduct">
       <End Role="softwareProduct" EntitySet="softwareProduct" />
       <End Role="productAttributes" EntitySet="productAttributes" />
@@ -1261,6 +1344,14 @@
     <AssociationSet Name="FK_Tasks_TaskType" Association="Self.FK_Tasks_TaskType">
       <End Role="TaskType" EntitySet="TaskType" />
       <End Role="DealTasks" EntitySet="DealTasks" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TrialAccount_contacts" Association="Self.FK_TrialAccount_contacts">
+      <End Role="contacts" EntitySet="contacts" />
+      <End Role="TrialAccount" EntitySet="TrialAccount" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TrialAccount_productMarketPlan" Association="Self.FK_TrialAccount_productMarketPlan">
+      <End Role="productMarketPlan" EntitySet="productMarketPlan" />
+      <End Role="TrialAccount" EntitySet="TrialAccount" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

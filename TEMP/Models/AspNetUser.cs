@@ -27,6 +27,7 @@ namespace SSM.Models
             this.MasterSchedule_User = new HashSet<MasterSchedule_User>();
             this.SaleRepProfiles = new HashSet<SaleRepProfile>();
             this.AspNetRoles = new HashSet<AspNetRole>();
+            this.Product_responsible = new HashSet<Product_responsible>();
         }
     
         public string Id { get; set; }
@@ -62,5 +63,7 @@ namespace SSM.Models
         public virtual ICollection<SaleRepProfile> SaleRepProfiles { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetRole> AspNetRoles { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Product_responsible> Product_responsible { get; set; }
     }
 }

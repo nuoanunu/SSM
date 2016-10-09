@@ -359,6 +359,9 @@
     <Compile Include="Models\productMarketPlan.cs">
       <DependentUpon>SSMEntities2.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Product_responsible.cs">
+      <DependentUpon>SSMEntities2.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Repository\contactRepository.cs" />
     <Compile Include="Models\Repository\customerRepository.cs" />
     <Compile Include="Models\Repository\DealRepository.cs" />
@@ -414,6 +417,9 @@
     <Compile Include="Models\TempModel\EmailTemplateEntity.cs" />
     <Compile Include="Models\TempModel\FollowupProgressModel.cs" />
     <Compile Include="Models\TempModel\ProductInfo.cs" />
+    <Compile Include="Models\TrialAccount.cs">
+      <DependentUpon>SSMEntities2.tt</DependentUpon>
+    </Compile>
     <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
@@ -423,6 +429,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\animate.min.css" />
+    <Content Include="Content\animateDroper.css" />
     <Content Include="Content\bootstrap-datetimepicker.css" />
     <Content Include="Content\bootstrap-datetimepicker.min.css" />
     <Content Include="Content\bootstrap-theme.css" />

@@ -9,6 +9,7 @@
 
     <link href="~/Content/fonts/css/font-awesome.min.css" rel="stylesheet" />
     <link href="~/Content/animate.min.css" rel="stylesheet" />
+
     <link href="~/Content/custom.css" rel="stylesheet" />
     <link href="~/Content/icheck/flat/green.css" rel="stylesheet" />
     <script src="~/Scripts/bootstrap.min.js"></script>
@@ -26,6 +27,12 @@
     <script src="~/Scripts/tinymce/jquery.tinymce.min.js"></script>
     <script src="~/Scripts/tinymce/tinymce.min.js"></script>
     <script>
+
+        function testAnim(x) {
+            $('#animationSandbox').removeClass().addClass(x + ' animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
+                $(this).removeClass();
+            });
+        };
         function allowDrop(ev) {
             ev.preventDefault();
 
@@ -455,6 +462,14 @@
                                             </label>
                                             <div class="col-md-6 col-sm-6">
                                                 @Html.TextBoxFor(m => Model.steps[i].TimeFromLastStep, new { @class = "form-control col-md-7 col-xs-12" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3" for="first-name">
+                                                Required More Information
+                                            </label>
+                                            <div class="col-md-6 col-sm-6">
+                                                @Html.CheckBoxFor(Model => Model.steps[i].RequireMoreDetail);
                                             </div>
                                         </div>
                                         <div class="form-group">

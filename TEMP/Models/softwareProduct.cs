@@ -23,6 +23,7 @@ namespace SSM.Models
             this.PrePurchase_FollowUp_Plan = new HashSet<PrePurchase_FollowUp_Plan>();
             this.productAttributes = new HashSet<productAttribute>();
             this.productMarketPlans = new HashSet<productMarketPlan>();
+            this.Product_responsible = new HashSet<Product_responsible>();
         }
     
         public int id { get; set; }
@@ -50,5 +51,7 @@ namespace SSM.Models
         public virtual ICollection<productAttribute> productAttributes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<productMarketPlan> productMarketPlans { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Product_responsible> Product_responsible { get; set; }
     }
 }
