@@ -41,6 +41,7 @@ namespace SSM.Models
         public string Zip { get; set; }
         public string Comment { get; set; }
         public string userID { get; set; }
+        public string Position { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<contact_resposible> contact_resposible { get; set; }
@@ -50,5 +51,6 @@ namespace SSM.Models
         public virtual ICollection<Deal> Deals { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TrialAccount> TrialAccounts { get; set; }
+        public virtual company company { get; set; }
     }
 }

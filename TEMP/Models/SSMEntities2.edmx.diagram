@@ -93,6 +93,11 @@
         <EntityTypeShape EntityType="SSMModel.Product_responsible" Width="1.5" PointX="12.5" PointY="13.625" />
         <AssociationConnector Association="SSMModel.FK_Product_responsible_AspNetUsers" />
         <AssociationConnector Association="SSMModel.FK_Product_responsible_softwareProduct" />
+        <AssociationConnector Association="SSMModel.FK_contacts_companies" />
+        <AssociationConnector Association="SSMModel.FK_Customer_Request_Deal" />
+        <EntityTypeShape EntityType="SSMModel.ManagerNotification" Width="1.5" PointX="16" PointY="31.625" />
+        <AssociationConnector Association="SSMModel.FK_ManagerNotification_Customer_Request" />
+        <AssociationConnector Association="SSMModel.FK_ManagerNotification_Deal" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

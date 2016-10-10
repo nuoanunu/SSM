@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SSM.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -26,5 +27,20 @@ namespace SSM.Controllers
 
             return View();
         }
+//        public JsonResult gettop10noti()
+//        {
+//            SSMEntities se = new SSMEntities();
+//            List< ManagerNotification> list =se.ManagerNotifications.SqlQuery(" SELECT TOP 6 * FROM ManagerNotification ORDER BY CreateDate DESC").ToList();
+         
+//            foreach (ManagerNotification noti in list) { }
+
+//            return Json(new
+//            {
+//                items = new[] {
+//    new {name = "command" , index = "X", optional = "0"},
+//    new {name = "command" , index = "X", optional = "0"}
+//}
+//            }, JsonRequestBehavior.AllowGet);
+//        }
     }
 }

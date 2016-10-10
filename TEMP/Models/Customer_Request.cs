@@ -18,6 +18,7 @@ namespace SSM.Models
         public Customer_Request()
         {
             this.Customer_Request1 = new HashSet<Customer_Request>();
+            this.ManagerNotifications = new HashSet<ManagerNotification>();
         }
     
         public int id { get; set; }
@@ -27,6 +28,7 @@ namespace SSM.Models
         public Nullable<int> PlanID { get; set; }
         public string RequestDemoDay { get; set; }
         public Nullable<int> DealID { get; set; }
+        public Nullable<System.DateTime> CreatedDate { get; set; }
     
         public virtual contact contact { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -34,5 +36,8 @@ namespace SSM.Models
         public virtual Customer_Request Customer_Request2 { get; set; }
         public virtual productMarketPlan productMarketPlan { get; set; }
         public virtual softwareProduct softwareProduct { get; set; }
+        public virtual Deal Deal { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ManagerNotification> ManagerNotifications { get; set; }
     }
 }

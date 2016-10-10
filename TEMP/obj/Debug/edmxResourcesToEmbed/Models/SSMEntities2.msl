@@ -101,6 +101,7 @@
     <EntitySetMapping Name="contacts">
       <EntityTypeMapping TypeName="SSMModel.contact">
         <MappingFragment StoreEntitySet="contacts">
+          <ScalarProperty Name="Position" ColumnName="Position" />
           <ScalarProperty Name="userID" ColumnName="userID" />
           <ScalarProperty Name="Comment" ColumnName="Comment" />
           <ScalarProperty Name="Zip" ColumnName="Zip" />
@@ -125,6 +126,7 @@
     <EntitySetMapping Name="Customer_Request">
       <EntityTypeMapping TypeName="SSMModel.Customer_Request">
         <MappingFragment StoreEntitySet="Customer_Request">
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
           <ScalarProperty Name="DealID" ColumnName="DealID" />
           <ScalarProperty Name="RequestDemoDay" ColumnName="RequestDemoDay" />
           <ScalarProperty Name="PlanID" ColumnName="PlanID" />

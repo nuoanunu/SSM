@@ -18,6 +18,7 @@ namespace SSM.Models
         public company()
         {
             this.company_responsible = new HashSet<company_responsible>();
+            this.contacts = new HashSet<contact>();
         }
     
         public int id { get; set; }
@@ -38,5 +39,7 @@ namespace SSM.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<company_responsible> company_responsible { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<contact> contacts { get; set; }
     }
 }

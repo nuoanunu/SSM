@@ -22,6 +22,7 @@ namespace SSM.Controllers
         public ActionResult Index()
         {
             ViewData["ActiveDeal"] = (new SSMEntities()).Deals.ToList();
+            ViewData["NewRequest"] = (new SSMEntities()).Customer_Request.ToList();
             return View("");
         }
         public ActionResult CreateDeal(Deal deal, int plan)

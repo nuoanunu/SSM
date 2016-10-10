@@ -63,5 +63,6 @@ namespace SSM.Models
         public virtual DbSet<TaskType> TaskTypes { get; set; }
         public virtual DbSet<TrialAccount> TrialAccounts { get; set; }
         public virtual DbSet<Product_responsible> Product_responsible { get; set; }
+        public virtual DbSet<ManagerNotification> ManagerNotifications { get; set; }
     }
 }

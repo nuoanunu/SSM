@@ -9,8 +9,10 @@
     background-color:#F7F7F7;
     }
 </style>
-<script scr="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
 <script src="~/Scripts/jquery.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"> </script>
+<script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"> </script>
+
 <script>
     $(document).ready(function () {
         $("#dealtable").DataTable();
@@ -18,7 +20,7 @@
 </script>
     <div class="page-title">
         <div class="title_left">
-            <h3>Deals <small>Listing</small></h3>
+            <h3>Deals and New Request<small>Listing</small></h3>
         </div>
         <div class="title_right">
             <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
@@ -69,7 +71,7 @@
                                 <th>Contact</th>
                                 <th>Deal Progress</th>
                                 <th>Status</th>
-                                <th style="width: 20%">#Edit</th>
+                                <th style="width: 20%">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -130,6 +132,88 @@
             </div>
         </div>
     </div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>New request</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a href="#">Settings 1</a>
+                            </li>
+                            <li>
+                                <a href="#">Settings 2</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <p>Un-asigned customer request</p>
+                <!-- start project list -->
+                <table id="dealtable" class="table table-striped projects">
+                    <thead>
+                        <tr>
+
+                            <th style="width: 20%">Customer Name</th>
+                            <th>Created Date</th>
+                            <th>Product</th>
+                            <th>Note</th>
+                            <th>Status</th>
+                            <th style="width: 20%">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (Customer_Request request in (List<Customer_Request>)ViewData["NewRequest"])
+                        {
+                            <tr>
+
+                                <td>
+                                    <a>@request.contact.FirstName @request.contact.LastName</a>
+                                    <br />
+                                    <small>Created @request.contact.Street</small>
+                                </td>
+                                <td>@(((DateTime)request.CreatedDate).ToShortDateString())</td>
+                                <td>@request.productMarketPlan.softwareProduct.name</td>
+                                <td>@request.contact.Comment</td>
+                                <td>
+                                    @if(request.DealID == null)
+                                    {
+                                        <button type="button" class="btn btn-warning btn-xs">Waiting to be asigned</button>
+                                    }
+                                    else if (request.Deal.Deal_SaleRep_Respon.Count() == 0)
+                                    {
+                                        <button type="button" class="btn btn-primary btn-xs">Waiting  to be re-asigned</button>
+                                    }
+                                </td>
+                                <td>
+                                    <a href="#" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i> Assign </a>
+
+                                    <a href="#" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete </a>
+                                </td>
+                            </tr>
+                        }
+
+
+                    </tbody>
+                </table>
+                <!-- end project list -->
+            </div>
+        </div>
+    </div>
+</div>
+
 <script src="~/Scripts/progressbar/bootstrap-progressbar.min.js"></script>
 <script src="~/Scripts/nicescroll/jquery.nicescroll.min.js"></script>
 <script src="~/Scripts/bootstrap.min.js"></script>

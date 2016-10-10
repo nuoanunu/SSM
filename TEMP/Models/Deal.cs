@@ -19,6 +19,8 @@ namespace SSM.Models
         {
             this.Deal_SaleRep_Respon = new HashSet<Deal_SaleRep_Respon>();
             this.DealTasks = new HashSet<DealTask>();
+            this.Customer_Request = new HashSet<Customer_Request>();
+            this.ManagerNotifications = new HashSet<ManagerNotification>();
         }
     
         public int id { get; set; }
@@ -44,5 +46,9 @@ namespace SSM.Models
         public virtual ICollection<Deal_SaleRep_Respon> Deal_SaleRep_Respon { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DealTask> DealTasks { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Customer_Request> Customer_Request { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ManagerNotification> ManagerNotifications { get; set; }
     }
 }

@@ -121,6 +121,7 @@
     <Property Name="Zip" Type="nvarchar" MaxLength="50" />
     <Property Name="Comment" Type="nvarchar(max)" />
     <Property Name="userID" Type="nvarchar" MaxLength="128" />
+    <Property Name="Position" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="Customer_Request">
     <Key>
@@ -133,6 +134,7 @@
     <Property Name="PlanID" Type="int" />
     <Property Name="RequestDemoDay" Type="nvarchar(max)" />
     <Property Name="DealID" Type="int" />
+    <Property Name="CreatedDate" Type="date" />
   </EntityType>
   <EntityType Name="customers">
     <Key>
@@ -561,6 +563,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_contacts_companies">
+    <End Role="companies" Type="Self.companies" Multiplicity="0..1" />
+    <End Role="contacts" Type="Self.contacts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="companies">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="contacts">
+        <PropertyRef Name="CompanyID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Customer_Request_contacts">
     <End Role="contacts" Type="Self.contacts" Multiplicity="1" />
     <End Role="Customer_Request" Type="Self.Customer_Request" Multiplicity="*" />
@@ -581,6 +595,18 @@
         <PropertyRef Name="id" />
       </Principal>
       <Dependent Role="Customer_Request1">
+        <PropertyRef Name="DealID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Customer_Request_Deal">
+    <End Role="Deal" Type="Self.Deal" Multiplicity="0..1" />
+    <End Role="Customer_Request" Type="Self.Customer_Request" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Deal">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Customer_Request">
         <PropertyRef Name="DealID" />
       </Dependent>
     </ReferentialConstraint>
@@ -1173,6 +1199,10 @@
       <End Role="contacts" EntitySet="contacts" />
       <End Role="contact_resposible" EntitySet="contact_resposible" />
     </AssociationSet>
+    <AssociationSet Name="FK_contacts_companies" Association="Self.FK_contacts_companies">
+      <End Role="companies" EntitySet="companies" />
+      <End Role="contacts" EntitySet="contacts" />
+    </AssociationSet>
     <AssociationSet Name="FK_Customer_Request_contacts" Association="Self.FK_Customer_Request_contacts">
       <End Role="contacts" EntitySet="contacts" />
       <End Role="Customer_Request" EntitySet="Customer_Request" />
@@ -1180,6 +1210,10 @@
     <AssociationSet Name="FK_Customer_Request_Customer_Request" Association="Self.FK_Customer_Request_Customer_Request">
       <End Role="Customer_Request" EntitySet="Customer_Request" />
       <End Role="Customer_Request1" EntitySet="Customer_Request" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Customer_Request_Deal" Association="Self.FK_Customer_Request_Deal">
+      <End Role="Deal" EntitySet="Deal" />
+      <End Role="Customer_Request" EntitySet="Customer_Request" />
     </AssociationSet>
     <AssociationSet Name="FK_Customer_Request_productMarketPlan" Association="Self.FK_Customer_Request_productMarketPlan">
       <End Role="productMarketPlan" EntitySet="productMarketPlan" />

@@ -239,6 +239,14 @@
       <End Role="softwareProduct" EntitySet="softwareProducts" />
       <End Role="Product_responsible" EntitySet="Product_responsible" />
     </AssociationSet>
+    <AssociationSet Name="FK_contacts_companies" Association="SSMModel.FK_contacts_companies">
+      <End Role="company" EntitySet="companies" />
+      <End Role="contact" EntitySet="contacts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Customer_Request_Deal" Association="SSMModel.FK_Customer_Request_Deal">
+      <End Role="Deal" EntitySet="Deals" />
+      <End Role="Customer_Request" EntitySet="Customer_Request" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="AspNetRole">
     <Key>
@@ -332,6 +340,7 @@
     <Property Name="State" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Country" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
     <NavigationProperty Name="company_responsible" Relationship="SSMModel.FK_company_responsible_companies" FromRole="company" ToRole="company_responsible" />
+    <NavigationProperty Name="contacts" Relationship="SSMModel.FK_contacts_companies" FromRole="company" ToRole="contact" />
   </EntityType>
   <EntityType Name="company_responsible">
     <Key>
@@ -379,6 +388,8 @@
     <NavigationProperty Name="Customer_Request" Relationship="SSMModel.FK_Customer_Request_contacts" FromRole="contact" ToRole="Customer_Request" />
     <NavigationProperty Name="Deals" Relationship="SSMModel.FK_Deal_contacts" FromRole="contact" ToRole="Deal" />
     <NavigationProperty Name="TrialAccounts" Relationship="SSMModel.FK_TrialAccount_contacts" FromRole="contact" ToRole="TrialAccount" />
+    <Property Name="Position" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="company" Relationship="SSMModel.FK_contacts_companies" FromRole="contact" ToRole="company" />
   </EntityType>
   <EntityType Name="Customer_Request">
     <Key>
@@ -396,6 +407,8 @@
     <NavigationProperty Name="Customer_Request2" Relationship="SSMModel.FK_Customer_Request_Customer_Request" FromRole="Customer_Request1" ToRole="Customer_Request" />
     <NavigationProperty Name="productMarketPlan" Relationship="SSMModel.FK_Customer_Request_productMarketPlan" FromRole="Customer_Request" ToRole="productMarketPlan" />
     <NavigationProperty Name="softwareProduct" Relationship="SSMModel.FK_Customer_Request_softwareProduct" FromRole="Customer_Request" ToRole="softwareProduct" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="Deal" Relationship="SSMModel.FK_Customer_Request_Deal" FromRole="Customer_Request" ToRole="Deal" />
   </EntityType>
   <EntityType Name="customer">
     <Key>
@@ -438,6 +451,7 @@
     <NavigationProperty Name="Deal_SaleRep_Respon" Relationship="SSMModel.FK_Deal_SaleRep_Respon_Deal" FromRole="Deal" ToRole="Deal_SaleRep_Respon" />
     <NavigationProperty Name="DealTasks" Relationship="SSMModel.FK_Tasks_Deal" FromRole="Deal" ToRole="DealTask" />
     <Property Name="Quantity" Type="Int32" />
+    <NavigationProperty Name="Customer_Request" Relationship="SSMModel.FK_Customer_Request_Deal" FromRole="Deal" ToRole="Customer_Request" />
   </EntityType>
   <EntityType Name="Deal_SaleRep_Respon">
     <Key>
@@ -1414,6 +1428,30 @@
       </Principal>
       <Dependent Role="Product_responsible">
         <PropertyRef Name="productID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_contacts_companies">
+    <End Type="SSMModel.company" Role="company" Multiplicity="0..1" />
+    <End Type="SSMModel.contact" Role="contact" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="company">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="contact">
+        <PropertyRef Name="CompanyID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Customer_Request_Deal">
+    <End Type="SSMModel.Deal" Role="Deal" Multiplicity="0..1" />
+    <End Type="SSMModel.Customer_Request" Role="Customer_Request" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Deal">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Customer_Request">
+        <PropertyRef Name="DealID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

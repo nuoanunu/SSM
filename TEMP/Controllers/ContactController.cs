@@ -20,7 +20,7 @@ namespace SSM.Controllers
         public ActionResult Index()
         {
             ViewData["contactList"] = pr.getAll();
-            return View("ContactList");
+            return View("Contact");
         }
 
         public ActionResult NewContact()

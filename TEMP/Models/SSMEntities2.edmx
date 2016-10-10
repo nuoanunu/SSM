@@ -126,6 +126,7 @@
           <Property Name="Zip" Type="nvarchar" MaxLength="50" />
           <Property Name="Comment" Type="nvarchar(max)" />
           <Property Name="userID" Type="nvarchar" MaxLength="128" />
+          <Property Name="Position" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Customer_Request">
           <Key>
@@ -138,6 +139,7 @@
           <Property Name="PlanID" Type="int" />
           <Property Name="RequestDemoDay" Type="nvarchar(max)" />
           <Property Name="DealID" Type="int" />
+          <Property Name="CreatedDate" Type="date" />
         </EntityType>
         <EntityType Name="customers">
           <Key>
@@ -242,6 +244,17 @@
           <Property Name="productID" Type="int" />
           <Property Name="nextTransactionDate" Type="date" />
           <Property Name="startDate" Type="date" />
+        </EntityType>
+        <EntityType Name="ManagerNotification">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="NotiContent" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="viewed" Type="bit" Nullable="false" />
+          <Property Name="dealID" Type="int" />
+          <Property Name="requestID" Type="int" />
         </EntityType>
         <EntityType Name="MarketPlanPurchased">
           <Key>
@@ -566,6 +579,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_contacts_companies">
+          <End Role="companies" Type="Self.companies" Multiplicity="0..1" />
+          <End Role="contacts" Type="Self.contacts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="companies">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="contacts">
+              <PropertyRef Name="CompanyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Customer_Request_contacts">
           <End Role="contacts" Type="Self.contacts" Multiplicity="1" />
           <End Role="Customer_Request" Type="Self.Customer_Request" Multiplicity="*" />
@@ -586,6 +611,18 @@
               <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="Customer_Request1">
+              <PropertyRef Name="DealID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Customer_Request_Deal">
+          <End Role="Deal" Type="Self.Deal" Multiplicity="0..1" />
+          <End Role="Customer_Request" Type="Self.Customer_Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Deal">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Customer_Request">
               <PropertyRef Name="DealID" />
             </Dependent>
           </ReferentialConstraint>
@@ -787,6 +824,30 @@
             </Principal>
             <Dependent Role="Licenses">
               <PropertyRef Name="productID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ManagerNotification_Customer_Request">
+          <End Role="Customer_Request" Type="Self.Customer_Request" Multiplicity="0..1" />
+          <End Role="ManagerNotification" Type="Self.ManagerNotification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer_Request">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ManagerNotification">
+              <PropertyRef Name="requestID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ManagerNotification_Deal">
+          <End Role="Deal" Type="Self.Deal" Multiplicity="0..1" />
+          <End Role="ManagerNotification" Type="Self.ManagerNotification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Deal">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ManagerNotification">
+              <PropertyRef Name="dealID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1134,6 +1195,7 @@
           <EntitySet Name="EMAIL_Category" EntityType="Self.EMAIL_Category" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Email_Template" EntityType="Self.Email_Template" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Licenses" EntityType="Self.Licenses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ManagerNotification" EntityType="Self.ManagerNotification" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MarketPlanPurchased" EntityType="Self.MarketPlanPurchased" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MasterCalendar" EntityType="Self.MasterCalendar" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MasterSchedule_User" EntityType="Self.MasterSchedule_User" Schema="dbo" store:Type="Tables" />
@@ -1178,6 +1240,10 @@
             <End Role="contacts" EntitySet="contacts" />
             <End Role="contact_resposible" EntitySet="contact_resposible" />
           </AssociationSet>
+          <AssociationSet Name="FK_contacts_companies" Association="Self.FK_contacts_companies">
+            <End Role="companies" EntitySet="companies" />
+            <End Role="contacts" EntitySet="contacts" />
+          </AssociationSet>
           <AssociationSet Name="FK_Customer_Request_contacts" Association="Self.FK_Customer_Request_contacts">
             <End Role="contacts" EntitySet="contacts" />
             <End Role="Customer_Request" EntitySet="Customer_Request" />
@@ -1185,6 +1251,10 @@
           <AssociationSet Name="FK_Customer_Request_Customer_Request" Association="Self.FK_Customer_Request_Customer_Request">
             <End Role="Customer_Request" EntitySet="Customer_Request" />
             <End Role="Customer_Request1" EntitySet="Customer_Request" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Customer_Request_Deal" Association="Self.FK_Customer_Request_Deal">
+            <End Role="Deal" EntitySet="Deal" />
+            <End Role="Customer_Request" EntitySet="Customer_Request" />
           </AssociationSet>
           <AssociationSet Name="FK_Customer_Request_productMarketPlan" Association="Self.FK_Customer_Request_productMarketPlan">
             <End Role="productMarketPlan" EntitySet="productMarketPlan" />
@@ -1249,6 +1319,14 @@
           <AssociationSet Name="FK_Licenses_softwareProduct" Association="Self.FK_Licenses_softwareProduct">
             <End Role="softwareProduct" EntitySet="softwareProduct" />
             <End Role="Licenses" EntitySet="Licenses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ManagerNotification_Customer_Request" Association="Self.FK_ManagerNotification_Customer_Request">
+            <End Role="Customer_Request" EntitySet="Customer_Request" />
+            <End Role="ManagerNotification" EntitySet="ManagerNotification" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ManagerNotification_Deal" Association="Self.FK_ManagerNotification_Deal">
+            <End Role="Deal" EntitySet="Deal" />
+            <End Role="ManagerNotification" EntitySet="ManagerNotification" />
           </AssociationSet>
           <AssociationSet Name="FK_MarketPlanPurchased_orders" Association="Self.FK_MarketPlanPurchased_orders">
             <End Role="orders" EntitySet="orders" />
@@ -1602,6 +1680,23 @@
             <End Role="softwareProduct" EntitySet="softwareProducts" />
             <End Role="Product_responsible" EntitySet="Product_responsible" />
           </AssociationSet>
+          <AssociationSet Name="FK_contacts_companies" Association="SSMModel.FK_contacts_companies">
+            <End Role="company" EntitySet="companies" />
+            <End Role="contact" EntitySet="contacts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Customer_Request_Deal" Association="SSMModel.FK_Customer_Request_Deal">
+            <End Role="Deal" EntitySet="Deals" />
+            <End Role="Customer_Request" EntitySet="Customer_Request" />
+          </AssociationSet>
+          <EntitySet Name="ManagerNotifications" EntityType="SSMModel.ManagerNotification" />
+          <AssociationSet Name="FK_ManagerNotification_Customer_Request" Association="SSMModel.FK_ManagerNotification_Customer_Request">
+            <End Role="Customer_Request" EntitySet="Customer_Request" />
+            <End Role="ManagerNotification" EntitySet="ManagerNotifications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ManagerNotification_Deal" Association="SSMModel.FK_ManagerNotification_Deal">
+            <End Role="Deal" EntitySet="Deals" />
+            <End Role="ManagerNotification" EntitySet="ManagerNotifications" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="AspNetRole">
           <Key>
@@ -1695,6 +1790,7 @@
           <Property Name="State" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Country" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <NavigationProperty Name="company_responsible" Relationship="SSMModel.FK_company_responsible_companies" FromRole="company" ToRole="company_responsible" />
+          <NavigationProperty Name="contacts" Relationship="SSMModel.FK_contacts_companies" FromRole="company" ToRole="contact" />
         </EntityType>
         <EntityType Name="company_responsible">
           <Key>
@@ -1742,6 +1838,8 @@
           <NavigationProperty Name="Customer_Request" Relationship="SSMModel.FK_Customer_Request_contacts" FromRole="contact" ToRole="Customer_Request" />
           <NavigationProperty Name="Deals" Relationship="SSMModel.FK_Deal_contacts" FromRole="contact" ToRole="Deal" />
           <NavigationProperty Name="TrialAccounts" Relationship="SSMModel.FK_TrialAccount_contacts" FromRole="contact" ToRole="TrialAccount" />
+          <Property Name="Position" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="company" Relationship="SSMModel.FK_contacts_companies" FromRole="contact" ToRole="company" />
         </EntityType>
         <EntityType Name="Customer_Request">
           <Key>
@@ -1759,6 +1857,9 @@
           <NavigationProperty Name="Customer_Request2" Relationship="SSMModel.FK_Customer_Request_Customer_Request" FromRole="Customer_Request1" ToRole="Customer_Request" />
           <NavigationProperty Name="productMarketPlan" Relationship="SSMModel.FK_Customer_Request_productMarketPlan" FromRole="Customer_Request" ToRole="productMarketPlan" />
           <NavigationProperty Name="softwareProduct" Relationship="SSMModel.FK_Customer_Request_softwareProduct" FromRole="Customer_Request" ToRole="softwareProduct" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Deal" Relationship="SSMModel.FK_Customer_Request_Deal" FromRole="Customer_Request" ToRole="Deal" />
+          <NavigationProperty Name="ManagerNotifications" Relationship="SSMModel.FK_ManagerNotification_Customer_Request" FromRole="Customer_Request" ToRole="ManagerNotification" />
         </EntityType>
         <EntityType Name="customer">
           <Key>
@@ -1801,6 +1902,8 @@
           <NavigationProperty Name="Deal_SaleRep_Respon" Relationship="SSMModel.FK_Deal_SaleRep_Respon_Deal" FromRole="Deal" ToRole="Deal_SaleRep_Respon" />
           <NavigationProperty Name="DealTasks" Relationship="SSMModel.FK_Tasks_Deal" FromRole="Deal" ToRole="DealTask" />
           <Property Name="Quantity" Type="Int32" />
+          <NavigationProperty Name="Customer_Request" Relationship="SSMModel.FK_Customer_Request_Deal" FromRole="Deal" ToRole="Customer_Request" />
+          <NavigationProperty Name="ManagerNotifications" Relationship="SSMModel.FK_ManagerNotification_Deal" FromRole="Deal" ToRole="ManagerNotification" />
         </EntityType>
         <EntityType Name="Deal_SaleRep_Respon">
           <Key>
@@ -2780,6 +2883,67 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_contacts_companies">
+          <End Type="SSMModel.company" Role="company" Multiplicity="0..1" />
+          <End Type="SSMModel.contact" Role="contact" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="company">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="contact">
+              <PropertyRef Name="CompanyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Customer_Request_Deal">
+          <End Type="SSMModel.Deal" Role="Deal" Multiplicity="0..1" />
+          <End Type="SSMModel.Customer_Request" Role="Customer_Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Deal">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Customer_Request">
+              <PropertyRef Name="DealID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ManagerNotification">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="NotiContent" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="viewed" Type="Boolean" Nullable="false" />
+          <Property Name="dealID" Type="Int32" />
+          <Property Name="requestID" Type="Int32" />
+          <NavigationProperty Name="Customer_Request" Relationship="SSMModel.FK_ManagerNotification_Customer_Request" FromRole="ManagerNotification" ToRole="Customer_Request" />
+          <NavigationProperty Name="Deal" Relationship="SSMModel.FK_ManagerNotification_Deal" FromRole="ManagerNotification" ToRole="Deal" />
+        </EntityType>
+        <Association Name="FK_ManagerNotification_Customer_Request">
+          <End Type="SSMModel.Customer_Request" Role="Customer_Request" Multiplicity="0..1" />
+          <End Type="SSMModel.ManagerNotification" Role="ManagerNotification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer_Request">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ManagerNotification">
+              <PropertyRef Name="requestID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ManagerNotification_Deal">
+          <End Type="SSMModel.Deal" Role="Deal" Multiplicity="0..1" />
+          <End Type="SSMModel.ManagerNotification" Role="ManagerNotification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Deal">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ManagerNotification">
+              <PropertyRef Name="dealID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2886,6 +3050,7 @@
           <EntitySetMapping Name="contacts">
             <EntityTypeMapping TypeName="SSMModel.contact">
               <MappingFragment StoreEntitySet="contacts">
+                <ScalarProperty Name="Position" ColumnName="Position" />
                 <ScalarProperty Name="userID" ColumnName="userID" />
                 <ScalarProperty Name="Comment" ColumnName="Comment" />
                 <ScalarProperty Name="Zip" ColumnName="Zip" />
@@ -2910,6 +3075,7 @@
           <EntitySetMapping Name="Customer_Request">
             <EntityTypeMapping TypeName="SSMModel.Customer_Request">
               <MappingFragment StoreEntitySet="Customer_Request">
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="DealID" ColumnName="DealID" />
                 <ScalarProperty Name="RequestDemoDay" ColumnName="RequestDemoDay" />
                 <ScalarProperty Name="PlanID" ColumnName="PlanID" />
@@ -3307,6 +3473,18 @@
                 <ScalarProperty Name="minCommision" ColumnName="minCommision" />
                 <ScalarProperty Name="saleRepID" ColumnName="saleRepID" />
                 <ScalarProperty Name="productID" ColumnName="productID" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ManagerNotifications">
+            <EntityTypeMapping TypeName="SSMModel.ManagerNotification">
+              <MappingFragment StoreEntitySet="ManagerNotification">
+                <ScalarProperty Name="requestID" ColumnName="requestID" />
+                <ScalarProperty Name="dealID" ColumnName="dealID" />
+                <ScalarProperty Name="viewed" ColumnName="viewed" />
+                <ScalarProperty Name="NotiContent" ColumnName="NotiContent" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
