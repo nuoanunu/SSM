@@ -33,5 +33,8 @@ namespace SSM.Controllers
             ViewData["Processing"] = processing * 100 / total;
             return View("RequestPool");
         }
+        public JsonResult DangKy(String name, String password, String email) {
+            return Json(new { result= email + " da dang ky thanh cong" }, JsonRequestBehavior.AllowGet);
+        }
     }
 }
