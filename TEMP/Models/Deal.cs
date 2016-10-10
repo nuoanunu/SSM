@@ -17,10 +17,10 @@ namespace SSM.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Deal()
         {
-            this.Deal_SaleRep_Respon = new HashSet<Deal_SaleRep_Respon>();
-            this.DealTasks = new HashSet<DealTask>();
             this.Customer_Request = new HashSet<Customer_Request>();
+            this.Deal_SaleRep_Respon = new HashSet<Deal_SaleRep_Respon>();
             this.ManagerNotifications = new HashSet<ManagerNotification>();
+            this.DealTasks = new HashSet<DealTask>();
         }
     
         public int id { get; set; }
@@ -39,16 +39,16 @@ namespace SSM.Models
         public Nullable<int> Quantity { get; set; }
     
         public virtual contact contact { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Customer_Request> Customer_Request { get; set; }
         public virtual DealStatu DealStatu { get; set; }
         public virtual PrePurchase_FollowUp_Plan PrePurchase_FollowUp_Plan { get; set; }
         public virtual productMarketPlan productMarketPlan { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Deal_SaleRep_Respon> Deal_SaleRep_Respon { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DealTask> DealTasks { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Customer_Request> Customer_Request { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ManagerNotification> ManagerNotifications { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DealTask> DealTasks { get; set; }
     }
 }

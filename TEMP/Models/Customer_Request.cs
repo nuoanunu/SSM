@@ -34,9 +34,9 @@ namespace SSM.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Customer_Request> Customer_Request1 { get; set; }
         public virtual Customer_Request Customer_Request2 { get; set; }
+        public virtual Deal Deal { get; set; }
         public virtual productMarketPlan productMarketPlan { get; set; }
         public virtual softwareProduct softwareProduct { get; set; }
-        public virtual Deal Deal { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ManagerNotification> ManagerNotifications { get; set; }
     }

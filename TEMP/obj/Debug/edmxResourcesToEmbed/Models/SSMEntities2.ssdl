@@ -240,6 +240,17 @@
     <Property Name="nextTransactionDate" Type="date" />
     <Property Name="startDate" Type="date" />
   </EntityType>
+  <EntityType Name="ManagerNotification">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CreateDate" Type="datetime" Nullable="false" />
+    <Property Name="NotiContent" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="viewed" Type="bit" Nullable="false" />
+    <Property Name="dealID" Type="int" />
+    <Property Name="requestID" Type="int" />
+  </EntityType>
   <EntityType Name="MarketPlanPurchased">
     <Key>
       <PropertyRef Name="id" />
@@ -448,13 +459,15 @@
     <Property Name="screenShots" Type="nvarchar(max)" />
     <Property Name="icon" Type="nvarchar" MaxLength="50" />
   </EntityType>
-  <EntityType Name="task_customer">
+  <EntityType Name="sysdiagrams">
     <Key>
-      <PropertyRef Name="id" />
+      <PropertyRef Name="diagram_id" />
     </Key>
-    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="taskID" Type="int" Nullable="false" />
-    <Property Name="customerID" Type="int" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
   </EntityType>
   <EntityType Name="task_user">
     <Key>
@@ -811,6 +824,30 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_ManagerNotification_Customer_Request">
+    <End Role="Customer_Request" Type="Self.Customer_Request" Multiplicity="0..1" />
+    <End Role="ManagerNotification" Type="Self.ManagerNotification" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer_Request">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="ManagerNotification">
+        <PropertyRef Name="requestID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ManagerNotification_Deal">
+    <End Role="Deal" Type="Self.Deal" Multiplicity="0..1" />
+    <End Role="ManagerNotification" Type="Self.ManagerNotification" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Deal">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="ManagerNotification">
+        <PropertyRef Name="dealID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_MarketPlanPurchased_orders">
     <End Role="orders" Type="Self.orders" Multiplicity="1" />
     <End Role="MarketPlanPurchased" Type="Self.MarketPlanPurchased" Multiplicity="*" />
@@ -1155,6 +1192,7 @@
     <EntitySet Name="EMAIL_Category" EntityType="Self.EMAIL_Category" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Email_Template" EntityType="Self.Email_Template" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Licenses" EntityType="Self.Licenses" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ManagerNotification" EntityType="Self.ManagerNotification" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MarketPlanPurchased" EntityType="Self.MarketPlanPurchased" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MasterCalendar" EntityType="Self.MasterCalendar" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MasterSchedule_User" EntityType="Self.MasterSchedule_User" Schema="dbo" store:Type="Tables" />
@@ -1170,7 +1208,7 @@
     <EntitySet Name="productMarketPlan" EntityType="Self.productMarketPlan" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="SaleRepProfile" EntityType="Self.SaleRepProfile" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="softwareProduct" EntityType="Self.softwareProduct" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="task_customer" EntityType="Self.task_customer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="task_user" EntityType="Self.task_user" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TaskStatus" EntityType="Self.TaskStatus" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TaskType" EntityType="Self.TaskType" Schema="dbo" store:Type="Tables" />
@@ -1278,6 +1316,14 @@
     <AssociationSet Name="FK_Licenses_softwareProduct" Association="Self.FK_Licenses_softwareProduct">
       <End Role="softwareProduct" EntitySet="softwareProduct" />
       <End Role="Licenses" EntitySet="Licenses" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ManagerNotification_Customer_Request" Association="Self.FK_ManagerNotification_Customer_Request">
+      <End Role="Customer_Request" EntitySet="Customer_Request" />
+      <End Role="ManagerNotification" EntitySet="ManagerNotification" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ManagerNotification_Deal" Association="Self.FK_ManagerNotification_Deal">
+      <End Role="Deal" EntitySet="Deal" />
+      <End Role="ManagerNotification" EntitySet="ManagerNotification" />
     </AssociationSet>
     <AssociationSet Name="FK_MarketPlanPurchased_orders" Association="Self.FK_MarketPlanPurchased_orders">
       <End Role="orders" EntitySet="orders" />

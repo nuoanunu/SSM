@@ -323,6 +323,9 @@
     <Compile Include="Models\License.cs">
       <DependentUpon>SSMEntities2.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ManagerNotification.cs">
+      <DependentUpon>SSMEntities2.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MarketPlanPurchased.cs">
       <DependentUpon>SSMEntities2.tt</DependentUpon>
@@ -400,13 +403,13 @@
     </Compile>
     <Compile Include="Models\Storage\Queue.cs" />
     <Compile Include="Models\Storage\Storage.cs" />
+    <Compile Include="Models\sysdiagram.cs">
+      <DependentUpon>SSMEntities2.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\TaskStatu.cs">
       <DependentUpon>SSMEntities2.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TaskType.cs">
-      <DependentUpon>SSMEntities2.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\task_customer.cs">
       <DependentUpon>SSMEntities2.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\task_user.cs">

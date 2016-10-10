@@ -25,9 +25,9 @@ namespace SSM.Models
             this.customers = new HashSet<customer>();
             this.Deal_SaleRep_Respon = new HashSet<Deal_SaleRep_Respon>();
             this.MasterSchedule_User = new HashSet<MasterSchedule_User>();
+            this.Product_responsible = new HashSet<Product_responsible>();
             this.SaleRepProfiles = new HashSet<SaleRepProfile>();
             this.AspNetRoles = new HashSet<AspNetRole>();
-            this.Product_responsible = new HashSet<Product_responsible>();
         }
     
         public string Id { get; set; }
@@ -60,10 +60,10 @@ namespace SSM.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MasterSchedule_User> MasterSchedule_User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Product_responsible> Product_responsible { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SaleRepProfile> SaleRepProfiles { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetRole> AspNetRoles { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Product_responsible> Product_responsible { get; set; }
     }
 }

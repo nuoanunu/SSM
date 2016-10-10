@@ -43,6 +43,7 @@ namespace SSM.Models
         public virtual DbSet<EMAIL_Category> EMAIL_Category { get; set; }
         public virtual DbSet<Email_Template> Email_Template { get; set; }
         public virtual DbSet<License> Licenses { get; set; }
+        public virtual DbSet<ManagerNotification> ManagerNotifications { get; set; }
         public virtual DbSet<MarketPlanPurchased> MarketPlanPurchaseds { get; set; }
         public virtual DbSet<MasterCalendar> MasterCalendars { get; set; }
         public virtual DbSet<MasterSchedule_User> MasterSchedule_User { get; set; }
@@ -53,16 +54,15 @@ namespace SSM.Models
         public virtual DbSet<Plan_Step> Plan_Step { get; set; }
         public virtual DbSet<PlanOption> PlanOptions { get; set; }
         public virtual DbSet<PrePurchase_FollowUp_Plan> PrePurchase_FollowUp_Plan { get; set; }
+        public virtual DbSet<Product_responsible> Product_responsible { get; set; }
         public virtual DbSet<productAttribute> productAttributes { get; set; }
         public virtual DbSet<productMarketPlan> productMarketPlans { get; set; }
         public virtual DbSet<SaleRepProfile> SaleRepProfiles { get; set; }
         public virtual DbSet<softwareProduct> softwareProducts { get; set; }
-        public virtual DbSet<task_customer> task_customer { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<task_user> task_user { get; set; }
         public virtual DbSet<TaskStatu> TaskStatus { get; set; }
         public virtual DbSet<TaskType> TaskTypes { get; set; }
         public virtual DbSet<TrialAccount> TrialAccounts { get; set; }
-        public virtual DbSet<Product_responsible> Product_responsible { get; set; }
-        public virtual DbSet<ManagerNotification> ManagerNotifications { get; set; }
     }
 }
