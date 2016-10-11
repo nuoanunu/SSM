@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Http.Cors;
 using System.Web.Mvc;
 
 namespace SSM.Controllers
@@ -33,6 +34,7 @@ namespace SSM.Controllers
             ViewData["Processing"] = processing * 100 / total;
             return View("RequestPool");
         }
+        [EnableCors(origins: "http://localhost:8000", headers: "*", methods: "*")]
         public JsonResult DangKy(String name, String password, String email) {
             return Json(new { result= email + " da dang ky thanh cong" }, JsonRequestBehavior.AllowGet);
         }

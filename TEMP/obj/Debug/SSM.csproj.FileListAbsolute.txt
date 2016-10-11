@@ -325,3 +325,10 @@ C:\Users\NhatVHN\Desktop\SSM\TEMP\bin\Microsoft.Data.Services.Client.xml
 C:\Users\NhatVHN\Desktop\SSM\TEMP\bin\Microsoft.WindowsAzure.Storage.pdb
 C:\Users\NhatVHN\Desktop\SSM\TEMP\bin\Microsoft.WindowsAzure.Storage.xml
 C:\Users\NhatVHN\Desktop\SSM\TEMP\bin\System.Spatial.xml
+C:\Users\Nguyen Nhat\Documents\GitHub\SSM\TEMP\bin\System.Net.Http.Formatting.dll
+C:\Users\Nguyen Nhat\Documents\GitHub\SSM\TEMP\bin\System.Web.Cors.dll
+C:\Users\Nguyen Nhat\Documents\GitHub\SSM\TEMP\bin\System.Web.Http.Cors.dll
+C:\Users\Nguyen Nhat\Documents\GitHub\SSM\TEMP\bin\System.Web.Http.dll
+C:\Users\Nguyen Nhat\Documents\GitHub\SSM\TEMP\bin\System.Net.Http.Formatting.xml
+C:\Users\Nguyen Nhat\Documents\GitHub\SSM\TEMP\bin\System.Web.Http.xml
+C:\Users\Nguyen Nhat\Documents\GitHub\SSM\TEMP\bin\System.Web.Http.Cors.xml
